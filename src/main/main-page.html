@@ -5,12 +5,12 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" />
 </head>
 
-<!-- <app-nav-menu></app-nav-menu> -->
-
 <body class="flexcroll">
+    <nav-menu></nav-menu>
+
   <!-- Главный фон. -->
   <div class="block-main-fon">
-    <!-- <img src="../assets/images/welcome.jpg" class="main-fon" /> -->
+    <img src="../assets/images/welcome.jpg" class="main-fon" />
 
     <div class="centered-fon" v-for="el in aFon">
       <h3 class="title">{{el.mainTitle}}</h3>
@@ -75,14 +75,14 @@
       <nav class="sidebar-sticky navbar-expand-md right-nav">
         <div class="block-title">
           <div class="tab">
-            <button id="defaultOpen" class="tablinks login" (click)="onChangeTab($event, 'login')">Вход</button>
-            <button class="tablinks register" (click)="onChangeTab($event, 'register')">Регистрация</button>
+            <button id="defaultOpen" class="tablinks login" @click="onChangeTab($event, 'login')">Вход</button>
+            <button class="tablinks register" @click="onChangeTab($event, 'register')">Регистрация</button>
           </div>
 
           <!-- Tab links -->
           <div class="tab tab-role">
-            <button id="defaultOpen" class="tablinks" (click)="onChangeTab($event, 'executor')">Исполнитель</button>
-            <button class="tablinks" (click)="onChangeTab($event, 'customer')">Заказчик</button>
+            <button id="defaultOpen" class="tablinks" @click="onChangeTab($event, 'executor')">Исполнитель</button>
+            <button class="tablinks" @click="onChangeTab($event, 'customer')">Заказчик</button>
           </div>
 
           <!-- Исполнитель. -->
@@ -140,7 +140,7 @@
                   <div class="nav-link input-line">
                     <div class="col-lg-12 d-flex justify-content-center mt-3">
                       <button class="btn-register form-control-lg btn-create-task btn-all-tasks mb-3"
-                              (click)="onCreate()">
+                              @click="onCreate()">
                         РЕГИСТРАЦИЯ
                       </button>
                     </div>
@@ -233,7 +233,7 @@
                   <div class="nav-link input-line">
                     <i class="fa fa-tasks icon" aria-hidden="true"></i>
                     <input id="idPass" type="password" class="form-control-sm input-not-line"
-                           _name="pass" [(ngModel)]="pass"/>
+                           _name="pass" _v-on-model="pass"/>
                   </div>
                 </li>
 
@@ -242,7 +242,7 @@
                   <div class="nav-link input-line">
                     <div class="col-lg-12 d-flex justify-content-center mt-3">
                       <button class="btn-register form-control-lg btn-create-task btn-all-tasks mb-3"
-                              (click)="onLogin()">
+                              @click="onLogin()">
                         ВОЙТИ
                       </button>
                     </div>
@@ -268,7 +268,7 @@
       </h5>
 
       <div class="text-center mb-3">
-        <!-- <img src="../../assets/images/GroupLine.png" /> -->
+        <img src="../assets/images/GroupLine.png" />
       </div>
     </div>
 
@@ -298,7 +298,7 @@
     <h5 class="text-center">ПОЧЕМУ <span class="title-color">BARBUUUDA</span>?</h5>
 
     <div class="text-center mb-3">
-      <!-- <img src="../../assets/images/GroupLine.png" /> -->
+      <img src="../assets/images/GroupLine.png" />
     </div>
   </div>
 
@@ -323,7 +323,7 @@
       <h5 class="text-center pt-5" [hidden]="!el.mainTitle" v-for="el in aAdvantages">{{el.mainTitle}}</h5>
 
       <div class="text-center mb-3">
-        <!-- <img src="../../assets/images/GroupLine.png" /> -->
+        <img src="../assets/images/GroupLine.png" />
       </div>
     </div>
 
@@ -347,7 +347,7 @@
     <h5 class="text-center">КАТЕГОРИИ</h5>
 
     <div class="text-center mb-3">
-      <!-- <img src="../../assets/images/GroupLine.png" /> -->
+      <img src="../assets/images/GroupLine.png" />
     </div>
 
     <div class="col-lg-12 text-center mb-5">
@@ -364,9 +364,9 @@
         <div class="card">
           <div class="card-body">
             <h5 class="card-title title-row">
-              <!-- <img src="../../assets/images/768c92df1858f1fbb75ca810126d0398 1.png" class="mr-2" /> -->
+              <img src="../assets/images/768c92df1858f1fbb75ca810126d03981.png" class="mr-2" />
               <strong class="mr-2">Web-разработка</strong>
-              <!-- <img src="../../assets/images/Group 1.png" /> -->
+              <img src="../assets/images/Group1.png" />
             </h5>
 
             <span class="card-text">
@@ -380,9 +380,9 @@
         <div class="card">
           <div class="card-body">
             <h5 class="card-title title-row">
-              <!-- <img src="../../assets/images/768c92df1858f1fbb75ca810126d0398 1.png" class="mr-2" /> -->
+              <img src="../assets/images/768c92df1858f1fbb75ca810126d03981.png" class="mr-2" />
               <strong class="mr-2">Web-разработка</strong>
-              <!-- <img src="../../assets/images/Group 1.png" /> -->
+              <img src="../assets/images/Group1.png" />
             </h5>
 
             <span class="card-text">
@@ -396,9 +396,9 @@
         <div class="card">
           <div class="card-body">
             <h5 class="card-title title-row">
-              <!-- <img src="../../assets/images/768c92df1858f1fbb75ca810126d0398 1.png" class="mr-2" /> -->
+              <img src="../assets/images/768c92df1858f1fbb75ca810126d03981.png" class="mr-2" />
               <strong class="mr-2">Web-разработка</strong>
-              <!-- <img src="../../assets/images/Group 1.png" /> -->
+              <img src="../assets/images/Group1.png" />
             </h5>
 
             <span class="card-text">
@@ -416,7 +416,7 @@
       <h5 class="text-center pt-5">ПОСЛЕДНИЕ ЗАДАНИЯ</h5>
 
       <div class="text-center mb-3">
-        <!-- <img src="../../assets/images/GroupLine.png" /> -->
+        <img src="../assets/images/GroupLine.png" />
       </div>
     </div>
 
@@ -431,15 +431,15 @@
         <div class="card">
           <div class="card-body">
             <h5 class="card-title title-row">
-              <!-- <img src="../../assets/images/1-wiper 1.png" class="mr-2" /> -->
+              <img src="../assets/images/1-wiper1.png" class="mr-2" />
               <div class="col-lg-3">
                 <strong>Wiper</strong><br />
                 <small class="">8 апр 2016</small>
               </div>
 
               <div class="col-lg-3">
-                <!-- <img src="../../assets/images/message.png" class="" /> 1 -->
-                <!-- <img src="../../assets/images/Icon.png" class="ml-5" /> 561 -->
+                <img src="../assets/images/message.png" class="" /> 1
+                <img src="../assets/images/Icon.png" class="ml-5" /> 561
               </div>
 
               <div class="col-lg-3">
@@ -485,7 +485,7 @@
     <h5 class="text-center">ПОПУЛЯРНЫЕ ИСПОЛНИТЕЛИ</h5>
 
     <div class="text-center mb-3">
-      <!-- <img src="../../assets/images/GroupLine.png" /> -->
+      <img src="../assets/images/GroupLine.png" />
     </div>
 
     <div class="col-lg-12 text-center mb-5">
@@ -501,7 +501,7 @@
       <h5 class="text-center pt-5">ПОСЛЕДНИЕ ЗАДАНИЯ</h5>
 
       <div class="text-center mb-3">
-        <!-- <img src="../../assets/images/GroupLine.png" /> -->
+        <img src="../assets/images/GroupLine.png" />
       </div>
     </div>
 
@@ -516,7 +516,7 @@
         <div class="card">
           <div class="card-body">
             <h5 class="card-title title-row">
-              <!-- <img src="../../assets/images/1-wiper 1.png" class="mr-2" /> -->
+              <img src="../assets/images/1-wiper1.png" class="mr-2" />
               <div class="col-lg-6">
                 <strong>Wiper</strong><br />
                 <small class="">8 апр 2016</small> <small class="pro ml-2">PRO</small>
@@ -527,7 +527,7 @@
               №1 среди разработчиков сайтов ! Качественно и в срок. .
             </span>
             <hr />
-            <!-- <img src="../../assets/images/Star 1.png" /> -->
+            <img src="../assets/images/Star1.png" />
           </div>
 
           <hr />
@@ -538,7 +538,7 @@
         <div class="card">
           <div class="card-body">
             <h5 class="card-title title-row">
-              <!-- <img src="../../assets/images/1-wiper 1.png" class="mr-2" /> -->
+              <img src="../assets/images/1-wiper1.png" class="mr-2" />
               <div class="col-lg-6">
                 <strong>Wiper</strong><br />
                 <small class="">8 апр 2016</small> <small class="pro ml-2">PRO</small>
@@ -549,7 +549,7 @@
               №1 среди разработчиков сайтов ! Качественно и в срок. .
             </span>
             <hr />
-            <!-- <img src="../../assets/images/Star 1.png" /> -->
+            <img src="../assets/images/Star1.png" />
           </div>
 
           <hr />
@@ -589,7 +589,7 @@
       <h5 class="text-center pt-5">ЧТО ВЫ ПОЛУЧАЕТЕ?</h5>
 
       <div class="text-center mb-3">
-        <!-- <img src="../../assets/images/GroupLine.png" /> -->
+        <img src="../assets/images/GroupLine.png" />
       </div>
     </div>
 
