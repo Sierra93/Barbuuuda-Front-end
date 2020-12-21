@@ -1,0 +1,467 @@
+$openSans: Open Sans;
+
+// Заголовок карточки.
+@mixin cardTitle {
+  color: #000000;
+  font-family: Open Sans;
+  font-size: 14px;
+}
+
+// Текст карточки.
+@mixin cardText {
+  color: #9A9A9A;
+  font-family: $openSans;
+  font-size: 14px;
+}
+
+// Заголовки заданий.
+@mixin blueTitleTask {
+  color: #00BCD4;
+  font-size: 18px;
+  font-family: $openSans;
+}
+
+// Текст задания.
+@mixin textTask {
+  color: #444444;
+  font-size: 14px;
+  font-family: $openSans;
+}
+
+// Цены заданий.
+@mixin taskPrice {
+  color: #00BCD4;
+  font-size: 20px;
+  font-family: $openSans;
+}
+
+// Голубая кнопка.
+@mixin blueBtn {
+  color: white;
+  border-color: #00BDD6;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+.main-fon {
+  width: 100%;
+}
+
+// Блок с фоном.
+.block-main-fon {
+  position: relative;
+  text-align: center;
+  //line-height: 5;
+  .title {
+    position: absolute;
+    top: 30%;
+    font-family: Oswald;
+    font-weight: normal;
+    font-size: 40px;
+    color: #000000;
+  }
+
+  .title-dop {
+    position: absolute;
+    top: 35%;
+    color: #666666;
+  }
+  // Кнопка создать задание.
+  .btn-create-task {
+    position: absolute;
+    top: 45%;
+    background: #F4511E;
+    color: white;
+    //transition: all 0.21s ease;
+    transition: all .3s ease-out;
+    border-radius: initial;
+    border-color: #F4511E;
+    font-family: Oswald;
+    font-size: 12px;
+
+    &:hover {
+      box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    }
+  }
+
+  .btn-register {
+    position: absolute;
+    top: 45%;
+    background: #00BCD4;
+    color: white;
+    //transition: all 0.21s ease;
+    transition: all .3s ease-out;
+    border-radius: initial;
+    border-color: #00BCD4;
+    font-family: Oswald;
+    font-size: 12px;
+
+    &:hover {
+      box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    }
+  }
+
+  .centered-fon {
+    display: flex;
+    justify-content: center;
+  }
+  // Левая панель.
+  .left-panel {
+    position: absolute;
+    top: 0;
+    left: -300px;
+
+    .block-title {
+      display: flex;
+      justify-content: center;
+    }
+  }
+
+  .left-panel-not-left {
+    position: absolute;
+    top: 0;
+    padding-left: 0;
+  }
+  // Правая панель.
+  .right-panel {
+    position: absolute;
+    top: 0;
+    right: -20px;
+    width: 318px;
+  }
+
+  .right-ul {
+    text-align: start;
+  }
+
+  label {
+    margin-bottom: 0;
+  }
+
+  label[required=required]:after {
+    color: red;
+    //#00BCD4
+    content: " *";
+  }
+
+  .asterisk {
+    color: #00BCD4;
+  }
+
+  .input-line {
+    display: flex;
+    align-items: center;
+    // Инпут без линий кроме нижней.
+    .input-not-line {
+      background-color: transparent;
+      border: none;
+      border-bottom: 1px solid #b7b7b7;
+      border-radius: 0;
+      outline: 0;
+      height: 20px;
+      width: 100%;
+      font-size: 14px;
+      margin: 0 10px 5px;
+      padding: 0;
+      box-shadow: none;
+      box-sizing: content-box;
+      -webkit-transition: all .3s;
+      transition: all .3s;
+      color: #3c3c3c;
+    }
+  }
+}
+
+// Для цветного скролла.
+/*.flexcroll {
+  scrollbar-face-color: #367CD2;
+  scrollbar-shadow-color: #FFFFFF;
+  scrollbar-highlight-color: #FFFFFF;
+  scrollbar-3dlight-color: #FFFFFF;
+  scrollbar-darkshadow-color: #FFFFFF;
+  scrollbar-track-color: #FFFFFF;
+  scrollbar-arrow-color: #FFFFFF;
+  height: 100vh;
+}*/
+
+/* Track */
+/*.flexcroll::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+}*/
+
+/* Handle */
+/*.flexcroll::-webkit-scrollbar-thumb {
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  background: #00BDD6;
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+}*/
+
+/* Let's get this party started */
+/*.flexcroll::-webkit-scrollbar {
+  width: 12px;
+}*/
+
+#idLeftMenu {
+  line-height: 1;
+  color: #98aab7;
+
+  .left-ul {
+    align-items: flex-start;
+
+    i {
+      &:hover {
+        color: #00bcd4;
+      }
+    }
+
+    a {
+      &:hover {
+        color: #00bcd4;
+      }
+    }
+  }
+
+  // Текст с иконкой левой панели.
+  .nav-link {
+    color: #98aab7;
+    cursor: pointer;
+
+    &:hover {
+      border-left-color: #00bcd4;
+      background-color: #17242f;
+      border-left: 2px solid #00bcd4;
+
+      i {
+        color: #00bcd4;
+      }
+
+      a {
+        color: #00bcd4;
+      }
+    }
+
+    a {
+      color: #98aab7;
+      text-decoration: none;
+
+      &:hover {
+        color: #00bcd4;
+      }
+    }
+  }
+
+  .icon {
+    font-size: 19px;
+    margin-right: 15px;
+
+    &:hover {
+      color: #00bcd4;
+    }
+  }
+}
+
+.left-nav {
+  background: #131e27;
+  height: 100vh;
+  line-height: 2;
+}
+
+.right-nav {
+  background: #FFFFFF;
+  height: 100vh;
+  line-height: 2;
+}
+
+// Logo.
+.logo-title {
+  color: white;
+  font-size: 24px;
+  text-decoration: none;
+}
+
+.what-is-work {
+  font-family: Open Sans;
+  font-size: 30px;
+  color: #000000;
+}
+
+.content {
+  font-family: $openSans;
+  font-size: 14px;
+}
+
+.content-title {
+  font-family: $openSans;
+  font-size: 16px;
+  color: #666666;
+}
+
+.title-color {
+  color: #F4511E;
+}
+
+.gray-fon {
+  background: #FAFAFA;
+  //margin-top: -4%;
+}
+
+.card-title {
+  @include cardTitle;
+}
+
+.card-text {
+  @include cardText;
+}
+
+/*.card-body {
+  &:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    transition: all .3s ease-out;
+  }
+}*/
+
+// Для строки заданий.
+.title-row {
+  align-items: center;
+  display: flex;
+}
+
+// Цвет заголовкой заданий.
+.task-title {
+  @include blueTitleTask;
+}
+
+.text-task {
+  @include textTask;
+}
+
+.task-price {
+  @include taskPrice;
+}
+
+.div-price {
+    margin-left: 15%;
+}
+
+hr {
+  margin: 0;
+}
+
+.task-footer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.task-category {
+  color: #2D7091;
+}
+
+.send-task {
+  @include textTask;
+  color: #00BCD4;
+}
+
+.btn-all-tasks {
+  background: #00BDD6;
+  @include blueBtn;
+}
+
+.pro {
+  color: #E28327;
+  font-size: 10px;
+}
+
+/* Style the tab */
+.tab {
+  overflow: hidden;
+  //border: 1px solid #ccc;
+  background-color: #FFFFFF;
+  display: flex;
+  justify-content: center;
+}
+
+/* Style the buttons that are used to open the tab content */
+.tab button {
+  background-color: inherit;
+  //float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+  width: 50%;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+  background-color: #00BDD6;
+  color: black;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+  background-color: #00BDD6;
+  color: white;
+}
+
+/* Style the tab content */
+.tabcontent {
+  display: none;
+  padding: 6px 12px;
+  //border: 1px solid #ccc;
+  border-top: none;
+}
+
+.tab-role {
+  background: white;
+}
+
+/* Change background color of buttons on hover */
+.tab-role button:hover {
+  background-color: #00BDD6;
+  color: black;
+}
+
+.tab-role button:active {
+  background-color: #00BDD6;
+}
+
+/* Create an active/current tablink class */
+.tab-role {
+  background-color: white;
+}
+
+// Скрывает вкладку роли.
+.role-hide {
+  display: none;
+}
+
+.role-show {
+  display: block;
+}
+
+#idRightMenu {
+  justify-content: center;
+}
+
+// Текст описания роли.
+.text-role {
+  font-family: Open Sans;
+}
+
+.selected-role {
+  background: #00BCD4;
+}
+
+.not-selected-role {
+  background: white;
+}
+
+.block-work {
+    flex-wrap: wrap;
+}
