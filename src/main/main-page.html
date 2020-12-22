@@ -263,7 +263,7 @@
   <!-- Как это работает? -->
   <div class="gray-fon">
     <div class="">
-      <h5 class="text-center pt-5" [hidden]="!el.mainTitle" v-for="el in aWork">
+      <h5 class="text-center pt-5" v-show="el.mainTitle" v-for="el in aWork">
         {{el.mainTitle}}
       </h5>
 
@@ -278,7 +278,7 @@
       </p>
     </div>
 
-    <div class="d-flex block-work">
+    <div class="d-flex block-work container">
       <div class="col-lg-4 mb-3" v-for="el in aWork">
         <h6 class="content-title">
           <strong>
@@ -320,7 +320,7 @@
   <!-- Наши преимущества. -->
   <div class="gray-fon">
     <div class="">
-      <h5 class="text-center pt-5" [hidden]="!el.mainTitle" v-for="el in aAdvantages">{{el.mainTitle}}</h5>
+      <h5 class="text-center pt-5" v-show="el.mainTitle" v-for="el in aAdvantages">{{el.mainTitle}}</h5>
 
       <div class="text-center mb-3">
         <img src="../assets/images/GroupLine.png" />
