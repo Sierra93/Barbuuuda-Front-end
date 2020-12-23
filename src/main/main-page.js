@@ -3,6 +3,7 @@
 
 import Main from '../components/main.vue';
 import NavMenu from '../components/nav-menu.vue';
+import Footer from '../components/footer.vue';
 import $ from "jquery";
 import axios from 'axios';
 
@@ -10,7 +11,8 @@ export default {
     name: 'main-page',
     components: {
         Main,
-        NavMenu
+        NavMenu,
+        Footer
     },
     data() {
         return {
