@@ -1,0 +1,19 @@
+@mixin headerTitle {
+    font-family: Oswald;
+    font-size: 40px;
+    color: #FFFFFF;
+  }
+  
+  .header-nav {
+    background: #00BCD4;
+    display: flex;
+    justify-content: space-around;
+  }
+  
+  .header-title {
+    @include headerTitle;
+  }
+  
+  .price {
+      color: white;
+  }

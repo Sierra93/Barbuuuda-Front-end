@@ -1,0 +1,15 @@
+.header-nav {
+  background: #00BCD4;
+  display: flex;
+  justify-content: space-around;
+}
+
+.header-title {
+  font-family: Oswald;
+  font-size: 40px;
+  color: #FFFFFF;
+}
+
+.price {
+  color: white;
+}

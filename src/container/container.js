@@ -10,10 +10,10 @@ import $ from "jquery";
 import axios from 'axios';
    
 export default {
-    name: 'main-page',
+    name: 'container',
     components: {
         Container,
-        //NavMenu,
+        NavMenu,
         Footer,
         CreateTask
     },

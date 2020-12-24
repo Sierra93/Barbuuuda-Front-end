@@ -2,14 +2,14 @@
 // eslint-disable-next-line no-unused-vars
 
 
-import Footer from '../components/footer.vue';
-// import $ from "jquery";
-// import axios from 'axios';
+import CustomerHeader from '../components/customer-header.vue';
+import $ from "jquery";
+import axios from 'axios';
 
 export default {
-    name: 'app-footer',
+    name: 'customer-header',
     components: {
-        Footer
+        CustomerHeader
     },
     data() {
         return {

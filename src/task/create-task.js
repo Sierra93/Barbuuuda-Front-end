@@ -2,14 +2,14 @@
 // eslint-disable-next-line no-unused-vars
 
 
-import Footer from '../components/footer.vue';
-// import $ from "jquery";
-// import axios from 'axios';
+import CreateTask from '../components/create-task.vue';
+import $ from "jquery";
+import axios from 'axios';
 
 export default {
-    name: 'app-footer',
+    name: 'create-task',
     components: {
-        Footer
+        CreateTask
     },
     data() {
         return {
