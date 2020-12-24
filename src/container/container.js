@@ -17,14 +17,15 @@ export default {
         Footer,
         CreateTask
     },
+    props: ['oData'],
     data() {
         return {
-            uriApi: window.uriApi,
             aFon: [],
             aWhyis: [],
             aWork: [],
             aAdvantages: [],
-            aProveliges: []
+            aProveliges: [],
+            sPassword: null    
         }
     },
     created() {
@@ -38,7 +39,7 @@ export default {
     methods: {
         // Функция выгружает данные для фона.
         _loadDataFon() {    
-            const sUrl = this.uriApi.concat("/main/get-fon");
+            const sUrl = this.oData.urlApi.concat("/main/get-fon");
 
             try {
                 axios.post(sUrl)
@@ -59,7 +60,7 @@ export default {
 
         // Функция выгружает данные для блока "Почему".
         _loadDataWhy() {
-            const sUrl = this.uriApi.concat("/main/get-why");
+            const sUrl = this.oData.urlApi.concat("/main/get-why");
 
             try {
                 axios.post(sUrl)
@@ -80,7 +81,7 @@ export default {
 
         // Функция выгружает данные для блока "Как это работает".
         _loadGetWork() {
-            const sUrl = this.uriApi.concat("/main/get-work");
+            const sUrl = this.oData.urlApi.concat("/main/get-work");
 
             try {
                 axios.post(sUrl)
@@ -101,7 +102,7 @@ export default {
 
         // Функция выгружает данные для блока "Наши преимущества".
         _loadAdvantages() {
-            const sUrl = this.uriApi.concat("/main/get-advantage");
+            const sUrl = this.oData.urlApi.concat("/main/get-advantage");
 
             try {
                 axios.post(sUrl)
@@ -162,7 +163,7 @@ export default {
 
         // Функция выгружает данные для блока "Наши преимущества".
         _loadPriveleges() {
-            const sUrl = this.uriApi.concat("/main/get-privilege");
+            const sUrl = this.oData.urlApi.concat("/main/get-privilege");
 
             try {
                 axios.post(sUrl)
@@ -183,54 +184,53 @@ export default {
 
         // Функция регистрирует юзера.
         onCreate() {
-            const sUrl = this.uriApi.concat("/user/create"); 
+            const sUrl = this.oData.urlApi.concat("/user/create");
 
             try {
                 axios.post(sUrl, {
-                    UserLogin: $("#idLog").val(),
-                    UserPassword: $("#idPass").val(),
-                    UserEmail: $("#idEma").val(),
-                    UserPhone: $("#idNum").val()
-                })
-                    .then((data) => {
-                        //no-debugger 
-                        //debugger;
+                        UserLogin: $("#idLog").val(),
+                        UserPassword: $("#idPass").val(),
+                        UserEmail: $("#idEma").val(),
+                        UserPhone: $("#idNum").val()
                     })
+                    .then((response) => { })
 
                     .catch((XMLHttpRequest) => {
                         throw new Error('Ошибка регистрации', XMLHttpRequest.response.data);
                     });
             } 
-            
+
             catch (ex) {
                 throw new Error(ex);
             }
         },
 
-        // Функция авторизует юзера.
-        onLogin() {
-            const sUrl = this.uriApi.concat("/user/login"); 
+  // Функция авторизует юзера.
+  onLogin() {
+    const sUrl = this.oData.urlApi.concat("/user/login"); 
 
-            try {
-                axios.post(sUrl, {
-                    UserLogin: $("#idLog").val(),
-                    UserPassword: $("#idPass").val(),
-                    UserEmail: $("#idEma").val(),
-                    UserPhone: $("#idNum").val()
-                })
-                    .then((data) => {
-                        //no-debugger 
-                        //debugger;
-                    })
+    try {
+        axios.post(sUrl, {
+                UserEmail: $("#idEma").val(),
+                UserPassword: this.sPassword
+            })
+            .then((response) => {
+                // Если токен есть, то в зависимости от роли распределяет по интерфейсам.
+                if (data.access_token && data.role == "Заказчик") {
+                    localStorage["userToken"] = response.data.access_token;
+                    localStorage["role"] = response.data.role;
+                    // this.router.navigate(['/main']);
+                }
+            })
 
-                    .catch((XMLHttpRequest) => {
-                        throw new Error('Ошибка регистрации', XMLHttpRequest.response.data);
-                    });
-            } 
-            
-            catch (ex) {
-                throw new Error(ex);
-            }
-        }
+            .catch((XMLHttpRequest) => {
+                throw new Error('Ошибка авторизации', XMLHttpRequest.response.data);
+            });
+    }
+
+    catch (ex) {
+        throw new Error(ex);
+    }
+  }
     }
 }

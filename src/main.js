@@ -10,8 +10,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Container from './components/container.vue';
 import CreateTask from './components/create-task.vue';
 
-window.uriApi = "http://localhost:58822";
-
 Vue.use(VueRouter);
 Vue.component('Container', Container);
 Vue.component('CreateTask', CreateTask);

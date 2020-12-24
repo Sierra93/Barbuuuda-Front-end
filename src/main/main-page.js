@@ -13,18 +13,21 @@ export default {
     name: 'main-page',
     components: {
         Container,
-        //NavMenu,
+        //NavMenu,window.uriApi = "http://localhost:58822";
         Footer,
         CreateTask
     },
     data() {
         return {
-            uriApi: window.uriApi,
+            oData: {
+                urlApi: "http://localhost:58822"
+            },
             aFon: [],
             aWhyis: [],
             aWork: [],
             aAdvantages: [],
-            aProveliges: []
+            aProveliges: [],
+            sPassword: null
         }
     },
     created() {
@@ -38,7 +41,7 @@ export default {
     methods: {
         // Функция выгружает данные для фона.
         _loadDataFon() {    
-            const sUrl = this.uriApi.concat("/main/get-fon");
+            const sUrl = this.oData.urlApi.concat("/main/get-fon");
 
             try {
                 axios.post(sUrl)
@@ -59,7 +62,7 @@ export default {
 
         // Функция выгружает данные для блока "Почему".
         _loadDataWhy() {
-            const sUrl = this.uriApi.concat("/main/get-why");
+            const sUrl = this.oData.urlApi.concat("/main/get-why");
 
             try {
                 axios.post(sUrl)
@@ -80,7 +83,7 @@ export default {
 
         // Функция выгружает данные для блока "Как это работает".
         _loadGetWork() {
-            const sUrl = this.uriApi.concat("/main/get-work");
+            const sUrl = this.oData.urlApi.concat("/main/get-work");
 
             try {
                 axios.post(sUrl)
@@ -101,7 +104,7 @@ export default {
 
         // Функция выгружает данные для блока "Наши преимущества".
         _loadAdvantages() {
-            const sUrl = this.uriApi.concat("/main/get-advantage");
+            const sUrl = this.oData.urlApi.concat("/main/get-advantage");
 
             try {
                 axios.post(sUrl)
@@ -162,7 +165,7 @@ export default {
 
         // Функция выгружает данные для блока "Наши преимущества".
         _loadPriveleges() {
-            const sUrl = this.uriApi.concat("/main/get-privilege");
+            const sUrl = this.oData.urlApi.concat("/main/get-privilege");
 
             try {
                 axios.post(sUrl)
@@ -183,7 +186,7 @@ export default {
 
         // Функция регистрирует юзера.
         onCreate() {
-            const sUrl = this.uriApi.concat("/user/create"); 
+            const sUrl = this.oData.urlApi.concat("/user/create"); 
 
             try {
                 axios.post(sUrl, {
@@ -209,24 +212,21 @@ export default {
 
         // Функция авторизует юзера.
         onLogin() {
-            const sUrl = this.uriApi.concat("/user/login"); 
+            const sUrl = this.oData.urlApi.concat("/user/login"); 
 
             try {
                 axios.post(sUrl, {
-                    UserLogin: $("#idLog").val(),
-                    UserPassword: $("#idPass").val(),
-                    UserEmail: $("#idEma").val(),
-                    UserPhone: $("#idNum").val()
-                })
-                    .then((data) => {
-                        //no-debugger 
-                        //debugger;
+                        UserEmail: $("#idEma").val(),
+                        UserPassword: this.pass
+                    })
+                    .then((response) => {
+                        debugger;
                     })
 
                     .catch((XMLHttpRequest) => {
                         throw new Error('Ошибка регистрации', XMLHttpRequest.response.data);
                     });
-            } 
+            }
             
             catch (ex) {
                 throw new Error(ex);
