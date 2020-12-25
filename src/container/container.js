@@ -216,7 +216,7 @@ export default {
             })
             .then((response) => {
                 // Если токен есть, то в зависимости от роли распределяет по интерфейсам.
-                if (data.access_token && data.role == "Заказчик") {
+                if (response.data.access_token && response.data.role == "Заказчик") {
                     localStorage["userToken"] = response.data.access_token;
                     localStorage["role"] = response.data.role;
                     // this.router.navigate(['/main']);

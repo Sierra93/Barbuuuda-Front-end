@@ -5,40 +5,47 @@ import Container from '../components/container.vue';
 import NavMenu from '../components/nav-menu.vue';
 import Footer from '../components/footer.vue';
 import CreateTask from '../components/create-task.vue';
+import CustomerHeader from '../components/customer-header.vue';
 import VueRouter from 'vue-router';
 import $ from "jquery";
 import axios from 'axios';
    
 export default {
-    name: 'main-page',
+    name: 'main-page',    
     components: {
         Container,
-        //NavMenu,window.uriApi = "http://localhost:58822";
+        NavMenu,
         Footer,
-        CreateTask
-    },
-    data() {
-        return {
-            oData: {
-                urlApi: "http://localhost:58822"
-            },
-            aFon: [],
-            aWhyis: [],
-            aWork: [],
-            aAdvantages: [],
-            aProveliges: [],
-            sPassword: null
-        }
+        CreateTask,
+        CustomerHeader
     },
     created() {
         this._loadDataFon();
         this._loadDataWhy();
         this._loadGetWork();
         this._loadAdvantages();
-        this._loadPriveleges();
-        // this.setSelectedRole();
+        this._loadPriveleges();     
+
+        this.oData.bGuest = localStorage["role"] == "Гость" ? true : false;
+        this.oData.bCustomer = localStorage["role"] == "Заказчик" ? true : false;
     },
-    methods: {
+    data() {
+        return {
+            oData: {
+                urlApi: "http://localhost:58822",
+                aHeader: [],
+                bGuest: false,
+                bCustomer: false
+            },
+            aFon: [],
+            aWhyis: [],
+            aWork: [],
+            aAdvantages: [],
+            aProveliges: [],
+            sPassword: null                                
+        }
+    },    
+    methods: {       
         // Функция выгружает данные для фона.
         _loadDataFon() {    
             const sUrl = this.oData.urlApi.concat("/main/get-fon");
@@ -220,7 +227,7 @@ export default {
                         UserPassword: this.pass
                     })
                     .then((response) => {
-                        debugger;
+                        localStorage["user"] = response.data.sLogin;
                     })
 
                     .catch((XMLHttpRequest) => {

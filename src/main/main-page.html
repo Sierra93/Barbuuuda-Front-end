@@ -7,6 +7,8 @@
 </head>
 
 <body class="flexcroll">
+  <NavMenu v-show="oData.bGuest" v-bind:oData="oData"></NavMenu>
+  <CustomerHeader v-show="oData.bCustomer" v-bind:oData="oData"></CustomerHeader>
   <router-view v-bind:oData="oData"></router-view>
 
   <Footer></Footer>
