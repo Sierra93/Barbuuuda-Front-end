@@ -33,6 +33,7 @@ export default {
         return {
             oData: {
                 urlApi: "http://localhost:58822",
+                //urlApi: "https://dev1myprojects24.xyz",
                 aHeader: [],
                 bGuest: false,
                 bCustomer: false

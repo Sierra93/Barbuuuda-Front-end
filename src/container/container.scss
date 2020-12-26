@@ -80,6 +80,8 @@ body {
     border-color: #F4511E;
     font-family: Oswald;
     font-size: 12px;
+    border-color: #00BDD6;
+    border: none;
 
     &:hover {
       box-shadow: 0 0 10px rgba(0,0,0,0.5);
@@ -369,6 +371,8 @@ hr {
 
 .btn-all-tasks {
   background: #00BDD6;
+  border-color: #00BDD6;
+    border: none;
   @include blueBtn;
 }
 

@@ -12,8 +12,8 @@ export default new VueRouter({
         props: true
       },
     {
-      path: '/create-task',
-      name: 'create-task',
+      path: '/task/create',
+      name: 'task/create',
       component: CreateTask,
       props: true
     }

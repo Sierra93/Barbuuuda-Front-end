@@ -36,6 +36,8 @@ body {
   border-color: #F4511E;
   font-family: Oswald;
   font-size: 12px;
+  border-color: #00BDD6;
+  border: none;
 }
 
 .block-main-fon .btn-create-task:hover {
@@ -319,6 +321,8 @@ hr {
 
 .btn-all-tasks {
   background: #00BDD6;
+  border-color: #00BDD6;
+  border: none;
   color: white;
   border-color: #00BDD6;
 }
