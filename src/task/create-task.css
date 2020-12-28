@@ -111,3 +111,11 @@ input[type="radio"]:checked {
   background: #00BCD4;
   color: #FFFFFF;
 }
+
+.btn-create-task {
+  background: #F4511E;
+  color: #FFFFFF;
+  border-color: #F4511E;
+  border: none;
+  padding: 0 50px !important;
+}

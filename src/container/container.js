@@ -219,6 +219,7 @@ export default {
                 if (response.data.access_token && response.data.role == "Заказчик") {
                     localStorage["userToken"] = response.data.access_token;
                     localStorage["role"] = response.data.role;
+                    localStorage["user"] = response.data.username;
                     // this.router.navigate(['/main']);
                 }
             })
