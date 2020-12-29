@@ -46,7 +46,7 @@ export default {
             sPassword: null                                
         }
     },    
-    methods: {       
+    methods: {               
         // Функция выгружает данные для фона.
         _loadDataFon() {    
             const sUrl = this.oData.urlApi.concat("/main/get-fon");

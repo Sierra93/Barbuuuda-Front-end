@@ -17,6 +17,6 @@ Vue.component('CreateTask', CreateTask);
 Vue.component('CHome', CHome);
 
 new Vue({
-    render: h => h(App),
-    router,
-  }).$mount('#app');
+  render: h => h(App),
+  router,
+}).$mount('#app');

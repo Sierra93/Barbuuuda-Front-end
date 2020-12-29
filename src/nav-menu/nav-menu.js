@@ -1,3 +1,7 @@
+/* eslint-disable */
+// eslint-disable-next-line no-unused-vars
+
+import Vue from "vue";
 import NavMenu from '../components/nav-menu.vue';
 import $ from "jquery";
 import VueRouter from 'vue-router';
@@ -10,9 +14,7 @@ export default {
         VueRouter
     },
     created() {
-        this._getAuthorize();
-        this.oData.bGuest = localStorage["role"] == "Гость" ? true : false;
-        this.oData.bCustomer = localStorage["role"] == "Заказчик" ? true : false;
+        this._getAuthorize();   
         
         if (this.$route.name == "main") {
             this.oData.bCustomer = false;
@@ -20,12 +22,12 @@ export default {
             this.oData.bGuest = true;
         }
 
-        if (this.$route.name == "create-task" && this.oData.bCustomer) {
+        if (this.$route.name == "task/create" && this.oData.bCustomer) {
             this.oData.bGuest = false;
             this.oData.bExecutor = false;
         }
 
-        if (this.$route.name == "create-task" && this.oData.bExecutor) {
+        if (this.$route.name == "task/create" && this.oData.bExecutor) {
             this.oData.bGuest = false;
             this.oData.bCustomer = false;
         }
@@ -81,7 +83,7 @@ export default {
             this.bHideLeftPanel ? $(".left-menu").removeClass("left-panel").addClass("left-panel-not-left") : $(".left-menu").removeClass("left-panel-not-left").addClass("left-panel");
         },
 
-        onShowTask() {
+        onShowTaskFields() {
             console.log();
         }
     }
