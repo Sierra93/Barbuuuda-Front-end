@@ -45,7 +45,10 @@
                   <ul class="list-group list-group-flush" v-for="el of aCategories">
                     <li class="list-group-item">
                       <label for="">{{el.categoryName}}</label>
-                      <input type="radio" class="form-control-sm category-text" name="2" id="" value="">
+                      <input type="radio" 
+                              class="form-control-sm category-text"
+                              :value="el.categoryCode"
+                              v-model="checkCategory">
                     </li>                 
                   </ul>
                 </div>           
@@ -62,13 +65,16 @@
                 <ul class="list-group list-group-flush" v-for="el of aSpecializations">
                   <li class="list-group-item">
                     <label for="">{{el.specName}}</label>
-                    <input type="radio" class="form-control-sm category-text" name="2" id="" value="">
+                    <input type="radio" 
+                            class="form-control-sm category-text"
+                            :value="el.specCode"
+                            v-model="checkSpec">
                   </li>                 
                 </ul>
               </div>           
            </div>
 
-           <button class="btn-next form-control-sm" @click="onShowTaskFields($event)">ДАЛЕЕ</button>
+           <button class="btn-next form-control-sm" v-on:click="onShowTaskFields($event)">ДАЛЕЕ</button>
         </div>
         
         <!-- Статус задания. -->
@@ -103,7 +109,7 @@
 
     <!-- Вторая часть создания задания. Основное. -->
      <!-- Категории. -->
-     <div class="block-task mt-3">
+     <div class="block-task mt-3" v-show="bHideFields">
        <div class="mt-3 col-lg-2">
          <!-- <h6 class="mb-3 text-center">Создание задания/Дизайн/Веб-дизайн</h6> -->
          <div class="d-flex mb-3">
@@ -187,7 +193,7 @@
                       _placeholder="Введите бюджет задания">
             </div>
 
-            <button class="btn-next form-control-sm" @click="onBack()">НАЗАД</button>
+            <button class="btn-next form-control-sm" v-on:click="onBack()">НАЗАД</button>
             &nbsp;
             <button class="btn-task form-control-sm">РАЗМЕСТИТЬ ЗАДАНИЕ В АУКЦИОНЕ</button>
         </div>

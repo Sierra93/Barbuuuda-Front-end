@@ -15,28 +15,34 @@ export default {
     },
     created() {
         this._getAuthorize();   
-        
-        if (this.$route.name == "main") {
-            this.oData.bCustomer = false;
-            this.oData.bExecutor = false;
-            this.oData.bGuest = true;
-        }
-
-        if (this.$route.name == "task/create" && this.oData.bCustomer) {
-            this.oData.bGuest = false;
-            this.oData.bExecutor = false;
-        }
-
-        if (this.$route.name == "task/create" && this.oData.bExecutor) {
-            this.oData.bGuest = false;
-            this.oData.bCustomer = false;
-        }
+        this._initHeader();        
     },
     data() {
-        return { }
+        return {
+            
+         }
     },    
     props: ['oData'],
     methods: {
+        // Функция проставит хидер в зависимости от роли юзера.
+        _initHeader() {
+            if (this.$route.name == "main") {
+                this.oData.bCustomer = false;
+                this.oData.bExecutor = false;
+                this.oData.bGuest = true;
+            }
+    
+            if (this.$route.name == "task/create" && this.oData.bCustomer) {
+                this.oData.bGuest = false;
+                this.oData.bExecutor = false;
+            }
+    
+            if (this.$route.name == "task/create" && this.oData.bExecutor) {
+                this.oData.bGuest = false;
+                this.oData.bCustomer = false;
+            }
+        },
+
         // Функция проверяет авторизован ли юзер. 
         _getAuthorize() {
             let userRole = "";
@@ -81,10 +87,6 @@ export default {
         onStateLeftPanel() {
             this.bHideLeftPanel = $(".left-menu").hasClass("left-panel");
             this.bHideLeftPanel ? $(".left-menu").removeClass("left-panel").addClass("left-panel-not-left") : $(".left-menu").removeClass("left-panel-not-left").addClass("left-panel");
-        },
-
-        onShowTaskFields() {
-            console.log();
-        }
+        }        
     }
 }

@@ -37,7 +37,10 @@ export default {
     data() {
         return {
             aCategories: [],
-            aSpecializations: []
+            aSpecializations: [],
+            bHideFields: false,
+            checkCategory: null,
+            checkSpec: null
         }
     },    
     methods: {
@@ -90,6 +93,12 @@ export default {
 
         onBack() {
             window.location.href = "/";
+        },
+
+        // Функция делает поля задачи доступными для ввода.
+        onShowTaskFields(e) {
+            console.log();
+            this.bHideFields = this.checkCategory && this.checkSpec ? true : false;
         }
     }
 }

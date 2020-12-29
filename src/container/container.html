@@ -73,14 +73,14 @@
       <nav class="sidebar-sticky navbar-expand-md right-nav">
         <div class="block-title">
           <div class="tab">
-            <button id="defaultOpen" class="tablinks login" @click="onChangeTab($event, 'login')">Вход</button>
-            <button class="tablinks register" @click="onChangeTab($event, 'register')">Регистрация</button>
+            <button id="defaultOpen" class="tablinks login" v-on:click="onChangeTab($event, 'login')">Вход</button>
+            <button class="tablinks register" v-on:click="onChangeTab($event, 'register')">Регистрация</button>
           </div>
 
           <!-- Tab links -->
           <div class="tab tab-role">
-            <button id="defaultOpen" class="tablinks" @click="onChangeTab($event, 'executor')">Исполнитель</button>
-            <button class="tablinks" @click="onChangeTab($event, 'customer')">Заказчик</button>
+            <button id="defaultOpen" class="tablinks" v-on:click="onChangeTab($event, 'executor')">Исполнитель</button>
+            <button class="tablinks" v-on:click="onChangeTab($event, 'customer')">Заказчик</button>
           </div>
 
           <!-- Исполнитель. -->
@@ -138,7 +138,7 @@
                   <div class="nav-link input-line">
                     <div class="col-lg-12 d-flex justify-content-center mt-3">
                       <button class="btn-register form-control-lg btn-create-task btn-all-tasks mb-3"
-                              @click="onCreate()">
+                              v-on:click="onCreate()">
                         РЕГИСТРАЦИЯ
                       </button>
                     </div>
@@ -240,7 +240,7 @@
                   <div class="nav-link input-line">
                     <div class="col-lg-12 d-flex justify-content-center mt-3">
                       <button class="btn-register form-control-lg btn-create-task btn-all-tasks mb-3"
-                              @click="onLogin()">
+                              v-on:click="onLogin()">
                         ВОЙТИ
                       </button>
                     </div>

@@ -13,14 +13,14 @@
                 data-toggle="collapse"
                 data-target=".navbar-collapse"
                 aria-label="Toggle navigation"
-                @click="toggle()">
+                v-on:click="toggle()">
           <span class="navbar-toggler-icon"></span>
         </button>
 
         <div class="navbar-collapse collapse d-sm-inline-flex d-flex header">
           <!-- Бургер левой панели. -->
           <div>
-            <div class="block-left-line" @click="onStateLeftPanel()">
+            <div class="block-left-line" v-on:click="onStateLeftPanel()">
               <div class="left-line"></div>
               <div class="left-line"></div>
               <div class="left-line"></div>
