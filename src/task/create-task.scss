@@ -34,6 +34,7 @@
     width: 355px;
     height: 48px!important;
     border: 1px solid #00BCD4;
+    border-radius: 0!important;
 
     &:focus {
         outline: none;
@@ -106,6 +107,7 @@ input[type="radio"]:checked {
     
     .btn-search {
         border: 1px solid #00BCD4;
+        border-radius: 0!important;
 
         &:hover {
             background: #00BCD4;
@@ -115,6 +117,41 @@ input[type="radio"]:checked {
 }
 
 .btn-create-task {
+    background: #F4511E;
+    color: #FFFFFF;
+    border-color: #F4511E;
+    border: none;
+    padding: 0 50px!important;
+}
+
+.input-task {
+    width: 50%;
+}
+
+label {
+    padding: 0!important;
+    margin: 0!important;
+}
+
+input[type="file"] {
+    padding: 0;
+}
+
+#idTaskTitle {
+    width: 150%;
+}
+
+#idTaskDetail {
+    min-height: 228px;
+    width: 150%;
+}
+
+.block-task {
+    display: flex;
+    justify-content: space-around;
+}
+
+.btn-task {
     background: #F4511E;
     color: #FFFFFF;
     border-color: #F4511E;

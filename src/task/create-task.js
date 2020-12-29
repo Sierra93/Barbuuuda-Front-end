@@ -19,6 +19,8 @@ export default {
         }
     },    
     methods: {
-        
+        onShowTask(e) {
+            console.log("onShowTask");
+        }
     }
 }

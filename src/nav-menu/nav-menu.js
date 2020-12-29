@@ -79,6 +79,10 @@ export default {
         onStateLeftPanel() {
             this.bHideLeftPanel = $(".left-menu").hasClass("left-panel");
             this.bHideLeftPanel ? $(".left-menu").removeClass("left-panel").addClass("left-panel-not-left") : $(".left-menu").removeClass("left-panel-not-left").addClass("left-panel");
+        },
+
+        onShowTask() {
+            console.log();
         }
     }
 }
