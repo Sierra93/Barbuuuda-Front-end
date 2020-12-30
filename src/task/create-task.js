@@ -92,13 +92,38 @@ export default {
         },
 
         onBack() {
-            window.location.href = "/";
+            window.location.href = "/";     // Нужен роут именно через window,  чтобы корректно отработал хидер.
         },
 
         // Функция делает поля задачи доступными для ввода.
-        onShowTaskFields(e) {
-            console.log();
+        onShowTaskFields() {
             this.bHideFields = this.checkCategory && this.checkSpec ? true : false;
+        },
+
+        // Функция создает задание.
+        onCreateTask() {
+            const sUrl = this.oData.urlApi.concat("/task/create");
+
+            try {
+                axios.post(sUrl, {
+                    OwnerId: +localStorage["userId"],
+                    TaskTitle: $("#idTaskTitle").val(),
+                    TaskDetail: $("#idTaskDetail").val(),
+                    CategoryCode: this.checkCategory,
+                    SpecCode: this.checkSpec
+                })
+                    .then((response) => {
+                        console.log("Задание создана");
+                    })
+
+                    .catch((XMLHttpRequest) => {
+                        throw new Error('Ошибка создания', XMLHttpRequest.response.data);
+                    });
+            } 
+            
+            catch (ex) {
+                throw new Error(ex);
+            }
         }
     }
 }

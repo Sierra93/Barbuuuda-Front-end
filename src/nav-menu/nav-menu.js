@@ -70,6 +70,8 @@ export default {
                         response.data.aHeaderFields.forEach(el => {
                             this.oData.aHeader.push(el.headerField); 
                         });   
+
+                        localStorage["userId"] = response.data.userId;
                         console.log("Хидер юзера", this.oData.aHeader);
                     })
 

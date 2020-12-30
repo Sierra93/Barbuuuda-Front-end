@@ -13,7 +13,8 @@
     <div class="centered-fon" v-for="el in aFon">
       <h3 class="title">{{el.mainTitle}}</h3>
       <span class="title-dop mt-3">{{el.secondTitle}}</span>
-      <button class="btn-create-task form-control-lg">{{el.btnText}}</button>
+      <button class="btn-create-task form-control-lg"
+              v-on:click="onRouteCreateTask()">{{el.btnText}}</button>
     </div>
 
     <!-- Левая панель. -->
@@ -588,6 +589,33 @@
         <span class="content-title">
           {{el.text}}
         </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Модальное окно ошибки, если нет роли заказчика. -->
+  <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+    Launch demo modal
+  </button> -->
+  
+  <div class="modal fade" id="idNotCustomer" tabindex="-1" role="dialog" aria-labelledby="idNotCustomerTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="idNotCustomerTitle">ВЫ ХОТИТЕ СОЗДАТЬ ЗАДАНИЕ?</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <div class="modal-body">
+          Создать задание могут только зарегистрированные (Заказчики).
+          Зарегистрируйтесь или войдите на сайт под своим именем.
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Хорошо</button>
+        </div>
       </div>
     </div>
   </div>

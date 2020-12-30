@@ -14,7 +14,6 @@ export default {
     props: ['oData'],
     data() {
         return {
-            // aHeader: [],
             bGuest: false
         }
     },

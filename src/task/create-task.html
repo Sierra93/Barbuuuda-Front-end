@@ -74,7 +74,7 @@
               </div>           
            </div>
 
-           <button class="btn-next form-control-sm" v-on:click="onShowTaskFields($event)">ДАЛЕЕ</button>
+           <button class="btn-next form-control-sm" v-on:click="onShowTaskFields()">ДАЛЕЕ</button>
         </div>
         
         <!-- Статус задания. -->
@@ -195,7 +195,7 @@
 
             <button class="btn-next form-control-sm" v-on:click="onBack()">НАЗАД</button>
             &nbsp;
-            <button class="btn-task form-control-sm">РАЗМЕСТИТЬ ЗАДАНИЕ В АУКЦИОНЕ</button>
+            <button class="btn-task form-control-sm" v-on:click="onCreateTask()">РАЗМЕСТИТЬ ЗАДАНИЕ В АУКЦИОНЕ</button>
         </div>
         
         <!-- Статус задания. -->
