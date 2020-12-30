@@ -6,7 +6,7 @@ import $ from "jquery";
 import axios from 'axios';
 
 export default {
-    name: 'task/create',
+    name: 'task-create',
     components: {
         CreateTask
     },

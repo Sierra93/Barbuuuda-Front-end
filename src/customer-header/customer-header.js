@@ -60,6 +60,25 @@ export default {
             catch (ex) {
                 throw new Error(ex);
             }
+        },
+
+        // Функция распределяет по пунктам хидера.
+        onGetMenu(value) {
+            if (value.target && value.target.text == "Barbuuuda") {
+                window.location.href = "/";
+            }
+
+            else if (value == "Главная") {
+                window.location.href = "/";
+            }
+
+            else if (value == "Мои заказы") {
+                window.location.href = "/tasks/my";
+            }
+
+            else if (value == "Создать задание") {
+                window.location.href = "/task/create";
+            }
         }
     }
 }

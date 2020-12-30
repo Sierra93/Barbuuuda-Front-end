@@ -13,11 +13,13 @@ import $ from "jquery";
 import Container from './components/container.vue';
 import CreateTask from './components/create-task.vue';
 import CHome from './components/home.vue';
+import MyTasks from './components/my-tasks.vue';
 
 Vue.use(VueRouter);
 Vue.component('Container', Container);
 Vue.component('CreateTask', CreateTask);
 Vue.component('CHome', CHome);
+Vue.component('MyTasks', MyTasks);
 
 new Vue({
   render: h => h(App),
