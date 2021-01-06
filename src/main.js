@@ -15,6 +15,8 @@ import CreateTask from './components/create-task.vue';
 import CHome from './components/home.vue';
 import MyTasks from './components/my-tasks.vue';
 import ProfileBar from './components/profile-bar.vue';
+import Calendar from 'v-calendar/lib/components/calendar.umd';
+import DatePicker from 'v-calendar/lib/components/date-picker.umd';
 
 Vue.use(VueRouter);
 Vue.component('Container', Container);
@@ -22,6 +24,8 @@ Vue.component('CreateTask', CreateTask);
 Vue.component('CHome', CHome);
 Vue.component('MyTasks', MyTasks);
 Vue.component('ProfileBar', ProfileBar);
+Vue.component('calendar', Calendar);
+Vue.component('date-picker', DatePicker);
 
 new Vue({
   render: h => h(App),

@@ -31,7 +31,6 @@ export default new VueRouter({
       component: MyTasks,
       props: true
     },
-
     {
       path: '/profile-bar',
       name: 'profile-bar',
