@@ -72,7 +72,7 @@ export default {
                 window.location.href = "/";
             }
 
-            else if (value == "Мои заказы") {
+            else if (value == "Мои задания") {
                 window.location.href = "/tasks/my";
             }
 

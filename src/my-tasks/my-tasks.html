@@ -122,8 +122,9 @@
                 </div>
             </div>
 
+            <!-- Список заданий. -->
             <div class="block-my-tasks">
-                <div class="card card-task card-subcategory">
+                <div class="card card-task card-subcategory" v-for="el in aTasks">
                     <div class="card-header header-task">
                         <div class="block-icon">
                             <div>
@@ -132,56 +133,53 @@
                             &nbsp;
 
                             <div class="ml-1 text-dark">
-                                <span>Wiper</span><br>
-                                <small>8 апр 2016</small>
+                                <span>{{el.userLogin}}</span><br>
+                                <small>{{el.taskBegda}}</small>
                             </div>
                         </div>
 
                         <div class="">
-                            <img src="../assets/images/message.png">
-                            <span class="text-dark">1</span>
+                            <img src="../assets/images/message.png">&nbsp;
+                            <span class="text-dark">{{el.countOffers}}</span>
                         </div>
 
                         <div class="">
-                            <img src="../assets/images/Icon.png">
-                            <span class="text-dark">561</span>
+                            <img src="../assets/images/Icon.png">&nbsp;
+                            <span class="text-dark">{{el.countViews}}</span>
                         </div>
 
                         <div class="badge badge-pill badge-primary">
-                            <span>Для всех</span>
+                            <span>{{el.typeCode}}</span>
                         </div>
 
                         <div class="badge badge-pill badge-warning">
-                            <span>В работе</span>
+                            <span>{{el.statusName}}</span>
                         </div>
 
                         <div class="task-price">
                             <img src="../assets/images/date_range.png">
-                            <span>4 января 2021</span>
+                            <span>{{el.taskEndda}}</span>
                         </div>
 
                         <div class="task-price">
-                            <span>По договоренности</span>
+                            <span>{{el.taskPrice}} ₽</span>
                         </div>
                     </div>
 
                     <div class="card-body">
                         <h5 class="card-title task-title">
-                            Нужна программа для открытия запароленных PDF файлов
+                            {{el.taskTitle}}
                         </h5>
 
                         <p class="card-text task-detail">
-                            Нужна программа для открытия запароленных PDF файлов с 256-шифрованием Пароль состоит из
-                            24-25 символов A-Z, a-z, 0-9. Оплата гарантирована без обмана. Пользовался программами с
-                            интернета ни одна не может открыть. Если есть другие предложения по открытию файлов
-                            предлагайте они тоже будут оплачены. Дай знать, вышлю файл...
+                            {{el.taskDetail}}
                         </p>
                     </div>
 
                     <div class="card-footer task-detail">
                         <div class="block-footer">
                             <div class="task-category">
-                                <span>ПРОГРАММИРОВАНИЕ</span>
+                                <span>{{el.categoryName}}</span>
                             </div>
 
 

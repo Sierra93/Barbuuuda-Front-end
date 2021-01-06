@@ -47,6 +47,8 @@
 
 .task-price {
   color: #00BCD4;
+  align-items: center;
+  display: flex;
 }
 
 .block-footer {
