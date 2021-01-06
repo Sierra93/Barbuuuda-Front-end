@@ -4,6 +4,7 @@ import Container from './components/container.vue';
 import CreateTask from './components/create-task.vue';
 import CHome from './components/home.vue';
 import MyTasks from './components/my-tasks.vue';
+import ProfileBar from './components/profile-bar.vue';
 
 export default new VueRouter({
   routes: [{
@@ -28,6 +29,13 @@ export default new VueRouter({
       path: '/tasks/my',
       name: 'my-tasks',
       component: MyTasks,
+      props: true
+    },
+
+    {
+      path: '/profile-bar',
+      name: 'profile-bar',
+      component: ProfileBar,
       props: true
     }
   ],
