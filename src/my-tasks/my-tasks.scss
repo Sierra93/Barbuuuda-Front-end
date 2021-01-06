@@ -1,0 +1,146 @@
+.block-before-my-tasks {
+    display: flex;
+    justify-content: space-between;
+}
+
+.search-category {
+    width: 355px;
+    height: 48px !important;
+    border: 1px solid #00BCD4;
+    border-radius: 0 !important;
+
+    &:focus {
+        outline: none;
+    }
+}
+
+.block-my-tasks {
+    display: flex !important;
+    justify-content: space-around;
+    line-height: 2;
+    // box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+
+    .task-status {
+        color: #00BCD4;
+    }
+}
+
+.task-title {
+    color: #00BCD4;
+}
+
+.task-detail {
+    color: #B6B6B6;
+}
+
+// Иконка юзера.
+.block-icon {
+    display: flex;
+    align-items: center;
+    line-height: 1;
+}
+
+.header-task {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: none !important;
+}
+
+.task-price {
+    color: #00BCD4;
+}
+
+.block-footer {
+    display: flex;
+    justify-content: space-between;
+
+    .task-category {
+        color: #2D7091;
+    }
+
+    .offer {
+        color: #00BCD4;
+    }
+}
+
+.card-footer {
+    background: none !important;
+}
+
+.my-tasks {
+    margin-left: 30px;
+}
+
+// Пагинация.
+.pagination {
+    margin: 10px 10px;
+}
+
+.block-pagination {
+    display: flex;
+    justify-content: center;
+    border: 1px solid rgba(0,0,0,.125);
+
+    .page-item {
+        a {
+            border: none;
+        }
+    }    
+}
+
+.pagination li .page-item .active {
+    background: #00BCD4;
+    border-radius: 50%;
+}
+
+.page-link .active {
+    background: #00BCD4!important;
+    border-radius: 50%;
+}
+
+.page-link:hover {
+    background: #E0F7FA!important;
+}
+
+.page-item.active .page-link {
+    background: #00BCD4!important;
+    border-radius: 50%;
+}
+
+.page-item .page-link {
+    color: #B6B6B6;
+}
+
+// Профиль слева.
+.fon-profile {
+    background: #EFEFEF;
+    line-height: 2;
+
+    .stat-item {
+        display: flex;
+        justify-content: space-between;
+        color: #B6B6B6;
+    }
+}
+
+.search-block-task {
+    display: flex;
+    margin-left: 30px;
+    justify-content: space-between;
+    
+    .btn-search {
+        border: 1px solid #00BCD4;
+        border-radius: 0!important;
+
+        &:hover {
+            background: #00BCD4;
+            color: #FFFFFF;
+        }
+    }    
+
+    .task-filter {
+        border: 1px solid #00BCD4;
+        border-radius: 0!important;
+    }
+}

@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Создание задания</title>
+</head>
+
+<body>
+    <div class="container">
+        <h3 class="text-center">Форма создания нового задания</h3>
+    </div>
+
+    <div class="container mt-3 text-center">
+        <span class="">
+            Найдите подходящего исполнителя для своего проекта или задачи на нашем сервисе удаленной работы.
+        </span>
+    </div>
+
+    <!-- Поле поиска. -->
+    <div class="col-lg-12">
+        <div class="text-center mt-3">
+            <div>
+                <div class="search-block">
+                    <input type="search" class="form-control-sm search-category"
+                        placeholder="Поиск категории или специализации...">
+                    <div class="input-group-append">
+                        <button class="btn btn-detault btn-search" type="button" id="button-addon2">Найти</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Левое меню с радио. -->
+    <!-- Категории. -->
+    <div class="block-categories">        
+        <div class="text-center mt-3 col-lg-3">
+            <div class="subcategories">                        
+              <div class="card card-subcategory">
+                  <div class="card-header">
+                    Категории
+                  </div>
+                  <ul class="list-group list-group-flush" v-for="el of aCategories">
+                    <li class="list-group-item">
+                      <label for="">{{el.categoryName}}</label>
+                      <input type="radio" 
+                              class="form-control-sm category-text"
+                              :value="el.categoryCode"
+                              v-model="checkCategory">
+                    </li>                 
+                  </ul>
+                </div>           
+             </div>
+        </div>
+
+        <!-- Специализации. -->
+        <div class="text-center mt-3 col-lg-6">         
+           <div class="subcategories">                        
+            <div class="card card-subcategory">
+                <div class="card-header">
+                  Специализации
+                </div>
+                <ul class="list-group list-group-flush" v-for="el of aSpecializations">
+                  <li class="list-group-item">
+                    <label for="">{{el.specName}}</label>
+                    <input type="radio" 
+                            class="form-control-sm category-text"
+                            :value="el.specCode"
+                            v-model="checkSpec">
+                  </li>                 
+                </ul>
+              </div>           
+           </div>
+
+           <button class="btn-next form-control-sm" v-on:click="onShowTaskFields()">ДАЛЕЕ</button>
+        </div>
+        
+        <!-- Статус задания. -->
+        <div class="col-lg-3">
+            <h6 class="mb-3">Статус задания</h6>
+            <div class="mb-3">
+                <span class="circle-first">1</span>
+                <span class="category-text">Создание</span>
+            </div>
+
+            <div class="mb-3">
+                <span class="circle-second">2</span>
+                <span class="category-text">В аукционе</span>
+            </div>
+
+            <div class="mb-3">
+                <span class="circle-second">3</span>
+                <span class="category-text">В работе</span>
+            </div>
+
+            <div class="mb-3">
+                <span class="circle-second">4</span>
+                <span class="category-text">На гарантии</span>
+            </div>
+
+            <div class="mb-3">
+                <span class="circle-second">5</span>
+                <span class="category-text">Завершен</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Вторая часть создания задания. Основное. -->
+     <!-- Категории. -->
+     <div class="block-task mt-3" v-show="bHideFields">
+       <div class="mt-3 col-lg-2">
+         <!-- <h6 class="mb-3 text-center">Создание задания/Дизайн/Веб-дизайн</h6> -->
+         <div class="d-flex mb-3">
+           <div>
+             <img src="../assets/images/vertical_align_bottom.png">
+           </div>
+
+           <div class="ml-3">
+             <span>Низкие цены</span><br>
+             <small>
+               Работа с исполнителем без
+               посредников
+             </small>
+           </div>
+         </div>
+
+         <!-- 2 -->
+         <div class="d-flex mb-3">
+          <div>
+            <img src="../assets/images/thumb_up.png">
+          </div>
+
+          <div class="ml-3">
+            <span>Гарантия качества</span><br>
+            <small>
+              После завершения задания
+              все доработки бесплатны
+            </small>
+          </div>
+        </div>
+
+        <!-- 3 -->
+        <div class="d-flex">
+          <div>
+            <img src="../assets/images/history.png">
+          </div>
+
+          <div class="ml-3">
+            <span>Точно в срок</span><br>
+            <small>
+              Вы сами указываете срок
+              выполнения
+            </small>
+          </div>
+        </div>
+       </div>
+
+        <!-- Форма полей задания.--> 
+        <div class="mt-3">    
+          <h6>Опишите, что нужно сделать</h6>     
+            <div class="mb-3">
+              <label for="idTaskTitle" class="form-control-sm">
+                Название задачи
+              </label>
+              <strong class="asterisk">&nbsp;&#42;</strong><br>
+              <input id="idTaskTitle" 
+                      class="form-control-sm input-task search-category" 
+                      placeholder="Введите название">
+            </div>
+
+            <div class="mb-3">
+              <label for="idTaskDetail" class="form-control-sm">
+                Детальное описание задачи
+              </label>
+              <strong class="asterisk">&nbsp;&#42;</strong><br>
+              <textarea id="idTaskDetail" 
+                        class="form-control-sm input-task search-category"
+                        placeholder="Опишите, что именно вам нужно"/><br>
+              <input type="file"
+                      class="form-control-sm"
+                      multiple>
+            </div>
+
+            <div class="mb-3">
+              <label for="idPrice" class="form-control-sm">
+                Бюджет (в рублях)
+              </label>
+              <strong class="asterisk">&nbsp;&#42;</strong><br>
+              <input id="idPrice" 
+                      class="form-control-sm input-task search-category" 
+                      _placeholder="Введите бюджет задания">
+            </div>
+
+            <button class="btn-next form-control-sm" v-on:click="onBack()">НАЗАД</button>
+            &nbsp;
+            <button class="btn-task form-control-sm" v-on:click="onCreateTask()">РАЗМЕСТИТЬ ЗАДАНИЕ В АУКЦИОНЕ</button>
+        </div>
+        
+        <!-- Статус задания. -->
+        <div class="col-lg-2">
+            <!-- <h6 class="mb-3">Статус задания</h6>
+            <div class="mb-3">
+                <span class="circle-first">1</span>
+                <span class="category-text">Создание</span>
+            </div>
+
+            <div class="mb-3">
+                <span class="circle-second">2</span>
+                <span class="category-text">В аукционе</span>
+            </div>
+
+            <div class="mb-3">
+                <span class="circle-second">3</span>
+                <span class="category-text">В работе</span>
+            </div>
+
+            <div class="mb-3">
+                <span class="circle-second">4</span>
+                <span class="category-text">На гарантии</span>
+            </div>
+
+            <div class="mb-3">
+                <span class="circle-second">5</span>
+                <span class="category-text">Завершен</span>
+            </div> -->
+        </div>
+    </div>
+</body>
+
+</html>

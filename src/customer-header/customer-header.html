@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>Barbuuuda - Главная</title>
+</head>
+<body>
+  <header>
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm border-bottom box-shadow header-nav mb-3">
+      <div class="d-flex align-items-center">
+        <a class="navbar-brand header-title"
+            v-on:click="onGetMenu($event)">Barbuuuda</a>        
+      </div>
+
+      <div class="d-flex align-items-center">
+        <a class="navbar-brand header-text" 
+            v-for="el in oData.aHeader"
+            v-on:click="onGetMenu(el)">{{el}}</a>        
+      </div>
+
+      <!-- <div class="d-flex align-items-center">
+        <img src="../assets/images/search_task.png" class="" />
+        <img src="../assets/images/works.png" class="" />
+      </div> -->
+
+      <!-- <div class="d-flex align-items-center">
+        
+      </div> -->
+
+      <!-- <div class="d-flex align-items-center">
+        <img src="../assets/images/pig1.png" class="" /><span class="price">&nbsp; 15 руб.</span>
+        <img src="../assets/images/get_money.png" class="" />
+      </div> -->
+
+      <div class="d-flex align-items-center">
+        <img src="../assets/images/earth1.png" class="mr-3" />
+        <img src="../assets/images/mail1.png" class="mr-3" />
+        <img src="../assets/images/1499345621-contact_853381.png" class="" />
+        <img src="../assets/images/chevron-down.png" class="" />
+      </div>
+    </nav>
+  </header>
+</body>
+</html>

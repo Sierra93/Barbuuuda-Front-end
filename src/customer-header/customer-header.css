@@ -1,0 +1,32 @@
+.header-nav {
+  background: #00BCD4;
+  display: flex;
+  justify-content: space-around !important;
+}
+
+.header-title {
+  font-family: Oswald;
+  font-size: 40px !important;
+  color: #FFFFFF;
+  text-decoration: none;
+}
+
+.header-title:hover {
+  color: #FFFFFF;
+  cursor: pointer;
+}
+
+.price {
+  color: white;
+}
+
+.header-text {
+  font-family: Open Sans;
+  font-size: 16px !important;
+  color: #FFFFFF;
+}
+
+.header-text:hover {
+  color: #FFFFFF;
+  cursor: pointer;
+}

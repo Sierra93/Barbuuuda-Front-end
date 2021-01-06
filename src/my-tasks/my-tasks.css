@@ -1,0 +1,140 @@
+.block-before-my-tasks {
+  display: flex;
+  justify-content: space-between;
+}
+
+.search-category {
+  width: 355px;
+  height: 48px !important;
+  border: 1px solid #00BCD4;
+  border-radius: 0 !important;
+}
+
+.search-category:focus {
+  outline: none;
+}
+
+.block-my-tasks {
+  display: flex !important;
+  justify-content: space-around;
+  line-height: 2;
+}
+
+.block-my-tasks .task-status {
+  color: #00BCD4;
+}
+
+.task-title {
+  color: #00BCD4;
+}
+
+.task-detail {
+  color: #B6B6B6;
+}
+
+.block-icon {
+  display: flex;
+  align-items: center;
+  line-height: 1;
+}
+
+.header-task {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: none !important;
+}
+
+.task-price {
+  color: #00BCD4;
+}
+
+.block-footer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.block-footer .task-category {
+  color: #2D7091;
+}
+
+.block-footer .offer {
+  color: #00BCD4;
+}
+
+.card-footer {
+  background: none !important;
+}
+
+.my-tasks {
+  margin-left: 30px;
+}
+
+.pagination {
+  margin: 10px 10px;
+}
+
+.block-pagination {
+  display: flex;
+  justify-content: center;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+.block-pagination .page-item a {
+  border: none;
+}
+
+.pagination li .page-item .active {
+  background: #00BCD4;
+  border-radius: 50%;
+}
+
+.page-link .active {
+  background: #00BCD4 !important;
+  border-radius: 50%;
+}
+
+.page-link:hover {
+  background: #E0F7FA !important;
+}
+
+.page-item.active .page-link {
+  background: #00BCD4 !important;
+  border-radius: 50%;
+}
+
+.page-item .page-link {
+  color: #B6B6B6;
+}
+
+.fon-profile {
+  background: #EFEFEF;
+  line-height: 2;
+}
+
+.fon-profile .stat-item {
+  display: flex;
+  justify-content: space-between;
+  color: #B6B6B6;
+}
+
+.search-block-task {
+  display: flex;
+  margin-left: 30px;
+  justify-content: space-between;
+}
+
+.search-block-task .btn-search {
+  border: 1px solid #00BCD4;
+  border-radius: 0 !important;
+}
+
+.search-block-task .btn-search:hover {
+  background: #00BCD4;
+  color: #FFFFFF;
+}
+
+.search-block-task .task-filter {
+  border: 1px solid #00BCD4;
+  border-radius: 0 !important;
+}

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+  <title></title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" />
+</head>
+
+<body class="flexcroll">
+  <NavMenu v-show="oData.bGuest" v-bind:oData="oData"></NavMenu>
+  <CustomerHeader v-show="oData.bCustomer" v-bind:oData="oData"></CustomerHeader>
+  <router-view v-bind:oData="oData"></router-view>
+
+  <Footer></Footer>
+</body>
+
+</html>

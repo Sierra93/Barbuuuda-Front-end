@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>        
+     <!-- Главный фон. -->
+  <div class="block-main-fon">
+    <img src="../assets/images/welcome.jpg" class="main-fon" />
+
+    <div class="centered-fon" v-for="el in aFon">
+      <h3 class="title">{{el.mainTitle}}</h3>
+      <span class="title-dop mt-3">{{el.secondTitle}}</span>
+      <button class="btn-create-task form-control-lg"
+              v-on:click="onRouteCreateTask()">{{el.btnText}}</button>
+    </div>
+
+    <!-- Левая панель. -->
+    <div class="col-lg-2 left-menu left-panel">
+      <nav class="sidebar-sticky navbar-expand-md left-nav">
+        <div class="block-title">
+          <a href="#" class="logo-title">Barbuuuda</a>
+        </div>
+        <!-- если вместо navbar-toggler поставить toggled это скрыть по умолчанию -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="idLeftMenu">
+          <ul class="navbar-nav flex-column left-ul">
+            <li class="nav-item active litem">
+              <div class="nav-link">
+                <i class="fa fa-tasks icon" aria-hidden="true"></i>
+                <a href="">Все задания</a>
+              </div>
+            </li>
+
+            <li class="nav-item litem">
+              <div class="nav-link">
+                <i class="fa fa-users icon" aria-hidden="true"></i>
+                <a href="">Исполнители</a>
+              </div>
+            </li>
+
+            <li class="nav-item litem">
+              <div class="nav-link">
+                <i class="fa fa-window-restore icon" aria-hidden="true"></i>
+                <a href="">Категории</a>
+              </div>
+            </li>
+
+            <li class="nav-item litem">
+              <div class="nav-link">
+                <i class="fa fa-exclamation-circle icon" aria-hidden="true"></i>
+                <a href="">Правила сайта</a>
+              </div>
+            </li>
+
+            <li class="nav-item litem">
+              <div class="nav-link">
+                <i class="fa fa-question-circle icon" aria-hidden="true"></i>
+                <a href="">FAQ</a>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+
+    <!-- Правая панель. -->
+    <div class="col-lg-3 right-menu right-panel">
+      <nav class="sidebar-sticky navbar-expand-md right-nav">
+        <div class="block-title">
+          <div class="tab">
+            <button id="defaultOpen" class="tablinks login" v-on:click="onChangeTab($event, 'login')">Вход</button>
+            <button class="tablinks register" v-on:click="onChangeTab($event, 'register')">Регистрация</button>
+          </div>
+
+          <!-- Tab links -->
+          <div class="tab tab-role">
+            <button id="defaultOpen" class="tablinks" v-on:click="onChangeTab($event, 'executor')">Исполнитель</button>
+            <button class="tablinks" v-on:click="onChangeTab($event, 'customer')">Заказчик</button>
+          </div>
+
+          <!-- Исполнитель. -->
+          <div id="executor" class="tabcontent">
+            <span class="text-role">
+              Получай заказы с гарантией
+              от заказчиков и зарабатывай
+              на постоянном потоке заказов.
+            </span>
+
+            <div class="collapse navbar-collapse" id="idRightMenu">
+              <ul class="navbar-nav flex-column right-ul">
+                <li class="nav-item active litem">
+                  <label for="idLogin" class="form-control-sm">Логин</label><strong class="asterisk">&#42;</strong>
+                  <div class="nav-link input-line">
+                    <i class="fa fa-tasks icon" aria-hidden="true"></i>
+                    <input id="idLogin" type="text" class="form-control-sm input-not-line" placeholder="Например: ivanov97" />
+                  </div>
+                </li>
+
+
+                <li class="nav-item active litem">
+                  <label for="idEmail" class="form-control-sm">Email</label><strong class="asterisk">&#42;</strong>
+                  <div class="nav-link input-line">
+                    <i class="fa fa-tasks icon" aria-hidden="true"></i>
+                    <input id="idEmail" type="text" class="form-control-sm input-not-line" placeholder="Например: ivanov@mail.ru" />
+                  </div>
+                </li>
+
+                <li class="nav-item active litem">
+                  <label for="idNumber" class="form-control-sm">Телефон</label><strong class="asterisk">&#42;</strong>
+                  <div class="nav-link input-line">
+                    <i class="fa fa-tasks icon" aria-hidden="true"></i>
+                    <input id="idNumber" type="text" class="form-control-sm input-not-line" placeholder="+7 (___) ___-__-__" />
+                  </div>
+                </li>
+
+                <li class="nav-item active litem">
+                  <label for="idPassword" class="form-control-sm">Пароль</label><strong class="asterisk">&#42;</strong>
+                  <div class="nav-link input-line">
+                    <i class="fa fa-tasks icon" aria-hidden="true"></i>
+                    <input id="idPassword" type="password" class="form-control-sm input-not-line" placeholder="Пароль должен быть не менее 6 символов" />
+                  </div>
+                </li>
+
+                <li class="nav-item active litem">
+                  <label for="idLastName" class="form-control-sm">Подтверждение пароля</label><strong class="asterisk">&#42;</strong>
+                  <div class="nav-link input-line">
+                    <i class="fa fa-tasks icon" aria-hidden="true"></i>
+                    <input id="idLastName" type="text" class="form-control-sm input-not-line" />
+                  </div>
+                </li>
+
+                <li class="nav-item active litem">
+                  <div class="nav-link input-line">
+                    <div class="col-lg-12 d-flex justify-content-center mt-3">
+                      <button class="btn-register form-control-lg btn-create-task btn-all-tasks mb-3"
+                              v-on:click="onCreate()">
+                        РЕГИСТРАЦИЯ
+                      </button>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Заказчик. -->
+          <div id="customer" class="tabcontent">
+            <span class="text-role">
+              Лучшие исполнители
+              с гарантией выполнения
+              работы в срок через безопасную сделку.
+            </span>
+
+            <div class="collapse navbar-collapse" id="idRightMenu">
+              <ul class="navbar-nav flex-column right-ul">               
+                <li class="nav-item active litem">
+                  <label for="idLog" class="form-control-sm">Логин</label><strong class="asterisk">&#42;</strong>
+                  <div class="nav-link input-line">
+                    <i class="fa fa-tasks icon" aria-hidden="true"></i>
+                    <input id="idLog" type="text" class="form-control-sm input-not-line" placeholder="Например: ivanov97" />
+                  </div>
+                </li>
+
+                <li class="nav-item active litem">
+                  <label for="idEma1" class="form-control-sm">Email</label><strong class="asterisk">&#42;</strong>
+                  <div class="nav-link input-line">
+                    <i class="fa fa-tasks icon" aria-hidden="true"></i>
+                    <input id="idEma1" type="text" class="form-control-sm input-not-line" placeholder="Например: ivanov@mail.ru" />
+                  </div>
+                </li>
+
+                <li class="nav-item active litem">
+                  <label for="idNum" class="form-control-sm">Телефон</label><strong class="asterisk">&#42;</strong>
+                  <div class="nav-link input-line">
+                    <i class="fa fa-tasks icon" aria-hidden="true"></i>
+                    <input id="idNum" type="text" class="form-control-sm input-not-line" placeholder="+7 (___) ___-__-__" />
+                  </div>
+                </li>
+                 
+                <li class="nav-item active litem">
+                  <label for="idPass1" class="form-control-sm">Пароль</label><strong class="asterisk">&#42;</strong>
+                  <div class="nav-link input-line">
+                    <i class="fa fa-tasks icon" aria-hidden="true"></i>
+                    <input id="idPass1" type="password" class="form-control-sm input-not-line" placeholder="Пароль должен быть не менее 6 символов" />
+                  </div>
+                </li>
+
+                <li class="nav-item active litem">
+                  <label for="idLast" class="form-control-sm">Подтверждение пароля</label><strong class="asterisk">&#42;</strong>
+                  <div class="nav-link input-line">
+                    <i class="fa fa-tasks icon" aria-hidden="true"></i>
+                    <input id="idLast" type="text" class="form-control-sm input-not-line" />
+                  </div>
+                </li>
+
+                <li class="nav-item active litem">
+                  <div class="nav-link input-line">
+                    <div class="col-lg-12 d-flex justify-content-center mt-3">
+                      <button class="btn-register form-control-lg btn-create-task btn-all-tasks mb-3">
+                        РЕГИСТРАЦИЯ
+                      </button>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Войти. -->
+          <div id="login" class="tabcontent">
+            <h5>Вход на сайт</h5>
+            <div class="collapse navbar-collapse" id="idRightMenu">
+              <ul class="navbar-nav flex-column right-ul">
+                <li class="nav-item active litem">
+                  <label for="idEma" class="form-control-sm">E-mail</label>
+                  <strong class="asterisk">&#42;</strong>
+                  <div class="nav-link input-line">
+                    <i class="fa fa-tasks icon" aria-hidden="true"></i>
+                    <input id="idEma" type="email" class="form-control-sm input-not-line" />
+                  </div>
+                </li>
+
+                <li class="nav-item active litem">
+                  <label for="" class="form-control-sm">Пароль</label>
+                  <strong class="asterisk">&#42;</strong>
+                  <div class="nav-link input-line">
+                    <i class="fa fa-tasks icon" aria-hidden="true"></i>
+                    <input id="idPass" type="password" class="form-control-sm input-not-line"
+                           _name="pass" v-model="sPassword"/>
+                  </div>
+                </li>
+
+
+                <li class="nav-item active litem">
+                  <div class="nav-link input-line">
+                    <div class="col-lg-12 d-flex justify-content-center mt-3">
+                      <button class="btn-register form-control-lg btn-create-task btn-all-tasks mb-3"
+                              v-on:click="onLogin()">
+                        ВОЙТИ
+                      </button>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div id="register" class="tabcontent">
+            
+          </div>
+        </div>       
+      </nav>
+    </div>
+  </div>
+
+  <!-- Как это работает? -->
+  <div class="gray-fon">
+    <div class="">
+      <h5 class="text-center pt-5" v-show="el.mainTitle" v-for="el in aWork">
+        {{el.mainTitle}}
+      </h5>
+
+      <div class="text-center mb-3">
+        <img src="../assets/images/GroupLine.png" />
+      </div>
+    </div>
+
+    <div class="col-lg-12 text-center mb-5" v-for="el in aWork">
+      <p class="content">
+        {{el.secondTitle}}
+      </p>
+    </div>
+
+    <div class="d-flex block-work container">
+      <div class="col-lg-4 mb-3" v-for="el in aWork">
+        <h6 class="content-title">
+          <strong>
+            {{el.blockTitle}}
+          </strong>
+        </h6>
+
+        <span class="content-title">
+          {{el.blockText}}
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Почему BARBUUUDA? -->
+  <div class="mb-3 mt-5">
+    <h5 class="text-center">ПОЧЕМУ <span class="title-color">BARBUUUDA</span>?</h5>
+
+    <div class="text-center mb-3">
+      <img src="../assets/images/GroupLine.png" />
+    </div>
+  </div>
+
+  <!-- 1 -->
+  <div class="d-flex">
+    <div class="container">
+      <h6 class="content-title" v-for="el in aWhyis">
+        <strong>
+          {{el.secondTitle}}<br />
+        </strong>
+
+        <span class="content-title">
+          {{el.text}}
+        </span>
+      </h6>
+    </div>
+  </div>
+
+  <!-- Наши преимущества. -->
+  <div class="gray-fon">
+    <div class="">
+      <h5 class="text-center pt-5" v-show="el.mainTitle" v-for="el in aAdvantages">{{el.mainTitle}}</h5>
+
+      <div class="text-center mb-3">
+        <img src="../assets/images/GroupLine.png" />
+      </div>
+    </div>
+
+    <div class="d-flex">
+      <div class="col-lg-4" v-for="el in aAdvantages">
+        <h6 class="content-title">
+          <strong>
+            {{el.secondTitle}}
+          </strong>
+        </h6>
+
+        <span class="content-title">
+          {{el.text}}
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Почему BARBUUUDA? -->
+  <div class="mb-3 mt-5">
+    <h5 class="text-center">КАТЕГОРИИ</h5>
+
+    <div class="text-center mb-3">
+      <img src="../assets/images/GroupLine.png" />
+    </div>
+
+    <div class="col-lg-12 text-center mb-5">
+      <p class="content">
+        Выберите категории заданий, которые хотите посмотреть.
+      </p>
+    </div>
+  </div>
+
+  <!-- Секция категорий. -->
+  <div class="col-lg-12 mb-3">
+    <div class="row">
+      <div class="col-lg-4">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title title-row">
+              <img src="../assets/images/768c92df1858f1fbb75ca810126d03981.png" class="mr-2" />
+              <strong class="mr-2">Web-разработка</strong>
+              <img src="../assets/images/Group1.png" />
+            </h5>
+
+            <span class="card-text">
+              Подкатегорий: 5
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-4">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title title-row">
+              <img src="../assets/images/768c92df1858f1fbb75ca810126d03981.png" class="mr-2" />
+              <strong class="mr-2">Web-разработка</strong>
+              <img src="../assets/images/Group1.png" />
+            </h5>
+
+            <span class="card-text">
+              Подкатегорий: 5
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-4">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title title-row">
+              <img src="../assets/images/768c92df1858f1fbb75ca810126d03981.png" class="mr-2" />
+              <strong class="mr-2">Web-разработка</strong>
+              <img src="../assets/images/Group1.png" />
+            </h5>
+
+            <span class="card-text">
+              Подкатегорий: 5
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Последние задания. -->
+  <div class="gray-fon">
+    <div class="">
+      <h5 class="text-center pt-5">ПОСЛЕДНИЕ ЗАДАНИЯ</h5>
+
+      <div class="text-center mb-3">
+        <img src="../assets/images/GroupLine.png" />
+      </div>
+    </div>
+
+    <div class="col-lg-12 text-center mb-5">
+      <p class="content">
+        Последние опубликованные задания в реальном времени.
+      </p>
+    </div>
+
+    <div class="d-flex">
+      <div class="col-lg-12">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title title-row">
+              <img src="../assets/images/1-wiper1.png" class="mr-2" />
+              <div class="col-lg-3">
+                <strong>Wiper</strong><br />
+                <small class="">8 апр 2016</small>
+              </div>
+
+              <div class="col-lg-3">
+                <img src="../assets/images/message.png" class="" /> 1
+                <img src="../assets/images/Icon.png" class="ml-5" /> 561
+              </div>
+
+              <div class="col-lg-3">
+                <span class="badge badge-pill badge-primary">Для всех</span>
+                <span class="badge badge-pill badge-warning ml-1">В работе</span>
+              </div>
+
+              <div class="col-lg-3 div-price">
+                <span class="task-price">5 000 ₽</span>
+              </div>
+            </h5>
+            <hr />
+
+            <span class="card-text task-title">
+              Нужна программа для открытия запароленных PDF файлов
+            </span>
+
+            <br />
+
+            <span class="text-task">
+              Нужна программа для открытия запароленных PDF файлов с 256-шифрованием Пароль состоит из 24-25 символов A-Z, a-z, 0-9. Оплата гарантирована без обмана. Пользовался программами с интернета ни одна не может открыть. Если есть другие предложения по открытию файлов предлагайте они тоже будут оплачены. Дай знать, вышлю файл...
+            </span>
+          </div>
+
+          <hr />
+          <footer class="task-footer ml-3 mr-3">
+            <span class="task-category">ПРОГРАММИРОВАНИЕ</span>
+            <span class="send-task">ОСТАВИТЬ ПРЕДЛОЖЕНИЕ</span>
+          </footer>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-12 d-flex justify-content-center mt-3">
+      <button class="btn-create-task from-control-sm btn-create-task btn-all-tasks mb-3">
+        ВСЕ ЗАДАНИЯ
+      </button>
+    </div>
+  </div>
+
+  <!-- Популярные исполнители. -->
+  <div class="mb-3 mt-5">
+    <h5 class="text-center">ПОПУЛЯРНЫЕ ИСПОЛНИТЕЛИ</h5>
+
+    <div class="text-center mb-3">
+      <img src="../assets/images/GroupLine.png" />
+    </div>
+
+    <div class="col-lg-12 text-center mb-5">
+      <p class="content">
+        Список из 10 популярных исполнителей с наиболее высоким рейтингом.
+      </p>
+    </div>
+
+  </div>
+
+  <div class="">
+    <div class="d-flex">
+      <div class="col-lg-6">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title title-row">
+              <img src="../assets/images/1-wiper1.png" class="mr-2" />
+              <div class="col-lg-6">
+                <strong>Wiper</strong><br />
+                <small class="">8 апр 2016</small> <small class="pro ml-2">PRO</small>
+              </div>
+            </h5>
+
+            <span class="text-task">
+              №1 среди разработчиков сайтов ! Качественно и в срок. .
+            </span>
+            <hr />
+            <img src="../assets/images/Star1.png" />
+          </div>
+
+          <hr />
+        </div>
+      </div>
+
+      <div class="col-lg-6">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title title-row">
+              <img src="../assets/images/1-wiper1.png" class="mr-2" />
+              <div class="col-lg-6">
+                <strong>Wiper</strong><br />
+                <small class="">8 апр 2016</small> <small class="pro ml-2">PRO</small>
+              </div>
+            </h5>
+
+            <span class="text-task">
+              №1 среди разработчиков сайтов ! Качественно и в срок. .
+            </span>
+            <hr />
+            <img src="../assets/images/Star1.png" />
+          </div>
+
+          <hr />
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-12 d-flex justify-content-center mt-3">
+      <button class="btn-create-task from-control-sm btn-create-task btn-all-tasks mb-3">
+        ВСЕ ИСПОЛНИТЕЛИ
+      </button>
+    </div>
+  </div>
+
+  <!-- Начать зарабатывать. -->
+  <!-- Наши преимущества. -->
+  <div class="gray-fon">
+    <div class="">
+      <h5 class="text-center pt-5">СТАТЬ ИСПОЛНИТЕЛЕМ И НАЧАТЬ ЗАРАБАТЫВАТЬ НА <span class="title-color">BARBUUUDA</span></h5>
+
+      <div class="col-lg-12 text-center mb-5">
+        <p class="content">
+          Выполняйте задания, повышайте свой рейтинг, нарабатывайте положительные отзывы и зарабатывайте деньги.
+        </p>
+      </div>
+    </div>
+
+    <div class="col-lg-12 d-flex justify-content-center mt-3">
+      <button class="btn-create-task from-control-sm btn-create-task btn-all-tasks mb-3">
+        СТАТЬ ИСПОЛНИТЕЛЕМ
+      </button>
+    </div>
+  </div>
+
+  <div class="">
+    <div class="">
+      <h5 class="text-center pt-5">ЧТО ВЫ ПОЛУЧАЕТЕ?</h5>
+
+      <div class="text-center mb-3">
+        <img src="../assets/images/GroupLine.png" />
+      </div>
+    </div>
+
+    <div class="">
+      <div class="col-lg-12 mt-3" v-for="el in aProveliges">
+        <h6 class="content-title">
+          <strong>
+            {{el.title}}
+          </strong>
+        </h6>
+
+        <span class="content-title">
+          {{el.text}}
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Модальное окно ошибки, если нет роли заказчика. -->
+  <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+    Launch demo modal
+  </button> -->
+  
+  <div class="modal fade" id="idNotCustomer" tabindex="-1" role="dialog" aria-labelledby="idNotCustomerTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="idNotCustomerTitle">ВЫ ХОТИТЕ СОЗДАТЬ ЗАДАНИЕ?</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <div class="modal-body">
+          Создать задание могут только зарегистрированные (Заказчики).
+          Зарегистрируйтесь или войдите на сайт под своим именем.
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Хорошо</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

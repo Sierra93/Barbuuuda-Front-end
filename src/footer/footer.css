@@ -1,0 +1,47 @@
+.footer {
+  background: #131E27;
+  color: #98AAB7;
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+.footer .big-title {
+  color: #98AAB7;
+  font-family: Open Sans;
+  font-size: 14px;
+}
+
+.footer .email {
+  color: #00BDD6;
+}
+
+.footer .btn-app {
+  background: #131E27;
+  border-color: #00BDD6;
+  color: white;
+}
+
+.footer .small-text {
+  font-family: Oswald;
+  font-size: 10px;
+}
+
+.footer .big-text {
+  font-family: Oswald;
+  font-size: 12px;
+}
+
+.footer .bold-text {
+  color: #98AAB7;
+  font-family: Open Sans;
+}
+
+.before-footer {
+  background: #F3F1F9;
+  color: #0D1D4A;
+  align-items: center;
+}
+
+.block-payment {
+  align-items: center;
+}

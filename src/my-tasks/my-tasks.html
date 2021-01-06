@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мои задания</title>
+</head>
+
+<body>
+    <div class="block-before-my-tasks col-lg-12">
+        <div class="">
+            
+        </div>
+
+        
+    </div>
+
+    <div class="d-flex mt-5 col-lg-12">
+        <div class="col-lg-2 fon-profile">
+            <h6>Мои задания</h6>
+
+            <!-- Всего -->
+            <div class="stat-item">
+                <div>
+                    <span>Всего</span>
+                </div>
+    
+                <div>
+                    1
+                </div>
+            </div>
+
+            <!-- В аукционе -->
+            <div class="stat-item">
+                <div>
+                    <span>В аукционе</span>
+                </div>
+
+                <div>
+                    <span>0</span>
+                </div>
+            </div>
+
+            
+            <!-- В работе -->
+            <div class="stat-item">
+                <div>
+                    <span>В работе</span>
+                </div>
+
+                <div>
+                    <span>0</span>
+                </div>
+            </div>
+
+            
+            <!-- На гарантии -->
+            <div class="stat-item">
+                <div>
+                    <span>На гарантии</span>
+                </div>
+
+                <div>
+                    <span>0</span>
+                </div>
+            </div>
+
+             <!-- Завершено -->
+             <div class="stat-item">
+                <div>
+                    <span>Завершено</span>
+                </div>
+
+                <div>
+                    <span>0</span>
+                </div>
+            </div>
+
+            <!-- Перерасчет -->
+            <div class="stat-item">
+                <div>
+                    <span>Перерасчет</span>
+                </div>
+
+                <div>
+                    <span>0</span>
+                </div>
+            </div>
+
+            <!-- В черновике -->
+            <div class="stat-item">
+                <div>
+                    <span>В черновике</span>
+                </div>
+
+                <div>
+                    <span>0</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-10">
+            <h3 class="my-tasks">Мои задания</h3>
+            <div class="search-block-task mb-3 mt-3">
+                <div class="d-flex">
+                    <input type="search" class="form-control-sm search-category"
+                        placeholder="Поиск задания по ID или названию...">
+                    <div class="input-group-append">
+                        <button class="btn btn-detault btn-search" type="button" id="button-addon2">Найти</button>
+                    </div>
+                </div>
+
+                <div>
+                    <span>Сортировать: &nbsp;</span>
+                    <select class="form-control-sm task-filter">
+                        <option></option>
+                        <option>По дате</option>
+                        <option>По категории</option>
+                        <option>По специализации</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="block-my-tasks">
+                <div class="card card-task card-subcategory">
+                    <div class="card-header header-task">
+                        <div class="block-icon">
+                            <div>
+                                <img src="../assets/images/1-wiper1.png">
+                            </div>
+                            &nbsp;
+
+                            <div class="ml-1 text-dark">
+                                <span>Wiper</span><br>
+                                <small>8 апр 2016</small>
+                            </div>
+                        </div>
+
+                        <div class="">
+                            <img src="../assets/images/message.png">
+                            <span class="text-dark">1</span>
+                        </div>
+
+                        <div class="">
+                            <img src="../assets/images/Icon.png">
+                            <span class="text-dark">561</span>
+                        </div>
+
+                        <div class="badge badge-pill badge-primary">
+                            <span>Для всех</span>
+                        </div>
+
+                        <div class="badge badge-pill badge-warning">
+                            <span>В работе</span>
+                        </div>
+
+                        <div class="task-price">
+                            <img src="../assets/images/date_range.png">
+                            <span>4 января 2021</span>
+                        </div>
+
+                        <div class="task-price">
+                            <span>По договоренности</span>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <h5 class="card-title task-title">
+                            Нужна программа для открытия запароленных PDF файлов
+                        </h5>
+
+                        <p class="card-text task-detail">
+                            Нужна программа для открытия запароленных PDF файлов с 256-шифрованием Пароль состоит из
+                            24-25 символов A-Z, a-z, 0-9. Оплата гарантирована без обмана. Пользовался программами с
+                            интернета ни одна не может открыть. Если есть другие предложения по открытию файлов
+                            предлагайте они тоже будут оплачены. Дай знать, вышлю файл...
+                        </p>
+                    </div>
+
+                    <div class="card-footer task-detail">
+                        <div class="block-footer">
+                            <div class="task-category">
+                                <span>ПРОГРАММИРОВАНИЕ</span>
+                            </div>
+
+
+                            <div class="offer">
+                                <button class="btn-next form-control-sm" v-on:click="">КО ВСЕМ СТАВКАМ</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Пагинация. -->
+            <pagination class="pagination-sm block-pagination card-subcategory">
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+                        <li class="page-item">
+                            <a class="page-link" href="#" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item"><a class="page-link" href="#">4</a></li>
+                        <li class="page-item"><a class="page-link" href="#">5</a></li>
+                        <li class="page-item"><a class="page-link" href="#">6</a></li>
+
+                        <li class="page-item">
+                            <a class="page-link" href="#" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </pagination>
+        </div>
+    </div>
+</body>
+
+</html>
