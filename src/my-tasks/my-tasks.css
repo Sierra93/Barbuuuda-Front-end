@@ -25,6 +25,7 @@
   -ms-flex-pack: distribute;
       justify-content: space-around;
   line-height: 2;
+  flex-direction: column;
 }
 
 .block-my-tasks .task-status {

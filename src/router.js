@@ -5,6 +5,7 @@ import CreateTask from './components/create-task.vue';
 import CHome from './components/home.vue';
 import MyTasks from './components/my-tasks.vue';
 import ProfileBar from './components/profile-bar.vue';
+import TaskView from './components/view-task.vue';
 
 export default new VueRouter({
   routes: [{
@@ -36,7 +37,19 @@ export default new VueRouter({
       name: 'profile-bar',
       component: ProfileBar,
       props: true
+    },
+    {
+      path: '/task/view/:taskId',
+      name: 'view-task',
+      component: TaskView,
+      props: true
     }
+    // {
+    //   path: '/task/edit',
+    //   name: 'edit-task',
+    //   component: ProfileBar,
+    //   props: true
+    // }
   ],
   mode: 'history'
 })

@@ -69,7 +69,7 @@ export default {
             }
 
             else if (value == "Главная") {
-                window.location.href = "/";
+                window.location.href = "/c/home";
             }
 
             else if (value == "Мои задания") {

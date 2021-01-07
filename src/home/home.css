@@ -122,4 +122,36 @@ button {
   top: 27px;
   left: 18px;
 }
+
+.pages {
+  padding: 20px 0;
+  margin: 0;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
+.pages__item {
+  display: block;
+  width: 18px;
+  font-size: 12px;
+  text-align: center;
+  color: #444444;
+}
+
+.pages__item:hover {
+  background: #00BDD6;
+  border-radius: 50px;
+  color: #fff;
+  cursor: pointer;
+}
+
+.pages__item-last {
+  width: 25px;
+}
+
+.pages__nav-img {
+  display: block;
+  width: 7.41px;
+}
 /*# sourceMappingURL=home.css.map */

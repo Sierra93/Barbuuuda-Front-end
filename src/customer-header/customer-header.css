@@ -34,3 +34,7 @@
   cursor: pointer;
 }
 /*# sourceMappingURL=customer-header.css.map */
+
+.right-head img {
+  padding: 5%;
+}

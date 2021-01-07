@@ -85,7 +85,9 @@
                         </div>
 
                         <div class="task-price">
-                            <span>{{el.taskPrice}} ₽</span>
+                            <span>{{el.taskPrice || 'По договоренности'}}
+                                <span v-show="el.taskPrice">₽</span>
+                            </span>
                         </div>
                     </div>
 
@@ -107,7 +109,14 @@
 
 
                             <div class="offer">
-                                <button class="btn-next form-control-sm" v-on:click="">КО ВСЕМ СТАВКАМ</button>
+                                <!-- <button class="btn-next form-control-sm" v-on:click="">КО ВСЕМ СТАВКАМ</button> -->
+
+                                <button 
+                                    class="btn-next form-control-sm" 
+                                    _v-bind:value="el.taskId"
+                                    v-on:click="onGetTask(el.taskId)">
+                                    ОТКРЫТЬ ЗАДАНИЕ
+                                </button>
                             </div>
                         </div>
                     </div>
