@@ -1,0 +1,156 @@
+$blueColor: #00BDD6;
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Open Sans', sans-serif;
+}
+
+button {
+    border: none;
+    outline: none;
+    background-color: transparent;
+}
+
+.container-fluid {
+    padding: 0 85px;
+}
+
+.main-title {
+    font-family: 'Roboto';
+    font-size: 24px;
+    line-height: 24px;
+    letter-spacing: 1.25px;
+    margin-top: 28px;
+}
+
+.profile {
+    width: 360px;
+    height: 751px;
+    background: #EFEFEF;
+    border: 1px solid #8D8D8D;
+    box-sizing: border-box;
+}
+
+.calendar {
+    width: 250px;
+    height: 220px;
+    background: #FAFAFA;
+    border-radius: 2px;
+    margin: 30px 0 0 0;
+}
+
+.notifications,
+.orders,
+.pages {
+    margin: 9px 17px;
+    border: 1px solid rgba(141, 141, 141, 0.5);
+    box-sizing: border-box;
+    border-radius: 20px 0px;
+
+    &__wrp {
+        padding: 9px 17px;
+        border-bottom: 1px solid #DADADA;
+    }
+
+    &__subtitle {
+        display: inline;
+        font-weight: 600;
+        font-size: 18px;
+        line-height: 25px;
+    }
+
+    &__history {
+        font-weight: 300;
+        font-size: 14px;
+        line-height: 19px;
+        color: #00BCD4;
+    }
+
+    &__txt {
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 19px;
+        text-align: center;
+        color: #B6B6B6;
+        position: relative;
+        margin-top: 9px;
+    }
+}
+
+.orders-title {
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 22px;
+    margin: 30px;
+}
+
+.orders {
+    &__bold-txt {
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 19px;
+    }
+
+    &__light-txt {
+        font-size: 14px;
+        line-height: 19px;
+        color: #B6B6B6;
+    }
+
+    &__blue-txt {
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 19px;
+        color: #00BCD4;
+    }
+
+    &__bottom-txt {
+        font-weight: 600;
+        font-size: 12px;
+        line-height: 16px;
+        color: #B6B6B6;
+        padding: 31px 45px;
+        position: relative;
+
+        &::before {
+            content: url(../assets/images/info_outline.png);
+            position: absolute;
+            top: 27px;
+            left: 18px;
+        }
+    }
+}
+
+.pages {
+    padding: 20px 0;
+    margin: 0;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+
+    &__item {
+        display: block;
+        width: 18px;
+        font-size: 12px;
+        text-align: center;
+        color: #444444;
+
+        &:hover {
+            background: $blueColor;
+            border-radius: 50px;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        &-last {
+            width: 25px;
+
+        }
+    }
+
+    &__nav-img {
+        display: block;
+        width: 7.41px;
+    }
+}
