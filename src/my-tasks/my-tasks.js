@@ -65,7 +65,7 @@ export default {
                     .then((response) => {         
                         this.editTask = response.data;               
                         console.log("editTask", this.editTask);
-                        this.$router.push("/task/view/taskId/".concat(this.editTask[0].taskId));
+                        this.$router.push("/task/view/".concat(this.editTask[0].taskId));
                     })
 
                     .catch((XMLHttpRequest) => {

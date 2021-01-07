@@ -8,6 +8,34 @@
 </head>
 
 <body>
+  <!-- Статусы. -->
+  <div class="container mt-3 mb-3 text-center block-status">
+    <div class="mb-3 item-status">
+        <span class="circle-first">1</span>&nbsp;
+        <span class="category-text">Создание</span>
+    </div>
+
+    <div class="mb-3 item-status">
+        <span class="circle-second">2</span>&nbsp;
+        <span class="category-text">В аукционе</span>
+    </div>
+
+    <div class="mb-3 item-status">
+        <span class="circle-second">3</span>&nbsp;
+        <span class="category-text">В работе</span>
+    </div>
+
+    <div class="mb-3 item-status">
+        <span class="circle-second">4</span>&nbsp;
+        <span class="category-text">На гарантии</span>
+    </div>
+
+    <div class="mb-3 item-status">
+        <span class="circle-second">5</span>&nbsp;
+        <span class="category-text">Завершен</span>
+    </div>
+  </div>
+
     <div class="container">
         <h3 class="text-center">Форма создания нового задания</h3>
     </div>
@@ -45,6 +73,7 @@
                   <ul class="list-group list-group-flush" v-for="el of aCategories">
                     <li class="list-group-item">
                       <label for="">{{el.categoryName}}</label>
+                      &nbsp;&nbsp;
                       <input type="radio" 
                               class="form-control-sm category-text"
                               :value="el.categoryCode"
@@ -79,31 +108,7 @@
         
         <!-- Статус задания. -->
         <div class="col-lg-3">
-            <h6 class="mb-3">Статус задания</h6>
-            <div class="mb-3">
-                <span class="circle-first">1</span>
-                <span class="category-text">Создание</span>
-            </div>
-
-            <div class="mb-3">
-                <span class="circle-second">2</span>
-                <span class="category-text">В аукционе</span>
-            </div>
-
-            <div class="mb-3">
-                <span class="circle-second">3</span>
-                <span class="category-text">В работе</span>
-            </div>
-
-            <div class="mb-3">
-                <span class="circle-second">4</span>
-                <span class="category-text">На гарантии</span>
-            </div>
-
-            <div class="mb-3">
-                <span class="circle-second">5</span>
-                <span class="category-text">Завершен</span>
-            </div>
+           
         </div>
     </div>
 
