@@ -1,22 +1,15 @@
-// @import "./task/create-task.scss";
+.edit-task-title {
+    font-weight: 500;
+}
 
-// .circle-first {
-//     border: 3px solid;
-//     border-radius: 50%;
-//     padding: 5px;
-//     color: white;
-//     border-color: #00BCD4;
-//     background: #00BCD4;
-//     width: 32px;
-//     height: 32px;
-//     font-family: monospace;
-// }
+.chat-link {
+    font-size: 18px;
+    border-bottom: 1px dashed;
+    cursor: pointer;
+}
 
-// .circle-second {
-//     border: 3px solid;
-//     border-radius: 50%;
-//     padding: 5px;
-//     border-color: #B6B6B6;
-//     font-family: monospace;
-//     background: #EFEFEF;
-// }
+.item-view {
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    border-radius: 20px 0 20px 0;
+    padding: 0 50px;
+}

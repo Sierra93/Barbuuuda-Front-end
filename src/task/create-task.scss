@@ -175,6 +175,8 @@ input[type="file"] {
 .block-status {
     display: flex;
     justify-content: center;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    border-radius: 20px 0 20px 0;
 
 
     .item-status {

@@ -7,19 +7,23 @@ import MyTasks from '../components/my-tasks.vue';
 import $ from "jquery";
 import VueRouter from 'vue-router';
 import axios from 'axios';
+import Calendar from 'v-calendar/lib/components/calendar.umd';
+import DatePicker from 'v-calendar/lib/components/date-picker.umd';
 
 export default {
     name: 'view-task',
     components: {
         NavMenu,
-        VueRouter
+        VueRouter,
+        Calendar,
+        DatePicker
     },
     created() {
         
     },
     data() {
         return {
-            
+            picker: new Date()
          }
     },    
     props: ["oData", "oEditTask"],
@@ -39,8 +43,8 @@ export default {
             try {
                 axios.post(sUrl)
                     .then((response) => {         
-                        this.editTask = response.data;               
-                        console.log("editTask", this.editTask);
+                        this.oEditTask.editTask = response.data;               
+                        console.log("editTask", this.oEditTask.editTask);
                     })
 
                     .catch((XMLHttpRequest) => {

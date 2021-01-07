@@ -1,40 +1,164 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
-    <!-- <h1>Просмотр задания</h1> -->
-     <!-- Статусы. -->
-  <div class="container mt-3 mb-3 text-center block-status">
-    <div class="mb-3 item-status">
-        <span class="circle-first">1</span>&nbsp;
-        <span class="category-text">Создание задания</span>
-        <br>
-        <small><a href="#">Редактировать</a></small>
+    <!-- Статусы. -->
+    <div class="container pt-3 mb-3 text-center block-status">
+        <div class="mb-3 item-status">
+            <span class="circle-first">1</span>&nbsp;
+            <span class="category-text">Создание задания</span>
+            <br>
+            <small><a href="#">Редактировать</a></small>
+        </div>
+
+        <div class="mb-3 item-status">
+            <span class="circle-second">2</span>&nbsp;
+            <span class="category-text">В аукционе</span>
+        </div>
+
+        <div class="mb-3 item-status">
+            <span class="circle-second">3</span>&nbsp;
+            <span class="category-text">В работе</span>
+        </div>
+
+        <div class="mb-3 item-status">
+            <span class="circle-second">4</span>&nbsp;
+            <span class="category-text">На гарантии</span>
+        </div>
+
+        <div class="mb-3 item-status">
+            <span class="circle-second">5</span>&nbsp;
+            <span class="category-text">Завершен</span>
+        </div>
     </div>
 
-    <div class="mb-3 item-status">
-        <span class="circle-second">2</span>&nbsp;
-        <span class="category-text">В аукционе</span>
+    <div class="d-flex block-task-title">
+        <div class="col-lg-10">
+            <span class="edit-task-title">{{this.oEditTask.editTask[0].taskTitle}}</span><br>
+
+            <div class="mt-3">
+                <span>{{this.oEditTask.editTask[0].taskDetail}}</span>
+            </div>
+        </div>
+
+        <div class="col-lg-2">
+            <img src="../assets/images/chat-icon.png">&nbsp;
+            <strong class="chat-link">Открыть чат</strong>
+        </div>
     </div>
 
-    <div class="mb-3 item-status">
-        <span class="circle-second">3</span>&nbsp;
-        <span class="category-text">В работе</span>
-    </div>
+    <!-- Детали задания. -->
+    <div class="col-lg-12 mt-5">
+        <div class="d-flex">
+            <div class="fon-profile col-lg-3">
+                <h6>Мои задания</h6>
+        
+                <!-- Всего -->
+                <div class="stat-item">
+                    <div>
+                        <span>Всего</span>
+                    </div>
+        
+                    <div>
+                        1
+                    </div>
+                </div>
+        
+                <!-- В аукционе -->
+                <div class="stat-item">
+                    <div>
+                        <span>В аукционе</span>
+                    </div>
+        
+                    <div>
+                        <span>0</span>
+                    </div>
+                </div>
+        
+        
+                <!-- В работе -->
+                <div class="stat-item">
+                    <div>
+                        <span>В работе</span>
+                    </div>
+        
+                    <div>
+                        <span>0</span>
+                    </div>
+                </div>
+        
+        
+                <!-- На гарантии -->
+                <div class="stat-item">
+                    <div>
+                        <span>На гарантии</span>
+                    </div>
+        
+                    <div>
+                        <span>0</span>
+                    </div>
+                </div>
+        
+                <!-- Завершено -->
+                <div class="stat-item">
+                    <div>
+                        <span>Завершено</span>
+                    </div>
+        
+                    <div>
+                        <span>0</span>
+                    </div>
+                </div>
+        
+                <!-- Перерасчет -->
+                <div class="stat-item">
+                    <div>
+                        <span>Перерасчет</span>
+                    </div>
+        
+                    <div>
+                        <span>0</span>
+                    </div>
+                </div>
+        
+                <!-- В черновике -->
+                <div class="stat-item">
+                    <div>
+                        <span>В черновике</span>
+                    </div>
+        
+                    <div>
+                        <span>0</span>
+                    </div>
+                </div>
+        
+                 <!-- Календарь. -->
+                </div>            
+        
+                <!-- Правая часть. -->
+            <div class="col-lg-9">
+                <h5>Выберите исполнителя для вашего задания</h5>
 
-    <div class="mb-3 item-status">
-        <span class="circle-second">4</span>&nbsp;
-        <span class="category-text">На гарантии</span>
-    </div>
+                <div class="d-flex justify-content-between mt-3">
+                    <div class="item-view">
+                        <span>Исполнители, представленные ниже, были<br> проверены и приняты администрацией.</span>
+                    </div>
 
-    <div class="mb-3 item-status">
-        <span class="circle-second">5</span>&nbsp;
-        <span class="category-text">Завершен</span>
+                    <div class="item-view">
+                        <span>Все исполнители имеют рейтинг, отзывы и<br> историю выполненных работ.</span>
+                    </div>
+                </div>
+            </div>        
+        </div>
+
+        <DatePicker class="mt-3 col-lg-3" v-model="picker"></DatePicker>
     </div>
-  </div>
 </body>
+
 </html>

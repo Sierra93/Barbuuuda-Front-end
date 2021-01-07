@@ -1,4 +1,4 @@
-$blueColor: #00BDD6;
+$blueColor: #00BCD4;
 
 body {
     margin: 0;
@@ -24,27 +24,10 @@ button {
     margin-top: 28px;
 }
 
-.profile {
-    width: 360px;
-    height: 751px;
-    background: #EFEFEF;
-    border: 1px solid #8D8D8D;
-    box-sizing: border-box;
-}
-
-.calendar {
-    width: 250px;
-    height: 220px;
-    background: #FAFAFA;
-    border-radius: 2px;
-    margin: 30px 0 0 0;
-}
-
 .notifications,
-.orders,
-.pages {
-    margin: 9px 17px;
-    border: 1px solid rgba(141, 141, 141, 0.5);
+.orders {
+    margin: 0 0 30px 30px;
+    border: 1px solid rgba(0, 0, 0, 0.125);
     box-sizing: border-box;
     border-radius: 20px 0px;
 
@@ -102,7 +85,7 @@ button {
         font-weight: 600;
         font-size: 14px;
         line-height: 19px;
-        color: #00BCD4;
+        color: $blueColor;
     }
 
     &__bottom-txt {
@@ -120,37 +103,5 @@ button {
             left: 18px;
         }
     }
-}
-
-.pages {
-    padding: 20px 0;
-    margin: 0;
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-
-    &__item {
-        display: block;
-        width: 18px;
-        font-size: 12px;
-        text-align: center;
-        color: #444444;
-
-        &:hover {
-            background: $blueColor;
-            border-radius: 50px;
-            color: #fff;
-            cursor: pointer;
-        }
-
-        &-last {
-            width: 25px;
-
-        }
-    }
-
-    &__nav-img {
-        display: block;
-        width: 7.41px;
-    }
+    
 }

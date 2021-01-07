@@ -8,13 +8,97 @@
 
 <body>
     <main class="container-fluid">
-        <h1 class="main-title">Главная</h1>
+        <h1 class="main-title col-lg-12">Главная</h1>
         <div class="main-wrapper d-flex justify-content-between">
-            <div class="content-wrapper col-lg-4">
-                <div class="profile"></div>
-                <div class="calendar"></div>
+            <div class="content-wrapper col-lg-3">
+                <div class="fon-profile">
+                    <h6>Мои задания</h6>
+
+                    <!-- Всего -->
+                    <div class="stat-item">
+                        <div>
+                            <span>Всего</span>
+                        </div>
+
+                        <div>
+                            1
+                        </div>
+                    </div>
+
+                    <!-- В аукционе -->
+                    <div class="stat-item">
+                        <div>
+                            <span>В аукционе</span>
+                        </div>
+
+                        <div>
+                            <span>0</span>
+                        </div>
+                    </div>
+
+
+                    <!-- В работе -->
+                    <div class="stat-item">
+                        <div>
+                            <span>В работе</span>
+                        </div>
+
+                        <div>
+                            <span>0</span>
+                        </div>
+                    </div>
+
+
+                    <!-- На гарантии -->
+                    <div class="stat-item">
+                        <div>
+                            <span>На гарантии</span>
+                        </div>
+
+                        <div>
+                            <span>0</span>
+                        </div>
+                    </div>
+
+                    <!-- Завершено -->
+                    <div class="stat-item">
+                        <div>
+                            <span>Завершено</span>
+                        </div>
+
+                        <div>
+                            <span>0</span>
+                        </div>
+                    </div>
+
+                    <!-- Перерасчет -->
+                    <div class="stat-item">
+                        <div>
+                            <span>Перерасчет</span>
+                        </div>
+
+                        <div>
+                            <span>0</span>
+                        </div>
+                    </div>
+
+                    <!-- В черновике -->
+                    <div class="stat-item">
+                        <div>
+                            <span>В черновике</span>
+                        </div>
+
+                        <div>
+                            <span>0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Календарь. -->
+                <DatePicker class="datepicker mt-3 col-lg-12" v-model="picker"></DatePicker>
+
             </div>
-            <div class="content-wrapper col-lg-8">
+            <div class="content-wrapper col-lg-9">
                 <div class="notifications">
                     <div class="notifications__wrp">
                         <span class="notifications__subtitle">Уведомления</span>
@@ -41,20 +125,34 @@
                     </div>
                     <p class="orders__bottom-txt">Перейдите в заказ,чтобы выбрать исполнителя</p>
                 </div>
-                <div class="pages d-flex justify-content-center">
-                    <button class="pages__btn"><span class="pages__item">1</span></button>
-                    <button class="pages__btn"><span class="pages__item">2</span></button>
-                    <button class="pages__btn"><span class="pages__item">3</span></button>
-                    <button class="pages__btn"><span class="pages__item">4</span></button>
-                    <button class="pages__btn"><span class="pages__item">5</span></button>
-                    <button class="pages__btn"><span class="pages__item">6</span></button>
-                    <button class="pages__btn"><span class="pages__item">...</span></button>
-                    <button class="pages__btn"><span class="pages__item pages__item-last">150</span></button>
-                    <button><img class="pages__nav-img" src="../assets/images/navigate_next.png" alt="navigate_next" height="12px"></button>
-                </div>
+
+                <pagination class="pagination-sm block-pagination card-subcategory">
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination">
+                            <li class="page-item">
+                                <a class="page-link" href="#" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item"><a class="page-link" href="#">4</a></li>
+                            <li class="page-item"><a class="page-link" href="#">5</a></li>
+                            <li class="page-item"><a class="page-link" href="#">6</a></li>
+
+                            <li class="page-item">
+                                <a class="page-link" href="#" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </pagination>
             </div>
         </div>
         </div>
     </main>
 </body>
+
 </html>
