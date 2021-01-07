@@ -38,3 +38,9 @@
   .header-text {
     @include headerText;
   }
+
+  .right-head {
+    img {
+      padding: 5%;
+    }
+  }
