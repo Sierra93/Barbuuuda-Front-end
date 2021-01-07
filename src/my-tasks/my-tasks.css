@@ -18,6 +18,7 @@
   display: flex !important;
   justify-content: space-around;
   line-height: 2;
+  flex-direction: column;
 }
 
 .block-my-tasks .task-status {

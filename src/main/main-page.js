@@ -38,6 +38,13 @@ export default {
                 bGuest: false,
                 bCustomer: false
             },
+            oEditTask: {
+                editTask: {},
+                sTypes: {
+                    All: "All",
+                    Single: "Single"
+                }
+            },
             aFon: [],
             aWhyis: [],
             aWork: [],

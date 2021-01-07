@@ -23,11 +23,13 @@ export default {
             aTasks: []
          }
     },    
-    props: ['oData'],
+    props: ["oData", "oEditTask"],
     methods: {
+        // Функция получает список заданий заказчика.
         _loadingTaskList() {
             let userId = +localStorage["userId"];
-            const sUrl = this.oData.urlApi.concat("/task/tasks-list/".concat(userId));
+            let sTypeAll = this.oEditTask.sTypes.All;   // Все задания.
+            const sUrl = this.oData.urlApi.concat("/task/tasks-list?userId=".concat(userId).concat("&type=".concat(sTypeAll)));
 
             try {
                 axios.post(sUrl)
@@ -38,6 +40,35 @@ export default {
 
                     .catch((XMLHttpRequest) => {
                         throw new Error('Ошибка получения списка заданий', XMLHttpRequest.response.data);
+                    });
+            } 
+            
+            catch (ex) {
+                throw new Error(ex);
+            }
+        },
+
+        // Функция получает выделенное задание.
+        onGetTask(taskId) {
+            let userId = +localStorage["userId"];
+            let sTypeSingle = this.oEditTask.sTypes.Single;   // Задание для изменения или просмотра.
+            const sUrl = this.oData.urlApi
+            .concat("/task/tasks-list?userId="
+            .concat(userId)
+            .concat("&taskId=")
+            .concat(taskId)
+            .concat("&type="
+            .concat(sTypeSingle)));
+
+            try {
+                axios.post(sUrl)
+                    .then((response) => {         
+                        this.editTask = response.data;               
+                        console.log("editTask", this.editTask);
+                    })
+
+                    .catch((XMLHttpRequest) => {
+                        throw new Error('Ошибка получения задания', XMLHttpRequest.response.data);
                     });
             } 
             
