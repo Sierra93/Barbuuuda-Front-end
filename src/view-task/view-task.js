@@ -9,45 +9,21 @@ import VueRouter from 'vue-router';
 import axios from 'axios';
 
 export default {
-    name: 'my-tasks',
+    name: 'view-task',
     components: {
         NavMenu,
-        VueRouter,
-        MyTasks
+        VueRouter
     },
     created() {
-        this._loadingTaskList();
+        
     },
     data() {
         return {
-            aTasks: []
+            
          }
     },    
     props: ["oData", "oEditTask"],
-    methods: {
-        // Функция получает список заданий заказчика.
-        _loadingTaskList() {
-            let userId = +localStorage["userId"];
-            let sTypeAll = this.oEditTask.sTypes.All;   // Все задания.
-            const sUrl = this.oData.urlApi.concat("/task/tasks-list?userId=".concat(userId).concat("&type=".concat(sTypeAll)));
-
-            try {
-                axios.post(sUrl)
-                    .then((response) => {         
-                        this.aTasks = response.data;               
-                        console.log("Список заданий", this.aTasks);
-                    })
-
-                    .catch((XMLHttpRequest) => {
-                        throw new Error('Ошибка получения списка заданий', XMLHttpRequest.response.data);
-                    });
-            } 
-            
-            catch (ex) {
-                throw new Error(ex);
-            }
-        },
-
+    methods: {       
         // Функция получает выделенное задание.
         onGetTask(taskId) {
             let userId = +localStorage["userId"];
@@ -65,7 +41,6 @@ export default {
                     .then((response) => {         
                         this.editTask = response.data;               
                         console.log("editTask", this.editTask);
-                        this.$router.push("/task/view/taskId/".concat(this.editTask[0].taskId));
                     })
 
                     .catch((XMLHttpRequest) => {
