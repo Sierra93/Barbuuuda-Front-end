@@ -57,91 +57,74 @@
     <div class="col-lg-12 mt-5">
         <div class="d-flex">
             <div class="fon-profile col-lg-3">
-                <h6>Мои задания</h6>
-        
-                <!-- Всего -->
+                <h6>Детали задания</h6>
+
                 <div class="stat-item">
                     <div>
-                        <span>Всего</span>
+                        <small>ID:</small>
                     </div>
-        
+
                     <div>
-                        1
+                        {{this.oEditTask.editTask[0].taskId}}
                     </div>
                 </div>
-        
-                <!-- В аукционе -->
+
                 <div class="stat-item">
                     <div>
-                        <span>В аукционе</span>
+                        <small>Бюджет:</small>
                     </div>
-        
+
                     <div>
-                        <span>0</span>
+                        <small>{{this.oEditTask.editTask[0].taskPrice}} ₽</small>
                     </div>
                 </div>
-        
-        
-                <!-- В работе -->
+
                 <div class="stat-item">
                     <div>
-                        <span>В работе</span>
+                        <small>Дата сдачи:</small>
                     </div>
-        
+
                     <div>
-                        <span>0</span>
+                        <small>{{this.oEditTask.editTask[0].taskBegda}}</small>
                     </div>
                 </div>
-        
-        
-                <!-- На гарантии -->
+
                 <div class="stat-item">
                     <div>
-                        <span>На гарантии</span>
+                        <small>Категория:</small>
                     </div>
-        
+
                     <div>
-                        <span>0</span>
+                        <small>{{this.oEditTask.editTask[0].categoryName}}</small>
                     </div>
                 </div>
-        
-                <!-- Завершено -->
+
                 <div class="stat-item">
                     <div>
-                        <span>Завершено</span>
+                        <small>Специализация:</small>
                     </div>
-        
+
                     <div>
-                        <span>0</span>
+                        <small>{{this.oEditTask.editTask[0].specName}}</small>
                     </div>
                 </div>
-        
-                <!-- Перерасчет -->
-                <div class="stat-item">
+
+                <div class="stat-item task-details mt-1 mb-1">
                     <div>
-                        <span>Перерасчет</span>
-                    </div>
-        
-                    <div>
-                        <span>0</span>
+                        <a href="#">Подробнее</a>
                     </div>
                 </div>
-        
-                <!-- В черновике -->
-                <div class="stat-item">
+
+                <div class="stat-item task-details">
                     <div>
-                        <span>В черновике</span>
-                    </div>
-        
-                    <div>
-                        <span>0</span>
+                        <button class="btn-next form-control-sm" v-on:click="">
+                            РЕДАКТИРОВАТЬ
+                        </button>
                     </div>
                 </div>
-        
-                 <!-- Календарь. -->
-                </div>            
-        
-                <!-- Правая часть. -->
+            </div>
+
+            <!-- Правая часть. -->
             <div class="col-lg-9">
                 <h5>Выберите исполнителя для вашего задания</h5>
 
@@ -154,9 +137,10 @@
                         <span>Все исполнители имеют рейтинг, отзывы и<br> историю выполненных работ.</span>
                     </div>
                 </div>
-            </div>        
+            </div>
         </div>
 
+        <!-- Календарь. -->
         <DatePicker class="mt-3 col-lg-3" v-model="picker"></DatePicker>
     </div>
 </body>
