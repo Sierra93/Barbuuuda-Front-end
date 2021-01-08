@@ -68,6 +68,11 @@ body {
     top: 35%;
     color: #666666;
   }
+
+  .tablinks:focus {
+    outline: none;
+  }
+
   // Кнопка создать задание.
   .btn-create-task {
     position: absolute;
