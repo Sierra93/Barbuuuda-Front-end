@@ -32,8 +32,8 @@ export default {
     data() {
         return {
             oData: {
-                // urlApi: "http://localhost:58822",
-                urlApi: "https://apphosting.site",
+                urlApi: "http://localhost:58822",
+                // urlApi: "https://apphosting.site",
                 aHeader: [],
                 bGuest: false,
                 bCustomer: false
