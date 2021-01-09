@@ -47,10 +47,17 @@ export default {
         _getAuthorize() {
             let userRole = "";
 
-            if (!localStorage["userToken"] || !localStorage["role"] || localStorage["role"] == "Гость") {
+            if (!localStorage["userToken"] || !localStorage["role"]) {
                 userRole = "Гость";                
                 localStorage["role"] = userRole;                
                 this.bGuest = true;
+            }
+
+            if (localStorage["role"] == "Гость") {
+                userRole = "Гость";                
+                localStorage["role"] = userRole;                
+                this.bGuest = true;
+                return;
             }
 
             else {

@@ -5,11 +5,13 @@
 import CustomerHeader from '../components/customer-header.vue';
 import $ from "jquery";
 import axios from 'axios';
+import VueRouter from 'vue-router';
 
 export default {
     name: 'customer-header',
     components: {
-        CustomerHeader
+        CustomerHeader,
+        VueRouter
     },
     props: ['oData'],
     data() {
@@ -65,19 +67,19 @@ export default {
         // Функция распределяет по пунктам хидера.
         onGetMenu(value) {
             if (value.target && value.target.text == "Barbuuuda") {
-                window.location.href = "/";
+                this.$router.push("/");
             }
 
             else if (value == "Главная") {
-                window.location.href = "/c/home";
+                this.$router.push("/c/home");
             }
 
             else if (value == "Мои задания") {
-                window.location.href = "/tasks/my";
+                this.$router.push("/tasks/my");
             }
 
             else if (value == "Создать задание") {
-                window.location.href = "/task/create";
+                this.$router.push("/task/create");
             }
         }
     }
