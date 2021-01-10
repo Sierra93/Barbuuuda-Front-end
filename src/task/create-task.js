@@ -38,8 +38,10 @@ export default {
         return {
             aCategories: [],
             bHideFields: false,
-            checkCategory: null,
-            checkSpec: null
+            sSpecName: null,
+            sSpecCode: null,
+            sCategoryName: null,
+            sCategoryCode: null
         }
     },    
     methods: {
@@ -103,10 +105,10 @@ export default {
         },
 
         // Функция делает поля задачи доступными для ввода.
-        onShowTaskFields() {
-            // this.bHideFields = this.checkCategory && this.checkSpec ? true : false;
-            this.bHideFields = true;
-        },
+        // onShowTaskFields() {
+        //     // this.bHideFields = this.checkCategory && this.checkSpec ? true : false;
+        //     this.bHideFields = true;
+        // },
 
         // Функция создает задание.
         onCreateTask() {
@@ -117,8 +119,10 @@ export default {
                     OwnerId: +localStorage["userId"],
                     TaskTitle: $("#idTaskTitle").val(),
                     TaskDetail: $("#idTaskDetail").val(),
-                    CategoryCode: this.checkCategory,
-                    SpecCode: this.checkSpec
+                    CategoryCode: this.sCategoryCode,
+                    SpecCode: this.sSpecCode,
+                    TaskEndda: $("#idDateTaskEndda").val(),
+                    TaskPrice: $("#idPrice").val()
                 })
                     .then((response) => {
                         console.log("Задание создано");
@@ -134,9 +138,12 @@ export default {
             }
         },
 
-        onGetSpec(code) {
-            // Функция получает выбранную специализацию.
-            console.log("onGetSpec", code);
+        // Функция получает выбранную специализацию.
+        onGetSpec(specName, specCode, categoryName, categoryCode) {
+            this.sCategoryName = categoryName;
+            this.sSpecName = specName;
+            this.sCategoryCode = categoryCode;
+            this.sSpecCode = specCode;
         }
     }
 }

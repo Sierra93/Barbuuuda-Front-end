@@ -153,6 +153,10 @@ input[type="radio"]:checked {
     width: 50%;
 }
 
+.input-task-price {
+    width: 20%;
+}
+
 label {
     padding: 0!important;
     margin: 0!important;
@@ -204,4 +208,12 @@ input[type="file"] {
     display: flex;
     border: none!important;
     // justify-content: center!important;
+}
+
+.date-endda {
+    border: 1px solid #00BCD4;
+
+    &:focus {
+        outline: #00BCD4;
+    }
 }

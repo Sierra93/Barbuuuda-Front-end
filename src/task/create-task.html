@@ -84,7 +84,7 @@
           
           <div class="text-spec" 
                 v-for="item in el.specializations"
-                v-on:click="onGetSpec(item.specCode)">
+                v-on:click="onGetSpec(item.specName, item.specCode, el.categoryName, el.categoryCode)">
             {{item.specName}}
           </div>
         </div>
@@ -144,17 +144,14 @@
        </div>
 
         <!-- Форма полей задания.--> 
-        <div class="mt-3">              
-          <h6>Выбранная категория и специализация</h6>     
+        <div class="mt-3">
+          <h6>Выбранная категория и специализация</h6>
           <div class="mb-3">
             <label for="idTaskTitle" class="form-control-sm">
               Категория задачи
             </label>
             <strong class="asterisk">&nbsp;&#42;</strong><br>
-            <!-- <input id="idTaskTitle" 
-                    class="form-control-sm input-task search-category" 
-                    placeholder="Введите название"> -->
-                    <span>test</span>
+            <span>{{sCategoryName || 'Не выбрано'}}</span>
           </div>
 
           <div class="mb-3">
@@ -162,10 +159,7 @@
               Специализация задачи
             </label>
             <strong class="asterisk">&nbsp;&#42;</strong><br>
-            <!-- <input id="idTaskTitle" 
-                    class="form-control-sm input-task search-category" 
-                    placeholder="Введите название"> -->
-                    <span>test</span>
+            <span>{{sSpecName || 'Не выбрано'}}</span>
           </div>
 
           <h6>Опишите, что нужно сделать</h6>     
@@ -193,47 +187,31 @@
             </div>
 
             <div class="mb-3">
+              <label for="idTaskDetail" class="form-control-sm">
+                Дата сдачи задания
+              </label>
+              <strong class="asterisk">&nbsp;&#42;</strong><br>            
+              <input  id="idDateTaskEndda"
+                      type="datetime-local"
+                      class="form-control-sm date-endda">
+            </div>
+
+            <div class="mb-3">
               <label for="idPrice" class="form-control-sm">
                 Бюджет (в рублях)
               </label>
               <strong class="asterisk">&nbsp;&#42;</strong><br>
               <input id="idPrice" 
-                      class="form-control-sm input-task search-category" 
-                      _placeholder="Введите бюджет задания">
+                      class="form-control-sm input-task-price date-endda">
             </div>
 
             <button class="btn-next form-control-sm" v-on:click="onBack()">НАЗАД</button>
             &nbsp;
             <button class="btn-task form-control-sm" v-on:click="onCreateTask()">РАЗМЕСТИТЬ ЗАДАНИЕ В АУКЦИОНЕ</button>
         </div>
-        
-        <!-- Статус задания. -->
+              
         <div class="col-lg-2">
-            <!-- <h6 class="mb-3">Статус задания</h6>
-            <div class="mb-3">
-                <span class="circle-first">1</span>
-                <span class="category-text">Создание</span>
-            </div>
-
-            <div class="mb-3">
-                <span class="circle-second">2</span>
-                <span class="category-text">В аукционе</span>
-            </div>
-
-            <div class="mb-3">
-                <span class="circle-second">3</span>
-                <span class="category-text">В работе</span>
-            </div>
-
-            <div class="mb-3">
-                <span class="circle-second">4</span>
-                <span class="category-text">На гарантии</span>
-            </div>
-
-            <div class="mb-3">
-                <span class="circle-second">5</span>
-                <span class="category-text">Завершен</span>
-            </div> -->
+           
         </div>
     </div>
 </body>
