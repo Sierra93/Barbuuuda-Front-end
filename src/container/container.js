@@ -200,12 +200,13 @@ export default {
         // Функция авторизует юзера.
         onLogin() {
             const sUrl = this.oData.urlApi.concat("/user/login");
+            let oData = {
+                UserEmail: $("#idEma").val(),
+                UserPassword: this.sPassword
+            };
 
             try {
-                axios.post(sUrl, {
-                        UserEmail: $("#idEma").val(),
-                        UserPassword: this.sPassword
-                    })
+                axios.post(sUrl, oData)
                     .then((response) => {
                         // Если токен есть, то в зависимости от роли распределяет по интерфейсам.
                         if (response.data.access_token && response.data.role == "Заказчик") {
@@ -213,6 +214,7 @@ export default {
                             localStorage["role"] = response.data.role;
                             localStorage["user"] = response.data.username;
                         }
+                        console.log("Авторизация прошла успешно");
                     })
 
                     .catch((XMLHttpRequest) => {

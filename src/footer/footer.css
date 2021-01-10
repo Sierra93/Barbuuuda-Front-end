@@ -17,8 +17,8 @@
 
 .footer .btn-app {
   background: #131E27;
-  border-color: #00BDD6;
   color: white;
+  border: 1px solid #00BDD6;
 }
 
 .footer .small-text {

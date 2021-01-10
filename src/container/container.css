@@ -26,6 +26,10 @@ body {
   color: #666666;
 }
 
+.block-main-fon .tablinks:focus {
+  outline: none;
+}
+
 .block-main-fon .btn-create-task {
   position: absolute;
   top: 45%;

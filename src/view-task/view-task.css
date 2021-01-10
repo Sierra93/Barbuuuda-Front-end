@@ -1,0 +1,20 @@
+.edit-task-title {
+  font-weight: 500;
+}
+
+.chat-link {
+  font-size: 18px;
+  border-bottom: 1px dashed;
+  cursor: pointer;
+}
+
+.item-view {
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 20px 0 20px 0;
+  padding: 0 50px;
+}
+
+.task-details {
+  display: flex !important;
+  justify-content: center !important;
+}

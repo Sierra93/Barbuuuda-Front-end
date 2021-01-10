@@ -1,11 +1,158 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
-    <h1>Главная заказчика</h1>
+    <main class="container-fluid">
+        <h1 class="main-title col-lg-12">Главная</h1>
+        <div class="main-wrapper d-flex justify-content-between">
+            <div class="content-wrapper col-lg-3">
+                <div class="fon-profile">
+                    <h6>Мои задания</h6>
+
+                    <!-- Всего -->
+                    <div class="stat-item">
+                        <div>
+                            <span>Всего</span>
+                        </div>
+
+                        <div>
+                            1
+                        </div>
+                    </div>
+
+                    <!-- В аукционе -->
+                    <div class="stat-item">
+                        <div>
+                            <span>В аукционе</span>
+                        </div>
+
+                        <div>
+                            <span>0</span>
+                        </div>
+                    </div>
+
+
+                    <!-- В работе -->
+                    <div class="stat-item">
+                        <div>
+                            <span>В работе</span>
+                        </div>
+
+                        <div>
+                            <span>0</span>
+                        </div>
+                    </div>
+
+
+                    <!-- На гарантии -->
+                    <div class="stat-item">
+                        <div>
+                            <span>На гарантии</span>
+                        </div>
+
+                        <div>
+                            <span>0</span>
+                        </div>
+                    </div>
+
+                    <!-- Завершено -->
+                    <div class="stat-item">
+                        <div>
+                            <span>Завершено</span>
+                        </div>
+
+                        <div>
+                            <span>0</span>
+                        </div>
+                    </div>
+
+                    <!-- Перерасчет -->
+                    <div class="stat-item">
+                        <div>
+                            <span>Перерасчет</span>
+                        </div>
+
+                        <div>
+                            <span>0</span>
+                        </div>
+                    </div>
+
+                    <!-- В черновике -->
+                    <div class="stat-item">
+                        <div>
+                            <span>В черновике</span>
+                        </div>
+
+                        <div>
+                            <span>0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Календарь. -->
+                <DatePicker class="datepicker mt-3 col-lg-12" v-model="picker"></DatePicker>
+
+            </div>
+            <div class="content-wrapper col-lg-9">
+                <div class="notifications">
+                    <div class="notifications__wrp">
+                        <span class="notifications__subtitle">Уведомления</span>
+                        <span class="notifications__history ml-3">История уведомлений</span>
+                    </div>
+                    <p class="notifications__txt">Новых уведомлений нет</p>
+                </div>
+                <h2 class="orders-title">Активные заказы</h2>
+                <div class="orders">
+                    <div class="orders__wrp d-flex justify-content-between">
+                        <span class="orders__bold-txt">Сдать до</span>
+                        <span class="orders__light-txt ml-3">31 декабря 2020</span>
+                        <span class="orders__bold-txt ml-3">ID задания:</span>
+                        <span class="orders__light-txt ml-3">111111</span>
+                        <span class="orders__blue-txt ml-3">В аукционе</span>
+                    </div>
+                    <div class="orders__wrp d-flex justify-content-between align-items-center">
+                        <span class="orders__light-txt ">Тест задания</span>
+                        <span class="orders__light-txt ">Создать лендинг</span>
+                        <div class="order__bid">
+                            <p class="orders__bold-txt">1 ставка</p>
+                            <p class="orders__light-txt">По договорённости</p>
+                        </div>
+                    </div>
+                    <p class="orders__bottom-txt">Перейдите в заказ,чтобы выбрать исполнителя</p>
+                </div>
+
+                <pagination class="pagination-sm block-pagination card-subcategory">
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination">
+                            <li class="page-item">
+                                <a class="page-link" href="#" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item"><a class="page-link" href="#">4</a></li>
+                            <li class="page-item"><a class="page-link" href="#">5</a></li>
+                            <li class="page-item"><a class="page-link" href="#">6</a></li>
+
+                            <li class="page-item">
+                                <a class="page-link" href="#" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </pagination>
+            </div>
+        </div>
+        </div>
+    </main>
 </body>
+
 </html>

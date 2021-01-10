@@ -4,6 +4,8 @@
 
 import CustomerHeader from '../components/customer-header.vue';
 import CHome from '../components/home.vue';
+import Calendar from 'v-calendar/lib/components/calendar.umd';
+import DatePicker from 'v-calendar/lib/components/date-picker.umd';
 import $ from "jquery";
 import axios from 'axios';
 
@@ -11,7 +13,9 @@ export default {
     name: 'c-home',
     components: {
         CustomerHeader,
-        CHome
+        CHome,
+        Calendar,
+        DatePicker
     },
     props: ['oData'],
     created() {
@@ -19,7 +23,7 @@ export default {
     },
     data() {
         return {
-            
+            picker: new Date()
         }
     },    
     methods: {

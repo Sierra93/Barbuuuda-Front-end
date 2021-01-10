@@ -1,7 +1,10 @@
 .header-nav {
   background: #00BCD4;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: space-around !important;
+  -ms-flex-pack: distribute !important;
+      justify-content: space-around !important;
 }
 
 .header-title {
@@ -29,4 +32,9 @@
 .header-text:hover {
   color: #FFFFFF;
   cursor: pointer;
+}
+/*# sourceMappingURL=customer-header.css.map */
+
+.right-head img {
+  padding: 5%;
 }

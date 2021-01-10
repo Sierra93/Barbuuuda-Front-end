@@ -12,7 +12,7 @@ export default {
     },
     created() {
         this._loadingCategories();
-        this._loadingSpecializations();
+        // this._loadingSpecializations();
 
         this.oData.bGuest = localStorage["role"] == "Гость" ? true : false;
         this.oData.bCustomer = localStorage["role"] == "Заказчик" ? true : false;
@@ -37,7 +37,6 @@ export default {
     data() {
         return {
             aCategories: [],
-            aSpecializations: [],
             bHideFields: false,
             checkCategory: null,
             checkSpec: null
@@ -56,6 +55,13 @@ export default {
             try {
                 axios.post(sUrl)
                     .then((response) => {
+                        // Заменит null на ""
+                        response.data.forEach(el => {
+                            if (el.specializations == null) {
+                                el.specializations = "";
+                            }
+                        });                           
+                        
                         this.aCategories = response.data;
                         console.log("Список категорий", this.aCategories);
                     })
@@ -71,33 +77,35 @@ export default {
         },
 
         // Функция подгружает список специализаций заданий.
-        _loadingSpecializations() {
-            const sUrl = this.oData.urlApi.concat("/task/get-specializations");
+        // _loadingSpecializations() {
+        //     const sUrl = this.oData.urlApi.concat("/task/get-specializations");
 
-            try {
-                axios.post(sUrl)
-                    .then((response) => {
-                        this.aSpecializations = response.data;
-                        console.log("Список специализаций", this.aSpecializations);
-                    })
+        //     try {
+        //         axios.post(sUrl)
+        //             .then((response) => {
+        //                 this.aSpecializations = response.data;
+        //                 console.log("Список специализаций", this.aSpecializations);
+        //             })
 
-                    .catch((XMLHttpRequest) => {
-                        throw new Error('Ошибка получения списка специализаций', XMLHttpRequest.response.data);
-                    });
-            } 
+        //             .catch((XMLHttpRequest) => {
+        //                 throw new Error('Ошибка получения списка специализаций', XMLHttpRequest.response.data);
+        //             });
+        //     } 
             
-            catch (ex) {
-                throw new Error(ex);
-            }
-        },
+        //     catch (ex) {
+        //         throw new Error(ex);
+        //     }
+        // },
 
         onBack() {
-            window.location.href = "/";     // Нужен роут именно через window,  чтобы корректно отработал хидер.
+            //window.location.href = "/";     
+            this.$router.push("/");
         },
 
         // Функция делает поля задачи доступными для ввода.
         onShowTaskFields() {
-            this.bHideFields = this.checkCategory && this.checkSpec ? true : false;
+            // this.bHideFields = this.checkCategory && this.checkSpec ? true : false;
+            this.bHideFields = true;
         },
 
         // Функция создает задание.
@@ -113,7 +121,7 @@ export default {
                     SpecCode: this.checkSpec
                 })
                     .then((response) => {
-                        console.log("Задание создана");
+                        console.log("Задание создано");
                     })
 
                     .catch((XMLHttpRequest) => {
@@ -124,6 +132,11 @@ export default {
             catch (ex) {
                 throw new Error(ex);
             }
+        },
+
+        onGetSpec(code) {
+            // Функция получает выбранную специализацию.
+            console.log("onGetSpec", code);
         }
     }
 }

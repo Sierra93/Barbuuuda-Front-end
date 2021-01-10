@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- Статусы. -->
+    <div class="container mt-4 pt-3 mb-4 text-center block-status">
+        <div class="mb-3 item-status">
+            <span class="circle-first">1</span>&nbsp;
+            <span class="category-text">Создание задания</span>
+            <br>
+            <small><a href="#">Редактировать</a></small>
+        </div>
+
+        <div class="mb-3 item-status">
+            <span class="circle-second">2</span>&nbsp;
+            <span class="category-text">В аукционе</span>
+        </div>
+
+        <div class="mb-3 item-status">
+            <span class="circle-second">3</span>&nbsp;
+            <span class="category-text">В работе</span>
+        </div>
+
+        <div class="mb-3 item-status">
+            <span class="circle-second">4</span>&nbsp;
+            <span class="category-text">На гарантии</span>
+        </div>
+
+        <div class="mb-3 item-status">
+            <span class="circle-second">5</span>&nbsp;
+            <span class="category-text">Завершен</span>
+        </div>
+    </div>
+
+    <div class="d-flex block-task-title">
+        <div class="col-lg-10">
+            <span class="edit-task-title">{{this.oEditTask.editTask[0].taskTitle}}</span><br>
+
+            <div class="mt-3">
+                <span>{{this.oEditTask.editTask[0].taskDetail}}</span>
+            </div>
+        </div>
+
+        <div class="col-lg-2">
+            <img src="../assets/images/chat-icon.png">&nbsp;
+            <strong class="chat-link">Открыть чат</strong>
+        </div>
+    </div>
+
+    <!-- Детали задания. -->
+    <div class="col-lg-12 mt-5">
+        <div class="d-flex">
+            <div class="fon-profile col-lg-3">
+                <h6>Детали задания</h6>
+
+                <div class="stat-item">
+                    <div>
+                        <small>ID:</small>
+                    </div>
+
+                    <div>
+                        {{this.oEditTask.editTask[0].taskId}}
+                    </div>
+                </div>
+
+                <div class="stat-item">
+                    <div>
+                        <small>Бюджет:</small>
+                    </div>
+
+                    <div>
+                        <small>{{this.oEditTask.editTask[0].taskPrice}} ₽</small>
+                    </div>
+                </div>
+
+                <div class="stat-item">
+                    <div>
+                        <small>Дата сдачи до:</small>
+                    </div>
+
+                    <div>
+                        <small>{{this.oEditTask.editTask[0].taskBegda}}</small>
+                    </div>
+                </div>
+
+                <div class="stat-item">
+                    <div>
+                        <small>Категория:</small>
+                    </div>
+
+                    <div>
+                        <small>{{this.oEditTask.editTask[0].categoryName}}</small>
+                    </div>
+                </div>
+
+                <div class="stat-item">
+                    <div>
+                        <small>Специализация:</small>
+                    </div>
+
+                    <div>
+                        <small>{{this.oEditTask.editTask[0].specName}}</small>
+                    </div>
+                </div>
+
+                <div class="stat-item task-details mt-1 mb-1">
+                    <div>
+                        <a href="#">Подробнее</a>
+                    </div>
+                </div>
+
+                <div class="stat-item task-details">
+                    <div>
+                        <button class="btn-next form-control-sm" v-on:click="">
+                            РЕДАКТИРОВАТЬ
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Правая часть. -->
+            <div class="col-lg-9">
+                <h5>Выберите исполнителя для вашего задания</h5>
+
+                <div class="d-flex justify-content-between mt-3">
+                    <div class="item-view">
+                        <span>Исполнители, представленные ниже, были<br> проверены и приняты администрацией.</span>
+                    </div>
+
+                    <div class="item-view">
+                        <span>Все исполнители имеют рейтинг, отзывы и<br> историю выполненных работ.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Календарь. -->
+        <DatePicker class="mt-3 col-lg-3" v-model="picker"></DatePicker>
+    </div>
+</body>
+
+</html>

@@ -1,6 +1,10 @@
 .div-link {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   margin-right: -9rem;
 }
 
@@ -34,9 +38,12 @@
 }
 
 .header {
-  justify-content: space-between;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
 
 .btn-state-left-menu {
   color: white;
 }
+/*# sourceMappingURL=nav-menu.css.map */

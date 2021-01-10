@@ -33,10 +33,17 @@ export default {
         return {
             oData: {
                 urlApi: "http://localhost:58822",
-                //urlApi: "https://dev1myprojects24.xyz",
+                // urlApi: "https://apphosting.site",
                 aHeader: [],
                 bGuest: false,
                 bCustomer: false
+            },
+            oEditTask: {
+                editTask: {},
+                sTypes: {
+                    All: "All",
+                    Single: "Single"
+                }
             },
             aFon: [],
             aWhyis: [],
