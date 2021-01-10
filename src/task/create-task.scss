@@ -124,6 +124,10 @@ input[type="radio"]:checked {
     border-color: #00BDD6;
     border: none;
     padding: 0 50px!important;
+
+    &:focus {
+        outline: none;
+    }
 }
 
 .search-block {

@@ -75,7 +75,9 @@
                     </div>
 
                     <div>
-                        <small>{{this.oEditTask.editTask[0].taskPrice}} ₽</small>
+                        <small v-show="this.oEditTask.editTask[0].taskPrice">{{this.oEditTask.editTask[0].taskPrice}} ₽</small>
+
+                        <small v-show="!this.oEditTask.editTask[0].taskPrice">По договоренности</small>
                     </div>
                 </div>
 

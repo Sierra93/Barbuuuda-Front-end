@@ -121,6 +121,10 @@ input[type="radio"]:checked {
   padding: 0 50px !important;
 }
 
+.btn-next:focus {
+  outline: none;
+}
+
 .search-block {
   display: flex;
   justify-content: center;
