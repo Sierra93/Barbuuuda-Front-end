@@ -32,8 +32,13 @@ export default {
             this.oData.bGuest = false;
             this.oData.bCustomer = false;
         }
+
+        // Подгружает данные задания, если идет редактирование.
+        if (this.oEditTask.editTask.bEdit) {
+            this.editTask = this.oEditTask.editTask[0];
+        }
     },
-    props: ['oData'],
+    props: ["oData", "oEditTask"],
     data() {
         return {
             aCategories: [],
@@ -41,7 +46,8 @@ export default {
             sSpecName: null,
             sSpecCode: null,
             sCategoryName: null,
-            sCategoryCode: null
+            sCategoryCode: null,
+            editTask: []
         }
     },    
     methods: {
@@ -110,22 +116,43 @@ export default {
         //     this.bHideFields = true;
         // },
 
-        // Функция создает задание.
+        // Функция создает или редактирует задание.
         onCreateTask() {
-            const sUrl = this.oData.urlApi.concat("/task/create");
+            let sUrl = "";
+            let oData = {};
+            let bEdit = this.oEditTask.editTask.bEdit;
 
-            try {
-                axios.post(sUrl, {
+            if (!bEdit) {
+                sUrl = this.oData.urlApi.concat("/task/create");
+                oData = {
                     OwnerId: +localStorage["userId"],
                     TaskTitle: $("#idTaskTitle").val(),
                     TaskDetail: $("#idTaskDetail").val(),
                     CategoryCode: this.sCategoryCode,
                     SpecCode: this.sSpecCode,
                     TaskEndda: $("#idDateTaskEndda").val(),
-                    TaskPrice: $("#idPrice").val()
-                })
+                    TaskPrice: +$("#idPrice").val()
+                };
+            }
+
+            if (bEdit) {
+                sUrl = this.oData.urlApi.concat("/task/edit");
+                oData = {
+                    TaskId: this.editTask.taskId,
+                    OwnerId: +localStorage["userId"],
+                    TaskTitle: $("#idEditTaskTitle").val(),
+                    TaskDetail: $("#idEditTaskDetail").val(),
+                    CategoryCode: this.editTask.categoryCode,
+                    SpecCode: this.editTask.specCode,
+                    TaskEndda: $("#idEditDateTaskEndda").val(),
+                    TaskPrice: +$("#idEditPrice").val()
+                };
+            }
+
+            try {
+                axios.post(sUrl, oData)
                     .then((response) => {
-                        console.log("Задание создано");
+                        console.log("Успешно");
                     })
 
                     .catch((XMLHttpRequest) => {

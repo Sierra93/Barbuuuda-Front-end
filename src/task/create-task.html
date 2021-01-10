@@ -151,7 +151,8 @@
               Категория задачи
             </label>
             <strong class="asterisk">&nbsp;&#42;</strong><br>
-            <span>{{sCategoryName || 'Не выбрано'}}</span>
+            <span v-show="!editTask">{{sCategoryName || 'Не выбрано'}}</span>
+            <span v-show="editTask">{{editTask.categoryName || 'Не выбрано'}}</span>
           </div>
 
           <div class="mb-3">
@@ -159,7 +160,8 @@
               Специализация задачи
             </label>
             <strong class="asterisk">&nbsp;&#42;</strong><br>
-            <span>{{sSpecName || 'Не выбрано'}}</span>
+            <span v-show="!editTask">{{sSpecName || 'Не выбрано'}}</span>
+            <span v-show="editTask">{{editTask.specName || 'Не выбрано'}}</span>
           </div>
 
           <h6>Опишите, что нужно сделать</h6>     
@@ -170,7 +172,14 @@
               <strong class="asterisk">&nbsp;&#42;</strong><br>
               <input id="idTaskTitle" 
                       class="form-control-sm input-task search-category" 
-                      placeholder="Введите название">
+                      placeholder="Введите название"
+                      v-show="!editTask">
+
+              <input  id="idEditTaskTitle" 
+                      class="form-control-sm input-task search-category" 
+                      placeholder="Введите название"
+                      v-show="editTask"
+                      :value="editTask.taskTitle">
             </div>            
 
             <div class="mb-3">
@@ -180,7 +189,15 @@
               <strong class="asterisk">&nbsp;&#42;</strong><br>
               <textarea id="idTaskDetail" 
                         class="form-control-sm input-task search-category"
-                        placeholder="Опишите, что именно вам нужно"/><br>
+                        placeholder="Опишите, что именно вам нужно"
+                        v-show="!editTask"/>
+
+              <textarea id="idEditTaskDetail" 
+                        class="form-control-sm input-task search-category"
+                        placeholder="Опишите, что именно вам нужно"
+                        v-show="editTask"
+                        :value="editTask.taskDetail"/><br>
+
               <input type="file"
                       class="form-control-sm"
                       multiple>
@@ -191,9 +208,16 @@
                 Дата сдачи задания
               </label>
               <strong class="asterisk">&nbsp;&#42;</strong><br>            
-              <input  id="idDateTaskEndda"
+              <input id="idDateTaskEndda"
                       type="datetime-local"
-                      class="form-control-sm date-endda">
+                      class="form-control-sm date-endda"
+                      v-show="!editTask">
+
+              <input id="idEditDateTaskEndda"
+                      type="datetime-local"
+                      class="form-control-sm date-endda"
+                      v-show="editTask"
+                      :value="editTask.taskEndda">
             </div>
 
             <div class="mb-3">
@@ -202,7 +226,13 @@
               </label>
               <strong class="asterisk">&nbsp;&#42;</strong><br>
               <input id="idPrice" 
-                      class="form-control-sm input-task-price date-endda">
+                      class="form-control-sm input-task-price date-endda"
+                      v-show="!editTask">
+
+                      <input id="idEditPrice" 
+                      class="form-control-sm input-task-price date-endda"
+                      v-show="editTask"
+                      :value="editTask.taskPrice">
             </div>
 
             <button class="btn-next form-control-sm" v-on:click="onBack()">НАЗАД</button>

@@ -43,7 +43,8 @@ export default {
                 sTypes: {
                     All: "All",
                     Single: "Single"
-                }
+                },
+                bEdit: false
             },
             aFon: [],
             aWhyis: [],

@@ -28,6 +28,10 @@ export default {
     },    
     props: ["oData", "oEditTask"],
     methods: {       
-        
+        // Функция переходит к изменению здания.
+        onEditTask() {
+            this.oEditTask.editTask.bEdit = true;
+            this.$router.push("/task/create");
+        }
     }
 }
