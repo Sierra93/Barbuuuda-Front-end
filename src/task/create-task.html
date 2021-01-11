@@ -151,8 +151,8 @@
               Категория задачи
             </label>
             <strong class="asterisk">&nbsp;&#42;</strong><br>
-            <span v-show="!editTask">{{sCategoryName || 'Не выбрано'}}</span>
-            <span v-show="editTask">{{editTask.categoryName || 'Не выбрано'}}</span>
+            <span v-show="!bEditTask">{{sCategoryName || 'Не выбрано'}}</span>
+            <span v-show="bEditTask">{{sCategoryName || 'Не выбрано'}}</span>
           </div>
 
           <div class="mb-3">
@@ -160,8 +160,8 @@
               Специализация задачи
             </label>
             <strong class="asterisk">&nbsp;&#42;</strong><br>
-            <span v-show="!editTask">{{sSpecName || 'Не выбрано'}}</span>
-            <span v-show="editTask">{{editTask.specName || 'Не выбрано'}}</span>
+            <span v-show="!bEditTask">{{sSpecName || 'Не выбрано'}}</span>
+            <span v-show="bEditTask">{{sSpecName || 'Не выбрано'}}</span>
           </div>
 
           <h6>Опишите, что нужно сделать</h6>     
@@ -188,12 +188,12 @@
               </label>
               <strong class="asterisk">&nbsp;&#42;</strong><br>
               <textarea id="idTaskDetail" 
-                        class="form-control-sm input-task search-category"
+                        class="form-control-sm input-task detail-field"
                         placeholder="Опишите, что именно вам нужно"
                         v-show="!editTask"/>
 
               <textarea id="idEditTaskDetail" 
-                        class="form-control-sm input-task search-category"
+                        class="form-control-sm input-task detail-field"
                         placeholder="Опишите, что именно вам нужно"
                         v-show="editTask"
                         :value="editTask.taskDetail"/><br>

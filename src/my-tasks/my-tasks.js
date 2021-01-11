@@ -18,6 +18,11 @@ export default {
     created() {
         this._loadingTaskList();
     },
+    watch: {
+        $route(to, from) {
+            console.log("route has been cnahged...");
+        }
+    },
     data() {
         return {
             aTasks: []
@@ -70,6 +75,39 @@ export default {
 
                     .catch((XMLHttpRequest) => {
                         throw new Error('Ошибка получения задания', XMLHttpRequest.response.data);
+                    });
+            } 
+            
+            catch (ex) {
+                throw new Error(ex);
+            }
+        },
+
+        // Функция фильтрует список заданий заказчика.
+        onFilterTasks(param) {
+            if (!param) {
+                this._loadingTaskList();
+                window.history.pushState({ path: oldUrl }, '', oldUrl);
+                return;
+            }
+
+            const sUrl = this.oData.urlApi.concat("/task/filter?query=".concat(param));
+            let newUrl;
+            let oldUrl = ("/tasks/my");
+            window.history.pushState({ path: oldUrl }, '', oldUrl);
+
+            try {
+                axios.get(sUrl)
+                    .then((response) => {         
+                        console.log("filter data", response.data);
+                        this.aTasks = response.data;
+                        newUrl = window.location.href + "/filter=" + param;
+                        window.history.pushState({ path: newUrl }, '', newUrl);
+                    })
+
+                    .catch((XMLHttpRequest) => {
+                        window.history.pushState({ path: oldUrl }, '', oldUrl);
+                        throw new Error('Ошибка фильтрации', XMLHttpRequest.response.data);
                     });
             } 
             

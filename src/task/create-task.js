@@ -35,7 +35,10 @@ export default {
 
         // Подгружает данные задания, если идет редактирование.
         if (this.oEditTask.editTask.bEdit) {
+            this.bEditTask = true;
             this.editTask = this.oEditTask.editTask[0];
+            this.sCategoryName = this.oEditTask.editTask[0].categoryName;
+            this.sSpecName = this.oEditTask.editTask[0].specName;
         }
     },
     props: ["oData", "oEditTask"],
@@ -47,15 +50,11 @@ export default {
             sSpecCode: null,
             sCategoryName: null,
             sCategoryCode: null,
+            bEditTask: false,
             editTask: []
         }
     },    
     methods: {
-        // Функция делает активной область заполнения полей задания.
-        onShowTask(e) {
-            console.log("onShowTask");
-        },
-
         // Функция подгружает список категорий заданий.
         _loadingCategories() {
             const sUrl = this.oData.urlApi.concat("/task/get-categories");

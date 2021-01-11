@@ -13,7 +13,7 @@ export default {
         CustomerHeader,
         VueRouter
     },
-    props: ['oData'],
+    props: ["oData", "oEditTask"],
     data() {
         return {
             bGuest: false
@@ -79,6 +79,7 @@ export default {
             }
 
             else if (value == "Создать задание") {
+                this.oEditTask.editTask.bEdit = false;
                 this.$router.push("/task/create");
             }
         }

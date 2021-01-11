@@ -35,12 +35,12 @@
                 </div>
 
                 <div>
-                    <span>Сортировать: &nbsp;</span>
-                    <select class="form-control-sm task-filter">
+                    <span>Фильтр: &nbsp;</span>
+                    <select class="form-control-sm task-filter"
+                            v-on:change="onFilterTasks($event.target.value)">
                         <option></option>
-                        <option>По дате</option>
-                        <option>По категории</option>
-                        <option>По специализации</option>
+                        <option>По дате создания</option>
+                        <option>По дате сдачи</option>
                     </select>
                 </div>
             </div>

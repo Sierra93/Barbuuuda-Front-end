@@ -51,13 +51,24 @@
 }
 
 .search-category {
-  width: 355px;
+  width: 400px !important;
   height: 48px !important;
   border: 1px solid #00BCD4;
   border-radius: 0 !important;
 }
 
 .search-category:focus {
+  outline: none;
+}
+
+.detail-field {
+  width: 400px !important;
+  height: 100px !important;
+  border: 1px solid #00BCD4;
+  border-radius: 0 !important;
+}
+
+.detail-field:focus {
   outline: none;
 }
 
