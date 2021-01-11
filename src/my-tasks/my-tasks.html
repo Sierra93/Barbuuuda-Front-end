@@ -28,9 +28,16 @@
             <div class="search-block-task mb-3 mt-3">
                 <div class="d-flex">
                     <input type="search" class="form-control-sm search-category"
-                        placeholder="Поиск задания по ID или названию...">
+                        placeholder="Поиск задания по ID или названию..."
+                        v-model="sSearch"
+                        v-on:keyup.enter="onSearchTask($event.target.value)">
                     <div class="input-group-append">
-                        <button class="btn btn-detault btn-search" type="button" id="button-addon2">Найти</button>
+                        <button class="btn btn-detault btn-search" 
+                                type="button"
+                                :value="sSearch"
+                                v-on:click="onSearchTask(sSearch)">
+                            Найти
+                        </button>
                     </div>
                 </div>
 

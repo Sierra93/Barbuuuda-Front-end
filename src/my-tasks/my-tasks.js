@@ -25,7 +25,8 @@ export default {
     },
     data() {
         return {
-            aTasks: []
+            aTasks: [],
+            sSearch: null
          }
     },    
     props: ["oData", "oEditTask"],
@@ -103,6 +104,41 @@ export default {
                         this.aTasks = response.data;
                         newUrl = window.location.href + "/filter=" + param;
                         window.history.pushState({ path: newUrl }, '', newUrl);
+                    })
+
+                    .catch((XMLHttpRequest) => {
+                        window.history.pushState({ path: oldUrl }, '', oldUrl);
+                        throw new Error('Ошибка фильтрации', XMLHttpRequest.response.data);
+                    });
+            } 
+            
+            catch (ex) {
+                throw new Error(ex);
+            }
+        },
+
+        // Функция ищет задания в соответствии с поисковым параметром.
+        onSearchTask(param) {
+            const sUrl = this.oData.urlApi.concat("/task/search?param=".concat(param));
+            let newUrl;
+            let oldUrl = ("/tasks/my");
+            window.history.pushState({ path: oldUrl }, '', oldUrl);            
+
+            try {
+                axios.get(sUrl)
+                    .then((response) => {         
+                        console.log("filter data", response.data);
+                        this.aTasks = response.data;
+
+                        if (+param === NaN) {
+                            newUrl = window.location.href + "/search=" + param;
+                            window.history.pushState({ path: newUrl }, '', newUrl);
+                        }
+            
+                        else {
+                            newUrl = window.location.href + "/id=" + param;
+                            window.history.pushState({ path: newUrl }, '', newUrl);
+                        }                        
                     })
 
                     .catch((XMLHttpRequest) => {
