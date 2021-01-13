@@ -19,7 +19,7 @@ export default {
     },
     props: ['oData'],
     created() {
-        
+        this._loadingActiveTasks();
     },
     data() {
         return {
@@ -27,6 +27,26 @@ export default {
         }
     },    
     methods: {
-        
+        // Функция получает активные задания заказчика.
+        _loadingActiveTasks() {
+            let userId = +localStorage["userId"];
+            const sUrl = this.oData.urlApi.concat("/task/active?userId=".concat(userId));
+
+            try {
+                axios.get(sUrl)
+                    .then((response) => {         
+                        console.log("Активные задания", response.data);
+                        this.oData.aTasks = response.data;
+                    })
+
+                    .catch((XMLHttpRequest) => {
+                        throw new Error('Ошибка активных заданий', XMLHttpRequest.response.data);
+                    });
+            } 
+            
+            catch (ex) {
+                throw new Error(ex);
+            }
+        }
     }
 }

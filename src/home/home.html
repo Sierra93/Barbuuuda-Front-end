@@ -8,7 +8,7 @@
 
 <body>
     <main class="container-fluid">
-        <h1 class="main-title col-lg-12">Главная</h1>
+        <h3 class="my-tasks">Главная</h3>
         <div class="main-wrapper d-flex justify-content-between">
             <div class="content-wrapper col-lg-3">
                 <div class="fon-profile">
@@ -106,25 +106,85 @@
                     </div>
                     <p class="notifications__txt">Новых уведомлений нет</p>
                 </div>
-                <h2 class="orders-title">Активные заказы</h2>
-                <div class="orders">
-                    <div class="orders__wrp d-flex justify-content-between">
-                        <span class="orders__bold-txt">Сдать до</span>
-                        <span class="orders__light-txt ml-3">31 декабря 2020</span>
-                        <span class="orders__bold-txt ml-3">ID задания:</span>
-                        <span class="orders__light-txt ml-3">111111</span>
-                        <span class="orders__blue-txt ml-3">В аукционе</span>
-                    </div>
-                    <div class="orders__wrp d-flex justify-content-between align-items-center">
-                        <span class="orders__light-txt ">Тест задания</span>
-                        <span class="orders__light-txt ">Создать лендинг</span>
-                        <div class="order__bid">
-                            <p class="orders__bold-txt">1 ставка</p>
-                            <p class="orders__light-txt">По договорённости</p>
+                <h3 class="my-tasks">Активные заказы</h3>
+
+                <!-- Список заданий. -->
+            <div class="block-my-tasks">
+                <div class="card card-task card-subcategory" v-for="el in oData.aTasks">
+                    <div class="card-header header-task">
+                        <div class="block-icon">
+                            <div>
+                                <img src="../assets/images/1-wiper1.png">
+                            </div>
+                            &nbsp;
+
+                            <div class="ml-1 text-dark">
+                                <span>{{el.userLogin}}</span><br>
+                                <small>{{el.taskBegda}}</small>
+                            </div>
+                        </div>
+
+                        <div class="">
+                            <img src="../assets/images/message.png">&nbsp;
+                            <span class="text-dark">{{el.countOffers}}</span>
+                        </div>
+
+                        <div class="">
+                            <img src="../assets/images/Icon.png">&nbsp;
+                            <span class="text-dark">{{el.countViews}}</span>
+                        </div>
+
+                        <div class="badge badge-pill badge-primary">
+                            <span>{{el.typeCode}}</span>
+                        </div>
+
+                        <div class="badge badge-pill badge-warning">
+                            <span>{{el.statusName}}</span>
+                        </div>
+
+                        <div class="task-price">
+                            <img src="../assets/images/date_range.png">
+                            <span>{{el.taskEndda}}</span>
+                        </div>
+
+                        <div class="task-price">
+                            <span>{{el.taskPrice || 'По договоренности'}}
+                                <span v-show="el.taskPrice">₽</span>
+                            </span>
                         </div>
                     </div>
-                    <p class="orders__bottom-txt">Перейдите в заказ,чтобы выбрать исполнителя</p>
+
+                    <div class="card-body">
+                        <h5 class="card-title task-title">
+                            {{el.taskTitle}}
+                        </h5>
+
+                        <p class="card-text task-detail">
+                            {{el.taskDetail}}
+                        </p>
+                    </div>
+
+                    <div class="card-footer task-detail">
+                        <div class="block-footer">
+                            <div class="task-category">
+                                <span>{{el.categoryName}}</span>
+                            </div>
+
+
+                            <div class="offer">
+                                <!-- <button class="btn-next form-control-sm" v-on:click="">КО ВСЕМ СТАВКАМ</button> -->
+
+                                <button 
+                                    class="btn-next form-control-sm" 
+                                    _v-bind:value="el.taskId"
+                                    v-on:click="onGetTask(el.taskId)">
+                                    ОТКРЫТЬ ЗАДАНИЕ
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+            </div>
 
                 <pagination class="pagination-sm block-pagination card-subcategory">
                     <nav aria-label="Page navigation example">
