@@ -20,9 +20,32 @@ export default {
     created() {},
     data() {
         return {
-            picker: new Date()
+            picker: new Date(),
+            sDate: null,
+            aCalendarTasks: []
         }
     },
-    props: ['oData'],
-    methods: {}
+    props: ["oData"],
+    methods: {
+        onGetDate(date) {
+            let formatDate = date.toLocaleString();
+            const sUrl = this.$parent.oData.urlApi.concat("/task/concretely-date?date=".concat(formatDate));
+
+            try {
+                axios.get(sUrl)
+                    .then((response) => {         
+                        this.$parent.oData.aTasks= response.data;               
+                        console.log("Задания выбранной даты", this.$parent.oData.aTasks);
+                    })
+
+                    .catch((XMLHttpRequest) => {
+                        throw new Error('Ошибка получения заданий выбранной даты', XMLHttpRequest.response.data);
+                    });
+            } 
+            
+            catch (ex) {
+                throw new Error(ex);
+            }
+        }
+    }
 }

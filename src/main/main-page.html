@@ -8,8 +8,16 @@
 
 <body class="flexcroll">
   <NavMenu v-show="oData.bGuest" v-bind:oData="oData"></NavMenu>
-  <CustomerHeader v-show="oData.bCustomer" v-bind:oData="oData" v-bind:oEditTask="oEditTask"></CustomerHeader>
-  <router-view v-bind:oData="oData" v-bind:oEditTask="oEditTask"></router-view>
+  
+  <CustomerHeader v-show="oData.bCustomer" 
+    v-bind:oData="oData" 
+    v-bind:oEditTask="oEditTask">
+  </CustomerHeader>
+
+  <router-view 
+    v-bind:oData="oData" 
+    v-bind:oEditTask="oEditTask">
+  </router-view>
 
   <Footer></Footer>
 </body>

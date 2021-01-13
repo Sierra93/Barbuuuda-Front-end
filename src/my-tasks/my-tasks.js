@@ -18,14 +18,8 @@ export default {
     created() {
         this._loadingTaskList();
     },
-    watch: {
-        $route(to, from) {
-            console.log("route has been cnahged...");
-        }
-    },
     data() {
         return {
-            aTasks: [],
             sSearch: null
          }
     },    
@@ -40,8 +34,8 @@ export default {
             try {
                 axios.post(sUrl)
                     .then((response) => {         
-                        this.aTasks = response.data;               
-                        console.log("Список заданий", this.aTasks);
+                        this.oData.aTasks = response.data;               
+                        console.log("Список заданий", this.oData.aTasks);
                     })
 
                     .catch((XMLHttpRequest) => {
@@ -101,7 +95,7 @@ export default {
                 axios.get(sUrl)
                     .then((response) => {         
                         console.log("filter data", response.data);
-                        this.aTasks = response.data;
+                        this.oData.aTasks = response.data;
                         newUrl = window.location.href + "/filter=" + param;
                         window.history.pushState({ path: newUrl }, '', newUrl);
                     })
@@ -128,7 +122,7 @@ export default {
                 axios.get(sUrl)
                     .then((response) => {         
                         console.log("filter data", response.data);
-                        this.aTasks = response.data;
+                        this.oData.aTasks = response.data;
 
                         if (+param === NaN) {
                             newUrl = window.location.href + "/search=" + param;

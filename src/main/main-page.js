@@ -36,7 +36,9 @@ export default {
                 // urlApi: "https://apphosting.site",
                 aHeader: [],
                 bGuest: false,
-                bCustomer: false
+                bCustomer: false,
+                aCalendarTasks: [],
+                aTasks: []
             },
             oEditTask: {
                 editTask: {},
