@@ -18,14 +18,14 @@
             </div>
 
             <div>
-                <span>{{countTotal}}</span>
+                <span>{{countTotalTasks}}</span>
             </div>
         </div>
 
         <!-- В аукционе -->
-        <div class="stat-item">
+        <div class="stat-item-active">
             <div>
-                <span>В аукционе</span>
+                <span class="stat-link" v-on:click="onGetStatusTask($event.target.textContent)">В аукционе</span>
             </div>
 
             <div>
@@ -35,9 +35,9 @@
 
 
         <!-- В работе -->
-        <div class="stat-item">
+        <div class="stat-item-active">
             <div>
-                <span>В работе</span>
+                <span class="stat-link" v-on:click="onGetStatusTask($event.target.textContent)">В работе</span>
             </div>
 
             <div>
@@ -47,9 +47,9 @@
 
 
         <!-- На гарантии -->
-        <div class="stat-item">
+        <div class="stat-item-active">
             <div>
-                <span>На гарантии</span>
+                <span class="stat-link" v-on:click="onGetStatusTask($event.target.textContent)">На гарантии</span>
             </div>
 
             <div>
@@ -58,9 +58,9 @@
         </div>
 
         <!-- Завершено -->
-        <div class="stat-item">
+        <div class="stat-item-active">
             <div>
-                <span>Завершено</span>
+                <span class="stat-link" v-on:click="onGetStatusTask($event.target.textContent)">Завершено</span>
             </div>
 
             <div>
@@ -69,9 +69,9 @@
         </div>
 
         <!-- Перерасчет -->
-        <div class="stat-item">
+        <div class="stat-item-active">
             <div>
-                <span>Перерасчет</span>
+                <span class="stat-link" v-on:click="onGetStatusTask($event.target.textContent)">Перерасчет</span>
             </div>
 
             <div>
@@ -80,9 +80,9 @@
         </div>
 
         <!-- В черновике -->
-        <div class="stat-item">
+        <div class="stat-item-active">
             <div>
-                <span>В черновике</span>
+                <span class="stat-link" v-on:click="onGetStatusTask($event.target.textContent)">В черновике</span>
             </div>
 
             <div>

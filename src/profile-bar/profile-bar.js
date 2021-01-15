@@ -19,6 +19,7 @@ export default {
     },
     created() {
         this._loadingCountTask();
+        this._loadingetTotalCountTasks();
     },
     data() {
         return {
@@ -31,7 +32,8 @@ export default {
             countGarant: null,
             countComplete: null,
             countPerechet: null,
-            countDraft: null
+            countDraft: null,
+            countTotalTasks: null
         }
     },
     props: ["oData"],
@@ -49,7 +51,6 @@ export default {
         // Функция получает кол-во заданий в разных статусах.
         _loadingCountTask() {
             let oData = this.$parent.oData;
-
             let sUrl = oData.urlApi.concat("/task/count-status");
 
             axios.post(sUrl)
@@ -61,6 +62,36 @@ export default {
                     this.countComplete = response.data.complete;
                     this.countPerechet = response.data.perechet;
                     this.countDraft = response.data.draft;
+                })
+
+                .catch((XMLHttpRequest) => {
+                    throw new Error(XMLHttpRequest.response.data);
+                });
+        },
+
+        // Функция выгружает заданий с определенным статусом.
+        onGetStatusTask(status) {
+            let userId = +localStorage["userId"];
+            let sUrl = this.$parent.oData.urlApi.concat("/task/task-status?status=".concat(status).concat("&userId=".concat(userId)));
+
+            axios.get(sUrl)
+                .then((response) => {
+                    this.$parent.oData.aTasks = response.data;
+                })
+
+                .catch((XMLHttpRequest) => {
+                    throw new Error(XMLHttpRequest.response.data);
+                });
+        },
+
+        // Функция выгружает кол-во заданий всего.
+        _loadingetTotalCountTasks() {
+            let userId = +localStorage["userId"];
+            let sUrl = this.$parent.oData.urlApi.concat("/task/total?userId=".concat(userId));
+
+            axios.get(sUrl)
+                .then((response) => {
+                    this.countTotalTasks = response.data;
                 })
 
                 .catch((XMLHttpRequest) => {
