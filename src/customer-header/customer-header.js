@@ -16,7 +16,8 @@ export default {
     props: ["oData", "oEditTask"],
     data() {
         return {
-            bGuest: false
+            bGuest: false,
+            bCreateBtn: false
         }
     },
     created() {
@@ -66,7 +67,7 @@ export default {
 
         // Функция распределяет по пунктам хидера.
         onGetMenu(value) {
-            if (value.target && value.target.text == "Barbuuuda") {
+            if (value.target && value.currentTarget.text == " Barbuuuda ") {
                 this.$router.push("/");
             }
 
@@ -74,7 +75,7 @@ export default {
                 this.$router.push("/c/home");
             }
 
-            else if (value == "Мои задания") {
+            else if (value == "Мои задания") {                
                 this.$router.push("/tasks/my");
             }
 

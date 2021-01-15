@@ -9,10 +9,6 @@ import VueRouter from 'vue-router';
 import $ from "jquery";
 import axios from 'axios';
 
-$(function() {
-    // $('#idNotCustomer').modal('show');
-});
-
 export default {
     name: 'container',
     components: {
@@ -38,6 +34,7 @@ export default {
         this._loadGetWork();
         this._loadAdvantages();
         this._loadPriveleges();
+        this._loadingCategoryList();
         // this.setSelectedRole();
     },
     methods: {
@@ -235,6 +232,21 @@ export default {
             }
 
             this.$router.push("/task/create");
+        },
+
+        // Функция выгружает список категорий заданий.
+        _loadingCategoryList() {
+            let sUrl = this.$parent.oData.urlApi.concat("/main/category-list");
+
+            axios.get(sUrl)
+                .then((response) => {
+                    this.$parent.oData.aCategories = response.data;
+                    console.log("Список категорий заданий", this.$parent.oData.aCategories);
+                })
+
+                .catch((XMLHttpRequest) => {
+                    throw new Error(XMLHttpRequest.response.data);
+                });
         }
     }
 }

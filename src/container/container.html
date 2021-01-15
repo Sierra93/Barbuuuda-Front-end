@@ -359,7 +359,23 @@
   <!-- Секция категорий. -->
   <div class="col-lg-12 mb-3">
     <div class="row">
-      <div class="col-lg-4">
+      <div class="col-lg-4 mb-3" v-for="el in oData.aCategories">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title title-row">
+              <img src="../assets/images/768c92df1858f1fbb75ca810126d03981.png" class="mr-2" />
+              <strong class="mr-2">{{el.categoryName}}</strong>
+              <img src="../assets/images/Group1.png" />
+            </h5>
+
+            <span class="card-text">
+              Подкатегорий: {{el.specializations.length}}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- <div class="col-lg-4">
         <div class="card">
           <div class="card-body">
             <h5 class="card-title title-row">
@@ -373,9 +389,9 @@
             </span>
           </div>
         </div>
-      </div>
+      </div> -->
 
-      <div class="col-lg-4">
+      <!-- <div class="col-lg-4">
         <div class="card">
           <div class="card-body">
             <h5 class="card-title title-row">
@@ -389,23 +405,7 @@
             </span>
           </div>
         </div>
-      </div>
-
-      <div class="col-lg-4">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title title-row">
-              <img src="../assets/images/768c92df1858f1fbb75ca810126d03981.png" class="mr-2" />
-              <strong class="mr-2">Web-разработка</strong>
-              <img src="../assets/images/Group1.png" />
-            </h5>
-
-            <span class="card-text">
-              Подкатегорий: 5
-            </span>
-          </div>
-        </div>
-      </div>
+      </div> -->
     </div>
   </div>
 
