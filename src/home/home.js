@@ -1,7 +1,7 @@
 /* eslint-disable */
 // eslint-disable-next-line no-unused-vars
 
-
+import Vue from "vue";
 import CustomerHeader from '../components/customer-header.vue';
 import CHome from '../components/home.vue';
 import Calendar from 'v-calendar/lib/components/calendar.umd';
@@ -23,7 +23,8 @@ export default {
     },
     data() {
         return {
-            picker: new Date()
+            picker: new Date(),
+            aCalendarTasks: []
         }
     },    
     methods: {
@@ -47,6 +48,16 @@ export default {
             catch (ex) {
                 throw new Error(ex);
             }
+        },
+
+        // Функция получает задания выбранной даты в календаре.
+        onGetDate(date) {                   
+            let oData = this.$parent.oData;                     
+            this.utils.getTasksDate(date, oData);
+            
+            setTimeout(() => {
+                this.$parent.oData.aTasks = window.aTasks;
+            }, 100);
         }
     }
 }

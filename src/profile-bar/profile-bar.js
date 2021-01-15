@@ -17,35 +17,55 @@ export default {
         Calendar,
         DatePicker
     },
-    created() {},
+    created() {
+        this._loadingCountTask();
+    },
     data() {
         return {
             picker: new Date(),
             sDate: null,
-            aCalendarTasks: []
+            aCalendarTasks: [],
+            countTotal: null,
+            countAuction: null,
+            countWork: null,
+            countGarant: null,
+            countComplete: null,
+            countPerechet: null,
+            countDraft: null
         }
     },
     props: ["oData"],
     methods: {
+        // Функция получает задания выбранной даты в календаре.
         onGetDate(date) {
-            let formatDate = date.toLocaleString();
-            const sUrl = this.$parent.oData.urlApi.concat("/task/concretely-date?date=".concat(formatDate));
-
-            try {
-                axios.get(sUrl)
-                    .then((response) => {         
-                        this.$parent.oData.aTasks= response.data;               
-                        console.log("Задания выбранной даты", this.$parent.oData.aTasks);
-                    })
-
-                    .catch((XMLHttpRequest) => {
-                        throw new Error('Ошибка получения заданий выбранной даты', XMLHttpRequest.response.data);
-                    });
-            } 
+            let oData = this.$parent.oData;                     
+            this.utils.getTasksDate(date, oData);
             
-            catch (ex) {
-                throw new Error(ex);
-            }
+            setTimeout(() => {
+                this.$parent.oData.aTasks = window.aTasks;
+            }, 100);
+        },
+
+        // Функция получает кол-во заданий в разных статусах.
+        _loadingCountTask() {
+            let oData = this.$parent.oData;
+
+            let sUrl = oData.urlApi.concat("/task/count-status");
+
+            axios.post(sUrl)
+                .then((response) => {
+                    this.countTotal = response.data.total;
+                    this.countAuction = response.data.auction;
+                    this.countWork = response.data.work;
+                    this.countGarant = response.data.garant;
+                    this.countComplete = response.data.complete;
+                    this.countPerechet = response.data.perechet;
+                    this.countDraft = response.data.draft;
+                })
+
+                .catch((XMLHttpRequest) => {
+                    throw new Error(XMLHttpRequest.response.data);
+                });
         }
     }
 }

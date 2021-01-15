@@ -38,7 +38,24 @@ export default {
                 bGuest: false,
                 bCustomer: false,
                 aCalendarTasks: [],
-                aTasks: []
+                aTasks: [],
+                countTotalTask: null,
+                countAuctionTask: null,
+                countAuctionTask: null,
+                countWorkTask: null,
+                countGarantTask: null,
+                countCompleteTask: null,
+                countPerechetTask: null,
+                countDraftTask: null,
+                oTaskStatus: {
+                    Total: "Всего",
+                    Auction: "В аукционе",
+                    Work: "В работе",
+                    Garant: "На гарантии",
+                    Complete: "Завершено",
+                    Perechet: "Перерасчет",
+                    Draft: "В черновике"
+                }
             },
             oEditTask: {
                 editTask: {},
@@ -53,7 +70,7 @@ export default {
             aWork: [],
             aAdvantages: [],
             aProveliges: [],
-            sPassword: null                                
+            sPassword: null                             
         }
     },    
     methods: {               
@@ -245,6 +262,27 @@ export default {
                         throw new Error('Ошибка регистрации', XMLHttpRequest.response.data);
                     });
             }
+            
+            catch (ex) {
+                throw new Error(ex);
+            }
+        },
+
+        selectDate(date) {
+            let formatDate = date.toLocaleString();
+            const sUrl = this.$parent.oData.urlApi.concat("/task/concretely-date?date=".concat(formatDate));
+    
+            try {
+                axios.get(sUrl)
+                    .then((response) => {         
+                        this.$parent.oData.aTasks= response.data;               
+                        console.log("Задания выбранной даты", this.$parent.oData.aTasks);
+                    })
+    
+                    .catch((XMLHttpRequest) => {
+                        throw new Error('Ошибка получения заданий выбранной даты', XMLHttpRequest.response.data);
+                    });
+            } 
             
             catch (ex) {
                 throw new Error(ex);
