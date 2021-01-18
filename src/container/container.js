@@ -237,16 +237,8 @@ export default {
         // Функция выгружает список категорий заданий.
         _loadingCategoryList() {
             let sUrl = this.$parent.oData.urlApi.concat("/main/category-list");
-
-            axios.get(sUrl)
-                .then((response) => {
-                    this.$parent.oData.aCategories = response.data;
-                    console.log("Список категорий заданий", this.$parent.oData.aCategories);
-                })
-
-                .catch((XMLHttpRequest) => {
-                    throw new Error(XMLHttpRequest.response.data);
-                });
+            this.utils.getTaskCategories(sUrl);
+            this.$parent.oData.aCategories = window.aTaskCategories;
         }
     }
 }

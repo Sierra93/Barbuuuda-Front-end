@@ -6,6 +6,7 @@ import CHome from './components/home.vue';
 import MyTasks from './components/my-tasks.vue';
 import ProfileBar from './components/profile-bar.vue';
 import TaskView from './components/view-task.vue';
+import Categories from './components/categories.vue';
 
 export default new VueRouter({
   routes: [{
@@ -43,13 +44,13 @@ export default new VueRouter({
       name: 'view-task',
       component: TaskView,
       props: true
+    },
+    {
+      path: '/categories',
+      name: 'categories',
+      component: Categories,
+      props: true
     }
-    // {
-    //   path: '/task/edit',
-    //   name: 'edit-task',
-    //   component: ProfileBar,
-    //   props: true
-    // }
   ],
   mode: 'history'
 })
