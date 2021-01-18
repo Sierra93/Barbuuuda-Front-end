@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Аукцион заданий</title>
+</head>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,12 +21,12 @@
     <!-- Левая панель. -->
     <div class="d-flex mt-5 col-lg-12">
         <div class="col-lg-3">
-            <ProfileBar></ProfileBar>
+            <!-- <ProfileBar></ProfileBar> -->
         </div>
 
         <!-- Правая часть. -->
         <div class="col-lg-9">
-            <h3 class="my-tasks">Мои задания</h3>
+            <h3 class="my-tasks">Аукцион заданий</h3>
             <div class="search-block-task mb-3 mt-3">
                 <div class="d-flex">
                     <input type="search" class="form-control-sm search-category"
@@ -50,9 +54,9 @@
                 </div>
             </div>
 
-            <!-- Список заданий. -->
+            <!-- Аукцион-->
             <div class="block-my-tasks">
-                <div class="card card-task card-subcategory" v-for="el in oData.aTasks">
+                <div class="card card-task card-subcategory" v-for="el in aAuctionTasks">
                     <div class="card-header header-task">
                         <div class="block-icon">
                             <div>
@@ -156,4 +160,6 @@
     </div>
 </body>
 
+</html>
+</body>
 </html>

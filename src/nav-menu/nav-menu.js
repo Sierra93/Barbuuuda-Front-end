@@ -41,6 +41,17 @@ export default {
                 this.oData.bGuest = false;
                 this.oData.bExecutor = false;                
             }
+
+            if (this.$route.name == "auction" && this.oData.bCustomer) {
+                this.oData.bGuest = false;
+                this.oData.bExecutor = false;                
+            }
+
+            if (this.$route.name == "auction" && this.oData.bExecutor) {
+                this.oData.bGuest = false;
+                this.oData.bCustomer = false;
+                this.oData.bExecutor = true;                
+            }
     
             if (this.$route.name == "task/create" && this.oData.bExecutor) {
                 this.oData.bGuest = false;

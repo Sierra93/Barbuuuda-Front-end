@@ -7,6 +7,7 @@ import MyTasks from './components/my-tasks.vue';
 import ProfileBar from './components/profile-bar.vue';
 import TaskView from './components/view-task.vue';
 import Categories from './components/categories.vue';
+import Auction from './components/auction.vue';
 
 export default new VueRouter({
   routes: [{
@@ -49,6 +50,12 @@ export default new VueRouter({
       path: '/categories',
       name: 'categories',
       component: Categories,
+      props: true
+    },
+    {
+      path: '/auction',
+      name: 'auction',
+      component: Auction,
       props: true
     }
   ],
