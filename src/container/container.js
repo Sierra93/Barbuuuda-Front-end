@@ -25,7 +25,8 @@ export default {
             aWork: [],
             aAdvantages: [],
             aProveliges: [],
-            sPassword: null
+            sPassword: null,
+            aHope: []
         }
     },
     created() {
@@ -36,6 +37,7 @@ export default {
         this._loadPriveleges();
         this._loadingCategoryList();
         // this.setSelectedRole();
+        this._loadHope();
     },
     methods: {
         // Функция выгружает данные для фона.
@@ -189,7 +191,9 @@ export default {
                     .catch((XMLHttpRequest) => {
                         throw new Error('Ошибка регистрации', XMLHttpRequest.response.data);
                     });
-            } catch (ex) {
+            } 
+            
+            catch (ex) {
                 throw new Error(ex);
             }
         },
@@ -239,6 +243,27 @@ export default {
             let sUrl = this.$parent.oData.urlApi.concat("/main/category-list");
             this.utils.getTaskCategories(sUrl);
             this.$parent.oData.aCategories = window.aTaskCategories;
+        },
+
+        // Функция выгружает данные долгосрочного сотрудничества.
+        _loadHope() {
+            let sUrl = this.$parent.oData.urlApi.concat("/main/get-hope");
+            
+            try {
+                axios.get(sUrl)
+                    .then((response) => {
+                        this.aHope.push(response.data);
+                        console.log("Данные сотрудничества", this.aHope);
+                    })
+
+                    .catch((XMLHttpRequest) => {
+                        throw new Error(XMLHttpRequest.response.data);
+                    });
+            } 
+            
+            catch (ex) {
+                throw new Error(ex);
+            }
         }
     }
 }
