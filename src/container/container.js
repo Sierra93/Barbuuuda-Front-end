@@ -26,7 +26,15 @@ export default {
             aAdvantages: [],
             aProveliges: [],
             sPassword: null,
-            aHope: []
+            aHope: [],
+            // path: '../assets/images',
+            // file: '768c92df1858f1fbb75ca810126d03981.png',
+            // images: [
+            //     { url: require("../assets/images/768c92df1858f1fbb75ca810126d03981.png") }
+            //     // this.$parent.oData.aCategories
+            //     // { url: "../static/768c92df1858f1fbb75ca810126d03981.png" }
+            // ]
+            // images: []
         }
     },
     created() {
@@ -40,6 +48,11 @@ export default {
         this._loadHope();
     },
     methods: {
+        getImgUrl(pic) {
+            if (pic !== null) {
+                return require('../assets/images/' + pic);
+            }            
+        },
         // Функция выгружает данные для фона.
         _loadDataFon() {
             const sUrl = this.oData.urlApi.concat("/main/get-fon");
@@ -242,7 +255,17 @@ export default {
         _loadingCategoryList() {
             let sUrl = this.$parent.oData.urlApi.concat("/main/category-list");
             this.utils.getTaskCategories(sUrl);
-            this.$parent.oData.aCategories = window.aTaskCategories;
+
+            setTimeout(() => {
+                this.$parent.oData.aCategories = window.aTaskCategories;
+                
+                // this.$parent.oData.aCategories.map(el => {
+                //     // el.url = require(el.url);
+                //     // this.images.push(el.url);
+                //     // console.log("arr", this.images);
+                //     return require(el.url);
+                // });
+            }, 1000);                        
         },
 
         // Функция выгружает данные долгосрочного сотрудничества.
