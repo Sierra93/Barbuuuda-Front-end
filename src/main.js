@@ -20,6 +20,7 @@ import DatePicker from 'v-calendar/lib/components/date-picker.umd';
 import axios from 'axios';
 import Categories from './components/categories.vue';
 import Auction from './components/auction.vue';
+import CProfile from './components/c-profile.vue';
 
 Vue.use(VueRouter);
 Vue.component('Container', Container);
@@ -31,6 +32,7 @@ Vue.component('calendar', Calendar);
 Vue.component('date-picker', DatePicker);
 Vue.component('categories', Categories);
 Vue.component('auction', Auction);
+Vue.component('CProfile', CProfile);
 
 // Общие функции приложения.
 const utils = {
@@ -68,7 +70,7 @@ const utils = {
       });
   },
 
-  install: function(Vue){
+  install: function(Vue) {
     Object.defineProperty(Vue.prototype, 'utils', {
       get () { return utils }
     })

@@ -56,7 +56,7 @@ export default {
             if (this.$route.name == "task/create" && this.oData.bExecutor) {
                 this.oData.bGuest = false;
                 this.oData.bCustomer = false;
-            }
+            }            
         },
 
         // Функция проверяет авторизован ли юзер. 

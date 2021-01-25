@@ -93,6 +93,7 @@
 
     <!-- Календарь. -->
     <DatePicker class="mt-3 col-lg-12" 
+                v-show="!bHideCalendar"
                 v-model="picker" 
                 v-on:input="onGetDate($event)"></DatePicker>
 </body>

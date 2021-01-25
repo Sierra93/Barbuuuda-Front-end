@@ -8,6 +8,8 @@ import ProfileBar from './components/profile-bar.vue';
 import TaskView from './components/view-task.vue';
 import Categories from './components/categories.vue';
 import Auction from './components/auction.vue';
+import Profile from './components/profile.vue';
+import CProfile from './components/c-profile.vue';
 
 export default new VueRouter({
   routes: [{
@@ -56,6 +58,18 @@ export default new VueRouter({
       path: '/auction',
       name: 'auction',
       component: Auction,
+      props: true
+    },
+    {
+      path: '/profile',
+      name: 'profile',
+      component: Profile,
+      props: true
+    },
+    {
+      path: '/c/profile',
+      name: 'c-profile',
+      component: CProfile,
       props: true
     }
   ],

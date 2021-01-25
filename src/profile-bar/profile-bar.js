@@ -20,6 +20,11 @@ export default {
     created() {
         this._loadingCountTask();
         this._loadingetTotalCountTasks();
+
+        // Если зашли в профиль.
+        if (this.$route.name == "profile") {
+            this.bHideCalendar = true;
+        }
     },
     data() {
         return {
@@ -33,7 +38,8 @@ export default {
             countComplete: null,
             countPerechet: null,
             countDraft: null,
-            countTotalTasks: null
+            countTotalTasks: null,
+            bHideCalendar: false
         }
     },
     props: ["oData"],
