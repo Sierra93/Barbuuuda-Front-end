@@ -75,6 +75,8 @@
       visibility: hidden;
       transition: .3s;
       right: 2px;
+      line-height: 2;
+      width: 200px;
 
       ul {
         list-style-type: none;
@@ -86,7 +88,7 @@
 
           &:hover {
               cursor: pointer;
-              color: cornflowerblue;
+              color: #00BCD4;
           }
       }
   }

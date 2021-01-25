@@ -63,6 +63,8 @@
   visibility: hidden;
   transition: .3s;
   right: 2px;
+  line-height: 2;
+  width: 200px;
 }
 
 .drop-down .drop-menu ul {
@@ -76,7 +78,7 @@
 
 .drop-down .drop-menu span:hover {
   cursor: pointer;
-  color: cornflowerblue;
+  color: #00BCD4;
 }
 
 hr {
