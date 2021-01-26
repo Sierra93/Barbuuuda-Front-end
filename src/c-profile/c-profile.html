@@ -8,7 +8,7 @@
 </head>
 
 <body>
-  <h3 class="mb-3">Здравствуйте, Андрей!</h3>
+  <h3 class="mb-3" v-for="el in aProfileData">Здравствуйте, {{el.firstName}}!</h3>
   <p>Место для фото юзера</p>
 
   <ul class="nav nav-tabs mb-3" id="idProfilePanel" role="tablist">
@@ -81,12 +81,115 @@
     </div>
 
     <div class="tab-pane fade" id="plan" role="tabpanel" aria-labelledby="plan-tab">
-      <p>Сюда выгрузить информацию о тарифах...</p>
+      <button class="form-control-sm btn btn-link">Подключить тарифы</button>
     </div>
 
     <div class="tab-pane fade" id="settings" role="tabpanel" aria-labelledby="settings-tab">
-      <p>Сюда выгрузить информацию о настройках...</p>
+      <h4 class="mb-3">Личные данные</h4>
+     <div class="settings-item">      
+      <!-- Имя. -->
+      <div class="mb-3">
+        <label class="form-control-sm" for="idName">Имя</label>
+     <div>
+      <input type="text" 
+              id="idName" 
+              class="form-control-sm date-endda input-settings">
+     </div>
+      </div>
+
+     <!-- Фамилия. -->
+    <div class="mb-3">
+      <label class="form-control-sm" for="idFam">Фамилия</label>
+      <div>
+       <input type="text" 
+               id="idFam" 
+               class="form-control-sm date-endda input-settings">
+      </div>
     </div>
+
+    <!-- Отчество. -->
+     <div class="mb-3">
+      <label class="form-control-sm" for="idFam">Отчество</label>
+      <div>
+       <input type="text" 
+               id="idPatr" 
+               class="form-control-sm date-endda input-settings">
+      </div>
+     </div>
+     </div>
+
+     <!-- Пол. -->
+     <div class="mb-3">
+      <label class="form-control-sm" for="idFam">Пол</label>
+      <div>
+       <input type="radio" 
+               id="idGender" 
+               class="form-control-sm date-endda input-settings">&nbsp;Мужчина
+
+               <input type="radio" 
+               id="idGender" 
+               class="form-control-sm date-endda input-settings ml-3">&nbsp;Женщина
+
+                <!-- Город. -->
+     <div class="mb-3">
+      <label class="form-control-sm mt-3" for="idFam">Город</label>
+      <div>
+       <input type="text" 
+               id="idCity" 
+               class="form-control-sm date-endda input-settings">
+      </div>
+     </div>
+     </div>
+
+     <!-- Email -->
+     <div class="mb-3">
+      <label class="form-control-sm" for="idFam">Email</label>
+      <div>
+       <input type="email" 
+               id="idEmail" 
+               class="form-control-sm date-endda input-settings"><br>
+               <small class="text-muted">Ваш email виден только вам</small>
+      </div>
+     </div>
+     </div>
+
+     <button class="btn-next form-control-sm" v-on:click="">Сохранить личные данные</button>
+
+     <hr class="mt-5 mb-5">
+
+     <!-- Номер телефона. -->
+     <div class="mb-3">
+       <h4>Номер телефона</h4>
+      <label class="form-control-sm" for="idFam">Контактный номер</label>
+      <div>
+       <input type="text" 
+               id="idEmail" 
+               class="form-control-sm date-endda input-settings"><br>
+               <small class="text-muted">Ваш номер телефона виден только вам</small>
+      </div>
+     </div>
+
+     <button class="btn-next form-control-sm" v-on:click="">Сохранить номер телефона</button>
+
+     <hr class="mt-5 mb-5">
+     <!-- PRO -->
+     <div class="mb-3">
+      <h4>PRO-аккаунт</h4>
+     <div>
+      <button class="btn-task form-control-sm" v-on:click="">Стать PRO</button><br>
+      <button class="form-control-sm btn btn-link btn-before-history">Что дает PRO-аккаунт?</button>        
+      
+      
+     <hr class="mt-5 mb-5">
+     <button class="btn-next form-control-sm btn btn-danger" v-on:click="">Удалить профиль</button>
+     </div>
+    </div>
+    </div>
+    </div>
+     </div>    
+      </div>      
+     </div>
+     </div>    
   </div>
 </body>
 

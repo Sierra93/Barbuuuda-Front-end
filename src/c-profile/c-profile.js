@@ -29,7 +29,8 @@ export default {
 
             axios.post(sUrl)
                 .then((response) => {
-                    this.aProfileData .push(response.data);
+                    this.aProfileData.push(response.data);
+                    oData.dateRegister = response.data.dateRegister.split(".")[0];
                     console.log("Данные профиля", this.aProfileData);
                 })
 

@@ -56,7 +56,8 @@ export default {
                     Perechet: "Перерасчет",
                     Draft: "В черновике"
                 },
-                aCategories: []
+                aCategories: [],
+                dateRegister: null
             },
             oEditTask: {
                 editTask: {},
