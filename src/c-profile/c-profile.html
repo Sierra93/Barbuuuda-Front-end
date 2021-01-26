@@ -47,6 +47,7 @@
        <input type="text" 
               id="idInputAddScore" 
               class="form-control-sm date-endda ml-2 mt-3 input-score"> ₽
+              <button class="btn-next form-control-sm ml-1" v-on:click="">Пополнить счет</button>
      </div>
 
      <!-- История операций. -->     
@@ -109,7 +110,7 @@
 
     <!-- Отчество. -->
      <div class="mb-3">
-      <label class="form-control-sm" for="idFam">Отчество</label>
+      <label class="form-control-sm" for="idPatr">Отчество</label>
       <div>
        <input type="text" 
                id="idPatr" 
@@ -123,16 +124,22 @@
       <label class="form-control-sm" for="idFam">Пол</label>
       <div>
        <input type="radio" 
-               id="idGender" 
-               class="form-control-sm date-endda input-settings">&nbsp;Мужчина
+               id="idGenderMale" 
+               class="form-control-sm date-endda input-settings"
+               v-model="bMale"
+               name="gender"
+               v-on:click="onSelectGender('male')">&nbsp;Мужчина
 
                <input type="radio" 
-               id="idGender" 
-               class="form-control-sm date-endda input-settings ml-3">&nbsp;Женщина
+               id="idGenderFemale" 
+               class="form-control-sm date-endda input-settings ml-3"
+               v-model="bFemale"
+               name="gender"
+               v-on:click="onSelectGender('female')">&nbsp;Женщина
 
                 <!-- Город. -->
      <div class="mb-3">
-      <label class="form-control-sm mt-3" for="idFam">Город</label>
+      <label class="form-control-sm mt-3" for="idCity">Город</label>
       <div>
        <input type="text" 
                id="idCity" 
@@ -143,7 +150,7 @@
 
      <!-- Email -->
      <div class="mb-3">
-      <label class="form-control-sm" for="idFam">Email</label>
+      <label class="form-control-sm" for="idEmail">Email</label>
       <div>
        <input type="email" 
                id="idEmail" 
@@ -153,7 +160,8 @@
      </div>
      </div>
 
-     <button class="btn-next form-control-sm" v-on:click="">Сохранить личные данные</button>
+     <button class="btn-next form-control-sm" 
+            v-on:click="onSaveData()">Сохранить личные данные</button>
 
      <hr class="mt-5 mb-5">
 
@@ -163,7 +171,7 @@
       <label class="form-control-sm" for="idFam">Контактный номер</label>
       <div>
        <input type="text" 
-               id="idEmail" 
+               id="idNum" 
                class="form-control-sm date-endda input-settings"><br>
                <small class="text-muted">Ваш номер телефона виден только вам</small>
       </div>
