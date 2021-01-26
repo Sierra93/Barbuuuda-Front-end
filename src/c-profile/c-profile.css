@@ -1,0 +1,18 @@
+.input-score {
+  width: 100px;
+}
+
+.task-filter {
+  border: 1px solid #00BCD4;
+  border-radius: 0 !important;
+}
+
+.history-operations {
+  border-radius: 8px;
+  border: 1px solid #d4d4d4;
+  padding: 24px 24px 32px;
+}
+
+.btn-before-history {
+  padding-left: 0 !important;
+}

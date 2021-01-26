@@ -40,7 +40,44 @@
     </div>
 
     <div class="tab-pane fade" id="score" role="tabpanel" aria-labelledby="score-tab">
-      <p>Сюда выгрузить информацию о счете...</p>
+      <h4>Ваш баланс: 0</h4>
+      <!-- Пополнение. -->
+     <div>
+       <span>Пополнить счет на</span>
+       <input type="text" 
+              id="idInputAddScore" 
+              class="form-control-sm date-endda ml-2 mt-3 input-score"> ₽
+     </div>
+
+     <!-- История операций. -->     
+     <div class="mt-5 history-operations">
+      <div class="">
+        <div class="d-flex">
+          <h4>История операций: &nbsp;</h4>
+        <select class="form-control-sm task-filter ml-2"
+                v-on:change="">
+            <option></option>
+            <option>За неделю</option>
+            <option>За месяц</option>
+            <option>За год</option>
+            <option>За период</option>
+        </select>    
+        </div>    
+        
+        <div>
+          <button class="form-control-sm btn btn-link btn-before-history">Все операции</button>
+          <button class="form-control-sm btn btn-link">Пополнение счета</button>
+          <button class="form-control-sm btn btn-link">Списание со счета</button>
+        </div>
+      </div>
+     </div>
+
+     <!-- Частые вопросы. -->
+    <div>
+      <h4 class="mt-5">Частые вопросы</h4>
+      <b>Заголовок вопроса</b>
+      <p>Текст вопроса</p>
+    </div>
     </div>
 
     <div class="tab-pane fade" id="plan" role="tabpanel" aria-labelledby="plan-tab">
