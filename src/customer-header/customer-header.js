@@ -83,6 +83,10 @@ export default {
                 this.oEditTask.editTask.bEdit = false;
                 this.$router.push("/task/create");
             }
+        },
+
+        onGoProfile() {
+            this.$router.push("/profile");
         }
     }
 }

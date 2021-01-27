@@ -46,8 +46,17 @@
        <span>Пополнить счет на</span>
        <input type="text" 
               id="idInputAddScore" 
-              class="form-control-sm date-endda ml-2 mt-3 input-score"> ₽
-              <button class="btn-next form-control-sm ml-1" v-on:click="">Пополнить счет</button>
+              v-model="iDefaultScore"
+              class="form-control-sm date-endda ml-2 mt-3 input-score"
+              v-on:input="onCheckScore()"> ₽
+              <button 
+              id="idBtnAddScore"
+              class="btn-next form-control-sm ml-1" 
+              v-on:click="">Пополнить счет</button>
+     </div>
+     
+     <div class="mt-1" v-show="bErrorScore">
+      <small class="text-danger">Минимальная сумма для пополнения 400 ₽</small>
      </div>
 
      <!-- История операций. -->     

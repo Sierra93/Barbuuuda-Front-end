@@ -19,7 +19,9 @@ export default {
         return {
             aProfileData: [],
             bMale: null,
-            bFemale: null
+            bFemale: null,
+            iDefaultScore: "400",
+            bErrorScore: false
         }
     },    
     methods: {
@@ -60,6 +62,7 @@ export default {
             axios.post(sUrl, oSaveData)
                 .then((response) => {
                     console.log("Личные данные успешно сохранены");
+                    localStorage["user"] = $("#idEmail").val();
                 })
 
                 .catch((XMLHttpRequest) => {
@@ -76,6 +79,21 @@ export default {
             if (gender == "female") {
                 this.bFemale = "F";
             }
+        },
+
+        // Функция проверяет введенную сумму.
+        onCheckScore() {                      
+            if (this.iDefaultScore == "") {
+                this.iDefaultScore = "0";
+                this.bErrorScore = true;
+                return;
+            }  
+
+            if (this.iDefaultScore < "400") {                    
+                this.bErrorScore = true;
+                return;
+            }              
+            this.bErrorScore = false;
         }
     }
 }
