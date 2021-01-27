@@ -46,14 +46,15 @@ export default {
             let oData = this.$parent.oData;
             let userId = +localStorage["userId"];
             let sUrl = oData.urlApi.concat("/user/save-data");
+            let sGender = this.bMale || this.bFemale;
             let oSaveData = {
                 UserId: userId,
-                FirstName: $("#FirstName").val(),
+                FirstName: $("#idName").val(),
                 LastName: $("#idFam").val(),
                 Patronymic: $("#idPatr").val(),
                 City: $("#idCity").val(),
                 UserEmail: $("#idEmail").val(),
-                Gender: this.bMale || this.bFemale
+                Gender: sGender
             };
 
             axios.post(sUrl, oSaveData)
@@ -66,6 +67,7 @@ export default {
                 });
         },
 
+        // Функция проставит выбранный пол.
         onSelectGender(gender) {
             if (gender == "male") {
                 this.bMale = "M";
