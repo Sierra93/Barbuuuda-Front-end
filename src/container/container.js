@@ -215,7 +215,7 @@ export default {
         onLogin() {
             const sUrl = this.oData.urlApi.concat("/user/login");
             let oData = {
-                UserEmail: $("#idEma").val(),
+                UserName: $("#idEma").val(),
                 UserPassword: this.sPassword
             };
 
@@ -223,10 +223,10 @@ export default {
                 axios.post(sUrl, oData)
                     .then((response) => {
                         // Если токен есть, то в зависимости от роли распределяет по интерфейсам.
-                        if (response.data.access_token && response.data.role == "Заказчик") {
-                            localStorage["userToken"] = response.data.access_token;
+                        if (response.data.userToken && response.data.role == "C") {
+                            localStorage["userToken"] = response.data.userToken;
                             localStorage["role"] = response.data.role;
-                            localStorage["user"] = response.data.username;
+                            localStorage["user"] = response.data.user;
                         }
                         console.log("Авторизация прошла успешно");
                     })
@@ -243,7 +243,7 @@ export default {
 
         onRouteCreateTask() {
             // Если нет роли заказчик, то будет ошибка.
-            if (localStorage["role"] !== "Заказчик") {
+            if (localStorage["role"] !== "C") {
                 $('#idNotCustomer').modal('show');
                 return;
             }

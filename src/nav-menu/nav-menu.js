@@ -64,13 +64,13 @@ export default {
             let userRole = "";
 
             if (!localStorage["userToken"] || !localStorage["role"]) {
-                userRole = "Гость";                
+                userRole = "G";                
                 localStorage["role"] = userRole;                
                 this.bGuest = true;
             }
 
-            if (localStorage["role"] == "Гость") {
-                userRole = "Гость";                
+            if (localStorage["role"] == "G") {
+                userRole = "G";                
                 localStorage["role"] = userRole;                
                 this.bGuest = true;
                 return;
@@ -86,7 +86,7 @@ export default {
 
             try {
                 axios.post(sUrl, {
-                    UserLogin: localStorage["user"],
+                    UserName: localStorage["user"],
                     UserRole: userRole
                 })
                     .then((response) => {
@@ -111,7 +111,8 @@ export default {
         // Функция отображает/скрывает левую панель.
         onStateLeftPanel() {
             this.bHideLeftPanel = $(".left-menu").hasClass("left-panel");
-            this.bHideLeftPanel ? $(".left-menu").removeClass("left-panel").addClass("left-panel-not-left") : $(".left-menu").removeClass("left-panel-not-left").addClass("left-panel");
+            this.bHideLeftPanel ? $(".left-menu").removeClass("left-panel").addClass("left-panel-not-left") 
+            : $(".left-menu").removeClass("left-panel-not-left").addClass("left-panel");
         }        
     }
 }

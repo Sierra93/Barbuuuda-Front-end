@@ -26,8 +26,8 @@ export default {
         this._loadAdvantages();
         this._loadPriveleges();     
 
-        this.oData.bGuest = localStorage["role"] == "Гость" ? true : false;
-        this.oData.bCustomer = localStorage["role"] == "Заказчик" ? true : false;
+        this.oData.bGuest = localStorage["role"] == "G" ? true : false;
+        this.oData.bCustomer = localStorage["role"] == "C" ? true : false;
     },
     data() {
         return {

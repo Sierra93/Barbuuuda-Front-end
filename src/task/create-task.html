@@ -176,12 +176,12 @@
               <input id="idTaskTitle" 
                       class="form-control-sm input-task search-category" 
                       placeholder="Введите название"
-                      v-show="!editTask">
+                      v-show="!editTask.length">
 
               <input  id="idEditTaskTitle" 
                       class="form-control-sm input-task search-category" 
                       placeholder="Введите название"
-                      v-show="editTask"
+                      v-show="editTask.length"
                       :value="editTask.taskTitle">
             </div>            
 
@@ -193,12 +193,12 @@
               <textarea id="idTaskDetail" 
                         class="form-control-sm input-task detail-field"
                         placeholder="Опишите, что именно вам нужно"
-                        v-show="!editTask"/>
+                        v-show="!editTask.length"/>
 
               <textarea id="idEditTaskDetail" 
                         class="form-control-sm input-task detail-field"
                         placeholder="Опишите, что именно вам нужно"
-                        v-show="editTask"
+                        v-show="editTask.length"
                         :value="editTask.taskDetail"/><br>
 
               <input type="file"
@@ -214,12 +214,12 @@
               <input id="idDateTaskEndda"
                       type="datetime-local"
                       class="form-control-sm date-endda"
-                      v-show="!editTask">
+                      v-show="!editTask.length">
 
               <input id="idEditDateTaskEndda"
                       type="datetime-local"
                       class="form-control-sm date-endda"
-                      v-show="editTask"
+                      v-show="editTask.length"
                       :value="editTask.taskEndda">
             </div>
 
@@ -230,11 +230,11 @@
               <strong class="asterisk">&nbsp;&#42;</strong><br>
               <input id="idPrice" 
                       class="form-control-sm input-task-price date-endda"
-                      v-show="!editTask">
+                      v-show="!editTask.length">
 
                       <input id="idEditPrice" 
                       class="form-control-sm input-task-price date-endda"
-                      v-show="editTask"
+                      v-show="editTask.length"
                       :value="editTask.taskPrice">
             </div>
 

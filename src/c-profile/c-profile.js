@@ -28,7 +28,7 @@ export default {
         // Функция загружает всю информацию профиля.
         _loadingProfile() {
             let oData = this.$parent.oData;
-            let userId = +localStorage["userId"];
+            let userId = localStorage["userId"];
             let sUrl = oData.urlApi.concat("/user/profile?userId=".concat(userId));
 
             axios.post(sUrl)
@@ -46,7 +46,7 @@ export default {
         // Функция сохраняет личные данные.
         onSaveData() {
             let oData = this.$parent.oData;
-            let userId = +localStorage["userId"];
+            let userId = localStorage["userId"];
             let sUrl = oData.urlApi.concat("/user/save-data");
             let sGender = this.bMale || this.bFemale;
             let oSaveData = {

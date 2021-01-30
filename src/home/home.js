@@ -30,7 +30,7 @@ export default {
     methods: {
         // Функция получает активные задания заказчика.
         _loadingActiveTasks() {
-            let userId = +localStorage["userId"];
+            let userId = localStorage["userId"];
             const sUrl = this.oData.urlApi.concat("/task/active?userId=".concat(userId));
 
             try {

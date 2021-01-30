@@ -27,7 +27,7 @@ export default {
     methods: {
         // Функция получает список заданий заказчика.
         _loadingTaskList() {
-            let userId = +localStorage["userId"];
+            let userId = localStorage["userId"];
             let sTypeAll = this.oEditTask.sTypes.All;   // Все задания.
             const sUrl = this.oData.urlApi.concat("/task/tasks-list?userId=".concat(userId).concat("&type=".concat(sTypeAll)));
 
@@ -50,7 +50,7 @@ export default {
 
         // Функция получает выделенное задание.
         onGetTask(taskId) {
-            let userId = +localStorage["userId"];
+            let userId = localStorage["userId"];
             let sTypeSingle = this.oEditTask.sTypes.Single;   // Задание для изменения или просмотра.
             const sUrl = this.oData.urlApi
             .concat("/task/tasks-list?userId="

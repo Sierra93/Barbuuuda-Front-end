@@ -22,15 +22,15 @@ export default {
     },
     created() {
         // this._getAuthorize();
-        this.bGuest = localStorage["role"] == "Гость" ? true : false;
+        this.bGuest = localStorage["role"] == "G" ? true : false;
     },
     methods: {
          // Функция проверяет авторизован ли юзер. 
          _getAuthorize() {
             let userRole = "";
 
-            if (!localStorage["userToken"] || !localStorage["role"] || localStorage["role"] == "Гость") {
-                userRole = "Гость";                
+            if (!localStorage["userToken"] || !localStorage["role"] || localStorage["role"] == "G") {
+                userRole = "G";                
                 localStorage["role"] = userRole;                
                 this.bGuest = true;
             }

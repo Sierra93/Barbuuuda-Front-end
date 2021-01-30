@@ -14,8 +14,8 @@ export default {
         this._loadingCategories();
         // this._loadingSpecializations();
 
-        this.oData.bGuest = localStorage["role"] == "Гость" ? true : false;
-        this.oData.bCustomer = localStorage["role"] == "Заказчик" ? true : false;
+        this.oData.bGuest = localStorage["role"] == "G" ? true : false;
+        this.oData.bCustomer = localStorage["role"] == "C" ? true : false;
         
         if (this.$route.name == "main") {
             this.oData.bCustomer = false;
@@ -124,7 +124,7 @@ export default {
             if (!bEdit) {
                 sUrl = this.oData.urlApi.concat("/task/create");
                 oData = {
-                    OwnerId: +localStorage["userId"],
+                    OwnerId: localStorage["userId"],
                     TaskTitle: $("#idTaskTitle").val(),
                     TaskDetail: $("#idTaskDetail").val(),
                     CategoryCode: this.sCategoryCode,
@@ -138,7 +138,7 @@ export default {
                 sUrl = this.oData.urlApi.concat("/task/edit");
                 oData = {
                     TaskId: this.editTask.taskId,
-                    OwnerId: +localStorage["userId"],
+                    OwnerId: localStorage["userId"],
                     TaskTitle: $("#idEditTaskTitle").val(),
                     TaskDetail: $("#idEditTaskDetail").val(),
                     CategoryCode: this.editTask.categoryCode,
