@@ -17,6 +17,7 @@ export default {
     },
     created() {
         this._loadingTaskList();
+        this._totalPageetPagination();
     },
     data() {
         return {
@@ -138,6 +139,49 @@ export default {
                     .catch((XMLHttpRequest) => {
                         window.history.pushState({ path: oldUrl }, '', oldUrl);
                         throw new Error('Ошибка фильтрации', XMLHttpRequest.response.data);
+                    });
+            } 
+            
+            catch (ex) {
+                throw new Error(ex);
+            }
+        },
+
+        // Функция получает общее кол-во страниц.
+        _totalPageetPagination() {
+            let param = 1;
+            const sUrl = this.oData.urlApi.concat("/pagination/page?pageIdx=".concat(param));
+
+            try {
+                axios.get(sUrl)
+                    .then((response) => {         
+                        console.log("total page pagination", response.data);
+                        this.oData.countTotalPage = response.data.pageData.totalPages;
+                    })
+
+                    .catch((XMLHttpRequest) => {
+                        throw new Error(XMLHttpRequest.response.data);
+                    });
+            } 
+            
+            catch (ex) {
+                throw new Error(ex);
+            }
+        },
+
+        // Функция пагинации.
+        onGetPagination(param) {
+            const sUrl = this.oData.urlApi.concat("/pagination/page?pageIdx=".concat(+param));
+
+            try {
+                axios.get(sUrl)
+                    .then((response) => {         
+                        console.log("filter pagination", response.data);
+                        this.oData.aTasks = response.data.tasks
+                    })
+
+                    .catch((XMLHttpRequest) => {
+                        throw new Error(XMLHttpRequest.response.data);
                     });
             } 
             

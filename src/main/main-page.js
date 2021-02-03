@@ -47,6 +47,7 @@ export default {
                 countCompleteTask: null,
                 countPerechetTask: null,
                 countDraftTask: null,
+                countTotalPage: null,
                 oTaskStatus: {
                     Total: "Всего",
                     Auction: "В аукционе",
