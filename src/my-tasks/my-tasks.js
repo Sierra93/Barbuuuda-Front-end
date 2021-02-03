@@ -157,6 +157,7 @@ export default {
                     .then((response) => {         
                         console.log("total page pagination", response.data);
                         this.oData.countTotalPage = response.data.pageData.totalPages;
+                        this.oData.aTasks = response.data.tasks
                     })
 
                     .catch((XMLHttpRequest) => {
