@@ -150,7 +150,11 @@ export default {
         // Функция получает общее кол-во страниц.
         _totalPageetPagination() {
             let param = 1;
-            const sUrl = this.oData.urlApi.concat("/pagination/page?pageIdx=".concat(param));
+            let userId = localStorage["userId"];
+            const sUrl = this.oData.urlApi
+            .concat("/pagination/page?userId="
+            .concat(userId).concat("&pageIdx=")
+            .concat(+param));
 
             try {
                 axios.get(sUrl)
@@ -172,13 +176,17 @@ export default {
 
         // Функция пагинации.
         onGetPagination(param) {
-            const sUrl = this.oData.urlApi.concat("/pagination/page?pageIdx=".concat(+param));
+            let userId = localStorage["userId"];
+            const sUrl = this.oData.urlApi
+            .concat("/pagination/page?userId="
+            .concat(userId).concat("&pageIdx=")
+            .concat(+param));
 
             try {
                 axios.get(sUrl)
                     .then((response) => {         
                         console.log("filter pagination", response.data);
-                        this.oData.aTasks = response.data.tasks
+                        this.oData.aTasks = response.data.tasks;
                     })
 
                     .catch((XMLHttpRequest) => {
