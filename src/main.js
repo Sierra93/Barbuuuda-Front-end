@@ -21,6 +21,7 @@ import axios from 'axios';
 import Categories from './components/categories.vue';
 import Auction from './components/auction.vue';
 import CProfile from './components/c-profile.vue';
+import ExecutorList from './components/executor-list.vue';
 
 Vue.use(VueRouter);
 Vue.component('Container', Container);
@@ -33,6 +34,7 @@ Vue.component('date-picker', DatePicker);
 Vue.component('categories', Categories);
 Vue.component('auction', Auction);
 Vue.component('CProfile', CProfile);
+Vue.component('ExecutorList', ExecutorList);
 
 // Общие функции приложения.
 const utils = {

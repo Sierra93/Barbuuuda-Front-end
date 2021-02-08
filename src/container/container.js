@@ -26,7 +26,8 @@ export default {
             aAdvantages: [],
             aProveliges: [],
             sPassword: null,
-            aHope: []
+            aHope: [],
+            role: null            
         }
     },
     created() {
@@ -138,6 +139,14 @@ export default {
                 $(".register").addClass("selected-role");
             }
 
+            if (type == "executor") {
+                this.role = "E";
+            }
+
+            if (type == "customer") {
+                this.role = "C";
+            }
+
             // Get all elements with class="tabcontent" and hide them
             tabcontent = document.getElementsByClassName("tabcontent");
 
@@ -187,7 +196,8 @@ export default {
             let oData = {
                 UserName: $("#idLogin").val(),
                 UserPassword: $("#idPassword").val(),
-                Email: $("#idEmail").val()
+                Email: $("#idEmail").val(),
+                UserRole: this.role
             };
 
             try {
@@ -244,7 +254,7 @@ export default {
             }
 
             this.$router.push("/task/create");
-        },
+        },        
 
         // Функция выгружает список категорий заданий.
         _loadingCategoryList() {
@@ -304,6 +314,10 @@ export default {
             catch (ex) {
                 throw new Error(ex);
             }
-        }
+        },
+
+        onRouteExecutors() {
+            this.$router.push("/executors-list");
+        }        
     }
 }

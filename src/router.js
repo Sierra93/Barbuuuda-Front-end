@@ -1,6 +1,5 @@
 import VueRouter from 'vue-router'
 import Container from './components/container.vue';
-// import NavMenu from './components/nav-menu.vue';
 import CreateTask from './components/create-task.vue';
 import CHome from './components/home.vue';
 import MyTasks from './components/my-tasks.vue';
@@ -10,6 +9,7 @@ import Categories from './components/categories.vue';
 import Auction from './components/auction.vue';
 import Profile from './components/profile.vue';
 import CProfile from './components/c-profile.vue';
+import ExecutorList from './components/executor-list.vue';
 
 export default new VueRouter({
   routes: [{
@@ -70,6 +70,12 @@ export default new VueRouter({
       path: '/c/profile',
       name: 'c-profile',
       component: CProfile,
+      props: true
+    },
+    {
+      path: '/executors-list',
+      name: 'executor-list',
+      component: ExecutorList,
       props: true
     }
   ],
