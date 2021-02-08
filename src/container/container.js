@@ -26,15 +26,7 @@ export default {
             aAdvantages: [],
             aProveliges: [],
             sPassword: null,
-            aHope: [],
-            // path: '../assets/images',
-            // file: '768c92df1858f1fbb75ca810126d03981.png',
-            // images: [
-            //     { url: require("../assets/images/768c92df1858f1fbb75ca810126d03981.png") }
-            //     // this.$parent.oData.aCategories
-            //     // { url: "../static/768c92df1858f1fbb75ca810126d03981.png" }
-            // ]
-            // images: []
+            aHope: []
         }
     },
     created() {
@@ -46,6 +38,7 @@ export default {
         this._loadingCategoryList();
         // this.setSelectedRole();
         this._loadHope();
+        this._loadingLastTasks();
     },
     methods: {
         getImgUrl(pic) {
@@ -277,6 +270,28 @@ export default {
                     .then((response) => {
                         this.aHope.push(response.data);
                         console.log("Данные сотрудничества", this.aHope);
+                    })
+
+                    .catch((XMLHttpRequest) => {
+                        throw new Error(XMLHttpRequest.response.data);
+                    });
+            } 
+            
+            catch (ex) {
+                throw new Error(ex);
+            }
+        },
+
+        // Функция выгружает список последних заданий 5 шт., не важно, чьи они.
+        _loadingLastTasks() {
+            let sUrl = this.$parent.oData.urlApi.concat("/main/last");
+            
+            try {
+                axios.get(sUrl)
+                    .then((response) => {
+                        this.aHope.push(response.data);
+                        this.oData.aLastTasks = response.data;
+                        console.log("Последние задания", this.oData.aLastTasks);
                     })
 
                     .catch((XMLHttpRequest) => {
