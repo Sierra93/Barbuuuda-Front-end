@@ -184,15 +184,17 @@ export default {
         // Функция регистрирует юзера.
         onCreate() {
             const sUrl = this.oData.urlApi.concat("/user/create");
+            let oData = {
+                UserName: $("#idLogin").val(),
+                UserPassword: $("#idPassword").val(),
+                Email: $("#idEmail").val()
+            };
 
             try {
-                axios.post(sUrl, {
-                        UserLogin: $("#idLog").val(),
-                        UserPassword: $("#idPass").val(),
-                        UserEmail: $("#idEma").val(),
-                        UserPhone: $("#idNum").val()
+                axios.post(sUrl, oData)
+                    .then((response) => {
+                        console.log("Регистрация успешна");
                     })
-                    .then((response) => {})
 
                     .catch((XMLHttpRequest) => {
                         throw new Error('Ошибка регистрации', XMLHttpRequest.response.data);
