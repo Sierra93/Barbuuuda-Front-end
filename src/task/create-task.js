@@ -16,6 +16,7 @@ export default {
 
         this.oData.bGuest = localStorage["role"] == "G" ? true : false;
         this.oData.bCustomer = localStorage["role"] == "C" ? true : false;
+        this.oData.bExecutor = localStorage["role"] == "E" ? true : false;
         
         if (this.$route.name == "main") {
             this.oData.bCustomer = false;
@@ -23,14 +24,15 @@ export default {
             this.oData.bGuest = true;
         }
 
-        if (this.$route.name == "task/create" && this.oData.bCustomer) {
+        if (this.$route.name == "task-create" && this.oData.bCustomer) {
             this.oData.bGuest = false;
             this.oData.bExecutor = false;
         }
 
-        if (this.$route.name == "task/create" && this.oData.bExecutor) {
+        if (this.$route.name == "task-create" && this.oData.bExecutor) {
             this.oData.bGuest = false;
             this.oData.bCustomer = false;
+            this.oData.bExecutor = true;
         }
 
         // Подгружает данные задания, если идет редактирование.

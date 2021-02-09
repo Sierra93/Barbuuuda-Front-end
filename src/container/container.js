@@ -228,7 +228,7 @@ export default {
                 axios.post(sUrl, oData)
                     .then((response) => {
                         // Если токен есть, то в зависимости от роли распределяет по интерфейсам.
-                        if (response.data.userToken && response.data.role == "C") {
+                        if (response.data.userToken) {
                             localStorage["userToken"] = response.data.userToken;
                             localStorage["role"] = response.data.role;
                             localStorage["user"] = response.data.user;
@@ -301,7 +301,6 @@ export default {
             try {
                 axios.get(sUrl)
                     .then((response) => {
-                        this.aHope.push(response.data);
                         this.oData.aLastTasks = response.data;
                         console.log("Последние задания", this.oData.aLastTasks);
                     })

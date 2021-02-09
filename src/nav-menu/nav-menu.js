@@ -32,7 +32,7 @@ export default {
                 this.oData.bGuest = true;
             }
     
-            if (this.$route.name == "task/create" && this.oData.bCustomer) {
+            if (this.$route.name == "task-create" && this.oData.bCustomer) {
                 this.oData.bGuest = false;
                 this.oData.bExecutor = false;
             }
@@ -53,9 +53,10 @@ export default {
                 this.oData.bExecutor = true;                
             }
     
-            if (this.$route.name == "task/create" && this.oData.bExecutor) {
+            if (this.$route.name == "task-create" && this.oData.bExecutor) {
                 this.oData.bGuest = false;
                 this.oData.bCustomer = false;
+                this.oData.bExecutor = true;   
             }            
         },
 

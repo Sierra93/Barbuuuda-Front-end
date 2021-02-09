@@ -9,7 +9,7 @@
 <body class="flexcroll">
   <NavMenu v-show="oData.bGuest" v-bind:oData="oData"></NavMenu>
   
-  <CustomerHeader v-show="oData.bCustomer" 
+  <CustomerHeader v-show="oData.bCustomer || oData.bExecutor" 
     v-bind:oData="oData" 
     v-bind:oEditTask="oEditTask">
   </CustomerHeader>
