@@ -83,6 +83,11 @@ export default {
                 this.oEditTask.editTask.bEdit = false;
                 this.$router.push("/task/create");
             }
+
+            else if (value == "Аукцион заданий") {
+                this.oEditTask.editTask.bEdit = false;
+                this.$router.push("/auction");
+            }
         },
 
         onGoProfile() {
