@@ -16,7 +16,8 @@ export default {
     },
     data() {
         return {
-            aAuctionTasks: []
+            aAuctionTasks: [],
+            countTasks: null
         }
     },
     props: ["oData"],
@@ -27,7 +28,8 @@ export default {
             try {
                 axios.post(sUrl)
                     .then((response) => {                      
-                        this.aAuctionTasks = response.data;
+                        this.aAuctionTasks = response.data.aTasks;
+                        this.countTasks = response.data.countTasks;
                         console.log("Аукцион", this.aAuctionTasks);
                     })
         

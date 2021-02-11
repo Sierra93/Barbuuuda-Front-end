@@ -1,12 +1,133 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
-    Главная исполнителя
+    <main class="container-fluid mt-5">
+        <div class="main-wrapper d-flex justify-content-between">
+            <div class="content-wrapper col-lg-3">               
+                <ProfileBar></ProfileBar>     
+            </div>
+            
+            <div class="content-wrapper col-lg-9">
+                <div class="notifications">
+                    <div class="notifications__wrp">
+                        <span class="notifications__subtitle">Уведомления</span>
+                        <span class="notifications__history ml-3">История уведомлений</span>
+                    </div>
+                    <p class="notifications__txt">Новых уведомлений нет</p>
+                </div>
+                <h3 class="my-tasks">Активные задания</h3>
+
+                <!-- Список заданий. -->
+            <div class="block-my-tasks">
+                <div class="card card-task card-subcategory" v-for="el in oData.aTasks">
+                    <div class="card-header header-task">
+                        <div class="block-icon">
+                            <div>
+                                <img src="../assets/images/1-wiper1.png">
+                            </div>
+                            &nbsp;
+
+                            <div class="ml-1 text-dark">
+                                <span>{{el.userName}}</span><br>
+                                <small>{{el.taskBegda}}</small>
+                            </div>
+                        </div>
+
+                        <div class="">
+                            <img src="../assets/images/message.png">&nbsp;
+                            <span class="text-dark">{{el.countOffers}}</span>
+                        </div>
+
+                        <div class="">
+                            <img src="../assets/images/Icon.png">&nbsp;
+                            <span class="text-dark">{{el.countViews}}</span>
+                        </div>
+
+                        <div class="badge badge-pill badge-primary">
+                            <span>{{el.typeCode}}</span>
+                        </div>
+
+                        <div class="badge badge-pill badge-warning">
+                            <span>{{el.statusName}}</span>
+                        </div>
+
+                        <div class="task-price">
+                            <img src="../assets/images/date_range.png">
+                            <span>{{el.taskEndda}}</span>
+                        </div>
+
+                        <div class="task-price">
+                            <span>{{el.taskPrice || 'По договоренности'}}
+                                <span v-show="el.taskPrice">₽</span>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <h5 class="card-title task-title">
+                            {{el.taskTitle}}
+                        </h5>
+
+                        <p class="card-text task-detail">
+                            {{el.taskDetail}}
+                        </p>
+                    </div>
+
+                    <div class="card-footer task-detail">
+                        <div class="block-footer">
+                            <div class="task-category">
+                                <span>{{el.categoryName}}</span>
+                            </div>
+
+
+                            <div class="offer">
+                                <!-- <button class="btn-next form-control-sm" v-on:click="">КО ВСЕМ СТАВКАМ</button> -->
+
+                                <button 
+                                    class="btn-next form-control-sm" 
+                                    _v-bind:value="el.taskId"
+                                    v-on:click="onGetTask(el.taskId)">
+                                    ОТКРЫТЬ ЗАДАНИЕ
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+                <!-- <pagination class="pagination-sm block-pagination card-subcategory">
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination">
+                            <li class="page-item">
+                                <a class="page-link" href="#" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item"><a class="page-link" href="#">4</a></li>
+                            <li class="page-item"><a class="page-link" href="#">5</a></li>
+                            <li class="page-item"><a class="page-link" href="#">6</a></li>
+
+                            <li class="page-item">
+                                <a class="page-link" href="#" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </pagination> -->
+            </div>
+        </div>
+        </div>
+    </main>
 </body>
+
 </html>

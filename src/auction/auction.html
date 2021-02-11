@@ -26,7 +26,10 @@
 
         <!-- Правая часть. -->
         <div class="col-lg-9">
-            <h3 class="my-tasks">Аукцион заданий</h3>
+            <div class="d-flex align-items-center">
+                <h4 class="my-tasks">Найдено {{countTasks}} заданий</h4>
+            <small class="text-muted ml-2">Всего в аукционе: {{countTasks}}</small>
+            </div>
             <div class="search-block-task mb-3 mt-3">
                 <div class="d-flex">
                     <input type="search" class="form-control-sm search-category"
