@@ -58,6 +58,12 @@ export default {
                 this.oData.bCustomer = false;
                 this.oData.bExecutor = true;   
             }            
+
+            if (this.$route.name == "e-home") {
+                this.oData.bGuest = false;
+                this.oData.bCustomer = false;
+                this.oData.bExecutor = true;   
+            }     
         },
 
         // Функция проверяет авторизован ли юзер. 

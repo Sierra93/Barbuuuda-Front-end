@@ -10,6 +10,7 @@ import Auction from './components/auction.vue';
 import Profile from './components/profile.vue';
 import CProfile from './components/c-profile.vue';
 import ExecutorList from './components/executor-list.vue';
+import EHOME from './components/e-home.vue';
 
 export default new VueRouter({
   routes: [{
@@ -76,6 +77,12 @@ export default new VueRouter({
       path: '/executors-list',
       name: 'executor-list',
       component: ExecutorList,
+      props: true
+    },
+    {
+      path: '/e/home',
+      name: 'e-home',
+      component: EHOME,
       props: true
     }
   ],

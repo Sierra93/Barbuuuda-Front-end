@@ -14,6 +14,7 @@ export default {
     props: ['oData'],
     created() {
         this._loadingProfile();
+        this._loadingCategoryList();
     },
     data() {
         return {
@@ -21,7 +22,8 @@ export default {
             bMale: null,
             bFemale: null,
             iDefaultScore: "400",
-            bErrorScore: false
+            bErrorScore: false,
+            aCategories: []
         }
     },    
     methods: {
@@ -94,6 +96,17 @@ export default {
                 return;
             }              
             this.bErrorScore = false;
+        },
+
+        // Функция выгружает список категорий заданий.
+        _loadingCategoryList() {
+            let sUrl = this.$parent.oData.urlApi.concat("/main/category-list");
+            this.utils.getTaskCategories(sUrl);
+            this.aCategories = window.aTaskCategories;
+        },
+
+        onSelectSpec(specName, idx) {
+            console.log("test");
         }
     }
 }
