@@ -229,9 +229,9 @@ export default {
                     .then((response) => {
                         // Если токен есть, то в зависимости от роли распределяет по интерфейсам.
                         if (response.data.userToken) {
-                            localStorage["userToken"] = response.data.userToken;
-                            localStorage["role"] = response.data.role;
-                            localStorage["user"] = response.data.user;
+                            sessionStorage["userToken"] = response.data.userToken;
+                            sessionStorage["role"] = response.data.role;
+                            sessionStorage["user"] = response.data.user;
                         }
                         console.log("Авторизация прошла успешно");
                     })
@@ -248,7 +248,7 @@ export default {
 
         onRouteCreateTask() {
             // Если нет роли заказчик, то будет ошибка.
-            if (localStorage["role"] !== "C") {
+            if (sessionStorage["role"] !== "C") {
                 $('#idNotCustomer').modal('show');
                 return;
             }

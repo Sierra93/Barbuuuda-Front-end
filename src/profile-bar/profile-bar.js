@@ -77,7 +77,7 @@ export default {
 
         // Функция выгружает заданий с определенным статусом.
         onGetStatusTask(status) {
-            let userId = localStorage["userId"];
+            let userId = sessionStorage["userId"];
             let sUrl = this.$parent.oData.urlApi.concat("/task/task-status?status=".concat(status).concat("&userId=".concat(userId)));
 
             axios.get(sUrl)
@@ -92,7 +92,7 @@ export default {
 
         // Функция выгружает кол-во заданий всего.
         _loadingetTotalCountTasks() {
-            let userId = localStorage["userId"];
+            let userId = sessionStorage["userId"];
             let sUrl = this.$parent.oData.urlApi.concat("/task/total?userId=".concat(userId));
 
             axios.get(sUrl)

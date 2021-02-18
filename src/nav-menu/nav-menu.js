@@ -70,21 +70,21 @@ export default {
         _getAuthorize() {
             let userRole = "";
 
-            if (!localStorage["userToken"] || !localStorage["role"]) {
+            if (!sessionStorage["userToken"] || !sessionStorage["role"]) {
                 userRole = "G";                
-                localStorage["role"] = userRole;                
+                sessionStorage["role"] = userRole;                
                 this.bGuest = true;
             }
 
-            if (localStorage["role"] == "G") {
+            if (sessionStorage["role"] == "G") {
                 userRole = "G";                
-                localStorage["role"] = userRole;                
+                sessionStorage["role"] = userRole;                
                 this.bGuest = true;
                 return;
             }
 
             else {
-                userRole = localStorage["role"];
+                userRole = sessionStorage["role"];
                 this.bGuest = false;
             }
 
@@ -92,16 +92,12 @@ export default {
             const sUrl = this.oData.urlApi.concat("/user/authorize");
 
             try {
-                axios.post(sUrl, {
-                    UserName: localStorage["user"],
-                    UserRole: userRole
-                })
+                axios.get(sUrl)
                     .then((response) => {
                         response.data.aHeaderFields.forEach(el => {
                             this.oData.aHeader.push(el.headerField); 
                         });   
 
-                        localStorage["userId"] = response.data.userId;
                         console.log("Хидер юзера", this.oData.aHeader);
                     })
 
