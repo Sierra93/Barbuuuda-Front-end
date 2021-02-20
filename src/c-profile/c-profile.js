@@ -106,28 +106,6 @@ export default {
 
         onSelectSpec(specName, idx) {
             console.log("test");
-        },
-        ontest(){
-            let sUrl = this.$parent.oData.urlApi.concat("/executor/add-spec");
-            let oSaveData = {
-                "Specializations": [
-                    {
-                        "SpecName": "Специализация1"
-                    },
-                    {
-                        "SpecName": "Специализация2"
-                    }
-                ] 
-            };
-
-            axios.post(sUrl, oSaveData)
-                .then((response) => {
-
-                })
-
-                .catch((XMLHttpRequest) => {
-                    throw new Error(XMLHttpRequest.response.data);
-                });
-        }
+        }       
     }
 }

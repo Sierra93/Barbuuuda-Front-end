@@ -217,7 +217,7 @@ export default {
         },
 
         // Функция авторизует юзера.
-        onLogin() {
+        async onLogin() {
             const sUrl = this.oData.urlApi.concat("/user/login");
             let oData = {
                 UserName: $("#idEma").val(),
@@ -225,7 +225,7 @@ export default {
             };
 
             try {
-                axios.post(sUrl, oData)
+                await axios.post(sUrl, oData)
                     .then((response) => {
                         // Если токен есть, то в зависимости от роли распределяет по интерфейсам.
                         if (response.data.userToken) {
@@ -317,6 +317,29 @@ export default {
 
         onRouteExecutors() {
             this.$router.push("/executors-list");
-        }        
+        },
+        
+        ontest() {
+            let sUrl = this.$parent.oData.urlApi.concat("/executor/add-spec");
+            let oSaveData = {
+                "Specializations": [
+                    {
+                        "SpecName": "Специализация1"
+                    },
+                    {
+                        "SpecName": "Специализация2"
+                    }
+                ] 
+            };
+
+            axios.post(sUrl, oSaveData)
+                .then((response) => {
+
+                })
+
+                .catch((XMLHttpRequest) => {
+                    throw new Error(XMLHttpRequest.response.data);
+                });
+        }
     }
 }

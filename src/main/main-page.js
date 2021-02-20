@@ -28,6 +28,7 @@ export default {
 
         this.oData.bGuest = sessionStorage["role"] == "G" ? true : false;
         this.oData.bCustomer = sessionStorage["role"] == "C" ? true : false;
+        axios.defaults.headers.common = {"Authorization": "Bearer ".concat(sessionStorage["userToken"])}
     },
     data() {
         return {
