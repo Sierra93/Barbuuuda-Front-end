@@ -126,7 +126,6 @@ export default {
             if (!bEdit) {
                 sUrl = this.oData.urlApi.concat("/task/create");
                 oData = {
-                    OwnerId: sessionStorage["userId"],
                     TaskTitle: $("#idTaskTitle").val(),
                     TaskDetail: $("#idTaskDetail").val(),
                     CategoryCode: this.sCategoryCode,
@@ -140,7 +139,6 @@ export default {
                 sUrl = this.oData.urlApi.concat("/task/edit");
                 oData = {
                     TaskId: this.editTask.taskId,
-                    OwnerId: sessionStorage["userId"],
                     TaskTitle: $("#idEditTaskTitle").val(),
                     TaskDetail: $("#idEditTaskDetail").val(),
                     CategoryCode: this.editTask.categoryCode,

@@ -30,8 +30,7 @@ export default {
     methods: {
         // Функция получает активные задания заказчика.
         _loadingActiveTasks() {
-            let userId = sessionStorage["userId"];
-            const sUrl = this.oData.urlApi.concat("/task/active?userId=".concat(userId));
+            const sUrl = this.oData.urlApi.concat("/task/active");
 
             try {
                 axios.get(sUrl)

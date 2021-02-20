@@ -47,11 +47,9 @@ export default {
         // Функция сохраняет личные данные.
         onSaveData() {
             let oData = this.$parent.oData;
-            let userId = sessionStorage["userId"];
             let sUrl = oData.urlApi.concat("/user/save-data");
             let sGender = this.bMale || this.bFemale;
             let oSaveData = {
-                UserId: userId,
                 FirstName: $("#idName").val(),
                 LastName: $("#idFam").val(),
                 Patronymic: $("#idPatr").val(),

@@ -28,9 +28,8 @@ export default {
     methods: {
         // Функция получает список заданий заказчика.
         _loadingTaskList() {
-            let userId = sessionStorage["userId"];
             let sTypeAll = this.oEditTask.sTypes.All;   // Все задания.
-            const sUrl = this.oData.urlApi.concat("/task/tasks-list?userId=".concat(userId).concat("&type=".concat(sTypeAll)));
+            const sUrl = this.oData.urlApi.concat("/task/tasks-list?type=".concat(sTypeAll));
 
             try {
                 axios.post(sUrl)
@@ -51,12 +50,9 @@ export default {
 
         // Функция получает выделенное задание.
         onGetTask(taskId) {
-            let userId = sessionStorage["userId"];
             let sTypeSingle = this.oEditTask.sTypes.Single;   // Задание для изменения или просмотра.
             const sUrl = this.oData.urlApi
-            .concat("/task/tasks-list?userId="
-            .concat(userId)
-            .concat("&taskId=")
+            .concat("/task/tasks-list?taskId="
             .concat(taskId)
             .concat("&type="
             .concat(sTypeSingle)));
@@ -150,10 +146,8 @@ export default {
         // Функция получает общее кол-во страниц.
         _totalPageetPagination() {
             let param = 1;
-            let userId = sessionStorage["userId"];
             const sUrl = this.oData.urlApi
-            .concat("/pagination/page?userId="
-            .concat(userId).concat("&pageIdx=")
+            .concat("/pagination/page?pageIdx="
             .concat(+param));
 
             try {
@@ -176,10 +170,8 @@ export default {
 
         // Функция пагинации.
         onGetPagination(param) {
-            let userId = sessionStorage["userId"];
             const sUrl = this.oData.urlApi
-            .concat("/pagination/page?userId="
-            .concat(userId).concat("&pageIdx=")
+            .concat("/pagination/page?pageIdx="
             .concat(+param));
 
             try {
