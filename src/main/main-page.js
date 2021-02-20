@@ -26,8 +26,9 @@ export default {
         this._loadAdvantages();
         this._loadPriveleges();     
 
-        this.oData.bGuest = localStorage["role"] == "G" ? true : false;
-        this.oData.bCustomer = localStorage["role"] == "C" ? true : false;
+        this.oData.bGuest = sessionStorage["role"] == "G" ? true : false;
+        this.oData.bCustomer = sessionStorage["role"] == "C" ? true : false;
+        axios.defaults.headers.common = {"Authorization": "Bearer ".concat(sessionStorage["userToken"])}
     },
     data() {
         return {
@@ -260,7 +261,7 @@ export default {
                         UserPassword: this.pass
                     })
                     .then((response) => {
-                        localStorage["user"] = response.data.sLogin;
+                        sessionStorage["user"] = response.data.sLogin;
                     })
 
                     .catch((XMLHttpRequest) => {

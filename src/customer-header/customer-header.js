@@ -22,21 +22,21 @@ export default {
     },
     created() {
         // this._getAuthorize();
-        this.bGuest = localStorage["role"] == "G" ? true : false;
+        this.bGuest = sessionStorage["role"] == "G" ? true : false;
     },
     methods: {
          // Функция проверяет авторизован ли юзер. 
          _getAuthorize() {
             let userRole = "";
 
-            if (!localStorage["userToken"] || !localStorage["role"] || localStorage["role"] == "G") {
+            if (!sessionStorage["userToken"] || !sessionStorage["role"] || sessionStorage["role"] == "G") {
                 userRole = "G";                
-                localStorage["role"] = userRole;                
+                sessionStorage["role"] = userRole;                
                 this.bGuest = true;
             }
 
             else {
-                userRole = localStorage["role"];
+                userRole = sessionStorage["role"];
                 this.bGuest = false;
             }
 
@@ -45,7 +45,7 @@ export default {
 
             try {
                 axios.post(sUrl, {
-                    UserLogin: localStorage["user"],
+                    UserLogin: sessionStorage["user"],
                     UserRole: userRole
                 })
                     .then((response) => {

@@ -30,10 +30,9 @@ export default {
         // Функция загружает всю информацию профиля.
         _loadingProfile() {
             let oData = this.$parent.oData;
-            let userId = localStorage["userId"];
-            let sUrl = oData.urlApi.concat("/user/profile?userId=".concat(userId));
+            let sUrl = oData.urlApi.concat("/user/profile");
 
-            axios.post(sUrl)
+            axios.get(sUrl)
                 .then((response) => {
                     this.aProfileData.push(response.data);
                     oData.dateRegister = response.data.dateRegister.split(".")[0];
@@ -48,11 +47,9 @@ export default {
         // Функция сохраняет личные данные.
         onSaveData() {
             let oData = this.$parent.oData;
-            let userId = localStorage["userId"];
             let sUrl = oData.urlApi.concat("/user/save-data");
             let sGender = this.bMale || this.bFemale;
             let oSaveData = {
-                UserId: userId,
                 FirstName: $("#idName").val(),
                 LastName: $("#idFam").val(),
                 Patronymic: $("#idPatr").val(),
@@ -64,7 +61,7 @@ export default {
             axios.post(sUrl, oSaveData)
                 .then((response) => {
                     console.log("Личные данные успешно сохранены");
-                    localStorage["user"] = $("#idEmail").val();
+                    sessionStorage["user"] = $("#idEmail").val();
                 })
 
                 .catch((XMLHttpRequest) => {
@@ -107,6 +104,6 @@ export default {
 
         onSelectSpec(specName, idx) {
             console.log("test");
-        }
+        }       
     }
 }
