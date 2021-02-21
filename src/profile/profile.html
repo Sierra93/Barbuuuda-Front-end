@@ -25,7 +25,8 @@
 
         <div class="col-lg-3">
             <div class="right-profile-block">
-                <h5>Заказчик</h5>
+                <h5 v-show="oData.role == 'E'">Исполнитель</h5>
+                <h5 v-show="oData.role == 'C'">Заказчик</h5>
                 <p>на Barbuuuda с {{oData.dateRegister}}</p>
             </div>
         </div>

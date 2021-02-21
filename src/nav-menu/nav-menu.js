@@ -102,6 +102,7 @@ export default {
                     })
 
                     .catch((XMLHttpRequest) => {
+                        this.$router.push("/");
                         throw new Error('Ошибка получения полей хидера', XMLHttpRequest.response.data);
                     });
             } 

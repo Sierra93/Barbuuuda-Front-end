@@ -28,6 +28,9 @@ export default {
 
         this.oData.bGuest = sessionStorage["role"] == "G" ? true : false;
         this.oData.bCustomer = sessionStorage["role"] == "C" ? true : false;
+        this.oData.role = sessionStorage["role"];
+
+        // Автоматически добавит любым запросам токен для авторизации.
         axios.defaults.headers.common = {"Authorization": "Bearer ".concat(sessionStorage["userToken"])}
     },
     data() {
@@ -51,6 +54,7 @@ export default {
                 countPerechetTask: null,
                 countDraftTask: null,
                 countTotalPage: null,
+                role: null,
                 oTaskStatus: {
                     Total: "Всего",
                     Auction: "В аукционе",
