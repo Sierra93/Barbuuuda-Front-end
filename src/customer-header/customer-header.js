@@ -68,11 +68,12 @@ export default {
         // Функция распределяет по пунктам хидера.
         onGetMenu(value) {
             if (value.target && value.currentTarget.text == " Barbuuuda ") {
+                this.oData.bGuest = true;
                 this.$router.push("/");
             }
 
             else if (value == "Главная") {
-                this.$router.push("/c/home");
+                this.$router.push("/home");
             }
 
             else if (value == "Мои задания") {                

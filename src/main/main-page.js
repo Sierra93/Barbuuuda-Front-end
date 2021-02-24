@@ -28,6 +28,7 @@ export default {
 
         this.oData.bGuest = sessionStorage["role"] == "G" ? true : false;
         this.oData.bCustomer = sessionStorage["role"] == "C" ? true : false;
+        this.oData.bExecutor = sessionStorage["role"] == "E" ? true : false;
         this.oData.role = sessionStorage["role"];
 
         // Автоматически добавит любым запросам токен для авторизации.
