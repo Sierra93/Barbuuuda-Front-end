@@ -49,6 +49,7 @@
   box-shadow: 0px 0px 5px 0px #C1C1C1;
   cursor: pointer;
   color: cornflowerblue;
+  z-index: 1;
 }
 
 .drop-down:hover .drop-menu span {
