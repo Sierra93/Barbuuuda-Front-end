@@ -20,11 +20,14 @@ export default {
     props: ['oData'],
     created() {
         this._loadingActiveTasks();
+        this._loadExecutorTest();
     },
     data() {
         return {
             picker: new Date(),
-            aCalendarTasks: []
+            aCalendarTasks: [],
+            aExecutorTests: [],
+            bStartTest: false
         }
     },    
     methods: {
@@ -57,6 +60,31 @@ export default {
             setTimeout(() => {
                 this.$parent.oData.aTasks = window.aTasks;
             }, 100);
+        },
+
+        // Функция выгружает данные для теста исполнителей.
+        _loadExecutorTest() {
+            if (!sessionStorage["role"] == "E") {
+                return;
+            }
+
+            const sUrl = this.oData.urlApi.concat("/executor/get-tests");
+
+            try {
+                axios.post(sUrl)
+                    .then((response) => {         
+                        console.log("Вопросы для теста исполнителей", response.data);
+                        this.aExecutorTests = response.data;
+                    })
+
+                    .catch((XMLHttpRequest) => {
+                        throw new Error('Ошибка вопросы для теста исполнителей', XMLHttpRequest.response.data);
+                    });
+            } 
+            
+            catch (ex) {
+                throw new Error(ex);
+            }
         }
     }
 }

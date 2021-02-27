@@ -1,4 +1,13 @@
+@import "../task/create-task.scss";  
+
 $blueColor: #00BCD4;
+
+@mixin panelTest {
+    border-radius: 20px 0px;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    margin: 0 0 30px 30px;
+    padding: 9px 17px;
+}
 
 body {
     margin: 0;
@@ -103,5 +112,40 @@ button {
             left: 18px;
         }
     }
+}
+
+.panel-before-test {
+    @include panelTest;
+}
+
+.panel-test {
+    @include panelTest; 
     
+    .nav-link {
+        color: #00BDD6;
+    }
+
+    .nav-link.active {
+        background: #00BDD6!important;
+    }
+}
+
+.email {
+    color: cornflowerblue;
+    text-decoration: underline;
+}
+
+.btn-regulations {
+    border: 1px solid #00BDD6;
+    color: #00BDD6;
+    transition: all .3s ease-out;
+
+    &:hover {
+        background: #00BDD6;
+        color: white;
+    }
+
+    &:focus {
+        outline: none;
+    }
 }
