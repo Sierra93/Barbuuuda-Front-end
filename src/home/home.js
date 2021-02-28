@@ -68,10 +68,10 @@ export default {
                 return;
             }
 
-            const sUrl = this.oData.urlApi.concat("/executor/get-tests");
+            const sUrl = this.oData.urlApi.concat("/executor/answer?numberQuestion=1");
 
             try {
-                axios.post(sUrl)
+                axios.get(sUrl)
                     .then((response) => {         
                         console.log("Вопросы для теста исполнителей", response.data);
                         this.aExecutorTests = response.data;
