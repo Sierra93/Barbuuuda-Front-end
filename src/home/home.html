@@ -116,32 +116,34 @@
 
                 <!-- Панель вопросов теста. -->
                 <div class="panel-before-test" v-show="!bStartTest">
-                    <div class="mb-3">
-                      <span class="notifications__subtitle">Вопрос 1 из 7</span>
+                    <div v-for="el in aQuestion">
+                        <div>
+                            <div class="mb-3">
+                                <span class="notifications__subtitle">
+                                    Вопрос {{currentQuestionNumber}} из {{iQuestionsCount}}
+                                </span>
+                            </div>
+                            <div class="content-title mb-3">
+                                <strong>
+                                    {{el.questionText}}
+                                </strong>
+                            </div>
+
+                            <div class="content-title" v-for="question in el.answerVariantText">
+                                <input type="radio" 
+                                        name="variant" 
+                                        v-on:click="onAddVariand(question)">
+                                <span>
+                                    {{question.answerVariantText}}
+                                </span>
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="content-title mb-3">
-                        <strong>
-                            Вопрос 1
-                        </strong>                        
-                    </div>
-
-                    <div class="content-title">
-                        <input type="radio" name="variant">
-                        <span>
-                            Вариант ответа 1
-                        </span>
-                    </div>
-
-                    <div class="content-title">
-                        <input type="radio" name="variant">
-                        <span>
-                            Вариант ответа 2
-                        </span>
-                    </div>
                     <br>
+
                     <button class="btn-next form-control-sm mb-3 mt-1" 
-                    v-on:click="">ДАЛЕЕ</button>
+                            v-on:click="onNextQuestion()">ДАЛЕЕ</button>
                 </div>
             </div>
         </div>

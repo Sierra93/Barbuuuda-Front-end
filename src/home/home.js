@@ -21,13 +21,18 @@ export default {
     created() {
         this._loadingActiveTasks();
         this._loadExecutorTest();
+        this._loadingCountQuestions();
     },
     data() {
         return {
             picker: new Date(),
             aCalendarTasks: [],
-            aExecutorTests: [],
-            bStartTest: false
+            aQuestion: [],
+            bStartTest: false,
+            iQuestionsCount: null,
+            aAnswers: [],
+            currentQuestion: null,
+            currentQuestionNumber: null
         }
     },    
     methods: {
@@ -74,7 +79,62 @@ export default {
                 axios.get(sUrl)
                     .then((response) => {         
                         console.log("Вопросы для теста исполнителей", response.data);
-                        this.aExecutorTests = response.data;
+                        this.aQuestion.push(response.data);
+                        this.currentQuestion = 1;
+                        this.currentQuestionNumber = 1;
+                    })
+
+                    .catch((XMLHttpRequest) => {
+                        throw new Error('Ошибка вопросы для теста исполнителей', XMLHttpRequest.response.data);
+                    });
+            } 
+            
+            catch (ex) {
+                throw new Error(ex);
+            }
+        },
+
+        // Функция получает кол-во вопросов для теста исполнителя.
+        _loadingCountQuestions() {
+            const sUrl = this.oData.urlApi.concat("/executor/answers-count");
+
+            try {
+                axios.get(sUrl)
+                    .then((response) => {         
+                        console.log("Кол-во вопросов", response.data);
+                        this.iQuestionsCount = response.data;                        
+                    })
+
+                    .catch((XMLHttpRequest) => {
+                        throw new Error('Ошибка кол-во вопросов', XMLHttpRequest.response.data);
+                    });
+            } 
+            
+            catch (ex) {
+                throw new Error(ex);
+            }
+        },
+
+        // Функция проставит варианту ответа selected: true и добавит в массив ответов.
+        onAddVariand(variant) {
+            console.log("Выбрали", variant);
+            variant.selected = true;
+            this.aAnswers.push(variant);
+            console.log("Массив с ответами", this.aAnswers);
+        },
+
+        // Функция получает следующий вопрос для теста исполнителя.
+        onNextQuestion() {
+            const sUrl = this.oData.urlApi.concat("/executor/answer?numberQuestion=".concat(this.currentQuestion));
+
+            try {
+                axios.get(sUrl)
+                    .then((response) => {         
+                        console.log("Вопросы для теста исполнителей", response.data);
+                        this.aQuestion = [];
+                        this.aQuestion.push(response.data);
+                        this.currentQuestion++;
+                        this.currentQuestionNumber++;
                     })
 
                     .catch((XMLHttpRequest) => {
