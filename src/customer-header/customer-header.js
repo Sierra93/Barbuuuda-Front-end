@@ -21,11 +21,7 @@ export default {
     },
     created() {
         this.bGuest = sessionStorage["role"] == "G" ? true : false;        
-    },
-    updated() {
-        let sUrl = this.$parent.oData.urlApi.concat("/user/token?userName=").concat(sessionStorage.user);
-        this.utils.refreshToken(sUrl);
-    },
+    },    
     methods: {
          // Функция проверяет авторизован ли юзер. 
          _getAuthorize() {
