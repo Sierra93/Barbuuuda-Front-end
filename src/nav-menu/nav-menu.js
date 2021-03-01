@@ -15,7 +15,7 @@ export default {
     },
     created() {
         this._getAuthorize();   
-        this._initHeader();        
+        this._initHeader();                
     },
     data() {
         return {
@@ -132,6 +132,6 @@ export default {
             this.bHideLeftPanel = $(".left-menu").hasClass("left-panel");
             this.bHideLeftPanel ? $(".left-menu").removeClass("left-panel").addClass("left-panel-not-left") 
             : $(".left-menu").removeClass("left-panel-not-left").addClass("left-panel");
-        }        
+        }       
     }
 }

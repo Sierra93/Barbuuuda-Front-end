@@ -1,7 +1,6 @@
 /* eslint-disable */
 // eslint-disable-next-line no-unused-vars
 
-
 import CustomerHeader from '../components/customer-header.vue';
 import $ from "jquery";
 import axios from 'axios';
@@ -21,8 +20,11 @@ export default {
         }
     },
     created() {
-        // this._getAuthorize();
-        this.bGuest = sessionStorage["role"] == "G" ? true : false;
+        this.bGuest = sessionStorage["role"] == "G" ? true : false;        
+    },
+    updated() {
+        let sUrl = this.$parent.oData.urlApi.concat("/user/token?userName=").concat(sessionStorage.user);
+        this.utils.refreshToken(sUrl);
     },
     methods: {
          // Функция проверяет авторизован ли юзер. 
@@ -93,6 +95,6 @@ export default {
 
         onGoProfile() {
             this.$router.push("/profile");
-        }
+        }    
     }
 }

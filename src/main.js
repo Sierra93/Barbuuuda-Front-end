@@ -38,7 +38,7 @@ Vue.component('ExecutorList', ExecutorList);
 
 // Общие функции приложения.
 const utils = {
-  // Функция получает список заданиq выбранной даты в календаре.
+  // Функция получает список заданий выбранной даты в календаре.
   getTasksDate: (date, oData) => { 
     let formatDate = date.toLocaleString();
     const sUrl = oData.urlApi.concat("/task/concretely-date?date=".concat(formatDate));
@@ -70,6 +70,56 @@ const utils = {
       .catch((XMLHttpRequest) => {
         throw new Error(XMLHttpRequest.response.data);
       });
+  },
+
+  // Функция отсчитывает время бездействия юзера, по окончании простоя убивает сессию и перенаправляет на стартовую для авторизации.
+  deadlineSession: () => {
+    var idleTime = 0;
+
+    $(document).ready(function () {
+        //Increment the idle time counter every minute.
+        var idleInterval = setInterval(timerIncrement, 60000); // 1 minute
+    
+        //Zero the idle timer on mouse movement.
+        $(this).mousemove(function (e) {
+            idleTime = 0;
+        });
+
+        $(this).keypress(function (e) {
+            idleTime = 0;
+        });
+    });
+    
+    function timerIncrement() {
+        idleTime = idleTime + 1;
+
+        if (idleTime > 19) { // 20 minutes
+            sessionStorage.clear();
+            localStorage.clear();
+            this.$router.push("/");
+        }
+    }
+  },
+
+  // Функция обновит токен через каждые 9 мин.
+  refreshToken: (sUrl) => {    
+    function refresh() { 
+      axios.get(sUrl)
+      .then((response) => {
+        sessionStorage.userToken = response.data;
+        console.log("refresh token");
+      })
+
+      .catch((XMLHttpRequest) => {
+        throw new Error(XMLHttpRequest.response.data);
+      });
+    }
+
+    let intervalID = setInterval(refresh, 540000)  // 9 минут.
+
+    if (!sessionStorage.userToken) {
+      clearInterval(intervalID);
+    }
   },
 
   install: function(Vue) {

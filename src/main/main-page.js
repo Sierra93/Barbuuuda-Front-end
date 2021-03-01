@@ -20,6 +20,7 @@ export default {
         CustomerHeader
     },
     created() {
+        this.utils.deadlineSession();                
         this._loadDataFon();
         this._loadDataWhy();
         this._loadGetWork();
@@ -32,7 +33,7 @@ export default {
         this.oData.role = sessionStorage["role"];
 
         // Автоматически добавит любым запросам токен для авторизации.
-        axios.defaults.headers.common = {"Authorization": "Bearer ".concat(sessionStorage["userToken"])}
+        axios.defaults.headers.common = {"Authorization": "Bearer ".concat(sessionStorage["userToken"])}        
     },
     data() {
         return {
@@ -298,6 +299,6 @@ export default {
             catch (ex) {
                 throw new Error(ex);
             }
-        }
+        }        
     }
 }
