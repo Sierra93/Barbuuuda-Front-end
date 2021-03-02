@@ -126,7 +126,12 @@ export default {
 
         // Функция получает следующий вопрос для теста исполнителя.
         onNextQuestion() {
-            const sUrl = this.oData.urlApi.concat("/executor/answer?numberQuestion=".concat(this.currentQuestionNumber));
+            // Для получения второго вопроса, так как первый уже был выгружен изначально.
+            if (this.currentQuestionNumber == 1) {
+                this.currentQuestionNumber++;                
+            }
+
+            const sUrl = this.oData.urlApi.concat("/executor/answer?numberQuestion=".concat(this.currentQuestionNumber));            
 
             try {
                 axios.get(sUrl)
@@ -134,8 +139,8 @@ export default {
                         console.log("Вопросы для теста исполнителей", response.data);
                         this.aQuestion = [];
                         this.aQuestion.push(response.data);
-                        this.currentQuestion++;
-                        this.currentQuestionNumber++;
+                        this.currentQuestion++;   
+                        this.currentQuestionNumber++;                     
                         console.log("Вопрос", this.currentQuestionNumber);
                     })
 
