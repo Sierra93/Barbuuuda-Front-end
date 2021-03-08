@@ -143,7 +143,12 @@
                     <br>
 
                     <button class="btn-next form-control-sm mb-3 mt-1" 
+                            v-if="currentQuestion < 7"
                             v-on:click="onNextQuestion()">ДАЛЕЕ</button>
+
+                            <button class="btn-next form-control-sm mb-3 mt-1" 
+                            v-if="currentQuestion == 7"
+                            v-on:click="onCheckAnswersTest()">ЗАКОНЧИТЬ ТЕСТ</button>
                 </div>
             </div>
         </div>

@@ -140,12 +140,32 @@ export default {
                         this.aQuestion = [];
                         this.aQuestion.push(response.data);
                         this.currentQuestion++;   
-                        this.currentQuestionNumber++;                     
-                        console.log("Вопрос", this.currentQuestionNumber);
+                        this.currentQuestionNumber++;          
+                        console.log("Вопрос", this.currentQuestion);
                     })
 
                     .catch((XMLHttpRequest) => {
                         throw new Error('Ошибка вопросы для теста исполнителей', XMLHttpRequest.response.data);
+                    });
+            } 
+            
+            catch (ex) {
+                throw new Error(ex);
+            }
+        },
+
+        // Функция отправляет массив с ответами на тест исполнителя для проверки.
+        onCheckAnswersTest() {
+            const sUrl = this.oData.urlApi.concat("/executor/check");            
+
+            try {
+                axios.post(sUrl, this.aAnswers)
+                    .then((response) => {                            
+                        console.log("Пройден ли тест", response.data);
+                    })
+
+                    .catch((XMLHttpRequest) => {
+                        throw new Error('Прохождения теста', XMLHttpRequest.response.data);
                     });
             } 
             
