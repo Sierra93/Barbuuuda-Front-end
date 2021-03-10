@@ -117,15 +117,30 @@ export default {
         },
 
         // Функция проставит варианту ответа selected: true и добавит в массив ответов.
-        onAddVariand(variant) {
-            console.log("Выбрали", variant);
-            variant.selected = true;
-            this.aAnswers.push(variant);
-            console.log("Массив с ответами", this.aAnswers);
-        },
+        // onAddVariant(variant) {
+        //     console.log("Выбрали", variant);
+        //     variant.selected = true;
+        //     this.aAnswers.push(variant);
+        //     console.log("Массив с ответами", this.aAnswers);
+        // },
 
         // Функция получает следующий вопрос для теста исполнителя.
         onNextQuestion() {
+            let value = $("#idSelectedVariant:checked").parent().text();
+
+            if (value == "") {
+                $('#idNotSelectedVariant').modal('show');
+                return;
+            }
+
+            this.aAnswers.push({
+                answerVariantText: value,
+                isRight: null,
+                selected: false,
+                questionNumber: this.currentQuestion
+            });
+            console.log("Массив с ответами", this.aAnswers);
+
             // Для получения второго вопроса, так как первый уже был выгружен изначально.
             if (this.currentQuestionNumber == 1) {
                 this.currentQuestionNumber++;                

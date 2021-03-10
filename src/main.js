@@ -115,7 +115,7 @@ const utils = {
       });
     }
 
-    let intervalID = setInterval(refresh, 540000)  // 9 минут.
+    let intervalID = setInterval(refresh, 530000)  // 9 минут.
 
     if (!sessionStorage.userToken) {
       clearInterval(intervalID);

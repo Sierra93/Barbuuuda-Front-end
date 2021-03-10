@@ -35,7 +35,7 @@ export default {
         // Автоматически добавит любым запросам токен для авторизации.
         axios.defaults.headers.common = {"Authorization": "Bearer ".concat(sessionStorage["userToken"])}        
     },
-    mounted: () => {
+    mounted: function () {
         this.$nextTick(function () {
             let sUrl = this.oData.urlApi.concat("/user/token?userName=").concat(sessionStorage.user);
             this.utils.refreshToken(sUrl);
