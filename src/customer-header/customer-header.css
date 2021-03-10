@@ -31,8 +31,8 @@
   cursor: pointer;
 }
 
-.right-head img {
-  padding: 5%;
+#dropdownMenuButton {
+  padding: 0;
 }
 
 .block-user:hover {

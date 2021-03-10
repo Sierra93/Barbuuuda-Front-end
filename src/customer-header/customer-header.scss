@@ -39,10 +39,14 @@
     @include headerText;
   }
 
-  .right-head {
-    img {
-      padding: 5%;
-    }
+  // .right-head {
+  //   img {
+  //     padding: 1%;
+  //   }
+  // }
+
+  #dropdownMenuButton {
+    padding: 0;
   }
 
   .block-user {

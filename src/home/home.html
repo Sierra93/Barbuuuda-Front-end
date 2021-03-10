@@ -91,16 +91,34 @@
                                     v-on:click="">ПРАВИЛА</button>                         
                         </div>
 
-                        <div class="tab-pane fade" id="idInfoMe" role="tabpanel" aria-labelledby="profile-tab">
-                            Информация о себе
-                            <br>
-                            <button class="btn-next form-control-sm mb-3 mt-3" 
+                        <div class="tab-pane fade" id="idInfoMe" role="tabpanel" aria-labelledby="profile-tab" v-for="el in aProfileData">
+                            <div class="tab-pane fade show active" id="about" role="tabpanel" aria-labelledby="about-tab">
+                                <h4>Немного о себе</h4>
+                                <span>{{el.aboutInfo}}</span>
+
+                                <br>
+
+                                <button class="btn-next form-control-sm mb-3 mt-3" 
                             v-on:click="">ЗАПОЛНИТЬ ПОЗЖЕ</button>
+                              </div>
                         </div>
 
-                        <div class="tab-pane fade" id="idSelectCategory" role="tabpanel" aria-labelledby="contact-tab">
-                            Выбор категорий и подкатегорий
-                            <br>
+                        <div class="tab-pane fade" id="idSelectCategory" role="tabpanel" aria-labelledby="contact-tab" v-for="el in aProfileData">  
+                            <h4 class="mt-3">Категории и специализации выполняемых заданий</h4>
+                            <div class="mt-3" v-for="(category, idx) in aCategories">
+                              <strong>{{category.categoryName}}</strong><small class="ml-2">Выбрать все</small><br>
+                              <div v-for="spec in aCategories[idx].specializations">
+                                <div class="d-flex align-items-center">
+                                  <input type="checkbox" 
+                                          class="mr-1"
+                                          v-model="checked"
+                                          v-on:click="onSelectSpec(!checked, spec.specName)"><span>{{spec.specName}}</span>
+                                </div>
+                              </div>
+                            </div>
+                      
+                            <button class="btn-next form-control-sm mt-3 mr-1" v-on:click="onSaveSpecies()">Сохранить</button>
+
                             <button class="btn-next form-control-sm mb-3 mt-3" 
                             v-on:click="">ЗАПОЛНИТЬ ПОЗЖЕ</button>
                         </div>
