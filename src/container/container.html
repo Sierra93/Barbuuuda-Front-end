@@ -242,8 +242,7 @@
                   <div class="nav-link input-line">
                     <div class="col-lg-12 d-flex justify-content-center mt-3">
                       <button class="btn-register form-control-lg btn-create-task btn-all-tasks mb-3"
-                              v-on:click="onLogin()"
-                              _v-on:click="ontest()">
+                              v-on:click="onLogin()">
                         ВОЙТИ
                       </button>
                     </div>
@@ -658,11 +657,7 @@
     </div>
   </div>
 
-  <!-- Модальное окно ошибки, если нет роли заказчика. -->
-  <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
-    Launch demo modal
-  </button> -->
-  
+  <!-- Модальное окно ошибки, если нет роли заказчика. -->  
   <div class="modal fade" id="idNotCustomer" tabindex="-1" role="dialog" aria-labelledby="idNotCustomerTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
@@ -679,7 +674,7 @@
         </div>
 
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Хорошо</button>
+          <button type="button" class="btn-create-task from-control-sm btn-create-task btn-all-tasks" data-dismiss="modal">Хорошо</button>
         </div>
       </div>
     </div>

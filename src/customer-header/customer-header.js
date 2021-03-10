@@ -1,7 +1,6 @@
 /* eslint-disable */
 // eslint-disable-next-line no-unused-vars
 
-
 import CustomerHeader from '../components/customer-header.vue';
 import $ from "jquery";
 import axios from 'axios';
@@ -21,9 +20,8 @@ export default {
         }
     },
     created() {
-        // this._getAuthorize();
-        this.bGuest = sessionStorage["role"] == "G" ? true : false;
-    },
+        this.bGuest = sessionStorage["role"] == "G" ? true : false;        
+    },    
     methods: {
          // Функция проверяет авторизован ли юзер. 
          _getAuthorize() {
@@ -68,11 +66,12 @@ export default {
         // Функция распределяет по пунктам хидера.
         onGetMenu(value) {
             if (value.target && value.currentTarget.text == " Barbuuuda ") {
+                this.oData.bGuest = true;
                 this.$router.push("/");
             }
 
             else if (value == "Главная") {
-                this.$router.push("/c/home");
+                this.$router.push("/home");
             }
 
             else if (value == "Мои задания") {                
@@ -92,6 +91,6 @@ export default {
 
         onGoProfile() {
             this.$router.push("/profile");
-        }
+        }    
     }
 }

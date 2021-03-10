@@ -15,7 +15,7 @@ export default {
     },
     created() {
         this._getAuthorize();   
-        this._initHeader();        
+        this._initHeader();                
     },
     data() {
         return {
@@ -70,6 +70,10 @@ export default {
         _getAuthorize() {
             let userRole = "";
 
+            if (!sessionStorage["userToken"]) {
+                this.$router.push("/");
+            }
+
             if (!sessionStorage["userToken"] || !sessionStorage["role"]) {
                 userRole = "G";                
                 sessionStorage["role"] = userRole;                
@@ -89,22 +93,34 @@ export default {
             }
 
             // Формирует поля хидера для гостя.
-            const sUrl = this.oData.urlApi.concat("/user/authorize");
+            const sUrl = this.oData.urlApi.concat("/user/authorize?userName=".concat(sessionStorage["user"]));
 
             try {
                 axios.get(sUrl)
                     .then((response) => {
                         response.data.aHeaderFields.forEach(el => {
-                            this.oData.aHeader.push(el.headerField); 
-                        });   
+                            this.oData.aHeader.push(el.headerField);
+                        });
 
                         console.log("Хидер юзера", this.oData.aHeader);
                     })
 
+                    // Токен протух, получить новый.
                     .catch((XMLHttpRequest) => {
-                        throw new Error('Ошибка получения полей хидера', XMLHttpRequest.response.data);
+                        if (sessionStorage["user"] !== undefined && sessionStorage["user"] !== "") {
+                            var sTokenUrl = this.oData.urlApi.concat("/user/authorize?userName=").concat(sessionStorage["user"]);
+                            axios.get(sTokenUrl)
+                                .then((response) => {
+                                    sessionStorage["userToken"] = response.data;
+                                })
+                        }
+
+                        // Удалит токен юзера. Теперь нужно снова авторизоваться.
+                        else {
+                            sessionStorage.clear();                            
+                        }
                     });
-            } 
+            }
             
             catch (ex) {
                 throw new Error(ex);
@@ -116,6 +132,6 @@ export default {
             this.bHideLeftPanel = $(".left-menu").hasClass("left-panel");
             this.bHideLeftPanel ? $(".left-menu").removeClass("left-panel").addClass("left-panel-not-left") 
             : $(".left-menu").removeClass("left-panel-not-left").addClass("left-panel");
-        }        
+        }       
     }
 }

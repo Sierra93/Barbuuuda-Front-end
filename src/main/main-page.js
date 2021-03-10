@@ -20,6 +20,7 @@ export default {
         CustomerHeader
     },
     created() {
+        this.utils.deadlineSession();                
         this._loadDataFon();
         this._loadDataWhy();
         this._loadGetWork();
@@ -28,13 +29,23 @@ export default {
 
         this.oData.bGuest = sessionStorage["role"] == "G" ? true : false;
         this.oData.bCustomer = sessionStorage["role"] == "C" ? true : false;
-        axios.defaults.headers.common = {"Authorization": "Bearer ".concat(sessionStorage["userToken"])}
+        this.oData.bExecutor = sessionStorage["role"] == "E" ? true : false;
+        this.oData.role = sessionStorage["role"];
+
+        // Автоматически добавит любым запросам токен для авторизации.
+        axios.defaults.headers.common = {"Authorization": "Bearer ".concat(sessionStorage["userToken"])}        
+    },
+    mounted: function () {
+        this.$nextTick(function () {
+            let sUrl = this.oData.urlApi.concat("/user/token?userName=").concat(sessionStorage.user);
+            this.utils.refreshToken(sUrl);
+        })
     },
     data() {
         return {
             oData: {
                 urlApi: "http://localhost:58822",
-                // urlApi: "https://apphosting.site",
+                // urlApi: "https://barbuuuda.online",
                 aHeader: [],
                 bGuest: false,
                 bCustomer: false,
@@ -51,6 +62,7 @@ export default {
                 countPerechetTask: null,
                 countDraftTask: null,
                 countTotalPage: null,
+                role: null,
                 oTaskStatus: {
                     Total: "Всего",
                     Auction: "В аукционе",
@@ -293,6 +305,6 @@ export default {
             catch (ex) {
                 throw new Error(ex);
             }
-        }
+        }        
     }
 }

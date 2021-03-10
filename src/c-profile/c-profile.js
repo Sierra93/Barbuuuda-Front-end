@@ -23,7 +23,8 @@ export default {
             bFemale: null,
             iDefaultScore: "400",
             bErrorScore: false,
-            aCategories: []
+            aCategories: [],
+            aExecutorSpecializations: []
         }
     },    
     methods: {
@@ -102,8 +103,29 @@ export default {
             this.aCategories = window.aTaskCategories;
         },
 
-        onSelectSpec(specName, idx) {
-            console.log("test");
-        }       
+        // Функция добавляет специализацию.
+        onSelectSpec(bCheck, specName) {
+            if (bCheck) {
+                // Добавит специализацию в массив.
+                this.aExecutorSpecializations.push({ SpecName: specName });
+                console.log("checked true", this.aExecutorSpecializations);
+                return;
+            }    
+            console.log("checked false");        
+        },
+        
+        // Функция сохраняет выбранные специализации исполнителя.
+        onSaveSpecies() {
+            let sUrl = this.$parent.oData.urlApi.concat("/executor/add-spec");
+
+            axios.post(sUrl, this.aExecutorSpecializations)
+                .then((response) => {
+                    console.log("Специализации сохранены");
+                })
+
+                .catch((XMLHttpRequest) => {
+                    throw new Error(XMLHttpRequest.response.data);
+                });
+        }
     }
 }

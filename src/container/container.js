@@ -232,8 +232,8 @@ export default {
                             sessionStorage["userToken"] = response.data.userToken;
                             sessionStorage["role"] = response.data.role;
                             sessionStorage["user"] = response.data.user;
-                        }
-                        console.log("Авторизация прошла успешно");
+                            this.$router.push("/home");
+                        }                        
                     })
 
                     .catch((XMLHttpRequest) => {

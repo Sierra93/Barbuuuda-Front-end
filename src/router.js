@@ -26,8 +26,8 @@ export default new VueRouter({
       props: true
     },
     {
-      path: '/c/home',
-      name: 'c/home',
+      path: '/home',
+      name: 'home',
       component: CHome,
       props: true
     },
