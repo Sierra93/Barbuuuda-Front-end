@@ -28,11 +28,13 @@ export default {
             picker: new Date(),
             aCalendarTasks: [],
             aQuestion: [],
-            bStartTest: false,
+            isHideStepsTest: false,
             iQuestionsCount: null,
             aAnswers: [],
             currentQuestion: null,
-            currentQuestionNumber: null
+            currentQuestionNumber: null,
+            isHidePanelTest: false,
+            isHidePanelStartTest: false
         }
     },    
     methods: {
@@ -107,6 +109,12 @@ export default {
                     })
 
                     .catch((XMLHttpRequest) => {
+                        // if (XMLHttpRequest.response.status === 401) {
+                        //     sessionStorage.clear();
+                        //     localStorage.clear();
+                        //     this.$router.push("/");
+                        // }
+
                         throw new Error('Ошибка кол-во вопросов', XMLHttpRequest.response.data);
                     });
             } 
@@ -115,14 +123,6 @@ export default {
                 throw new Error(ex);
             }
         },
-
-        // Функция проставит варианту ответа selected: true и добавит в массив ответов.
-        // onAddVariant(variant) {
-        //     console.log("Выбрали", variant);
-        //     variant.selected = true;
-        //     this.aAnswers.push(variant);
-        //     console.log("Массив с ответами", this.aAnswers);
-        // },
 
         // Функция получает следующий вопрос для теста исполнителя.
         onNextQuestion() {
@@ -187,6 +187,17 @@ export default {
             catch (ex) {
                 throw new Error(ex);
             }
+        },
+
+        onStartSteps() {
+            this.isHidePanelTest = true;            
+            this.isHideStepsTest = true;
+        },
+
+        onStartTest() {
+            this.isHidePanelStartTest = true;
+            this.isHidePanelTest = true;
+            this.isHidePanelTest = false;
         }
     }
 }

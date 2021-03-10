@@ -217,7 +217,7 @@ export default {
         },
 
         // Функция авторизует юзера.
-        async onLogin() {
+        onLogin() {
             const sUrl = this.oData.urlApi.concat("/user/login");
             let oData = {
                 UserName: $("#idEma").val(),
@@ -225,13 +225,14 @@ export default {
             };
 
             try {
-                await axios.post(sUrl, oData)
+                axios.post(sUrl, oData)
                     .then((response) => {
                         // Если токен есть, то в зависимости от роли распределяет по интерфейсам.
                         if (response.data.userToken) {
                             sessionStorage["userToken"] = response.data.userToken;
                             sessionStorage["role"] = response.data.role;
                             sessionStorage["user"] = response.data.user;
+                            $(".right-panel").hide();
                             this.$router.push("/home");
                         }                        
                     })
