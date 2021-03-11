@@ -9,10 +9,6 @@ import VueRouter from 'vue-router';
 import $ from "jquery";
 import axios from 'axios';
 
-$(function() {
-    // $('#idNotCustomer').modal('show');
-});
-
 export default {
     name: 'container',
     components: {
@@ -29,7 +25,9 @@ export default {
             aWork: [],
             aAdvantages: [],
             aProveliges: [],
-            sPassword: null
+            sPassword: null,
+            aHope: [],
+            role: null            
         }
     },
     created() {
@@ -38,9 +36,17 @@ export default {
         this._loadGetWork();
         this._loadAdvantages();
         this._loadPriveleges();
+        this._loadingCategoryList();
         // this.setSelectedRole();
+        this._loadHope();
+        this._loadingLastTasks();
     },
     methods: {
+        getImgUrl(pic) {
+            if (pic !== null) {
+                return require('../assets/images/' + pic);
+            }            
+        },
         // Функция выгружает данные для фона.
         _loadDataFon() {
             const sUrl = this.oData.urlApi.concat("/main/get-fon");
@@ -133,6 +139,14 @@ export default {
                 $(".register").addClass("selected-role");
             }
 
+            if (type == "executor") {
+                this.role = "E";
+            }
+
+            if (type == "customer") {
+                this.role = "C";
+            }
+
             // Get all elements with class="tabcontent" and hide them
             tabcontent = document.getElementsByClassName("tabcontent");
 
@@ -179,20 +193,25 @@ export default {
         // Функция регистрирует юзера.
         onCreate() {
             const sUrl = this.oData.urlApi.concat("/user/create");
+            let oData = {
+                UserName: $("#idLogin").val(),
+                UserPassword: $("#idPassword").val(),
+                Email: $("#idEmail").val(),
+                UserRole: this.role
+            };
 
             try {
-                axios.post(sUrl, {
-                        UserLogin: $("#idLog").val(),
-                        UserPassword: $("#idPass").val(),
-                        UserEmail: $("#idEma").val(),
-                        UserPhone: $("#idNum").val()
+                axios.post(sUrl, oData)
+                    .then((response) => {
+                        console.log("Регистрация успешна");
                     })
-                    .then((response) => {})
 
                     .catch((XMLHttpRequest) => {
                         throw new Error('Ошибка регистрации', XMLHttpRequest.response.data);
                     });
-            } catch (ex) {
+            } 
+            
+            catch (ex) {
                 throw new Error(ex);
             }
         },
@@ -201,7 +220,7 @@ export default {
         onLogin() {
             const sUrl = this.oData.urlApi.concat("/user/login");
             let oData = {
-                UserEmail: $("#idEma").val(),
+                UserName: $("#idEma").val(),
                 UserPassword: this.sPassword
             };
 
@@ -209,12 +228,13 @@ export default {
                 axios.post(sUrl, oData)
                     .then((response) => {
                         // Если токен есть, то в зависимости от роли распределяет по интерфейсам.
-                        if (response.data.access_token && response.data.role == "Заказчик") {
-                            localStorage["userToken"] = response.data.access_token;
-                            localStorage["role"] = response.data.role;
-                            localStorage["user"] = response.data.username;
-                        }
-                        console.log("Авторизация прошла успешно");
+                        if (response.data.userToken) {
+                            sessionStorage["userToken"] = response.data.userToken;
+                            sessionStorage["role"] = response.data.role;
+                            sessionStorage["user"] = response.data.user;
+                            $(".right-panel").hide();
+                            this.$router.push("/home");
+                        }                        
                     })
 
                     .catch((XMLHttpRequest) => {
@@ -229,12 +249,98 @@ export default {
 
         onRouteCreateTask() {
             // Если нет роли заказчик, то будет ошибка.
-            if (localStorage["role"] !== "Заказчик") {
+            if (sessionStorage["role"] !== "C") {
                 $('#idNotCustomer').modal('show');
                 return;
             }
 
             this.$router.push("/task/create");
+        },        
+
+        // Функция выгружает список категорий заданий.
+        _loadingCategoryList() {
+            let sUrl = this.$parent.oData.urlApi.concat("/main/category-list");
+            this.utils.getTaskCategories(sUrl);
+
+            setTimeout(() => {
+                this.$parent.oData.aCategories = window.aTaskCategories;
+                
+                // this.$parent.oData.aCategories.map(el => {
+                //     // el.url = require(el.url);
+                //     // this.images.push(el.url);
+                //     // console.log("arr", this.images);
+                //     return require(el.url);
+                // });
+            }, 1000);                        
+        },
+
+        // Функция выгружает данные долгосрочного сотрудничества.
+        _loadHope() {
+            let sUrl = this.$parent.oData.urlApi.concat("/main/get-hope");
+            
+            try {
+                axios.get(sUrl)
+                    .then((response) => {
+                        this.aHope.push(response.data);
+                        console.log("Данные сотрудничества", this.aHope);
+                    })
+
+                    .catch((XMLHttpRequest) => {
+                        throw new Error(XMLHttpRequest.response.data);
+                    });
+            } 
+            
+            catch (ex) {
+                throw new Error(ex);
+            }
+        },
+
+        // Функция выгружает список последних заданий 5 шт., не важно, чьи они.
+        _loadingLastTasks() {
+            let sUrl = this.$parent.oData.urlApi.concat("/main/last");
+            
+            try {
+                axios.get(sUrl)
+                    .then((response) => {
+                        this.oData.aLastTasks = response.data;
+                        console.log("Последние задания", this.oData.aLastTasks);
+                    })
+
+                    .catch((XMLHttpRequest) => {
+                        throw new Error(XMLHttpRequest.response.data);
+                    });
+            } 
+            
+            catch (ex) {
+                throw new Error(ex);
+            }
+        },
+
+        onRouteExecutors() {
+            this.$router.push("/executors-list");
+        },
+        
+        ontest() {
+            let sUrl = this.$parent.oData.urlApi.concat("/executor/add-spec");
+            let oSaveData = {
+                "Specializations": [
+                    {
+                        "SpecName": "Специализация1"
+                    },
+                    {
+                        "SpecName": "Специализация2"
+                    }
+                ] 
+            };
+
+            axios.post(sUrl, oSaveData)
+                .then((response) => {
+
+                })
+
+                .catch((XMLHttpRequest) => {
+                    throw new Error(XMLHttpRequest.response.data);
+                });
         }
     }
 }

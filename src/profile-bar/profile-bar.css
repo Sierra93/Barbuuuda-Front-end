@@ -1,1 +1,10 @@
-/* No CSS *//*# sourceMappingURL=profile-bar.css.map */
+.fon-profile .stat-item-active {
+  display: flex;
+  justify-content: space-between;
+  color: #B6B6B6;
+}
+
+.fon-profile .stat-item-active:hover {
+  background: whitesmoke;
+  cursor: pointer;
+}

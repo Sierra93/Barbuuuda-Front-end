@@ -14,8 +14,9 @@ export default {
         this._loadingCategories();
         // this._loadingSpecializations();
 
-        this.oData.bGuest = localStorage["role"] == "Гость" ? true : false;
-        this.oData.bCustomer = localStorage["role"] == "Заказчик" ? true : false;
+        this.oData.bGuest = sessionStorage["role"] == "G" ? true : false;
+        this.oData.bCustomer = sessionStorage["role"] == "C" ? true : false;
+        this.oData.bExecutor = sessionStorage["role"] == "E" ? true : false;
         
         if (this.$route.name == "main") {
             this.oData.bCustomer = false;
@@ -23,31 +24,39 @@ export default {
             this.oData.bGuest = true;
         }
 
-        if (this.$route.name == "task/create" && this.oData.bCustomer) {
+        if (this.$route.name == "task-create" && this.oData.bCustomer) {
             this.oData.bGuest = false;
             this.oData.bExecutor = false;
         }
 
-        if (this.$route.name == "task/create" && this.oData.bExecutor) {
+        if (this.$route.name == "task-create" && this.oData.bExecutor) {
             this.oData.bGuest = false;
             this.oData.bCustomer = false;
+            this.oData.bExecutor = true;
+        }
+
+        // Подгружает данные задания, если идет редактирование.
+        if (this.oEditTask.editTask.bEdit) {
+            this.bEditTask = true;
+            this.editTask = this.oEditTask.editTask[0];
+            this.sCategoryName = this.oEditTask.editTask[0].categoryName;
+            this.sSpecName = this.oEditTask.editTask[0].specName;
         }
     },
-    props: ['oData'],
+    props: ["oData", "oEditTask"],
     data() {
         return {
             aCategories: [],
             bHideFields: false,
-            checkCategory: null,
-            checkSpec: null
+            sSpecName: null,
+            sSpecCode: null,
+            sCategoryName: null,
+            sCategoryCode: null,
+            bEditTask: false,
+            editTask: []
         }
     },    
     methods: {
-        // Функция делает активной область заполнения полей задания.
-        onShowTask(e) {
-            console.log("onShowTask");
-        },
-
         // Функция подгружает список категорий заданий.
         _loadingCategories() {
             const sUrl = this.oData.urlApi.concat("/task/get-categories");
@@ -103,25 +112,46 @@ export default {
         },
 
         // Функция делает поля задачи доступными для ввода.
-        onShowTaskFields() {
-            // this.bHideFields = this.checkCategory && this.checkSpec ? true : false;
-            this.bHideFields = true;
-        },
+        // onShowTaskFields() {
+        //     // this.bHideFields = this.checkCategory && this.checkSpec ? true : false;
+        //     this.bHideFields = true;
+        // },
 
-        // Функция создает задание.
+        // Функция создает или редактирует задание.
         onCreateTask() {
-            const sUrl = this.oData.urlApi.concat("/task/create");
+            let sUrl = "";
+            let oData = {};
+            let bEdit = this.oEditTask.editTask.bEdit;
 
-            try {
-                axios.post(sUrl, {
-                    OwnerId: +localStorage["userId"],
+            if (!bEdit) {
+                sUrl = this.oData.urlApi.concat("/task/create");
+                oData = {
                     TaskTitle: $("#idTaskTitle").val(),
                     TaskDetail: $("#idTaskDetail").val(),
-                    CategoryCode: this.checkCategory,
-                    SpecCode: this.checkSpec
-                })
+                    CategoryCode: this.sCategoryCode,
+                    SpecCode: this.sSpecCode,
+                    TaskEndda: $("#idDateTaskEndda").val(),
+                    TaskPrice: +$("#idPrice").val()
+                };
+            }
+
+            if (bEdit) {
+                sUrl = this.oData.urlApi.concat("/task/edit");
+                oData = {
+                    TaskId: this.editTask.taskId,
+                    TaskTitle: $("#idEditTaskTitle").val(),
+                    TaskDetail: $("#idEditTaskDetail").val(),
+                    CategoryCode: this.editTask.categoryCode,
+                    SpecCode: this.editTask.specCode,
+                    TaskEndda: $("#idEditDateTaskEndda").val(),
+                    TaskPrice: +$("#idEditPrice").val()
+                };
+            }
+
+            try {
+                axios.post(sUrl, oData)
                     .then((response) => {
-                        console.log("Задание создано");
+                        console.log("Успешно");
                     })
 
                     .catch((XMLHttpRequest) => {
@@ -134,9 +164,12 @@ export default {
             }
         },
 
-        onGetSpec(code) {
-            // Функция получает выбранную специализацию.
-            console.log("onGetSpec", code);
+        // Функция получает выбранную специализацию.
+        onGetSpec(specName, specCode, categoryName, categoryCode) {
+            this.sCategoryName = categoryName;
+            this.sSpecName = specName;
+            this.sCategoryCode = categoryCode;
+            this.sSpecCode = specCode;
         }
     }
 }

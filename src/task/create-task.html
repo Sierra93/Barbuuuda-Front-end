@@ -84,7 +84,7 @@
           
           <div class="text-spec" 
                 v-for="item in el.specializations"
-                v-on:click="onGetSpec(item.specCode)">
+                v-on:click="onGetSpec(item.specName, item.specCode, el.categoryName, el.categoryCode)">
             {{item.specName}}
           </div>
         </div>
@@ -94,9 +94,12 @@
     <div class="d-flex justify-content-center">
       <!-- <button class="btn-next form-control-sm" v-on:click="onShowTaskFields()">ДАЛЕЕ</button> -->
     </div>
-
-    <!-- Вторая часть создания задания. Основное. -->
-     <div class="block-task mt-3" _v-show="bHideFields">
+    
+    <!-- Вторая часть создания задания. Основное. -->    
+    <div class="col-lg-12 ml-5">
+      <h3 class="mt-3 mb-3 block-categories">Детали задания</h3> 
+    </div>  
+     <div class="d-flex block-task mt-3" _v-show="bHideFields">               
        <div class="mt-3 col-lg-2">
          <div class="d-flex mb-3">
            <div>
@@ -144,17 +147,15 @@
        </div>
 
         <!-- Форма полей задания.--> 
-        <div class="mt-3">              
-          <h6>Выбранная категория и специализация</h6>     
+        <div class="mt-3">
+          <h6>Выбранная категория и специализация</h6>
           <div class="mb-3">
             <label for="idTaskTitle" class="form-control-sm">
               Категория задачи
             </label>
             <strong class="asterisk">&nbsp;&#42;</strong><br>
-            <!-- <input id="idTaskTitle" 
-                    class="form-control-sm input-task search-category" 
-                    placeholder="Введите название"> -->
-                    <span>test</span>
+            <span v-show="!bEditTask">{{sCategoryName || 'Не выбрано'}}</span>
+            <span v-show="bEditTask">{{sCategoryName || 'Не выбрано'}}</span>
           </div>
 
           <div class="mb-3">
@@ -162,10 +163,8 @@
               Специализация задачи
             </label>
             <strong class="asterisk">&nbsp;&#42;</strong><br>
-            <!-- <input id="idTaskTitle" 
-                    class="form-control-sm input-task search-category" 
-                    placeholder="Введите название"> -->
-                    <span>test</span>
+            <span v-show="!bEditTask">{{sSpecName || 'Не выбрано'}}</span>
+            <span v-show="bEditTask">{{sSpecName || 'Не выбрано'}}</span>
           </div>
 
           <h6>Опишите, что нужно сделать</h6>     
@@ -176,7 +175,14 @@
               <strong class="asterisk">&nbsp;&#42;</strong><br>
               <input id="idTaskTitle" 
                       class="form-control-sm input-task search-category" 
-                      placeholder="Введите название">
+                      placeholder="Введите название"
+                      v-show="!editTask.length">
+
+              <input  id="idEditTaskTitle" 
+                      class="form-control-sm input-task search-category" 
+                      placeholder="Введите название"
+                      v-show="editTask.length"
+                      :value="editTask.taskTitle">
             </div>            
 
             <div class="mb-3">
@@ -185,11 +191,36 @@
               </label>
               <strong class="asterisk">&nbsp;&#42;</strong><br>
               <textarea id="idTaskDetail" 
-                        class="form-control-sm input-task search-category"
-                        placeholder="Опишите, что именно вам нужно"/><br>
+                        class="form-control-sm input-task detail-field"
+                        placeholder="Опишите, что именно вам нужно"
+                        v-show="!editTask.length"/>
+
+              <textarea id="idEditTaskDetail" 
+                        class="form-control-sm input-task detail-field"
+                        placeholder="Опишите, что именно вам нужно"
+                        v-show="editTask.length"
+                        :value="editTask.taskDetail"/><br>
+
               <input type="file"
                       class="form-control-sm"
                       multiple>
+            </div>
+
+            <div class="mb-3">
+              <label for="idTaskDetail" class="form-control-sm">
+                Дата сдачи задания
+              </label>
+              <strong class="asterisk">&nbsp;&#42;</strong><br>            
+              <input id="idDateTaskEndda"
+                      type="datetime-local"
+                      class="form-control-sm date-endda"
+                      v-show="!editTask.length">
+
+              <input id="idEditDateTaskEndda"
+                      type="datetime-local"
+                      class="form-control-sm date-endda"
+                      v-show="editTask.length"
+                      :value="editTask.taskEndda">
             </div>
 
             <div class="mb-3">
@@ -198,42 +229,22 @@
               </label>
               <strong class="asterisk">&nbsp;&#42;</strong><br>
               <input id="idPrice" 
-                      class="form-control-sm input-task search-category" 
-                      _placeholder="Введите бюджет задания">
+                      class="form-control-sm input-task-price date-endda"
+                      v-show="!editTask.length">
+
+                      <input id="idEditPrice" 
+                      class="form-control-sm input-task-price date-endda"
+                      v-show="editTask.length"
+                      :value="editTask.taskPrice">
             </div>
 
             <button class="btn-next form-control-sm" v-on:click="onBack()">НАЗАД</button>
             &nbsp;
             <button class="btn-task form-control-sm" v-on:click="onCreateTask()">РАЗМЕСТИТЬ ЗАДАНИЕ В АУКЦИОНЕ</button>
         </div>
-        
-        <!-- Статус задания. -->
+              
         <div class="col-lg-2">
-            <!-- <h6 class="mb-3">Статус задания</h6>
-            <div class="mb-3">
-                <span class="circle-first">1</span>
-                <span class="category-text">Создание</span>
-            </div>
-
-            <div class="mb-3">
-                <span class="circle-second">2</span>
-                <span class="category-text">В аукционе</span>
-            </div>
-
-            <div class="mb-3">
-                <span class="circle-second">3</span>
-                <span class="category-text">В работе</span>
-            </div>
-
-            <div class="mb-3">
-                <span class="circle-second">4</span>
-                <span class="category-text">На гарантии</span>
-            </div>
-
-            <div class="mb-3">
-                <span class="circle-second">5</span>
-                <span class="category-text">Завершен</span>
-            </div> -->
+           
         </div>
     </div>
 </body>

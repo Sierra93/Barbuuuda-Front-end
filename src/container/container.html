@@ -33,7 +33,7 @@
             <li class="nav-item active litem">
               <div class="nav-link">
                 <i class="fa fa-tasks icon" aria-hidden="true"></i>
-                <a href="">Все задания</a>
+                <router-link to="/auction">Все задания</router-link>
               </div>
             </li>
 
@@ -47,7 +47,7 @@
             <li class="nav-item litem">
               <div class="nav-link">
                 <i class="fa fa-window-restore icon" aria-hidden="true"></i>
-                <a href="">Категории</a>
+                <router-link to="/categories">Категории</router-link>
               </div>
             </li>
 
@@ -111,13 +111,13 @@
                   </div>
                 </li>
 
-                <li class="nav-item active litem">
+                <!-- <li class="nav-item active litem">
                   <label for="idNumber" class="form-control-sm">Телефон</label><strong class="asterisk">&#42;</strong>
                   <div class="nav-link input-line">
                     <i class="fa fa-phone" aria-hidden="true"></i>
                     <input id="idNumber" type="text" class="form-control-sm input-not-line" placeholder="+7 (___) ___-__-__" />
                   </div>
-                </li>
+                </li> -->
 
                 <li class="nav-item active litem">
                   <label for="idPassword" class="form-control-sm">Пароль</label><strong class="asterisk">&#42;</strong>
@@ -175,13 +175,13 @@
                   </div>
                 </li>
 
-                <li class="nav-item active litem">
+                <!-- <li class="nav-item active litem">
                   <label for="idNum" class="form-control-sm">Телефон</label><strong class="asterisk">&#42;</strong>
                   <div class="nav-link input-line">
                     <i class="fa fa-phone" aria-hidden="true"></i>
                     <input id="idNum" type="text" class="form-control-sm input-not-line" placeholder="+7 (___) ___-__-__" />
                   </div>
-                </li>
+                </li> -->
                  
                 <li class="nav-item active litem">
                   <label for="idPass1" class="form-control-sm">Пароль</label><strong class="asterisk">&#42;</strong>
@@ -202,7 +202,8 @@
                 <li class="nav-item active litem">
                   <div class="nav-link input-line">
                     <div class="col-lg-12 d-flex justify-content-center mt-3">
-                      <button class="btn-register form-control-lg btn-create-task btn-all-tasks mb-3">
+                      <button class="btn-register form-control-lg btn-create-task btn-all-tasks mb-3"
+                      v-on:click="onCreate()">
                         РЕГИСТРАЦИЯ
                       </button>
                     </div>
@@ -218,7 +219,7 @@
             <div class="collapse navbar-collapse" id="idRightMenu">
               <ul class="navbar-nav flex-column right-ul">
                 <li class="nav-item active litem">
-                  <label for="idEma" class="form-control-sm">E-mail</label>
+                  <label for="idEma" class="form-control-sm">Login или E-mail</label>
                   <strong class="asterisk">&#42;</strong>
                   <div class="nav-link input-line">
                     <i class="fa fa-envelope" aria-hidden="true"></i>
@@ -267,7 +268,7 @@
       </h5>
 
       <div class="text-center mb-3">
-        <img src="../assets/images/GroupLine.png" />
+        <img src="../assets/images/Line10.png" />
       </div>
     </div>
 
@@ -297,7 +298,7 @@
     <h5 class="text-center">ПОЧЕМУ <span class="title-color">BARBUUUDA</span>?</h5>
 
     <div class="text-center mb-3">
-      <img src="../assets/images/GroupLine.png" />
+      <img src="../assets/images/Line9.png" />
     </div>
   </div>
 
@@ -322,7 +323,7 @@
       <h5 class="text-center pt-5" v-show="el.mainTitle" v-for="el in aAdvantages">{{el.mainTitle}}</h5>
 
       <div class="text-center mb-3">
-        <img src="../assets/images/GroupLine.png" />
+        <img src="../assets/images/Line9.png" />
       </div>
     </div>
 
@@ -341,12 +342,12 @@
     </div>
   </div>
 
-  <!-- Почему BARBUUUDA? -->
+  <!-- КАТЕГОРИИ -->
   <div class="mb-3 mt-5">
     <h5 class="text-center">КАТЕГОРИИ</h5>
 
     <div class="text-center mb-3">
-      <img src="../assets/images/GroupLine.png" />
+      <img src="../assets/images/Line9.png" />
     </div>
 
     <div class="col-lg-12 text-center mb-5">
@@ -359,53 +360,21 @@
   <!-- Секция категорий. -->
   <div class="col-lg-12 mb-3">
     <div class="row">
-      <div class="col-lg-4">
+      <div class="col-lg-4 mb-3" v-for="el in oData.aCategories">
         <div class="card">
           <div class="card-body">
             <h5 class="card-title title-row">
-              <img src="../assets/images/768c92df1858f1fbb75ca810126d03981.png" class="mr-2" />
-              <strong class="mr-2">Web-разработка</strong>
+              <!-- <img :src="getImgUrl(el.url)" class="mr-2" /> -->
+              <strong class="mr-2">{{el.categoryName}}</strong>
               <img src="../assets/images/Group1.png" />
             </h5>
 
             <span class="card-text">
-              Подкатегорий: 5
+              Подкатегорий: {{el.specializations.length}}
             </span>
           </div>
         </div>
-      </div>
-
-      <div class="col-lg-4">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title title-row">
-              <img src="../assets/images/768c92df1858f1fbb75ca810126d03981.png" class="mr-2" />
-              <strong class="mr-2">Web-разработка</strong>
-              <img src="../assets/images/Group1.png" />
-            </h5>
-
-            <span class="card-text">
-              Подкатегорий: 5
-            </span>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-lg-4">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title title-row">
-              <img src="../assets/images/768c92df1858f1fbb75ca810126d03981.png" class="mr-2" />
-              <strong class="mr-2">Web-разработка</strong>
-              <img src="../assets/images/Group1.png" />
-            </h5>
-
-            <span class="card-text">
-              Подкатегорий: 5
-            </span>
-          </div>
-        </div>
-      </div>
+      </div>    
     </div>
   </div>
 
@@ -415,7 +384,7 @@
       <h5 class="text-center pt-5">ПОСЛЕДНИЕ ЗАДАНИЯ</h5>
 
       <div class="text-center mb-3">
-        <img src="../assets/images/GroupLine.png" />
+        <img src="../assets/images/Line9.png" />
       </div>
     </div>
 
@@ -425,7 +394,7 @@
       </span>
     </div>
 
-    <div class="d-flex">
+    <!-- <div class="d-flex">
       <div class="col-lg-12">
         <div class="card">
           <div class="card-body">
@@ -441,7 +410,7 @@
                 <img src="../assets/images/Icon.png" class="ml-5" /> 561
               </div>
 
-              <div class="col-lg-3">
+              <div class="col-lg-3 content-title">
                 <span class="badge badge-pill badge-primary">Для всех</span>
                 <span class="badge badge-pill badge-warning ml-1">В работе</span>
               </div>
@@ -470,7 +439,85 @@
           </footer>
         </div>
       </div>
-    </div>
+    </div> -->
+
+    <div class="block-my-tasks">
+      <div class="card card-task card-subcategory" v-for="el in oData.aLastTasks">
+          <div class="card-header header-task">
+              <div class="block-icon">
+                  <div>
+                      <img src="../assets/images/1-wiper1.png">
+                  </div>
+                  &nbsp;
+
+                  <div class="ml-1 text-dark">
+                      <span>{{el.userName}}</span><br>
+                      <small>{{el.taskBegda}}</small>
+                  </div>
+              </div>
+
+              <div class="">
+                  <img src="../assets/images/message.png">&nbsp;
+                  <span class="text-dark">{{el.countOffers}}</span>
+              </div>
+
+              <div class="">
+                  <img src="../assets/images/Icon.png">&nbsp;
+                  <span class="text-dark">{{el.countViews}}</span>
+              </div>
+
+              <div class="badge badge-pill badge-primary content-title">
+                  <span>{{el.typeCode}}</span>
+              </div>
+
+              <div class="badge badge-pill badge-warning content-title">
+                  <span>{{el.statusName}}</span>
+              </div>
+
+              <div class="task-price">
+                  <img src="../assets/images/date_range.png">
+                  <span>{{el.taskEndda}}</span>
+              </div>
+
+              <div class="task-price">
+                  <span>{{el.taskPrice || 'По договоренности'}}
+                      <span v-show="el.taskPrice">₽</span>
+                  </span>
+              </div>
+          </div>
+
+          <div class="card-body">
+              <h5 class="card-title task-title">
+                  {{el.taskTitle}}
+              </h5>
+
+              <p class="card-text task-detail">
+                  {{el.taskDetail}}
+              </p>
+          </div>
+
+          <div class="card-footer task-detail">
+              <div class="block-footer">
+                  <div class="task-category">
+                      <span>{{el.categoryName}}</span>
+                  </div>
+
+
+                  <div class="offer">
+                      <!-- <button class="btn-next form-control-sm" v-on:click="">КО ВСЕМ СТАВКАМ</button> -->
+
+                      <!-- <button 
+                          class="btn-next form-control-sm" 
+                          _v-bind:value="el.taskId"
+                          v-on:click="onGetTask(el.taskId)">
+                          ОТКРЫТЬ ЗАДАНИЕ
+                      </button> -->
+                      <span class="send-task">ОСТАВИТЬ ПРЕДЛОЖЕНИЕ</span>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
 
     <div class="col-lg-12 d-flex justify-content-center mt-3">
       <button class="btn-create-task from-control-sm btn-create-task btn-all-tasks mb-3">
@@ -484,7 +531,7 @@
     <h5 class="text-center">ПОПУЛЯРНЫЕ ИСПОЛНИТЕЛИ</h5>
 
     <div class="text-center mb-3">
-      <img src="../assets/images/GroupLine.png" />
+      <img src="../assets/images/Line9.png" />
     </div>
 
     <div class="col-lg-12 text-center mb-5">
@@ -543,7 +590,8 @@
     </div>
 
     <div class="col-lg-12 d-flex justify-content-center mt-3">
-      <button class="btn-create-task from-control-sm btn-create-task btn-all-tasks mb-3">
+      <button class="btn-create-task from-control-sm btn-create-task btn-all-tasks mb-3"
+              v-on:click="onRouteExecutors()">
         ВСЕ ИСПОЛНИТЕЛИ
       </button>
     </div>
@@ -556,7 +604,7 @@
       <h5 class="text-center pt-5">СТАТЬ ИСПОЛНИТЕЛЕМ И НАЧАТЬ ЗАРАБАТЫВАТЬ НА <span class="title-color">BARBUUUDA</span></h5>
 
       <div class="col-lg-12 text-center mb-5">
-        <p class="content">
+        <p class="content-title">
           Выполняйте задания, повышайте свой рейтинг, нарабатывайте положительные отзывы и зарабатывайте деньги.
         </p>
       </div>
@@ -574,7 +622,7 @@
       <h5 class="text-center pt-5">ЧТО ВЫ ПОЛУЧАЕТЕ?</h5>
 
       <div class="text-center mb-3">
-        <img src="../assets/images/GroupLine.png" />
+        <img src="../assets/images/Line9.png" />
       </div>
     </div>
 
@@ -593,11 +641,23 @@
     </div>
   </div>
 
-  <!-- Модальное окно ошибки, если нет роли заказчика. -->
-  <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
-    Launch demo modal
-  </button> -->
-  
+  <div class="gray-fon pb-3 mt-5" v-for="el in aHope">
+    <div class="">
+      <h5 class="text-center pt-5">{{el.hopeTitle}}</h5>
+
+      <div class="text-center mb-3">
+        <img src="../assets/images/Line9.png" />
+      </div>
+
+      <div class="col-lg-12 text-center mb-5">
+        <span class="content-title">
+          {{el.hopeDetails}}
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Модальное окно ошибки, если нет роли заказчика. -->  
   <div class="modal fade" id="idNotCustomer" tabindex="-1" role="dialog" aria-labelledby="idNotCustomerTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
@@ -614,7 +674,7 @@
         </div>
 
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Хорошо</button>
+          <button type="button" class="btn-create-task from-control-sm btn-create-task btn-all-tasks" data-dismiss="modal">Хорошо</button>
         </div>
       </div>
     </div>

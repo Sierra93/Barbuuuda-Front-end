@@ -1,7 +1,6 @@
 /* eslint-disable */
 // eslint-disable-next-line no-unused-vars
 
-
 import CustomerHeader from '../components/customer-header.vue';
 import $ from "jquery";
 import axios from 'axios';
@@ -13,29 +12,29 @@ export default {
         CustomerHeader,
         VueRouter
     },
-    props: ['oData'],
+    props: ["oData", "oEditTask"],
     data() {
         return {
-            bGuest: false
+            bGuest: false,
+            bCreateBtn: false
         }
     },
     created() {
-        // this._getAuthorize();
-        this.bGuest = localStorage["role"] == "Гость" ? true : false;
-    },
+        this.bGuest = sessionStorage["role"] == "G" ? true : false;        
+    },    
     methods: {
          // Функция проверяет авторизован ли юзер. 
          _getAuthorize() {
             let userRole = "";
 
-            if (!localStorage["userToken"] || !localStorage["role"] || localStorage["role"] == "Гость") {
-                userRole = "Гость";                
-                localStorage["role"] = userRole;                
+            if (!sessionStorage["userToken"] || !sessionStorage["role"] || sessionStorage["role"] == "G") {
+                userRole = "G";                
+                sessionStorage["role"] = userRole;                
                 this.bGuest = true;
             }
 
             else {
-                userRole = localStorage["role"];
+                userRole = sessionStorage["role"];
                 this.bGuest = false;
             }
 
@@ -44,7 +43,7 @@ export default {
 
             try {
                 axios.post(sUrl, {
-                    UserLogin: localStorage["user"],
+                    UserLogin: sessionStorage["user"],
                     UserRole: userRole
                 })
                     .then((response) => {
@@ -66,21 +65,32 @@ export default {
 
         // Функция распределяет по пунктам хидера.
         onGetMenu(value) {
-            if (value.target && value.target.text == "Barbuuuda") {
+            if (value.target && value.currentTarget.text == " Barbuuuda ") {
+                this.oData.bGuest = true;
                 this.$router.push("/");
             }
 
             else if (value == "Главная") {
-                this.$router.push("/c/home");
+                this.$router.push("/home");
             }
 
-            else if (value == "Мои задания") {
+            else if (value == "Мои задания") {                
                 this.$router.push("/tasks/my");
             }
 
             else if (value == "Создать задание") {
+                this.oEditTask.editTask.bEdit = false;
                 this.$router.push("/task/create");
             }
-        }
+
+            else if (value == "Аукцион заданий") {
+                this.oEditTask.editTask.bEdit = false;
+                this.$router.push("/auction");
+            }
+        },
+
+        onGoProfile() {
+            this.$router.push("/profile");
+        }    
     }
 }

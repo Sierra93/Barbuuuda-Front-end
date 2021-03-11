@@ -1,10 +1,7 @@
 .header-nav {
   background: #00BCD4;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -ms-flex-pack: distribute !important;
-      justify-content: space-around !important;
+  justify-content: space-around !important;
 }
 
 .header-title {
@@ -33,8 +30,65 @@
   color: #FFFFFF;
   cursor: pointer;
 }
-/*# sourceMappingURL=customer-header.css.map */
 
-.right-head img {
-  padding: 5%;
+#dropdownMenuButton {
+  padding: 0;
+}
+
+.block-user:hover {
+  cursor: pointer;
+}
+
+.drop-down {
+  position: relative;
+}
+
+.drop-down:hover .drop-menu {
+  visibility: visible;
+  background-color: white;
+  box-shadow: 0px 0px 5px 0px #C1C1C1;
+  cursor: pointer;
+  color: cornflowerblue;
+  z-index: 1;
+}
+
+.drop-down:hover .drop-menu span {
+  color: #676767;
+}
+
+.drop-down .drop-menu {
+  position: absolute;
+  background-color: transparent;
+  padding: 0 10px;
+  border-radius: 8px;
+  visibility: hidden;
+  transition: .3s;
+  right: 2px;
+  line-height: 2;
+  width: 200px;
+}
+
+.drop-down .drop-menu ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.drop-down .drop-menu span {
+  color: transparent;
+}
+
+.drop-down .drop-menu span:hover {
+  cursor: pointer;
+  color: #00BCD4;
+}
+
+.drop-down .user-icon {
+  width: 30px;
+}
+
+hr {
+  margin-top: 0rem;
+  margin-bottom: 0rem;
+  border: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
 }

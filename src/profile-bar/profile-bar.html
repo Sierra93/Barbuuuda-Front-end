@@ -18,81 +18,84 @@
             </div>
 
             <div>
-                1
+                <span>{{countTotalTasks}}</span>
             </div>
         </div>
 
         <!-- В аукционе -->
-        <div class="stat-item">
+        <div class="stat-item-active">
             <div>
-                <span>В аукционе</span>
+                <span class="stat-link" v-on:click="onGetStatusTask($event.target.textContent)">В аукционе</span>
             </div>
 
             <div>
-                <span>0</span>
+                <span>{{countAuction}}</span>
             </div>
         </div>
 
 
         <!-- В работе -->
-        <div class="stat-item">
+        <div class="stat-item-active">
             <div>
-                <span>В работе</span>
+                <span class="stat-link" v-on:click="onGetStatusTask($event.target.textContent)">В работе</span>
             </div>
 
             <div>
-                <span>0</span>
+                <span>{{countWork}}</span>
             </div>
         </div>
 
 
         <!-- На гарантии -->
-        <div class="stat-item">
+        <div class="stat-item-active">
             <div>
-                <span>На гарантии</span>
+                <span class="stat-link" v-on:click="onGetStatusTask($event.target.textContent)">На гарантии</span>
             </div>
 
             <div>
-                <span>0</span>
+                <span>{{countGarant}}</span>
             </div>
         </div>
 
         <!-- Завершено -->
-        <div class="stat-item">
+        <div class="stat-item-active">
             <div>
-                <span>Завершено</span>
+                <span class="stat-link" v-on:click="onGetStatusTask($event.target.textContent)">Завершено</span>
             </div>
 
             <div>
-                <span>0</span>
+                <span>{{countComplete}}</span>
             </div>
         </div>
 
         <!-- Перерасчет -->
-        <div class="stat-item">
+        <div class="stat-item-active">
             <div>
-                <span>Перерасчет</span>
+                <span class="stat-link" v-on:click="onGetStatusTask($event.target.textContent)">Перерасчет</span>
             </div>
 
             <div>
-                <span>0</span>
+                <span>{{countPerechet}}</span>
             </div>
         </div>
 
         <!-- В черновике -->
-        <div class="stat-item">
+        <div class="stat-item-active">
             <div>
-                <span>В черновике</span>
+                <span class="stat-link" v-on:click="onGetStatusTask($event.target.textContent)">В черновике</span>
             </div>
 
             <div>
-                <span>0</span>
+                <span>{{countDraft}}</span>
             </div>
-        </div>        
+        </div>      
     </div>
 
     <!-- Календарь. -->
-    <DatePicker class="mt-3 col-lg-12" v-model="picker"></DatePicker>
+    <DatePicker class="mt-3 col-lg-12" 
+                v-show="!bHideCalendar"
+                v-model="picker" 
+                v-on:input="onGetDate($event)"></DatePicker>
 </body>
 
 </html>

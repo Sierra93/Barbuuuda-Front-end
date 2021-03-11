@@ -20,37 +20,75 @@ export default {
         CustomerHeader
     },
     created() {
+        this.utils.deadlineSession();                
         this._loadDataFon();
         this._loadDataWhy();
         this._loadGetWork();
         this._loadAdvantages();
         this._loadPriveleges();     
 
-        this.oData.bGuest = localStorage["role"] == "Гость" ? true : false;
-        this.oData.bCustomer = localStorage["role"] == "Заказчик" ? true : false;
+        this.oData.bGuest = sessionStorage["role"] == "G" ? true : false;
+        this.oData.bCustomer = sessionStorage["role"] == "C" ? true : false;
+        this.oData.bExecutor = sessionStorage["role"] == "E" ? true : false;
+        this.oData.role = sessionStorage["role"];
+
+        // Автоматически добавит любым запросам токен для авторизации.
+        axios.defaults.headers.common = {"Authorization": "Bearer ".concat(sessionStorage["userToken"])}        
+    },
+    mounted: function () {
+        this.$nextTick(function () {
+            let sUrl = this.oData.urlApi.concat("/user/token?userName=").concat(sessionStorage.user);
+            this.utils.refreshToken(sUrl);
+        })
     },
     data() {
         return {
             oData: {
                 urlApi: "http://localhost:58822",
-                // urlApi: "https://apphosting.site",
+                // urlApi: "https://barbuuuda.online",
                 aHeader: [],
                 bGuest: false,
-                bCustomer: false
+                bCustomer: false,
+                bExecutor: false,
+                aCalendarTasks: [],
+                aTasks: [],
+                aLastTasks: [],
+                countTotalTask: null,
+                countAuctionTask: null,
+                countAuctionTask: null,
+                countWorkTask: null,
+                countGarantTask: null,
+                countCompleteTask: null,
+                countPerechetTask: null,
+                countDraftTask: null,
+                countTotalPage: null,
+                role: null,
+                oTaskStatus: {
+                    Total: "Всего",
+                    Auction: "В аукционе",
+                    Work: "В работе",
+                    Garant: "На гарантии",
+                    Complete: "Завершено",
+                    Perechet: "Перерасчет",
+                    Draft: "В черновике"
+                },
+                aCategories: [],
+                dateRegister: null
             },
             oEditTask: {
                 editTask: {},
                 sTypes: {
                     All: "All",
                     Single: "Single"
-                }
+                },
+                bEdit: false
             },
             aFon: [],
             aWhyis: [],
             aWork: [],
             aAdvantages: [],
             aProveliges: [],
-            sPassword: null                                
+            sPassword: null                             
         }
     },    
     methods: {               
@@ -235,7 +273,8 @@ export default {
                         UserPassword: this.pass
                     })
                     .then((response) => {
-                        localStorage["user"] = response.data.sLogin;
+                        sessionStorage["user"] = response.data.sLogin;
+                        $(".right-panel").hide();
                     })
 
                     .catch((XMLHttpRequest) => {
@@ -246,6 +285,27 @@ export default {
             catch (ex) {
                 throw new Error(ex);
             }
-        }
+        },
+
+        selectDate(date) {
+            let formatDate = date.toLocaleString();
+            const sUrl = this.$parent.oData.urlApi.concat("/task/concretely-date?date=".concat(formatDate));
+    
+            try {
+                axios.get(sUrl)
+                    .then((response) => {         
+                        this.$parent.oData.aTasks= response.data;               
+                        console.log("Задания выбранной даты", this.$parent.oData.aTasks);
+                    })
+    
+                    .catch((XMLHttpRequest) => {
+                        throw new Error('Ошибка получения заданий выбранной даты', XMLHttpRequest.response.data);
+                    });
+            } 
+            
+            catch (ex) {
+                throw new Error(ex);
+            }
+        }        
     }
 }

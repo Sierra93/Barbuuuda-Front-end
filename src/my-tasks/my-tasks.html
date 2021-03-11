@@ -11,9 +11,7 @@
     <div class="block-before-my-tasks col-lg-12">
         <div class="">
             
-        </div>
-
-        
+        </div>        
     </div>
 
     <!-- Левая панель. -->
@@ -28,26 +26,33 @@
             <div class="search-block-task mb-3 mt-3">
                 <div class="d-flex">
                     <input type="search" class="form-control-sm search-category"
-                        placeholder="Поиск задания по ID или названию...">
+                        placeholder="Поиск задания по ID или названию..."
+                        v-model="sSearch"
+                        v-on:keyup.enter="onSearchTask($event.target.value)">
                     <div class="input-group-append">
-                        <button class="btn btn-detault btn-search" type="button" id="button-addon2">Найти</button>
+                        <button class="btn btn-detault btn-search" 
+                                type="button"
+                                :value="sSearch"
+                                v-on:click="onSearchTask(sSearch)">
+                            Найти
+                        </button>
                     </div>
                 </div>
 
                 <div>
-                    <span>Сортировать: &nbsp;</span>
-                    <select class="form-control-sm task-filter">
+                    <span>Фильтр: &nbsp;</span>
+                    <select class="form-control-sm task-filter"
+                            v-on:change="onFilterTasks($event.target.value)">
                         <option></option>
-                        <option>По дате</option>
-                        <option>По категории</option>
-                        <option>По специализации</option>
+                        <option>По дате создания</option>
+                        <option>По дате сдачи</option>
                     </select>
                 </div>
             </div>
 
             <!-- Список заданий. -->
             <div class="block-my-tasks">
-                <div class="card card-task card-subcategory" v-for="el in aTasks">
+                <div class="card card-task card-subcategory" v-for="el in aActiveTasks">                    
                     <div class="card-header header-task">
                         <div class="block-icon">
                             <div>
@@ -56,7 +61,7 @@
                             &nbsp;
 
                             <div class="ml-1 text-dark">
-                                <span>{{el.userLogin}}</span><br>
+                                <span>{{el.userName}}</span><br>
                                 <small>{{el.taskBegda}}</small>
                             </div>
                         </div>
@@ -71,11 +76,11 @@
                             <span class="text-dark">{{el.countViews}}</span>
                         </div>
 
-                        <div class="badge badge-pill badge-primary">
+                        <div class="badge badge-pill badge-primary content-title">
                             <span>{{el.typeCode}}</span>
                         </div>
 
-                        <div class="badge badge-pill badge-warning">
+                        <div class="badge badge-pill badge-warning content-title">
                             <span>{{el.statusName}}</span>
                         </div>
 
@@ -110,7 +115,7 @@
 
                             <div class="offer">
                                 <!-- <button class="btn-next form-control-sm" v-on:click="">КО ВСЕМ СТАВКАМ</button> -->
-
+                                
                                 <button 
                                     class="btn-next form-control-sm" 
                                     _v-bind:value="el.taskId"
@@ -120,7 +125,13 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div>                
+            </div>
+            
+            <div class="d-flex justify-content-center mb-3">
+                <span v-show="!aActiveTasks.length">
+                    На данный момент у вас нет заданий взятых в работу...
+                </span>                
             </div>
 
             <!-- Пагинация. -->
@@ -132,12 +143,9 @@
                                 <span aria-hidden="true">&laquo;</span>
                             </a>
                         </li>
-                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item"><a class="page-link" href="#">4</a></li>
-                        <li class="page-item"><a class="page-link" href="#">5</a></li>
-                        <li class="page-item"><a class="page-link" href="#">6</a></li>
+                        <li class="page-item" v-for="el in oData.countTotalPage" v-on:click="onGetPagination(el)">
+                            <a class="page-link">{{el}}</a>
+                        </li>
 
                         <li class="page-item">
                             <a class="page-link" href="#" aria-label="Next">

@@ -18,3 +18,13 @@
   display: flex !important;
   justify-content: center !important;
 }
+
+.btn-link:focus {
+  outline: none !important;
+  box-shadow: none !important;
+  text-decoration: none !important;
+}
+
+.btn-link:hover {
+  text-decoration: none !important;
+}
