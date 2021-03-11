@@ -52,6 +52,7 @@ export default {
                 bExecutor: false,
                 aCalendarTasks: [],
                 aTasks: [],
+                aCustomerTasks: [],
                 aLastTasks: [],
                 countTotalTask: null,
                 countAuctionTask: null,

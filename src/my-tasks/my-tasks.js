@@ -29,18 +29,18 @@ export default {
     methods: {
         // Функция получает список заданий заказчика.
         _loadingTaskList() {
-            var sUrl = "";
+            // var sUrl = "";
 
             // Если нужно выгрузить задания для заказчика.
-            if (sessionStorage.role == "C") {
-                var sTypeAll = this.oEditTask.sTypes.All; // Все задания.
-                sUrl = this.oData.urlApi.concat("/task/tasks-list?type=".concat(sTypeAll));
+            
+                let sTypeAll = this.oEditTask.sTypes.All; // Все задания.
+                const sUrl = this.oData.urlApi.concat("/task/tasks-list?type=".concat(sTypeAll));
 
                 try {
                     axios.post(sUrl)
                         .then((response) => {
-                            this.oData.aTasks = response.data;
-                            console.log("Список заданий", this.oData.aTasks);
+                            this.oData.aCustomerTasks = response.data;
+                            console.log("Список заданий", this.oData.aCustomerTasks);
                         })
 
                         .catch((XMLHttpRequest) => {
@@ -51,28 +51,28 @@ export default {
                 catch (ex) {
                     throw new Error(ex);
                 }
-            }
+            
 
             // Если нужно выгрузить задания для исполнителя.
-            if (sessionStorage.role == "E") {
-                sUrl = this.oData.urlApi.concat("/executor/tasks-work");
+            // if (sessionStorage.role == "E") {
+            //     sUrl = this.oData.urlApi.concat("/executor/tasks-work");
 
-                try {
-                    axios.post(sUrl)
-                        .then((response) => {
-                            this.aActiveTasks = response.data;
-                            console.log("Список заданий в работе у исполнителя", this.aActiveTasks);
-                        })
+            //     try {
+            //         axios.post(sUrl)
+            //             .then((response) => {
+            //                 this.aActiveTasks = response.data;
+            //                 console.log("Список заданий в работе у исполнителя", this.aActiveTasks);
+            //             })
 
-                        .catch((XMLHttpRequest) => {
-                            throw new Error('Ошибка получения списка заданий в работе у исполнителя', XMLHttpRequest.response.data);
-                        });
-                } 
+            //             .catch((XMLHttpRequest) => {
+            //                 throw new Error('Ошибка получения списка заданий в работе у исполнителя', XMLHttpRequest.response.data);
+            //             });
+            //     } 
                 
-                catch (ex) {
-                    throw new Error(ex);
-                }
-            }
+            //     catch (ex) {
+            //         throw new Error(ex);
+            //     }
+            // }
         },
 
         // Функция получает выделенное задание.
@@ -205,7 +205,7 @@ export default {
                 axios.get(sUrl)
                     .then((response) => {         
                         console.log("filter pagination", response.data);
-                        this.oData.aTasks = response.data.tasks;
+                        this.oData.aCustomerTasks = response.data.tasks;
                     })
 
                     .catch((XMLHttpRequest) => {
