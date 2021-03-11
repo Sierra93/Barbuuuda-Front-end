@@ -52,7 +52,7 @@
 
             <!-- Список заданий. -->
             <div class="block-my-tasks">
-                <div class="card card-task card-subcategory" v-for="el in aActiveTasks">                    
+                <div class="card card-task card-subcategory" v-for="el in oData.aCustomerTasks">                    
                     <div class="card-header header-task">
                         <div class="block-icon">
                             <div>
@@ -127,12 +127,13 @@
                     </div>
                 </div>                
             </div>
-            
-            <div class="d-flex justify-content-center mb-3">
-                <span v-show="!aActiveTasks.length">
+
+            <!-- Если нет активных заданий у исполнителя. -->
+             <div class="d-flex justify-content-center mb-3">
+                <span v-show="aActiveTasks.length == 0 && oData.role == 'E'">
                     На данный момент у вас нет заданий взятых в работу...
                 </span>                
-            </div>
+            </div> 
 
             <!-- Пагинация. -->
             <pagination class="pagination-sm block-pagination card-subcategory">
