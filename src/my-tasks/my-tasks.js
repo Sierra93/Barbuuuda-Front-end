@@ -205,7 +205,7 @@ export default {
                 axios.get(sUrl)
                     .then((response) => {         
                         console.log("filter pagination", response.data);
-                        this.oData.aTasks = response.data.tasks;
+                        this.oData.aCustomerTasks = response.data.tasks;
                     })
 
                     .catch((XMLHttpRequest) => {
