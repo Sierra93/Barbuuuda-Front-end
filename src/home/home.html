@@ -23,7 +23,7 @@
                 </div>
                
                   <!-- Панель перед началом теста. -->
-                  <div class="panel-before-test" v-show="!bStartTest">
+                  <div class="panel-before-test" v-show="!isHideStepsTest">
                       <div class="mb-3">
                         <span class="notifications__subtitle">Добро пожаловать на Barbuuuda!</span>
                       </div>
@@ -37,7 +37,7 @@
                       </div>
 
                       <button class="btn-next form-control-sm mb-3 mt-3" 
-                              v-on:click="">НАЧАТЬ</button><hr>
+                              v-on:click="onStartSteps()">НАЧАТЬ</button><hr>
 
                         <div>
                             <strong class="content-title">
@@ -49,7 +49,7 @@
                   </div>
 
                    <!-- Панель прохождения теста. -->
-                <div class="panel-test">
+                <div class="panel-test" v-show="isHidePanelTest">
                     <ul class="nav nav-pills nav-justified">
                         <li class="nav-item mb-3">
                             <a class="nav-link active" data-toggle="tab" role="tab" href="#idRegulations">
@@ -91,16 +91,34 @@
                                     v-on:click="">ПРАВИЛА</button>                         
                         </div>
 
-                        <div class="tab-pane fade" id="idInfoMe" role="tabpanel" aria-labelledby="profile-tab">
-                            Информация о себе
-                            <br>
-                            <button class="btn-next form-control-sm mb-3 mt-3" 
+                        <div class="tab-pane fade" id="idInfoMe" role="tabpanel" aria-labelledby="profile-tab" v-for="el in aProfileData">
+                            <div class="tab-pane fade show active" id="about" role="tabpanel" aria-labelledby="about-tab">
+                                <h4>Немного о себе</h4>
+                                <span>{{el.aboutInfo}}</span>
+
+                                <br>
+
+                                <button class="btn-next form-control-sm mb-3 mt-3" 
                             v-on:click="">ЗАПОЛНИТЬ ПОЗЖЕ</button>
+                              </div>
                         </div>
 
-                        <div class="tab-pane fade" id="idSelectCategory" role="tabpanel" aria-labelledby="contact-tab">
-                            Выбор категорий и подкатегорий
-                            <br>
+                        <div class="tab-pane fade" id="idSelectCategory" role="tabpanel" aria-labelledby="contact-tab" v-for="el in aProfileData">  
+                            <h4 class="mt-3">Категории и специализации выполняемых заданий</h4>
+                            <div class="mt-3" v-for="(category, idx) in aCategories">
+                              <strong>{{category.categoryName}}</strong><small class="ml-2">Выбрать все</small><br>
+                              <div v-for="spec in aCategories[idx].specializations">
+                                <div class="d-flex align-items-center">
+                                  <input type="checkbox" 
+                                          class="mr-1"
+                                          v-model="checked"
+                                          v-on:click="onSelectSpec(!checked, spec.specName)"><span>{{spec.specName}}</span>
+                                </div>
+                              </div>
+                            </div>
+                      
+                            <button class="btn-next form-control-sm mt-3 mr-1" v-on:click="onSaveSpecies()">Сохранить</button>
+
                             <button class="btn-next form-control-sm mb-3 mt-3" 
                             v-on:click="">ЗАПОЛНИТЬ ПОЗЖЕ</button>
                         </div>
@@ -109,13 +127,13 @@
                             <span>Для обеспечения качества работы исполнителей, мы должны быть уверены, что Вы ознакомились с правилами работы на сервисе.</span>  
                             <br>
                             <button class="btn-next form-control-sm mb-3 mt-3" 
-                            v-on:click="">НАЧАТЬ</button>
+                            v-on:click="onStartTest()">НАЧАТЬ</button>
                         </div>
                     </div>
                 </div>
 
                 <!-- Панель вопросов теста. -->
-                <div class="panel-before-test" v-show="!bStartTest">
+                <div class="panel-test" v-show="isHidePanelStartTest">
                     <div v-for="el in aQuestion">
                         <div>
                             <div class="mb-3">

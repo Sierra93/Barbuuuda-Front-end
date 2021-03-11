@@ -22,17 +22,24 @@ export default {
         this._loadingActiveTasks();
         this._loadExecutorTest();
         this._loadingCountQuestions();
+        this._loadingProfile();
+        this._loadingCategoryList();
     },
     data() {
         return {
             picker: new Date(),
             aCalendarTasks: [],
             aQuestion: [],
-            bStartTest: false,
+            isHideStepsTest: false,
             iQuestionsCount: null,
             aAnswers: [],
             currentQuestion: null,
-            currentQuestionNumber: null
+            currentQuestionNumber: null,
+            isHidePanelTest: false,
+            isHidePanelStartTest: false,
+            aProfileData: [],
+            aCategories: [],
+            aExecutorSpecializations: []
         }
     },    
     methods: {
@@ -107,6 +114,12 @@ export default {
                     })
 
                     .catch((XMLHttpRequest) => {
+                        // if (XMLHttpRequest.response.status === 401) {
+                        //     sessionStorage.clear();
+                        //     localStorage.clear();
+                        //     this.$router.push("/");
+                        // }
+
                         throw new Error('Ошибка кол-во вопросов', XMLHttpRequest.response.data);
                     });
             } 
@@ -115,14 +128,6 @@ export default {
                 throw new Error(ex);
             }
         },
-
-        // Функция проставит варианту ответа selected: true и добавит в массив ответов.
-        // onAddVariant(variant) {
-        //     console.log("Выбрали", variant);
-        //     variant.selected = true;
-        //     this.aAnswers.push(variant);
-        //     console.log("Массив с ответами", this.aAnswers);
-        // },
 
         // Функция получает следующий вопрос для теста исполнителя.
         onNextQuestion() {
@@ -187,6 +192,66 @@ export default {
             catch (ex) {
                 throw new Error(ex);
             }
+        },
+
+        onStartSteps() {
+            this.isHidePanelTest = true;            
+            this.isHideStepsTest = true;
+        },
+
+        onStartTest() {
+            this.isHidePanelStartTest = true;
+            this.isHidePanelTest = true;
+            this.isHidePanelTest = false;
+        },
+        
+         // Функция загружает всю информацию профиля.
+         _loadingProfile() {
+            let oData = this.$parent.oData;
+            let sUrl = oData.urlApi.concat("/user/profile");
+
+            axios.get(sUrl)
+                .then((response) => {
+                    this.aProfileData.push(response.data);
+                    oData.dateRegister = response.data.dateRegister.split(".")[0];
+                    console.log("Данные профиля", this.aProfileData);
+                })
+
+                .catch((XMLHttpRequest) => {
+                    throw new Error(XMLHttpRequest.response.data);
+                });
+        },
+
+         // Функция выгружает список категорий заданий.
+         _loadingCategoryList() {
+            let sUrl = this.$parent.oData.urlApi.concat("/main/category-list");
+            this.utils.getTaskCategories(sUrl);
+            this.aCategories = window.aTaskCategories;
+        },
+
+        // Функция сохраняет выбранные специализации исполнителя.
+        onSaveSpecies() {
+            let sUrl = this.$parent.oData.urlApi.concat("/executor/add-spec");
+
+            axios.post(sUrl, this.aExecutorSpecializations)
+                .then((response) => {
+                    console.log("Специализации сохранены");
+                })
+
+                .catch((XMLHttpRequest) => {
+                    throw new Error(XMLHttpRequest.response.data);
+                });
+        },
+
+        // Функция добавляет специализацию.
+        onSelectSpec(bCheck, specName) {
+            if (bCheck) {
+                // Добавит специализацию в массив.
+                this.aExecutorSpecializations.push({ SpecName: specName });
+                console.log("checked true", this.aExecutorSpecializations);
+                return;
+            }    
+            console.log("checked false");        
         }
     }
 }

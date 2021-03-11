@@ -274,6 +274,7 @@ export default {
                     })
                     .then((response) => {
                         sessionStorage["user"] = response.data.sLogin;
+                        $(".right-panel").hide();
                     })
 
                     .catch((XMLHttpRequest) => {

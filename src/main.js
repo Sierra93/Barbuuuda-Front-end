@@ -96,6 +96,7 @@ const utils = {
         if (idleTime > 19) { // 20 minutes
             sessionStorage.clear();
             localStorage.clear();
+            $(".right-panel").show();
             this.$router.push("/");
         }
     }
