@@ -13,6 +13,7 @@ export default {
     },
     created() {
         this._loadingAuctionTasks();
+        this._totalPageetPagination();
     },
     data() {
         return {
@@ -41,6 +42,49 @@ export default {
             catch (ex) {
                 throw new Error(ex);
             }
-        }        
+        },
+        
+        // Функция пагинации.
+        onGetPagination(param) {
+            const sUrl = this.oData.urlApi.concat("/pagination/auction?pageIdx=".concat(+param));
+
+            try {
+                axios.post(sUrl)
+                    .then((response) => {         
+                        console.log("filter pagination", response.data);
+                        this.aAuctionTasks = response.data.tasks;
+                    })
+
+                    .catch((XMLHttpRequest) => {
+                        throw new Error(XMLHttpRequest.response.data);
+                    });
+            } 
+            
+            catch (ex) {
+                throw new Error(ex);
+            }
+        },
+
+        // Функция получает общее кол-во страниц.
+        _totalPageetPagination() {
+            const sUrl = this.oData.urlApi.concat("/pagination/auction?pageIdx=1");
+
+            try {
+                axios.post(sUrl)
+                    .then((response) => {         
+                        console.log("total page pagination", response.data);
+                        this.oData.countTotalPage = response.data.pageData.totalPages;
+                        this.aAuctionTasks = response.data.tasks;
+                    })
+
+                    .catch((XMLHttpRequest) => {
+                        throw new Error(XMLHttpRequest.response.data);
+                    });
+            } 
+            
+            catch (ex) {
+                throw new Error(ex);
+            }
+        },
     }
 }
