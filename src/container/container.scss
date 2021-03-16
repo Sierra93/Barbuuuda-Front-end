@@ -237,6 +237,8 @@ body {
   .nav-link {
     color: #98aab7;
     cursor: pointer;
+    width: 222px;
+    display: flex;
 
     &:hover {
       border-left-color: #00bcd4;
