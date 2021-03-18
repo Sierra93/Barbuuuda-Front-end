@@ -33,9 +33,17 @@ export default {
             this.$router.push("/task/create");
         },
 
-        // Покажет модалку об удалении задания.
+        // Функция покажет модалку об удалении задания.
         onShowDeleteModal() {
             $('#idAcceptDeleteTask').modal('show');
+        },
+
+        // Функция покажет модалку ставки к заданию.
+        onShowRespondModal() {
+            if (sessionStorage["role"] == "E") {
+                $('#idRespond').modal('show');
+                return;
+            }
         },
 
         // Функция удаляет задание.

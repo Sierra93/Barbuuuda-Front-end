@@ -28,3 +28,30 @@
 .btn-link:hover {
   text-decoration: none !important;
 }
+
+.btn-create-task {
+  background: #F4511E;
+  color: #FFFFFF;
+  border-color: #F4511E;
+  border: none;
+  padding: 0 50px !important;
+  border: none;
+  transition: all .3s ease-out;
+}
+
+.btn-create-task:focus {
+  outline: none;
+}
+
+.btn-create-task:hover {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.area-respond {
+  display: flex;
+  justify-content: space-between;
+}
+
+.input-respond {
+  width: 50%;
+}
