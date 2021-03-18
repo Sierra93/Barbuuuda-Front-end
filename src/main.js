@@ -103,25 +103,25 @@ const utils = {
   },
 
   // Функция обновит токен через каждые 9 мин.
-  refreshToken: (sUrl) => {    
-    function refresh() { 
-      axios.get(sUrl)
-      .then((response) => {
-        sessionStorage.userToken = response.data;
-        console.log("refresh token");
-      })
+  // refreshToken: (sUrl) => {    
+  //   function refresh() { 
+  //     axios.get(sUrl)
+  //     .then((response) => {
+  //       sessionStorage.userToken = response.data;
+  //       console.log("refresh token");
+  //     })
 
-      .catch((XMLHttpRequest) => {
-        throw new Error(XMLHttpRequest.response.data);
-      });
-    }
+  //     .catch((XMLHttpRequest) => {
+  //       throw new Error(XMLHttpRequest.response.data);
+  //     });
+  //   }
 
-    let intervalID = setInterval(refresh, 530000)  // 9 минут.
+  //   let intervalID = setInterval(refresh, 530000)  // 9 минут.
 
-    if (!sessionStorage.userToken) {
-      clearInterval(intervalID);
-    }
-  },
+  //   if (!sessionStorage.userToken) {
+  //     clearInterval(intervalID);
+  //   }
+  // },
 
   install: function(Vue) {
     Object.defineProperty(Vue.prototype, 'utils', {

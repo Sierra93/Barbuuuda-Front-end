@@ -138,8 +138,9 @@
 
 .search-block-task {
     display: flex;
-    margin-left: 30px;
+    // margin-left: 30px;
     justify-content: space-between;
+    margin: 0 30px 0 30px;
     
     .btn-search {
         border: 1px solid #00BCD4;
@@ -155,4 +156,8 @@
         border: 1px solid #00BCD4;
         border-radius: 0!important;
     }
+}
+
+.block-task-title {
+    margin: 0 15px 0 15px;
 }
