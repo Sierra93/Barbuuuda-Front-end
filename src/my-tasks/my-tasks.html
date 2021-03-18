@@ -136,7 +136,8 @@
             </div> 
 
             <!-- Пагинация. -->
-            <pagination class="pagination-sm block-pagination card-subcategory">
+            <pagination class="pagination-sm block-pagination card-subcategory"
+            v-show="aActiveTasks.length >= 10 && oData.role == 'E'">
                 <nav aria-label="Page navigation example">
                     <ul class="pagination">
                         <li class="page-item">

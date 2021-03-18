@@ -35,12 +35,6 @@ export default {
         // Автоматически добавит любым запросам токен для авторизации.
         axios.defaults.headers.common = {"Authorization": "Bearer ".concat(sessionStorage["userToken"])}        
     },
-    mounted: function () {
-        this.$nextTick(function () {
-            let sUrl = this.oData.urlApi.concat("/user/token?userName=").concat(sessionStorage.user);
-            this.utils.refreshToken(sUrl);
-        })
-    },
     data() {
         return {
             oData: {
@@ -92,7 +86,7 @@ export default {
             sPassword: null                             
         }
     },    
-    methods: {               
+    methods: {             
         // Функция выгружает данные для фона.
         _loadDataFon() {    
             const sUrl = this.oData.urlApi.concat("/main/get-fon");
@@ -309,4 +303,32 @@ export default {
             }
         }        
     }
+}
+
+$(function () {
+    setInterval(function () {
+        const sUrl = "http://localhost:58822".concat("/user/token?userName=").concat(sessionStorage.user);
+        refresh(sUrl);
+
+        if (!sessionStorage.userToken) {
+            clearInterval(intervalID);
+        }
+    }, 530000);
+});
+
+function refresh(sUrl) {
+    $.ajax({
+        type: 'GET',
+        url: sUrl,
+        // data: {query: 'test'}, 
+        dataType: 'text',
+        success: function (data) {
+            sessionStorage.userToken = data;
+            console.log("refresh token");
+        },
+
+        error: function (jqXHR) {
+            console.log('Ошибка обновления токена');
+        }
+    });    
 }
