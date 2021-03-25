@@ -64,6 +64,36 @@ export default {
         this.oData.bExecutor = sessionStorage["role"] == "E" ? true : false;
         this.oData.role = sessionStorage["role"];
 
+        // Функция обновит токен через каждые 9 мин.
+        __VUE_HOT_MAP__.refreshToken = function() {
+            setInterval(function () {
+                const sUrl = "http://localhost:58822".concat("/user/token?userName=").concat(sessionStorage.user);
+        
+                if (!sessionStorage.userToken) {
+                    clearInterval(intervalID);
+                    return;
+                }
+                refresh(sUrl);
+            }, 530000); // Каждые 9 мин.
+        },
+
+        function refresh(sUrl) {
+            $.ajax({
+                type: 'GET',
+                url: sUrl,
+                // data: {query: 'test'}, 
+                dataType: 'text',
+                success: function (data) {
+                    sessionStorage.userToken = data;
+                    console.log("refresh token");
+                },
+        
+                error: function (jqXHR) {
+                    console.log('Ошибка обновления токена');
+                }
+            });    
+        }
+
         // Автоматически добавит любым запросам токен для авторизации.
         axios.defaults.headers.common = {"Authorization": "Bearer ".concat(sessionStorage["userToken"])}        
     },
