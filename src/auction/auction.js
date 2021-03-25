@@ -6,6 +6,37 @@ import $ from "jquery";
 import VueRouter from 'vue-router';
 import axios from 'axios';
 
+// Функция обновит токен через каждые 9 мин.
+$(function () {
+    setInterval(function () {
+        const sUrl = "http://localhost:58822".concat("/user/token?userName=").concat(sessionStorage.user);
+
+        if (!sessionStorage.userToken) {
+            clearInterval(intervalID);
+            return;
+        }
+        refresh(sUrl);
+    }, 530000); // Каждые 9 мин.
+});
+
+function refresh(sUrl) {
+    $.ajax({
+        type: 'GET',
+        url: sUrl,
+        // data: {query: 'test'}, 
+        dataType: 'text',
+        success: function (data) {
+            sessionStorage.userToken = data;
+            console.log("refresh token");
+        },
+
+        error: function (jqXHR) {
+            console.log('Ошибка обновления токена');
+        }
+    });    
+}
+
+
 export default {
     name: 'auction',
     components: {
@@ -95,6 +126,7 @@ export default {
             .concat(taskId)
             .concat("&type="
             .concat(sTypeSingle)));
+            this.oData.oViewTaskId = taskId;
 
             try {
                 axios.post(sUrl)

@@ -9,6 +9,38 @@ import CustomerHeader from '../components/customer-header.vue';
 import VueRouter from 'vue-router';
 import $ from "jquery";
 import axios from 'axios';
+
+// Функция обновит токен через каждые 9 мин.
+$(function () {
+    setInterval(function () {
+        const sUrl = "http://localhost:58822".concat("/user/token?userName=").concat(sessionStorage.user);
+        // const sUrl = "https://barbuuuda.online".concat("/user/token?userName=").concat(sessionStorage.user);
+
+        if (!sessionStorage.userToken) {
+            clearInterval(intervalID);
+            return;
+        }
+        refresh(sUrl);
+    }, 530000); // Каждые 9 мин.
+});
+
+// Функция обновит токен.
+function refresh(sUrl) {
+    $.ajax({
+        type: 'GET',
+        url: sUrl,
+        // data: {query: 'test'}, 
+        dataType: 'text',
+        success: function (data) {
+            sessionStorage.userToken = data;
+            console.log("refresh token");
+        },
+
+        error: function (jqXHR) {
+            console.log('Ошибка обновления токена');
+        }
+    });    
+}
    
 export default {
     name: 'main-page',    
@@ -68,7 +100,8 @@ export default {
                     Draft: "В черновике"
                 },
                 aCategories: [],
-                dateRegister: null
+                dateRegister: null,
+                oViewTaskId: null     
             },
             oEditTask: {
                 editTask: {},
@@ -303,32 +336,4 @@ export default {
             }
         }        
     }
-}
-
-$(function () {
-    setInterval(function () {
-        const sUrl = "http://localhost:58822".concat("/user/token?userName=").concat(sessionStorage.user);
-        refresh(sUrl);
-
-        if (!sessionStorage.userToken) {
-            clearInterval(intervalID);
-        }
-    }, 530000);
-});
-
-function refresh(sUrl) {
-    $.ajax({
-        type: 'GET',
-        url: sUrl,
-        // data: {query: 'test'}, 
-        dataType: 'text',
-        success: function (data) {
-            sessionStorage.userToken = data;
-            console.log("refresh token");
-        },
-
-        error: function (jqXHR) {
-            console.log('Ошибка обновления токена');
-        }
-    });    
 }
