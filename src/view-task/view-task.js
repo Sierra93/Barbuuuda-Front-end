@@ -9,6 +9,10 @@ import axios from 'axios';
 import Calendar from 'v-calendar/lib/components/calendar.umd';
 import DatePicker from 'v-calendar/lib/components/date-picker.umd';
 
+$(function () {    
+    __VUE_HOT_MAP__.refreshToken();
+});
+
 export default {
     name: 'view-task',
     components: {

@@ -23,7 +23,8 @@ export default new VueRouter({
       path: '/task/create',
       name: 'task-create',
       component: CreateTask,
-      props: true
+      props: true,
+      meta: {title: 'create'}
     },
     {
       path: '/home',

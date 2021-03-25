@@ -6,6 +6,10 @@ import CustomerHeader from '../components/customer-header.vue';
 import $ from "jquery";
 import axios from 'axios';
 
+$(function () {    
+    __VUE_HOT_MAP__.refreshToken();
+});
+
 export default {
     name: 'c-profile',
     components: {
@@ -24,7 +28,8 @@ export default {
             iDefaultScore: "400",
             bErrorScore: false,
             aCategories: [],
-            aExecutorSpecializations: []
+            aExecutorSpecializations: [],
+            checked: null
         }
     },    
     methods: {

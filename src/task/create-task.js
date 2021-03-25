@@ -5,6 +5,10 @@ import CreateTask from '../components/create-task.vue';
 import $ from "jquery";
 import axios from 'axios';
 
+$(function () {    
+    __VUE_HOT_MAP__.refreshToken();
+});
+
 export default {
     name: 'task-create',
     components: {
