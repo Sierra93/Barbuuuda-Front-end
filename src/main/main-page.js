@@ -14,6 +14,7 @@ import axios from 'axios';
 $(function () {
     setInterval(function () {
         const sUrl = "http://localhost:58822".concat("/user/token?userName=").concat(sessionStorage.user);
+        // const sUrl = "https://barbuuuda.online".concat("/user/token?userName=").concat(sessionStorage.user);
 
         if (!sessionStorage.userToken) {
             clearInterval(intervalID);
@@ -23,6 +24,7 @@ $(function () {
     }, 530000); // Каждые 9 мин.
 });
 
+// Функция обновит токен.
 function refresh(sUrl) {
     $.ajax({
         type: 'GET',
@@ -98,7 +100,8 @@ export default {
                     Draft: "В черновике"
                 },
                 aCategories: [],
-                dateRegister: null
+                dateRegister: null,
+                oViewTaskId: null     
             },
             oEditTask: {
                 editTask: {},

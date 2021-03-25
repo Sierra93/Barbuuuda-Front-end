@@ -17,12 +17,11 @@ export default {
         Calendar,
         DatePicker
     },
-    created() {
-        console.log("start");
-    },
     data() {
         return {
-            picker: new Date()
+            picker: new Date(),
+            price: null,
+            comment: ""
          }
     },    
     props: ["oData", "oEditTask"],
@@ -59,6 +58,31 @@ export default {
 
                     .catch((XMLHttpRequest) => {
                         throw new Error('Ошибка удаления', XMLHttpRequest.response.data);
+                    });
+            } 
+            
+            catch (ex) {
+                throw new Error(ex);
+            }
+        },
+
+        // Функция оставляет ставку к заданию.
+        onRespond(price, comment) {
+            let sUrl = this.oData.urlApi.concat("/executor/respond/");
+            let oRespond = {
+                Price: price,
+                Comment: comment,
+                TaskId: this.oData.oViewTaskId
+            };
+            
+            try {
+                axios.post(sUrl, oRespond)
+                    .then((response) => {
+                        console.log("Ставка к заданию сделана");
+                    })
+
+                    .catch((XMLHttpRequest) => {
+                        throw new Error('Ошибка оставления ставки к заданию', XMLHttpRequest.response.data);
                     });
             } 
             

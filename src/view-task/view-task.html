@@ -216,7 +216,8 @@
                     <div>
                         <label class="form-control-sm">Я сделаю задание за:</label><br>
                         <input id="idRespond" 
-                            class="form-control-sm input-respond input-task-price date-endda"> ₽
+                            class="form-control-sm input-respond input-task-price date-endda"
+                            v-model="price"> ₽
                     </div>
     
                     <div>
@@ -242,8 +243,7 @@
                 <textarea id="idareaRespond" 
                     class="form-control-sm input-task detail-field"
                     placeholder="Напишите приветственное сообщение к ставке..."
-                    _v-show="editTask.length"
-                    _:value="editTask.taskDetail"/>     
+                    v-model="comment"/>     
 
                     <br>  
 
@@ -257,7 +257,12 @@
             </div>
     
             <div class="modal-footer d-flex justify-content-center">
-                <button type="button" class="btn-create-task form-control-sm btn-all-tasks" data-dismiss="modal">СДЕЛАТЬ СТАВКУ</button>
+                <button type="button" 
+                        class="btn-create-task form-control-sm btn-all-tasks" 
+                        data-dismiss="modal"
+                        v-on:click="onRespond(price, comment)">
+                        СДЕЛАТЬ СТАВКУ
+                </button>
                 
                 <button class="btn-next form-control-sm" data-dismiss="modal">
                     ЗАКРЫТЬ
