@@ -21,11 +21,15 @@ export default {
         Calendar,
         DatePicker
     },
+    created() {
+        this._loadingResponds();
+    },
     data() {
         return {
             picker: new Date(),
             price: null,
-            comment: ""
+            comment: "",
+            aResponds: []
          }
     },    
     props: ["oData", "oEditTask"],
@@ -87,6 +91,27 @@ export default {
 
                     .catch((XMLHttpRequest) => {
                         throw new Error('Ошибка оставления ставки к заданию', XMLHttpRequest.response.data);
+                    });
+            } 
+            
+            catch (ex) {
+                throw new Error(ex);
+            }
+        },
+
+        // Функция получает список ставок к заданию.
+        _loadingResponds() {
+            let sUrl = this.oData.urlApi.concat("/task/get-responds");
+
+            try {
+                axios.post(sUrl, { TaskId: this.oData.oViewTaskId })
+                    .then((response) => {
+                        console.log("Список ставок к заданию", response.data);
+                        this.aResponds = response.data;
+                    })
+
+                    .catch((XMLHttpRequest) => {
+                        throw new Error('Ошибка получения ставок к заданию', XMLHttpRequest.response.data);
                     });
             } 
             
