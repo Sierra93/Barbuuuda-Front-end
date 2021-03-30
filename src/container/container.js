@@ -1,6 +1,7 @@
 /* eslint-disable */
 // eslint-disable-next-line no-unused-vars
 
+import Vue from "vue";
 import Container from '../components/container.vue';
 import NavMenu from '../components/nav-menu.vue';
 import Footer from '../components/footer.vue';
@@ -27,7 +28,8 @@ export default {
             aProveliges: [],
             sPassword: null,
             aHope: [],
-            role: null            
+            role: null,
+            title: 'This will be the title'      
         }
     },
     created() {

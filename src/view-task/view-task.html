@@ -4,12 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <vue-headful title="Barbuuuda: Просмотр задания"/>
 </head>
 
 <body>
     <!-- Статусы. -->
-    <div class="container mt-4 pt-3 mb-4 text-center block-status">
+    <div class="mt-4 pt-3 mb-4 text-center block-status">
         <div class="mb-3 item-status">
             <span class="circle-first">1</span>&nbsp;
             <span class="category-text">Создание задания</span>
@@ -39,22 +39,22 @@
     </div>
 
     <div class="d-flex block-task-title">
-        <div class="col-lg-10">
-            <span class="edit-task-title">{{this.oEditTask.editTask[0].taskTitle}}</span><br>
+        <div class="col-lg-12 details-task item-view">
+            <span class=""><strong>Название задания:</strong> {{this.oEditTask.editTask[0].taskTitle}}</span>
 
-            <div class="mt-3">
-                <span>{{this.oEditTask.editTask[0].taskDetail}}</span>
+            <div class="mt-1">
+                <span><strong>Описание задания:</strong> {{this.oEditTask.editTask[0].taskDetail}}</span>
             </div>
         </div>
 
-        <div class="col-lg-2">
+        <!-- <div class="col-lg-2">
             <img src="../assets/images/chat-icon.png">&nbsp;
             <strong class="chat-link">Открыть чат</strong>
-        </div>
+        </div> -->
     </div>
 
     <!-- Детали задания. -->
-    <div class="col-lg-12 mt-5">
+    <div class="col-lg-12 mt-5 mb-5">
         <div class="d-flex">
             <div class="fon-profile col-lg-3">
                 <h6>Детали задания</h6>
@@ -114,9 +114,16 @@
                 <div class="stat-item task-details mt-3 mb-3">
                     <div>
                         <button class="btn-next form-control-sm" 
+                                v-show="oData.bCustomer"
                                 v-on:click="onEditTask()">
                             РЕДАКТИРОВАТЬ
-                        </button>                       
+                        </button>      
+                        
+                        <button class="btn-next form-control-sm" 
+                                v-show="oData.bExecutor"
+                                v-on:click="onShowRespondModal()">
+                            СДЕЛАТЬ СТАВКУ
+                        </button>   
                     </div>                   
                 </div>
 
@@ -134,23 +141,66 @@
             </div>
 
             <!-- Правая часть. -->
-            <div class="col-lg-9">
-                <h5>Выберите исполнителя для вашего задания</h5>
+            <div class="col-lg-9">                
+                <div class="d-flex mt-3">
+                    <div class="item-view d-flex col-lg-12">
+                        <div class="col-lg-6 text-center">
+                            <span>Исполнители, представленные ниже, были<br> проверены и приняты администрацией.</span>
+                        </div>
 
-                <div class="d-flex justify-content-between mt-3">
-                    <div class="item-view">
-                        <span>Исполнители, представленные ниже, были<br> проверены и приняты администрацией.</span>
-                    </div>
-
-                    <div class="item-view">
-                        <span>Все исполнители имеют рейтинг, отзывы и<br> историю выполненных работ.</span>
+                        <div class="col-lg-6 text-center">
+                            <span>Все исполнители имеют рейтинг, отзывы и<br> историю выполненных работ.</span>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
+                
+                <h5 class="mt-3 mb-3"><strong>Выберите исполнителя</strong> для вашего задания</h5>
 
-        <!-- Календарь. -->
-        <!-- <DatePicker class="mt-3 col-lg-3" v-model="picker"></DatePicker> -->
+                <!-- Область со списком ставок к заданию. -->
+                <!-- <div class="d-flex mt-3" v-for="respond in aResponds">
+                    <div class="item-view d-flex col-lg-12">
+                        <div class="col-lg-6 text-center">
+                            <span>{{respond.comment}}</span>
+                        </div>
+
+                        <div class="col-lg-6 text-center">
+                            <button class="btn-next form-control-sm" 
+                                _v-show="oData.bCustomer"
+                                v-on:click="">
+                            ОТВЕТИТЬ
+                        </button>   
+                        </div>
+                    </div>
+                </div> -->
+                <div class="card">
+                    <div class="card-body d-flex justify-content-between" v-for="respond in aResponds">
+                      <div class="">
+                          <div>
+                            <strong>{{respond.userName}}</strong>
+                          </div>
+                        
+                          <div>
+                            <span>{{respond.comment}}</span>
+                          </div>
+                    </div>
+
+                    <div class="">
+                        <div>
+                            <strong>Ставка {{respond.price}} ₽</strong>
+                        </div>
+                        
+                        <div>
+                            <button class="btn-next form-control-sm mt-3" 
+                                _v-show="oData.bCustomer" 
+                                v-on:click="">
+                            ОТВЕТИТЬ
+                        </button>
+                        </div>
+                    </div>
+                    </div>
+                  </div>
+            </div>           
+        </div>
     </div>
 
     <div class="modal fade" id="idAcceptDeleteTask" tabindex="-1" role="dialog" aria-labelledby="idAcceptDeleteTaskTitle" aria-hidden="true">
@@ -180,6 +230,78 @@
                         v-on:click="OnDeleteTask()">
                     Удалить
                 </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Модальное окно СДЕЛАТЬ СТАВКУ. -->
+      <div class="modal fade" id="idRespond" tabindex="-1" role="dialog" aria-labelledby="idNotRespondTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="idNotRespondTitle">Сделать ставку</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+    
+            <div class="modal-body">
+                <div class="area-respond">
+                    <div>
+                        <label class="form-control-sm">Я сделаю задание за:</label><br>
+                        <input id="idRespond" 
+                            class="form-control-sm input-respond input-task-price date-endda"
+                            v-model="price"> ₽
+                    </div>
+    
+                    <div>
+                        <label class="form-control-sm">Сумма для заказчика:</label><br>    
+                        <strong>0 ₽</strong><br>
+                        <label class="form-control-sm">включая комиссию сервиса 22 %</label>   
+                    </div>                   
+                </div>
+                
+                <div class="area-respond mt-3 mb-3">
+                    <div>
+                        <label class="form-control-sm"><strong>Комментарий</strong></label>                                              
+                    </div>
+    
+                    <div>
+                        <select class="form-control-sm task-filter"
+                                _v-on:change="onFilterTasks($event.target.value)">
+                            <option>Выберите шаблон</option>
+                        </select>
+                    </div>                     
+                </div>         
+
+                <textarea id="idareaRespond" 
+                    class="form-control-sm input-task detail-field"
+                    placeholder="Напишите приветственное сообщение к ставке..."
+                    v-model="comment"/>     
+
+                    <br>  
+
+                    <input type="checkbox" 
+                    class="mr-1"
+                    v-model="checked"
+                    _v-on:click="onSelectSpec(!checked, spec.specName)">
+                    <label class="form-control-sm">
+                        Сохранить комментарий как шаблон
+                    </label>             
+            </div>
+    
+            <div class="modal-footer d-flex justify-content-center">
+                <button type="button" 
+                        class="btn-create-task form-control-sm btn-all-tasks" 
+                        data-dismiss="modal"
+                        v-on:click="onRespond(price, comment)">
+                        СДЕЛАТЬ СТАВКУ
+                </button>
+                
+                <button class="btn-next form-control-sm" data-dismiss="modal">
+                    ЗАКРЫТЬ
+                </button>      
             </div>
           </div>
         </div>

@@ -22,6 +22,7 @@ import Categories from './components/categories.vue';
 import Auction from './components/auction.vue';
 import CProfile from './components/c-profile.vue';
 import ExecutorList from './components/executor-list.vue';
+import vueHeadful from 'vue-headful';
 
 Vue.use(VueRouter);
 Vue.component('Container', Container);
@@ -35,6 +36,7 @@ Vue.component('categories', Categories);
 Vue.component('auction', Auction);
 Vue.component('CProfile', CProfile);
 Vue.component('ExecutorList', ExecutorList);
+Vue.component('vue-headful', vueHeadful);
 
 // Общие функции приложения.
 const utils = {
@@ -103,25 +105,25 @@ const utils = {
   },
 
   // Функция обновит токен через каждые 9 мин.
-  refreshToken: (sUrl) => {    
-    function refresh() { 
-      axios.get(sUrl)
-      .then((response) => {
-        sessionStorage.userToken = response.data;
-        console.log("refresh token");
-      })
+  // refreshToken: (sUrl) => {    
+  //   function refresh() { 
+  //     axios.get(sUrl)
+  //     .then((response) => {
+  //       sessionStorage.userToken = response.data;
+  //       console.log("refresh token");
+  //     })
 
-      .catch((XMLHttpRequest) => {
-        throw new Error(XMLHttpRequest.response.data);
-      });
-    }
+  //     .catch((XMLHttpRequest) => {
+  //       throw new Error(XMLHttpRequest.response.data);
+  //     });
+  //   }
 
-    let intervalID = setInterval(refresh, 530000)  // 9 минут.
+  //   let intervalID = setInterval(refresh, 530000)  // 9 минут.
 
-    if (!sessionStorage.userToken) {
-      clearInterval(intervalID);
-    }
-  },
+  //   if (!sessionStorage.userToken) {
+  //     clearInterval(intervalID);
+  //   }
+  // },
 
   install: function(Vue) {
     Object.defineProperty(Vue.prototype, 'utils', {

@@ -7,6 +7,10 @@ import $ from "jquery";
 import VueRouter from 'vue-router';
 import axios from 'axios';
 
+$(function () {    
+    __VUE_HOT_MAP__.refreshToken();
+});
+
 export default {
     name: 'nav-menu',
     components: {

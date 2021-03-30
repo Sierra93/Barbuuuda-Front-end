@@ -6,6 +6,10 @@ import $ from "jquery";
 import axios from 'axios';
 import VueRouter from 'vue-router';
 
+$(function () {    
+    __VUE_HOT_MAP__.refreshToken();
+});
+
 export default {
     name: 'customer-header',
     components: {

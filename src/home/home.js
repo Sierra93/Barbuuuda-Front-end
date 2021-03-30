@@ -9,6 +9,10 @@ import DatePicker from 'v-calendar/lib/components/date-picker.umd';
 import $ from "jquery";
 import axios from 'axios';
 
+$(function () {    
+    __VUE_HOT_MAP__.refreshToken();
+});
+
 export default {
     name: 'c-home',
     components: {
@@ -39,7 +43,8 @@ export default {
             isHidePanelStartTest: false,
             aProfileData: [],
             aCategories: [],
-            aExecutorSpecializations: []
+            aExecutorSpecializations: [],
+            checked: null
         }
     },    
     methods: {

@@ -180,6 +180,8 @@ body {
 #idLeftMenu .nav-link {
   color: #98aab7;
   cursor: pointer;
+  width: 222px;
+  display: flex;
 }
 
 #idLeftMenu .nav-link:hover {
