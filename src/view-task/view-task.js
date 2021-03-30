@@ -28,7 +28,8 @@ export default {
         return {
             picker: new Date(),
             price: null,
-            comment: ""
+            comment: "",
+            aResponds: []
          }
     },    
     props: ["oData", "oEditTask"],
@@ -103,9 +104,10 @@ export default {
             let sUrl = this.oData.urlApi.concat("/task/get-responds");
 
             try {
-                axios.post(sUrl, this.oData.oViewTaskId)
+                axios.post(sUrl, { TaskId: this.oData.oViewTaskId })
                     .then((response) => {
                         console.log("Список ставок к заданию", response.data);
+                        this.aResponds = response.data;
                     })
 
                     .catch((XMLHttpRequest) => {

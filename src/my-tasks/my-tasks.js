@@ -84,6 +84,7 @@ export default {
             .concat(taskId)
             .concat("&type="
             .concat(sTypeSingle)));
+            this.oData.oViewTaskId = taskId;
 
             try {
                 axios.post(sUrl)
