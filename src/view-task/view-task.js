@@ -118,6 +118,12 @@ export default {
             catch (ex) {
                 throw new Error(ex);
             }
+        },
+
+        getImgUrl(img) {
+            if (img !== null) {
+                return require('../assets/images/' + img);
+            }     
         }
     }
 }
