@@ -29,7 +29,8 @@ export default {
             picker: new Date(),
             price: null,
             comment: "",
-            aResponds: []
+            aResponds: [],
+            isRespond: false
          }
     },    
     props: ["oData", "oEditTask"],
@@ -48,7 +49,13 @@ export default {
         // Функция покажет модалку ставки к заданию.
         onShowRespondModal() {
             if (sessionStorage["role"] == "E") {
-                $('#idRespond').modal('show');
+                this._checkRespond();
+
+                if (this.isRespond) {
+                    $('#idRespond').modal('show');
+                    return;
+                }
+
                 return;
             }
         },
@@ -124,6 +131,27 @@ export default {
             if (img !== null) {
                 return require('../assets/images/' + img);
             }     
+        },
+
+        // Функция проверит, делал ли уже ставку текущий исполнитель.
+        _checkRespond() {
+            let sUrl = this.oData.urlApi.concat("/executor/check-respond");
+
+            try {
+                axios.post(sUrl, { TaskId: this.oData.oViewTaskId })
+                    .then((response) => {
+                        this.isRespond = response.data;
+                        console.log(this.isRespond);
+                    })
+
+                    .catch((XMLHttpRequest) => {
+                        throw new Error(XMLHttpRequest.response.data);
+                    });
+            } 
+            
+            catch (ex) {
+                throw new Error(ex);
+            }
         }
     }
 }
