@@ -94,6 +94,7 @@ export default {
                 axios.post(sUrl, oRespond)
                     .then((response) => {
                         console.log("Ставка к заданию сделана");
+                        this._loadingResponds();
                     })
 
                     .catch((XMLHttpRequest) => {
