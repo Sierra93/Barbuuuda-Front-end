@@ -30,7 +30,9 @@ export default {
             price: null,
             comment: "",
             aResponds: [],
-            isRespond: false
+            isRespond: false,
+            bOpen : false,
+            respondCount: null
          }
     },    
     props: ["oData", "oEditTask"],
@@ -115,7 +117,8 @@ export default {
                 axios.post(sUrl, { TaskId: this.oData.oViewTaskId })
                     .then((response) => {
                         console.log("Список ставок к заданию", response.data);
-                        this.aResponds = response.data;
+                        this.aResponds = response.data.responds;
+                        this.respondCount = response.data.count;
                     })
 
                     .catch((XMLHttpRequest) => {
@@ -153,6 +156,17 @@ export default {
             catch (ex) {
                 throw new Error(ex);
             }
+        },
+
+        onTogglebRespondsOpen(e) {
+            let isOpen = $("#idOpen").prop("open");
+
+            if (!isOpen) {
+                this.bOpen = true;
+                return;
+            }
+
+            this.bOpen = false;
         }
     }
 }

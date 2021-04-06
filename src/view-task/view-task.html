@@ -154,75 +154,73 @@
                     </div>
                 </div>
                 
-                <h5 class="mt-3 mb-3"><strong>Выберите исполнителя</strong> для вашего задания</h5>
+                <h5 class="mt-3 mb-3" v-show="oData.role == 'E'">
+                    <strong>Ставок к заданию: </strong> {{respondCount}} </h5>
+
+                <h5 class="mt-3 mb-3" v-show="oData.role == 'C'">
+                    <strong>Выберите исполнителя</strong> для вашего задания</h5>
 
                 <!-- Область со списком ставок к заданию. -->
-                <!-- <div class="d-flex mt-3" v-for="respond in aResponds">
-                    <div class="item-view d-flex col-lg-12">
-                        <div class="col-lg-6 text-center">
-                            <span>{{respond.comment}}</span>
-                        </div>
+                <!-- <details id="idOpen" v-on:click="onTogglebRespondsOpen($event)">
+                    <summary v-show="!bOpen && oData.role == 'E'">
+                        Посмотреть комментарии других исполнителей
+                    </summary>            
 
-                        <div class="col-lg-6 text-center">
-                            <button class="btn-next form-control-sm" 
-                                _v-show="oData.bCustomer"
-                                v-on:click="">
-                            ОТВЕТИТЬ
-                        </button>   
-                        </div>
-                    </div>
-                </div> -->
-                <div class="card responds_list" v-for="respond in aResponds">
-                    <div class="card-body d-flex justify-content-between">
-                      <div class="">
-                          <div class="d-flex">
-                            <!-- <img class="mr-1 icon_photo" src="../assets/images/nophoto.jpg"> -->
-                            <img class="mr-1 icon_photo" v-bind:src="getImgUrl(respond.userIcon)">
-                            
-                            <div class="ml-3">
-                                <div>
-                                    <strong>{{respond.userName}}</strong>
-                                  </div>
+                    <summary v-show="bOpen && oData.role == 'E'">
+                        Скрыть комментарии других исполнителей
+                    </summary>    -->
+
+                    <div class="card responds_list" v-for="respond in aResponds">
+                        <div class="card-body d-flex justify-content-between">
+                        <div class="">
+                            <div class="d-flex">
+                                <img class="mr-1 icon_photo" v-bind:src="getImgUrl(respond.userIcon)">
                                 
-                                  <div _class="col-lg-12"> 
-                                    <span>{{respond.comment}}</span>
-                                  </div>
+                                <div class="ml-3">
+                                    <div>
+                                        <strong>{{respond.userName}}</strong>
+                                    </div>
+                                    
+                                    <div _class="col-lg-12"> 
+                                        <span>{{respond.comment}}</span>
+                                    </div>
+                                </div>
                             </div>
-                          </div>
 
-                          <div class="d-flex">
-                            <div class="d-flex mt-3">
-                                <img class="mr-1" src="../assets/images/allworks.webp">
-                                <span>Всего заданий {{respond.countTotalCompletedTask}}</span>
-                              </div>
-    
-                              <div class="d-flex align-items-center mt-3 ml-5">
-                                <img class="mr-1" src="../assets/images/good.webp">
-                                <span>{{respond.countPositive}}</span>
-                              </div>
+                            <div class="d-flex">
+                                <div class="d-flex mt-3">
+                                    <img class="mr-1" src="../assets/images/allworks.webp">
+                                    <span>Всего заданий {{respond.countTotalCompletedTask}}</span>
+                                </div>
+        
+                                <div class="d-flex align-items-center mt-3 ml-5">
+                                    <img class="mr-1" src="../assets/images/good.webp">
+                                    <span>{{respond.countPositive}}</span>
+                                </div>
 
-                              <div class="d-flex align-items-center mt-3 ml-5">
-                                <img class="mr-1" src="../assets/images/bad.webp">
-                                <span>{{respond.countNegative}}</span>
-                              </div>
-                          </div>
-                    </div>
-
-                    <div class="">
-                        <div>
-                            <strong>Ставка {{respond.price}} ₽</strong>
+                                <div class="d-flex align-items-center mt-3 ml-5">
+                                    <img class="mr-1" src="../assets/images/bad.webp">
+                                    <span>{{respond.countNegative}}</span>
+                                </div>
+                            </div>
                         </div>
-                        
-                        <div>
-                            <button class="btn-next form-control-sm mt-3" 
-                                _v-show="oData.bCustomer" 
-                                v-on:click="">
-                            ОТВЕТИТЬ
-                        </button>
+
+                        <div class="">
+                            <div>
+                                <strong>Ставка {{respond.price}} ₽</strong>
+                            </div>
+                            
+                            <div>
+                                <button class="btn-next form-control-sm mt-3" 
+                                    _v-show="oData.bCustomer" 
+                                    v-on:click="">
+                                ОТВЕТИТЬ
+                            </button>
+                            </div>
+                        </div>
                         </div>
                     </div>
-                    </div>
-                  </div>
+                <!-- </details> -->
             </div>           
         </div>
     </div>
