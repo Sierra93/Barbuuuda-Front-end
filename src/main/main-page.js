@@ -52,6 +52,9 @@ export default {
         CustomerHeader
     },
     created() {
+        // Автоматически добавит любым запросам токен для авторизации.
+        axios.defaults.headers.common = { "Authorization": "Bearer ".concat(sessionStorage["userToken"]) }   
+
         this.utils.deadlineSession();                
         this._loadDataFon();
         this._loadDataWhy();
@@ -68,6 +71,7 @@ export default {
         __VUE_HOT_MAP__.refreshToken = function() {
             setInterval(function () {
                 const sUrl = "http://localhost:58822".concat("/user/token?userName=").concat(sessionStorage.user);
+                // const sUrl = "https://barbuuuda.online".concat("/user/token?userName=").concat(sessionStorage.user);
         
                 if (!sessionStorage.userToken) {
                     clearInterval(intervalID);
@@ -92,10 +96,7 @@ export default {
                     console.log('Ошибка обновления токена');
                 }
             });    
-        }
-
-        // Автоматически добавит любым запросам токен для авторизации.
-        axios.defaults.headers.common = {"Authorization": "Bearer ".concat(sessionStorage["userToken"])}        
+        }             
     },
     data() {
         return {
