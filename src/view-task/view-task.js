@@ -29,7 +29,10 @@ export default {
             picker: new Date(),
             price: null,
             comment: "",
-            aResponds: []
+            aResponds: [],
+            isRespond: false,
+            bOpen : false,
+            respondCount: null
          }
     },    
     props: ["oData", "oEditTask"],
@@ -48,7 +51,13 @@ export default {
         // Функция покажет модалку ставки к заданию.
         onShowRespondModal() {
             if (sessionStorage["role"] == "E") {
-                $('#idRespond').modal('show');
+                this._checkRespond();
+
+                if (this.isRespond) {
+                    $('#idRespond').modal('show');
+                    return;
+                }
+
                 return;
             }
         },
@@ -87,6 +96,7 @@ export default {
                 axios.post(sUrl, oRespond)
                     .then((response) => {
                         console.log("Ставка к заданию сделана");
+                        this._loadingResponds();
                     })
 
                     .catch((XMLHttpRequest) => {
@@ -107,7 +117,8 @@ export default {
                 axios.post(sUrl, { TaskId: this.oData.oViewTaskId })
                     .then((response) => {
                         console.log("Список ставок к заданию", response.data);
-                        this.aResponds = response.data;
+                        this.aResponds = response.data.responds;
+                        this.respondCount = response.data.count;
                     })
 
                     .catch((XMLHttpRequest) => {
@@ -118,6 +129,44 @@ export default {
             catch (ex) {
                 throw new Error(ex);
             }
+        },
+
+        getImgUrl(img) {
+            if (img !== null) {
+                return require('../assets/images/' + img);
+            }     
+        },
+
+        // Функция проверит, делал ли уже ставку текущий исполнитель.
+        _checkRespond() {
+            let sUrl = this.oData.urlApi.concat("/executor/check-respond");
+
+            try {
+                axios.post(sUrl, { TaskId: this.oData.oViewTaskId })
+                    .then((response) => {
+                        this.isRespond = response.data;
+                        console.log(this.isRespond);
+                    })
+
+                    .catch((XMLHttpRequest) => {
+                        throw new Error(XMLHttpRequest.response.data);
+                    });
+            } 
+            
+            catch (ex) {
+                throw new Error(ex);
+            }
+        },
+
+        onTogglebRespondsOpen(e) {
+            let isOpen = $("#idOpen").prop("open");
+
+            if (!isOpen) {
+                this.bOpen = true;
+                return;
+            }
+
+            this.bOpen = false;
         }
     }
 }
