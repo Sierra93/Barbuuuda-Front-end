@@ -33,8 +33,8 @@ export default {
             try {
                 axios.post(sUrl)
                     .then((response) => {                      
-                        this.aAuctionTasks = response.data.aTasks;
-                        this.countTasks = response.data.countTasks;
+                        this.aAuctionTasks = response.data.tasks;
+                        this.countTasks = response.data.totalCount;
                         console.log("Аукцион", this.aAuctionTasks);
                     })
         

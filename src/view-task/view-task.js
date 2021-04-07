@@ -37,6 +37,12 @@ export default {
     },    
     props: ["oData", "oEditTask"],
     methods: {       
+        getImgUrl(img) {
+            if (img !== null) {
+                return require('../assets/images/' + img);
+            }     
+        },
+
         // Функция переходит к изменению здания.
         onEditTask() {
             this.oEditTask.editTask.bEdit = true;
@@ -109,7 +115,7 @@ export default {
             }
         },
 
-        // Функция получает список ставок к заданию.
+        // Функция получит список ставок к заданию.
         _loadingResponds() {
             let sUrl = this.oData.urlApi.concat("/task/get-responds");
 
@@ -129,13 +135,7 @@ export default {
             catch (ex) {
                 throw new Error(ex);
             }
-        },
-
-        getImgUrl(img) {
-            if (img !== null) {
-                return require('../assets/images/' + img);
-            }     
-        },
+        },        
 
         // Функция проверит, делал ли уже ставку текущий исполнитель.
         _checkRespond() {
@@ -158,6 +158,7 @@ export default {
             }
         },
 
+        // Функция разрешит или запретит нажатие кнопки "СДЕЛАТЬ СТАВКУ".
         onTogglebRespondsOpen(e) {
             let isOpen = $("#idOpen").prop("open");
 

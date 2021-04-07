@@ -207,7 +207,7 @@
                             </div>
                         </div>
 
-                        <div class="">
+                        <div class="text-right">
                             <div>
                                 <strong>Ставка {{respond.price}} ₽</strong>
                             </div>
@@ -220,7 +220,7 @@
                                 </button>
 
                                 <button class="btn-next form-control-sm mt-3" 
-                                        v-show="oData.role == 'E'" 
+                                        v-show="oData.role == 'E' && respond.isVisibleButton" 
                                         v-on:click="">
                                     ИЗМЕНИТЬ СТАВКУ
                                 </button>

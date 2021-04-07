@@ -115,13 +115,17 @@
                                 <span>{{el.categoryName}}</span>
                             </div>
 
-
                             <div class="offer">
-                                <!-- <button class="btn-next form-control-sm" v-on:click="">КО ВСЕМ СТАВКАМ</button> -->
+                                <button 
+                                    class="btn-next form-control-sm" 
+                                    v-show="el.countOffers"
+                                    v-on:click="onGetTask(el.taskId)">
+                                    КО ВСЕМ СТАВКАМ
+                                </button>
 
                                 <button 
                                     class="btn-next form-control-sm" 
-                                    _v-bind:value="el.taskId"
+                                    v-show="!el.countOffers"
                                     v-on:click="onGetTask(el.taskId)">
                                     ОТКРЫТЬ ЗАДАНИЕ
                                 </button>
