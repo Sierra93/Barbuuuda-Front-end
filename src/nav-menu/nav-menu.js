@@ -136,6 +136,16 @@ export default {
             this.bHideLeftPanel = $(".left-menu").hasClass("left-panel");
             this.bHideLeftPanel ? $(".left-menu").removeClass("left-panel").addClass("left-panel-not-left") 
             : $(".left-menu").removeClass("left-panel-not-left").addClass("left-panel");
-        }       
+        },
+        
+        onRouteCreateTask() {
+            // Если нет роли заказчик, то будет ошибка.
+            if (sessionStorage["role"] !== "C") {
+                $('#idNotCustomer').modal('show');
+                return;
+            }
+
+            this.$router.push("/task/create");
+        },  
     }
 }
