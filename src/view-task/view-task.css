@@ -99,8 +99,8 @@ img {
 
 .srch_bar {
   display: inline-block;
-  text-align: right;
-  width: 60%;
+  text-align: center;
+  width: 100%;
 }
 
 .headind_srch {
@@ -118,7 +118,7 @@ img {
 .srch_bar input {
   border: 1px solid #cdcdcd;
   border-width: 0 0 1px 0;
-  width: 80%;
+  width: 100%;
   padding: 2px 0 4px 6px;
   background: none;
 }
@@ -268,10 +268,6 @@ img {
   right: 0;
   top: 11px;
   width: 33px;
-}
-
-.messaging {
-  padding: 0 0 50px 0;
 }
 
 .msg_history {
