@@ -51,7 +51,11 @@
 
     <div class="col-lg-2 mt-5">
         <img src="../assets/images/chat-icon.png">&nbsp;
-        <strong class="chat-link">Открыть чат</strong>
+        <strong class="chat-link" 
+                data-toggle="modal" 
+                data-target=".bd-example-modal-xl">
+          Открыть чат
+        </strong>
     </div>
 
     <!-- Детали задания. -->
@@ -363,80 +367,18 @@
                       </div>
                     </div>
                     <div class="inbox_chat">
-                      <div class="chat_list active_chat">
+                      <div class="chat_list active_chat" v-for="dialog in aDialogs">
                         <div class="chat_people">
                           <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png"
                               alt="sunil"> </div>
                           <div class="chat_ib">
-                            <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
-                            <p>Test, which is a new approach to have all solutions
-                              astrology under one roof.</p>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="chat_list">
-                        <div class="chat_people">
-                          <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png"
-                              alt="sunil"> </div>
-                          <div class="chat_ib">
-                            <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
-                            <p>Test, which is a new approach to have all solutions
-                              astrology under one roof.</p>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="chat_list">
-                        <div class="chat_people">
-                          <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png"
-                              alt="sunil"> </div>
-                          <div class="chat_ib">
-                            <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
-                            <p>Test, which is a new approach to have all solutions
-                              astrology under one roof.</p>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="chat_list">
-                        <div class="chat_people">
-                          <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png"
-                              alt="sunil"> </div>
-                          <div class="chat_ib">
-                            <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
-                            <p>Test, which is a new approach to have all solutions
-                              astrology under one roof.</p>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="chat_list">
-                        <div class="chat_people">
-                          <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png"
-                              alt="sunil"> </div>
-                          <div class="chat_ib">
-                            <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
-                            <p>Test, which is a new approach to have all solutions
-                              astrology under one roof.</p>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="chat_list">
-                        <div class="chat_people">
-                          <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png"
-                              alt="sunil"> </div>
-                          <div class="chat_ib">
-                            <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
-                            <p>Test, which is a new approach to have all solutions
-                              astrology under one roof.</p>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="chat_list">
-                        <div class="chat_people">
-                          <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png"
-                              alt="sunil"> </div>
-                          <div class="chat_ib">
-                            <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
-                            <p>Test, which is a new approach to have all solutions
-                              astrology under one roof.</p>
+                            <h5>{{dialog.userName}} 
+                              <!-- <span class="chat_date">Dec 25</span> -->
+                            </h5>
+
+                            <p>{{dialog.lastMessage}}</p>
+
+                            <p>{{dialog.price}} ₽</p>
                           </div>
                         </div>
                       </div>

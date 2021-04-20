@@ -23,6 +23,7 @@ export default {
     },
     created() {
         this._loadingResponds();
+        this._loadingDialogs();
     },
     data() {
         return {
@@ -32,7 +33,8 @@ export default {
             aResponds: [],
             isRespond: false,
             bOpen : false,
-            respondCount: null
+            respondCount: null,
+            aDialogs: []
          }
     },    
     props: ["oData", "oEditTask"],
@@ -168,6 +170,27 @@ export default {
             }
 
             this.bOpen = false;
+        },
+
+        // Функция подгружает список диалогов чата.
+        _loadingDialogs() {
+            let sUrl = this.oData.urlApi.concat("/chat/dialogs");
+
+            try {
+                axios.post(sUrl)
+                    .then((response) => {
+                        this.aDialogs = response.data.dialogs;
+                        console.log("Список диалогов", this.aDialogs);
+                    })
+
+                    .catch((XMLHttpRequest) => {
+                        throw new Error("Ошибка списка диалогов", XMLHttpRequest.response.data);
+                    });
+            } 
+            
+            catch (ex) {
+                throw new Error(ex);
+            }
         }
     }
 }
