@@ -180,6 +180,10 @@ img {
   padding: 18px 16px 10px;
 }
 
+.chat_list:hover {
+  cursor: pointer;
+}
+
 .inbox_chat {
   height: 550px;
   overflow-y: scroll;

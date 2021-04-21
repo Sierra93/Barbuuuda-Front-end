@@ -372,11 +372,11 @@
                           <div class="chat_img"> <img class="icon_photo" v-bind:src="getImgUrl(dialog.userIcon)"> </div>
                           <div class="chat_ib">
                             <h5 v-if="dialog.firstName && dialog.lastName">{{dialog.firstName}} {{dialog.lastName}} 
-                              <span class="chat_date">Dec 25</span>
+                              <span class="chat_date">{{dialog.calcTime !== null ? dialog.calcTime : dialog.calcShortDate}}</span>
                             </h5>
 
                             <h5 v-else="!dialog.firstName && !dialog.lastName">{{dialog.userName}} 
-                              <span class="chat_date">Dec 25</span>
+                              <span class="chat_date">{{dialog.calcTime !== null ? dialog.calcTime : dialog.calcShortDate}}</span>
                             </h5>
 
                             <p>{{dialog.lastMessage}}</p>
