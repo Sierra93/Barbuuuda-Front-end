@@ -178,7 +178,7 @@
                     </summary>    -->
 
                     <div class="card responds_list" v-for="respond in aResponds">
-                        <div class="card-body d-flex justify-content-between">
+                        <div class="card-body card_respond d-flex justify-content-between">
                         <div class="">
                             <div class="d-flex">
                                 <img class="mr-1 icon_photo" v-bind:src="getImgUrl(respond.userIcon)">
@@ -360,7 +360,7 @@
                       </div>
                       <div class="srch_bar">
                         <div class="stylish-input-group">
-                          <input type="text" class="search-bar" placeholder="Search">
+                          <input type="text" class="search-bar" placeholder="Поиск...">
                           <span class="input-group-addon">
                             <button type="button"> <i class="fa fa-search" aria-hidden="true"></i> </button>
                           </span> </div>
@@ -369,8 +369,7 @@
                     <div class="inbox_chat">
                       <div class="chat_list active_chat" v-for="dialog in aDialogs">
                         <div class="chat_people">
-                          <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png"
-                              alt="sunil"> </div>
+                          <div class="chat_img"> <img class="icon_photo" v-bind:src="getImgUrl(dialog.userIcon)"> </div>
                           <div class="chat_ib">
                             <h5 v-if="dialog.firstName && dialog.lastName">{{dialog.firstName}} {{dialog.lastName}} 
                               <span class="chat_date">Dec 25</span>

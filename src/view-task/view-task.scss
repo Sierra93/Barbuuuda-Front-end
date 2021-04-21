@@ -64,7 +64,13 @@
 }
 
 .responds_list {
-    margin: 15px 15px 0 0 !important;
+    margin: 15px 0 0 0 !important;    
+    border: none!important;
+
+    .card_respond {
+      border: 1px solid rgba(0, 0, 0, 0.125);
+      border-radius: 20px 0 20px 0;
+    }
 }
 
 // Стили модалки сообщений.
