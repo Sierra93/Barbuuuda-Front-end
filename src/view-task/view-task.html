@@ -372,13 +372,17 @@
                           <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png"
                               alt="sunil"> </div>
                           <div class="chat_ib">
-                            <h5>{{dialog.userName}} 
-                              <!-- <span class="chat_date">Dec 25</span> -->
+                            <h5 v-if="dialog.firstName && dialog.lastName">{{dialog.firstName}} {{dialog.lastName}} 
+                              <span class="chat_date">Dec 25</span>
+                            </h5>
+
+                            <h5 v-else="!dialog.firstName && !dialog.lastName">{{dialog.userName}} 
+                              <span class="chat_date">Dec 25</span>
                             </h5>
 
                             <p>{{dialog.lastMessage}}</p>
 
-                            <p>{{dialog.price}} ₽</p>
+                            <p>{{dialog.price || 'По договоренности'}} ₽</p>
                           </div>
                         </div>
                       </div>
@@ -435,7 +439,7 @@
                     </div>
                     <div class="type_msg">
                       <div class="input_msg_write">
-                        <input type="text" class="write_msg" placeholder="Type a message" />
+                        <input type="text" class="write_msg" placeholder="Введите сообщение..." />
                         <button class="msg_send_btn" type="button"><i class="fa fa-paper-plane-o"
                             aria-hidden="true"></i></button>
                       </div>
