@@ -370,6 +370,10 @@ hr {
   color: white;
 }
 
+.tab button.active ~ .no-selected-tablinks {
+  display: none;
+}
+
 /* Style the tab content */
 .tabcontent {
   display: none;
@@ -394,6 +398,9 @@ hr {
 /* Create an active/current tablink class */
 .tab-role {
   background-color: white;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .role-hide {
