@@ -45,7 +45,7 @@ export default {
             }     
         },
 
-        // Функция переходит к изменению здания.
+        // Функция переходит к изменению задания.
         onEditTask() {
             this.oEditTask.editTask.bEdit = true;
             this.$router.push("/task/create");

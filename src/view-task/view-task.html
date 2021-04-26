@@ -41,12 +41,25 @@
 
     <div class="d-flex block-task-title">
         <div class="col-lg-12 details-task item-view">
-            <span class=""><strong>Название задания:</strong> {{this.oEditTask.editTask[0].taskTitle}}</span>
+          <div class="mt-3 d-flex">
+            <img class="mr-1 icon_photo" 
+                  v-bind:src="getImgUrl(this.oEditTask.editTask[0].customerProfileIcon)">
+              <h4 class="ml-1"><strong>{{this.oEditTask.editTask[0].customerLogin}}</strong></h4>
+          </div>
 
-            <div class="">
-                <span><strong>Описание задания:</strong> {{this.oEditTask.editTask[0].taskDetail}}</span>
-            </div>
-        </div>        
+          <div class="mt-3">
+            <h4><strong>{{this.oEditTask.editTask[0].taskTitle}}</strong></h4>
+            <span>{{this.oEditTask.editTask[0].taskDetail}}</span>
+          </div>
+
+          <div class="mt-3">
+            <h4><strong>Прикрепленные файлы:</strong></h4>
+          </div>
+
+          <div class="mb-3">
+            <span>К данному заданию заказчик не приложил файлов.</span>
+          </div>
+        </div>
     </div>
 
     <div class="col-lg-2 mt-5">
