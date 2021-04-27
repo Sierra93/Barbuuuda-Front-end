@@ -13,8 +13,8 @@ import axios from 'axios';
 // Функция обновит токен через каждые 9 мин.
 $(function () {
     setInterval(function () {
-        const sUrl = "http://localhost:58822".concat("/user/token?userName=").concat(sessionStorage.user);
-        // const sUrl = "https://barbuuuda.online".concat("/user/token?userName=").concat(sessionStorage.user);
+        // const sUrl = "http://localhost:58822".concat("/user/token?userName=").concat(sessionStorage.user);
+        const sUrl = "https://barbuuuda.online".concat("/user/token?userName=").concat(sessionStorage.user);
 
         if (!sessionStorage.userToken) {
             clearInterval(intervalID);
@@ -39,11 +39,11 @@ function refresh(sUrl) {
         error: function (jqXHR) {
             console.log('Ошибка обновления токена');
         }
-    });    
+    });
 }
-   
+
 export default {
-    name: 'main-page',    
+    name: 'main-page',
     components: {
         Container,
         NavMenu,
@@ -53,14 +53,16 @@ export default {
     },
     created() {
         // Автоматически добавит любым запросам токен для авторизации.
-        axios.defaults.headers.common = { "Authorization": "Bearer ".concat(sessionStorage["userToken"]) }   
+        axios.defaults.headers.common = {
+            "Authorization": "Bearer ".concat(sessionStorage["userToken"])
+        }
 
-        this.utils.deadlineSession();                
+        this.utils.deadlineSession();
         this._loadDataFon();
         this._loadDataWhy();
         this._loadGetWork();
         this._loadAdvantages();
-        this._loadPriveleges();     
+        this._loadPriveleges();
 
         this.oData.bGuest = sessionStorage["role"] == "G" ? true : false;
         this.oData.bCustomer = sessionStorage["role"] == "C" ? true : false;
@@ -68,41 +70,41 @@ export default {
         this.oData.role = sessionStorage["role"];
 
         // Функция обновит токен через каждые 9 мин.
-        __VUE_HOT_MAP__.refreshToken = function() {
-            setInterval(function () {
-                const sUrl = "http://localhost:58822".concat("/user/token?userName=").concat(sessionStorage.user);
-                // const sUrl = "https://barbuuuda.online".concat("/user/token?userName=").concat(sessionStorage.user);
-        
-                if (!sessionStorage.userToken) {
-                    clearInterval(intervalID);
-                    return;
-                }
-                refresh(sUrl);
-            }, 530000); // Каждые 9 мин.
-        },
+        __VUE_HOT_MAP__.refreshToken = function () {
+                setInterval(function () {
+                    // const sUrl = "http://localhost:58822".concat("/user/token?userName=").concat(sessionStorage.user);
+                    const sUrl = "https://barbuuuda.online".concat("/user/token?userName=").concat(sessionStorage.user);
 
-        function refresh(sUrl) {
-            $.ajax({
-                type: 'GET',
-                url: sUrl,
-                // data: {query: 'test'}, 
-                dataType: 'text',
-                success: function (data) {
-                    sessionStorage.userToken = data;
-                    console.log("refresh token");
-                },
-        
-                error: function (jqXHR) {
-                    console.log('Ошибка обновления токена');
-                }
-            });    
-        }             
+                    if (!sessionStorage.userToken) {
+                        clearInterval(intervalID);
+                        return;
+                    }
+                    refresh(sUrl);
+                }, 530000); // Каждые 9 мин.
+            },
+
+            function refresh(sUrl) {
+                $.ajax({
+                    type: 'GET',
+                    url: sUrl,
+                    // data: {query: 'test'}, 
+                    dataType: 'text',
+                    success: function (data) {
+                        sessionStorage.userToken = data;
+                        console.log("refresh token");
+                    },
+
+                    error: function (jqXHR) {
+                        console.log('Ошибка обновления токена');
+                    }
+                });
+            }
     },
     data() {
         return {
             oData: {
-                urlApi: "http://localhost:58822",
-                // urlApi: "https://barbuuuda.online",
+                // urlApi: "http://localhost:58822",
+                urlApi: "https://barbuuuda.online",
                 aHeader: [],
                 bGuest: false,
                 bCustomer: false,
@@ -132,7 +134,7 @@ export default {
                 },
                 aCategories: [],
                 dateRegister: null,
-                oViewTaskId: null     
+                oViewTaskId: null
             },
             oEditTask: {
                 editTask: {},
@@ -147,12 +149,12 @@ export default {
             aWork: [],
             aAdvantages: [],
             aProveliges: [],
-            sPassword: null                             
+            sPassword: null
         }
-    },    
-    methods: {             
+    },
+    methods: {
         // Функция выгружает данные для фона.
-        _loadDataFon() {    
+        _loadDataFon() {
             const sUrl = this.oData.urlApi.concat("/main/get-fon");
 
             try {
@@ -165,9 +167,7 @@ export default {
                     .catch((XMLHttpRequest) => {
                         throw new Error('Ошибка получения данных фона', XMLHttpRequest.response.data);
                     });
-            } 
-            
-            catch (ex) {
+            } catch (ex) {
                 throw new Error(ex);
             }
         },
@@ -186,9 +186,7 @@ export default {
                     .catch((XMLHttpRequest) => {
                         throw new Error('Ошибка получения данных почему', XMLHttpRequest.response.data);
                     });
-            } 
-            
-            catch (ex) {
+            } catch (ex) {
                 throw new Error(ex);
             }
         },
@@ -207,9 +205,7 @@ export default {
                     .catch((XMLHttpRequest) => {
                         throw new Error('Ошибка получения данных как это работает', XMLHttpRequest.response.data);
                     });
-            } 
-            
-            catch (ex) {
+            } catch (ex) {
                 throw new Error(ex);
             }
         },
@@ -228,47 +224,45 @@ export default {
                     .catch((XMLHttpRequest) => {
                         throw new Error('Ошибка получения данных преимущества', XMLHttpRequest.response.data);
                     });
-            } 
-            
-            catch (ex) {
+            } catch (ex) {
                 throw new Error(ex);
             }
         },
 
         onChangeTab(evt, type) {
             var i, tabcontent, tablinks;
-        
+
             if (type == "login") {
-              $(".tab-role").removeClass("role-show");
-              $(".tab-role").addClass("role-hide");
-              $(".register").removeClass("selected-role");
-              $(".tab-role").addClass("not-selected-role");
+                $(".tab-role").removeClass("role-show");
+                $(".tab-role").addClass("role-hide");
+                $(".register").removeClass("selected-role");
+                $(".tab-role").addClass("not-selected-role");
             }
-        
+
             if (type == "register") {
-              $(".tab-role").removeClass("role-hide");
-              $(".tab-role").addClass("role-show");
-              $(".register").addClass("selected-role");
+                $(".tab-role").removeClass("role-hide");
+                $(".tab-role").addClass("role-show");
+                $(".register").addClass("selected-role");
             }
-        
+
             // Get all elements with class="tabcontent" and hide them
             tabcontent = document.getElementsByClassName("tabcontent");
-        
+
             for (i = 0; i < tabcontent.length; i++) {
-              tabcontent[i].style.display = "none";
+                tabcontent[i].style.display = "none";
             }
-        
+
             // Get all elements with class="tablinks" and remove the class "active"
             tablinks = document.getElementsByClassName("tablinks");
-        
+
             for (i = 0; i < tablinks.length; i++) {
-              tablinks[i].className = tablinks[i].className.replace(" active", "");
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
             }
-        
+
             // Show the current tab, and add an "active" class to the button that opened the tab
             document.getElementById(type).style.display = "block";
             evt.currentTarget.className += " active";
-          },
+        },
 
         // Проставит по дефолту выделенный таб.
         setSelectedRole() {
@@ -289,24 +283,22 @@ export default {
                     .catch((XMLHttpRequest) => {
                         throw new Error('Ошибка получения данных привелегий', XMLHttpRequest.response.data);
                     });
-            } 
-            
-            catch (ex) {
+            } catch (ex) {
                 throw new Error(ex);
             }
         },
 
         // Функция регистрирует юзера.
         onCreate() {
-            const sUrl = this.oData.urlApi.concat("/user/create"); 
+            const sUrl = this.oData.urlApi.concat("/user/create");
 
             try {
                 axios.post(sUrl, {
-                    UserLogin: $("#idLog").val(),
-                    UserPassword: $("#idPass").val(),
-                    UserEmail: $("#idEma").val(),
-                    UserPhone: $("#idNum").val()
-                })
+                        UserLogin: $("#idLog").val(),
+                        UserPassword: $("#idPass").val(),
+                        UserEmail: $("#idEma").val(),
+                        UserPhone: $("#idNum").val()
+                    })
                     .then((data) => {
                         //no-debugger 
                         //debugger;
@@ -315,16 +307,14 @@ export default {
                     .catch((XMLHttpRequest) => {
                         throw new Error('Ошибка регистрации', XMLHttpRequest.response.data);
                     });
-            } 
-            
-            catch (ex) {
+            } catch (ex) {
                 throw new Error(ex);
             }
         },
 
         // Функция авторизует юзера.
         onLogin() {
-            const sUrl = this.oData.urlApi.concat("/user/login"); 
+            const sUrl = this.oData.urlApi.concat("/user/login");
 
             try {
                 axios.post(sUrl, {
@@ -339,9 +329,7 @@ export default {
                     .catch((XMLHttpRequest) => {
                         throw new Error('Ошибка регистрации', XMLHttpRequest.response.data);
                     });
-            }
-            
-            catch (ex) {
+            } catch (ex) {
                 throw new Error(ex);
             }
         },
@@ -349,22 +337,20 @@ export default {
         selectDate(date) {
             let formatDate = date.toLocaleString();
             const sUrl = this.$parent.oData.urlApi.concat("/task/concretely-date?date=".concat(formatDate));
-    
+
             try {
                 axios.get(sUrl)
-                    .then((response) => {         
-                        this.$parent.oData.aTasks= response.data;               
+                    .then((response) => {
+                        this.$parent.oData.aTasks = response.data;
                         console.log("Задания выбранной даты", this.$parent.oData.aTasks);
                     })
-    
+
                     .catch((XMLHttpRequest) => {
                         throw new Error('Ошибка получения заданий выбранной даты', XMLHttpRequest.response.data);
                     });
-            } 
-            
-            catch (ex) {
+            } catch (ex) {
                 throw new Error(ex);
             }
-        }        
+        }
     }
 }

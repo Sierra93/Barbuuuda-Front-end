@@ -1,20 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <vue-headful title="Barbuuuda"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <vue-headful title="Barbuuuda" />
 </head>
-<body>        
-     <!-- Главный фон. -->
+
+<body>
+  <!-- Главный фон. -->
   <div class="block-main-fon">
     <img src="../assets/images/welcome.jpg" class="main-fon" />
 
     <div class="centered-fon" v-for="el in aFon">
       <h3 class="title">{{el.mainTitle}}</h3>
       <span class="title-dop mt-3">{{el.secondTitle}}</span>
-      <button class="btn-create-task form-control-lg"
-              v-on:click="onRouteCreateTask()">{{el.btnText}}</button>
+      <button class="btn-create-task form-control-lg" v-on:click="onRouteCreateTask()">{{el.btnText}}</button>
     </div>
 
     <!-- Левая панель. -->
@@ -24,7 +25,8 @@
           <a href="#" class="logo-title">Barbuuuda</a>
         </div>
         <!-- если вместо navbar-toggler поставить toggled это скрыть по умолчанию -->
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
 
@@ -98,7 +100,8 @@
                   <label for="idLogin" class="form-control-sm">Логин</label><strong class="asterisk">&#42;</strong>
                   <div class="nav-link input-line">
                     <i class="fas fa-sign-in-alt"></i>
-                    <input id="idLogin" type="text" class="form-control-sm input-not-line" placeholder="Например: ivanov97" />
+                    <input id="idLogin" type="text" class="form-control-sm input-not-line"
+                      placeholder="Например: ivanov97" />
                   </div>
                 </li>
 
@@ -107,7 +110,8 @@
                   <label for="idEmail" class="form-control-sm">Email</label><strong class="asterisk">&#42;</strong>
                   <div class="nav-link input-line">
                     <i class="fa fa-envelope" aria-hidden="true"></i>
-                    <input id="idEmail" type="text" class="form-control-sm input-not-line" placeholder="Например: ivanov@mail.ru" />
+                    <input id="idEmail" type="text" class="form-control-sm input-not-line"
+                      placeholder="Например: ivanov@mail.ru" />
                   </div>
                 </li>
 
@@ -123,12 +127,14 @@
                   <label for="idPassword" class="form-control-sm">Пароль</label><strong class="asterisk">&#42;</strong>
                   <div class="nav-link input-line">
                     <i class="fa fa-key" aria-hidden="true"></i>
-                    <input id="idPassword" type="password" class="form-control-sm input-not-line" placeholder="Пароль должен быть не менее 6 символов" />
+                    <input id="idPassword" type="password" class="form-control-sm input-not-line"
+                      placeholder="Пароль должен быть не менее 6 символов" />
                   </div>
                 </li>
 
                 <li class="nav-item active litem">
-                  <label for="idLastName" class="form-control-sm">Подтверждение пароля</label><strong class="asterisk">&#42;</strong>
+                  <label for="idLastName" class="form-control-sm">Подтверждение пароля</label><strong
+                    class="asterisk">&#42;</strong>
                   <div class="nav-link input-line">
                     <i class="fa fa-key" aria-hidden="true"></i>
                     <input id="idLastName" type="text" class="form-control-sm input-not-line" />
@@ -139,7 +145,7 @@
                   <div class="nav-link input-line">
                     <div class="col-lg-12 d-flex justify-content-center mt-3">
                       <button class="btn-register form-control-lg btn-create-task btn-all-tasks mb-3"
-                              v-on:click="onCreate()">
+                        v-on:click="onCreate()">
                         РЕГИСТРАЦИЯ
                       </button>
                     </div>
@@ -158,12 +164,13 @@
             </span>
 
             <div class="collapse navbar-collapse" id="idRightMenu">
-              <ul class="navbar-nav flex-column right-ul">               
+              <ul class="navbar-nav flex-column right-ul">
                 <li class="nav-item active litem">
                   <label for="idLog" class="form-control-sm">Логин</label><strong class="asterisk">&#42;</strong>
                   <div class="nav-link input-line">
                     <i class="fas fa-sign-in-alt"></i>
-                    <input id="idLog" type="text" class="form-control-sm input-not-line" placeholder="Например: ivanov97" />
+                    <input id="idLog" type="text" class="form-control-sm input-not-line"
+                      placeholder="Например: ivanov97" />
                   </div>
                 </li>
 
@@ -171,7 +178,8 @@
                   <label for="idEma1" class="form-control-sm">Email</label><strong class="asterisk">&#42;</strong>
                   <div class="nav-link input-line">
                     <i class="fa fa-envelope" aria-hidden="true"></i>
-                    <input id="idEma1" type="text" class="form-control-sm input-not-line" placeholder="Например: ivanov@mail.ru" />
+                    <input id="idEma1" type="text" class="form-control-sm input-not-line"
+                      placeholder="Например: ivanov@mail.ru" />
                   </div>
                 </li>
 
@@ -182,17 +190,19 @@
                     <input id="idNum" type="text" class="form-control-sm input-not-line" placeholder="+7 (___) ___-__-__" />
                   </div>
                 </li> -->
-                 
+
                 <li class="nav-item active litem">
                   <label for="idPass1" class="form-control-sm">Пароль</label><strong class="asterisk">&#42;</strong>
                   <div class="nav-link input-line">
                     <i class="fa fa-key" aria-hidden="true"></i>
-                    <input id="idPass1" type="password" class="form-control-sm input-not-line" placeholder="Пароль должен быть не менее 6 символов" />
+                    <input id="idPass1" type="password" class="form-control-sm input-not-line"
+                      placeholder="Пароль должен быть не менее 6 символов" />
                   </div>
                 </li>
 
                 <li class="nav-item active litem">
-                  <label for="idLast" class="form-control-sm">Подтверждение пароля</label><strong class="asterisk">&#42;</strong>
+                  <label for="idLast" class="form-control-sm">Подтверждение пароля</label><strong
+                    class="asterisk">&#42;</strong>
                   <div class="nav-link input-line">
                     <i class="fa fa-key" aria-hidden="true"></i>
                     <input id="idLast" type="text" class="form-control-sm input-not-line" />
@@ -203,7 +213,7 @@
                   <div class="nav-link input-line">
                     <div class="col-lg-12 d-flex justify-content-center mt-3">
                       <button class="btn-register form-control-lg btn-create-task btn-all-tasks mb-3"
-                      v-on:click="onCreate()">
+                        v-on:click="onCreate()">
                         РЕГИСТРАЦИЯ
                       </button>
                     </div>
@@ -232,8 +242,8 @@
                   <strong class="asterisk">&#42;</strong>
                   <div class="nav-link input-line">
                     <i class="fa fa-key" aria-hidden="true"></i>
-                    <input id="idPass" type="password" class="form-control-sm input-not-line"
-                           _name="pass" v-model="sPassword"/>
+                    <input id="idPass" type="password" class="form-control-sm input-not-line" _name="pass"
+                      v-model="sPassword" />
                   </div>
                 </li>
 
@@ -242,7 +252,7 @@
                   <div class="nav-link input-line">
                     <div class="col-lg-12 d-flex justify-content-center mt-3">
                       <button class="btn-register form-control-lg btn-create-task btn-all-tasks mb-3"
-                              v-on:click="onLogin()">
+                        v-on:click="onLogin()">
                         ВОЙТИ
                       </button>
                     </div>
@@ -253,9 +263,9 @@
           </div>
 
           <div id="register" class="tabcontent">
-            
+
           </div>
-        </div>       
+        </div>
       </nav>
     </div>
   </div>
@@ -374,7 +384,7 @@
             </span>
           </div>
         </div>
-      </div>    
+      </div>
     </div>
   </div>
 
@@ -396,73 +406,73 @@
 
     <div class="block-my-tasks">
       <div class="card card-task card-subcategory" v-for="el in oData.aLastTasks">
-          <div class="card-header header-task">
-              <div class="block-icon">
-                  <div>
-                      <img src="../assets/images/1-wiper1.png">
-                  </div>
-                  &nbsp;
+        <div class="card-header header-task">
+          <div class="block-icon">
+            <div>
+              <img src="../assets/images/1-wiper1.png">
+            </div>
+            &nbsp;
 
-                  <div class="ml-1 text-dark">
-                      <span>{{el.userName}}</span><br>
-                      <small>{{el.taskBegda}}</small>
-                  </div>
-              </div>
-
-              <div class="">
-                  <img src="../assets/images/message.png">&nbsp;
-                  <span class="text-dark">{{el.countOffers}}</span>
-              </div>
-
-              <div class="">
-                  <img src="../assets/images/Icon.png">&nbsp;
-                  <span class="text-dark">{{el.countViews}}</span>
-              </div>
-
-              <div class="badge badge-pill badge-primary content-title">
-                  <span>{{el.typeCode}}</span>
-              </div>
-
-              <div class="badge badge-pill badge-warning content-title">
-                  <span>{{el.statusName}}</span>
-              </div>
-
-              <div class="task-price">
-                  <img src="../assets/images/date_range.png">
-                  <span>{{el.taskEndda}}</span>
-              </div>
-
-              <div class="task-price">
-                  <span>{{el.taskPrice || 'По договоренности'}}
-                      <span v-show="el.taskPrice">₽</span>
-                  </span>
-              </div>
+            <div class="ml-1 text-dark">
+              <span>{{el.userName}}</span><br>
+              <small>{{el.taskBegda}}</small>
+            </div>
           </div>
 
-          <div class="card-body">
-              <h5 class="card-title task-title">
-                  {{el.taskTitle}}
-              </h5>
-
-              <p class="card-text task-detail">
-                  {{el.taskDetail}}
-              </p>
+          <div class="">
+            <img src="../assets/images/message.png">&nbsp;
+            <span class="text-dark">{{el.countOffers}}</span>
           </div>
 
-          <div class="card-footer task-detail">
-              <div class="block-footer">
-                  <div class="task-category">
-                      <span>{{el.categoryName}}</span>
-                  </div>
-
-
-                  <div class="offer">
-                      <span class="send-task">ОСТАВИТЬ ПРЕДЛОЖЕНИЕ</span>
-                  </div>
-              </div>
+          <div class="">
+            <img src="../assets/images/Icon.png">&nbsp;
+            <span class="text-dark">{{el.countViews}}</span>
           </div>
+
+          <div class="badge badge-pill badge-primary content-title">
+            <span>{{el.typeCode}}</span>
+          </div>
+
+          <div class="badge badge-pill badge-warning content-title">
+            <span>{{el.statusName}}</span>
+          </div>
+
+          <div class="task-price">
+            <img src="../assets/images/date_range.png">
+            <span>{{el.taskEndda}}</span>
+          </div>
+
+          <div class="task-price">
+            <span>{{el.taskPrice || 'По договоренности'}}
+              <span v-show="el.taskPrice">₽</span>
+            </span>
+          </div>
+        </div>
+
+        <div class="card-body">
+          <h5 class="card-title task-title">
+            {{el.taskTitle}}
+          </h5>
+
+          <p class="card-text task-detail">
+            {{el.taskDetail}}
+          </p>
+        </div>
+
+        <div class="card-footer task-detail">
+          <div class="block-footer">
+            <div class="task-category">
+              <span>{{el.categoryName}}</span>
+            </div>
+
+
+            <div class="offer">
+              <span class="send-task">ОСТАВИТЬ ПРЕДЛОЖЕНИЕ</span>
+            </div>
+          </div>
+        </div>
       </div>
-  </div>
+    </div>
 
     <div class="col-lg-12 d-flex justify-content-center pt-3 pb-3">
       <button class="btn-create-task form-control-sm btn-create-task btn-all-tasks mb-3">
@@ -536,7 +546,7 @@
 
     <div class="col-lg-12 d-flex justify-content-center mt-3">
       <button class="btn-create-task form-control-sm btn-create-task btn-all-tasks mb-3"
-              v-on:click="onRouteExecutors()">
+        v-on:click="onRouteExecutors()">
         ВСЕ ИСПОЛНИТЕЛИ
       </button>
     </div>
@@ -546,7 +556,8 @@
   <!-- Наши преимущества. -->
   <div class="gray-fon">
     <div class="">
-      <h5 class="text-center pt-5">СТАТЬ ИСПОЛНИТЕЛЕМ И НАЧАТЬ ЗАРАБАТЫВАТЬ НА <span class="title-color">BARBUUUDA</span></h5>
+      <h5 class="text-center pt-5">СТАТЬ ИСПОЛНИТЕЛЕМ И НАЧАТЬ ЗАРАБАТЫВАТЬ НА <span
+          class="title-color">BARBUUUDA</span></h5>
 
       <div class="col-lg-12 text-center mb-5">
         <p class="content-title">
@@ -602,8 +613,9 @@
     </div>
   </div>
 
-  <!-- Модальное окно ошибки, если нет роли заказчика. -->  
-  <div class="modal fade" id="idNotCustomer" tabindex="-1" role="dialog" aria-labelledby="idNotCustomerTitle" aria-hidden="true">
+  <!-- Модальное окно ошибки, если нет роли заказчика. -->
+  <div class="modal fade" id="idNotCustomer" tabindex="-1" role="dialog" aria-labelledby="idNotCustomerTitle"
+    aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -619,10 +631,12 @@
         </div>
 
         <div class="modal-footer">
-          <button type="button" class="btn-create-task form-control-sm btn-create-task btn-all-tasks" data-dismiss="modal">Хорошо</button>
+          <button type="button" class="btn-create-task form-control-sm btn-create-task btn-all-tasks"
+            data-dismiss="modal">Хорошо</button>
         </div>
       </div>
     </div>
   </div>
 </body>
+
 </html>

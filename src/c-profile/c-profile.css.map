@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,YAAY,CAAC;EACT,KAAK,EAAE,KAAK;CACf;;AAED,AAAA,YAAY,CAAC;EACT,MAAM,EAAE,iBAAiB;EACzB,aAAa,EAAE,CAAC,CAAA,UAAU;CAC7B;;AAED,AAAA,mBAAmB,CAAC;EAChB,aAAa,EAAE,GAAG;EAClB,MAAM,EAAE,iBAAiB;EACzB,OAAO,EAAE,cAAc;CAC1B;;AAED,AAAA,mBAAmB,CAAC;EAChB,YAAY,EAAE,CAAC,CAAA,UAAU;CAC5B",
+    "sources": [
+        "c-profile.scss"
+    ],
+    "names": [],
+    "file": "c-profile.css"
+}

@@ -53,6 +53,7 @@ body {
 .block-main-fon {
   position: relative;
   text-align: center;
+
   //line-height: 5;
   .title {
     position: absolute;
@@ -89,7 +90,7 @@ body {
     border: none;
 
     &:hover {
-      box-shadow: 0 0 10px rgba(0,0,0,0.5);
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     }
   }
 
@@ -106,7 +107,7 @@ body {
     font-size: 12px;
 
     &:hover {
-      box-shadow: 0 0 10px rgba(0,0,0,0.5);
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     }
   }
 
@@ -114,6 +115,7 @@ body {
     display: flex;
     justify-content: center;
   }
+
   // Левая панель.
   .left-panel {
     position: absolute;
@@ -131,6 +133,7 @@ body {
     top: 0;
     padding-left: 0;
   }
+
   // Правая панель.
   .right-panel {
     position: absolute;
@@ -160,6 +163,7 @@ body {
   .input-line {
     display: flex;
     align-items: center;
+
     // Инпут без линий кроме нижней.
     .input-not-line {
       background-color: transparent;
@@ -356,7 +360,7 @@ body {
 }
 
 .div-price {
-    margin-left: 15%;
+  margin-left: 15%;
 }
 
 hr {
@@ -380,7 +384,7 @@ hr {
 .btn-all-tasks {
   background: #00BDD6;
   border-color: #00BDD6;
-    border: none;
+  border: none;
   @include blueBtn;
 }
 
@@ -476,5 +480,5 @@ hr {
 }
 
 .block-work {
-    flex-wrap: wrap;
+  flex-wrap: wrap;
 }

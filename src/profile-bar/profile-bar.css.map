@@ -1,6 +1,6 @@
 {
     "version": 3,
-    "mappings": "",
+    "mappings": "AAAA,AAKI,YALQ,CAKR,iBAAiB,CAAC;EACd,OAAO,EAAE,IAAI;EACb,eAAe,EAAE,aAAa;EAC9B,KAAK,EAAE,OAAO;CAOjB;;AAfL,AAWQ,YAXI,CAKR,iBAAiB,AAMZ,MAAM,CAAC;EACJ,UAAU,EAAE,UAAkB;EAC9B,MAAM,EAAE,OAAO;CAClB",
     "sources": [
         "profile-bar.scss"
     ],

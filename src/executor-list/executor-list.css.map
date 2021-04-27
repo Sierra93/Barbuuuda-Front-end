@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,oBAAoB,CAAC;EACjB,SAAS,EAAE,IAAI;CAClB;;AAED,AAAA,cAAc,CAAC;EACX,MAAM,EAAE,MAAM;CACjB",
+    "sources": [
+        "executor-list.scss"
+    ],
+    "names": [],
+    "file": "executor-list.css"
+}

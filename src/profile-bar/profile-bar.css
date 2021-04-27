@@ -1,6 +1,10 @@
 .fon-profile .stat-item-active {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: space-between;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
   color: #B6B6B6;
 }
 
@@ -8,3 +12,4 @@
   background: whitesmoke;
   cursor: pointer;
 }
+/*# sourceMappingURL=profile-bar.css.map */

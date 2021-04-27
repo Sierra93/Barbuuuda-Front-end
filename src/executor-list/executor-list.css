@@ -1,7 +1,9 @@
 .block-executor-list {
-  flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
 }
 
 .executor-card {
   margin: 10px 0;
 }
+/*# sourceMappingURL=executor-list.css.map */
