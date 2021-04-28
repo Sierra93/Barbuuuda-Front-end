@@ -34,7 +34,8 @@ export default {
             isRespond: false,
             bOpen : false,
             respondCount: null,
-            aDialogs: []
+            aDialogs: [],
+            statusArea: ""
          }
     },    
     props: ["oData", "oEditTask"],
@@ -181,10 +182,32 @@ export default {
                     .then((response) => {
                         this.aDialogs = response.data.dialogs;
                         console.log("Список диалогов", this.aDialogs);
+                        this._openEmptyDialogArea();
                     })
 
                     .catch((XMLHttpRequest) => {
                         throw new Error("Ошибка списка диалогов", XMLHttpRequest.response.data);
+                    });
+            } 
+            
+            catch (ex) {
+                throw new Error(ex);
+            }
+        },
+
+        // Функция откроет пустую область чата.
+        _openEmptyDialogArea() {
+            let sUrl = this.oData.urlApi.concat("/chat/dialog");
+
+            try {
+                axios.post(sUrl, { DialogId: null })
+                    .then((response) => {
+                        this.statusArea = response.data.dialogState;
+                        console.log("Пустая область чата открыта", this.statusArea);
+                    })
+
+                    .catch((XMLHttpRequest) => {
+                        throw new Error("Ошибка открытия пустой области чата", XMLHttpRequest.response.data);
                     });
             } 
             
