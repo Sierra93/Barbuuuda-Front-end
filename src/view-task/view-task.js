@@ -35,7 +35,8 @@ export default {
             bOpen : false,
             respondCount: null,
             aDialogs: [],
-            statusArea: ""
+            statusArea: "",
+            aMessages: []
          }
     },    
     props: ["oData", "oEditTask"],
@@ -208,6 +209,28 @@ export default {
 
                     .catch((XMLHttpRequest) => {
                         throw new Error("Ошибка открытия пустой области чата", XMLHttpRequest.response.data);
+                    });
+            } 
+            
+            catch (ex) {
+                throw new Error(ex);
+            }
+        },
+
+        // Функция получит список сообщений диалога.
+        onGetDialogMessages(dialogId) {
+            let sUrl = this.oData.urlApi.concat("/chat/dialog");
+
+            try {
+                axios.post(sUrl, { DialogId: dialogId })
+                    .then((response) => {
+                        this.aMessages = response.data.messages;
+                        console.log("Список сообщений диалога c Id: " + dialogId, response.data);
+                        this.statusArea = response.data.dialogState
+                    })
+
+                    .catch((XMLHttpRequest) => {
+                        throw new Error("Ошибка сообщений диалога", XMLHttpRequest.response.data);
                     });
             } 
             

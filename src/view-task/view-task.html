@@ -382,7 +382,9 @@
                       </div>
                     </div>
                     <div class="inbox_chat">
-                      <div class="chat_list active_chat" v-for="dialog in aDialogs">
+                      <div class="chat_list active_chat" 
+                            v-on:click="onGetDialogMessages(dialog.dialogId)"
+                            v-for="dialog in aDialogs">
                         <div class="chat_people">
                           <div class="chat_img"> <img class="icon_photo" v-bind:src="getImgUrl(dialog.userIcon)"> </div>
                           <div class="chat_ib">
@@ -406,25 +408,20 @@
                   <!-- Область сообщений. -->
                   <div class="mesgs">
                     <div class="msg_history">
-                      <!-- <div class="incoming_msg">
-                        <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png"
-                            alt="sunil"> </div>
-                        <div class="received_msg">
-                          <div class="received_withd_msg">
-                            <p>Test which is a new approach to have all
-                              solutions</p>
-                            <span class="time_date"> 11:01 AM | June 9</span>
+                      <div _class="incoming_msg" 
+                            v-bind:class="{outgoing_msg: message.isMyMessage, incoming_msg: !message.isMyMessage}" 
+                            v-for="message in aMessages">
+                        <div _class="incoming_msg_img" v-bind:class="{incoming_msg_img: !message.isMyMessage}" > 
+                          <!-- <img src="https://ptetutorials.com/images/user-profile.png"
+                              v-show="!message.isMyMessage" >  -->
+                        </div>
+                        <div _class="received_msg" v-bind:class="{outgoing_msg: message.isMyMessage, received_msg: !message.isMyMessage}" >
+                          <div _class="received_withd_msg" v-bind:class="{sent_msg: message.isMyMessage, received_withd_msg: !message.isMyMessage}">
+                            <p>{{message.message}}</p>
+                            <span class="time_date">{{message.created}}</span>
                           </div>
                         </div>
-                      </div> -->
-
-                      <!-- <div class="outgoing_msg">
-                        <div class="sent_msg">
-                          <p>Test which is a new approach to have all
-                            solutions</p>
-                          <span class="time_date"> 11:01 AM | June 9</span>
-                        </div>
-                      </div> -->
+                      </div> 
 
                       <div class="text-center" v-show="statusArea == 'None'">
                         <p class="title_not_dialog">Чат с исполнителями</p>
@@ -442,12 +439,10 @@
                     </div>
                   </div>
                 </div>
-
 <!-- 
                 <span class="d-flex justify-content-center top_spac"> Design by <a target="_blank"
                     href="https://www.linkedin.com/in/sunil-rajput-nattho-singh/">Sunil Rajput</a></span> -->
                     <!-- <div>&nbsp;</div> -->
-
               </div>
             </div>
           </div>

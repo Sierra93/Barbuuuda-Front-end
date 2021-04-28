@@ -49,7 +49,8 @@ var _default = {
       bOpen: false,
       respondCount: null,
       aDialogs: [],
-      statusArea: ""
+      statusArea: "",
+      aMessages: []
     };
   },
   props: ["oData", "oEditTask"],
@@ -204,6 +205,26 @@ var _default = {
           console.log("Пустая область чата открыта", _this6.statusArea);
         })["catch"](function (XMLHttpRequest) {
           throw new Error("Ошибка открытия пустой области чата", XMLHttpRequest.response.data);
+        });
+      } catch (ex) {
+        throw new Error(ex);
+      }
+    },
+    // Функция получит список сообщений диалога.
+    onGetDialogMessages: function onGetDialogMessages(dialogId) {
+      var _this7 = this;
+
+      var sUrl = this.oData.urlApi.concat("/chat/dialog");
+
+      try {
+        _axios["default"].post(sUrl, {
+          DialogId: dialogId
+        }).then(function (response) {
+          _this7.aMessages = response.data.messages;
+          console.log("Список сообщений диалога c Id: " + dialogId, response.data);
+          _this7.statusArea = response.data.dialogState;
+        })["catch"](function (XMLHttpRequest) {
+          throw new Error("Ошибка сообщений диалога", XMLHttpRequest.response.data);
         });
       } catch (ex) {
         throw new Error(ex);
