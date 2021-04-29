@@ -11,6 +11,8 @@ import Profile from './components/profile.vue';
 import CProfile from './components/c-profile.vue';
 import ExecutorList from './components/executor-list.vue';
 import EHOME from './components/e-home.vue';
+import Login from './components/login.vue';
+import Register from './components/register.vue';
 
 export default new VueRouter({
   routes: [{
@@ -84,6 +86,18 @@ export default new VueRouter({
       path: '/e/home',
       name: 'e-home',
       component: EHOME,
+      props: true
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: Login,
+      props: true
+    },
+    {
+      path: '/register',
+      name: 'register',
+      component: Register,
       props: true
     }
   ],

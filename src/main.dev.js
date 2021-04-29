@@ -44,6 +44,10 @@ var _executorList = _interopRequireDefault(require("./components/executor-list.v
 
 var _vueHeadful = _interopRequireDefault(require("vue-headful"));
 
+var _login = _interopRequireDefault(require("./components/login.vue"));
+
+var _register = _interopRequireDefault(require("./components/register.vue"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 /* eslint-disable */
@@ -72,7 +76,11 @@ _vue["default"].component('CProfile', _cProfile["default"]);
 
 _vue["default"].component('ExecutorList', _executorList["default"]);
 
-_vue["default"].component('vue-headful', _vueHeadful["default"]); // Общие функции приложения.
+_vue["default"].component('vue-headful', _vueHeadful["default"]);
+
+_vue["default"].component('Login', _login["default"]);
+
+_vue["default"].component('Register', _register["default"]); // Общие функции приложения.
 
 
 var utils = {
