@@ -36,7 +36,8 @@ export default {
             respondCount: null,
             aDialogs: [],
             statusArea: "",
-            aMessages: []
+            aMessages: [],
+            dialogId: null
          }
     },    
     props: ["oData", "oEditTask"],
@@ -222,7 +223,7 @@ export default {
             let sUrl = this.oData.urlApi.concat("/chat/dialog");
 
             try {
-                axios.post(sUrl, { DialogId: dialogId })
+                axios.post(sUrl, { DialogId: this.dialogId })
                     .then((response) => {
                         this.aMessages = response.data.messages;
                         console.log("Список сообщений диалога c Id: " + dialogId, response.data);
@@ -237,6 +238,28 @@ export default {
             catch (ex) {
                 throw new Error(ex);
             }
+        },
+
+        // Функция отправит сообщение.
+        onSend() {
+            let sUrl = this.oData.urlApi.concat("/chat/send");
+
+            // try {
+            //     axios.post(sUrl, { DialogId: dialogId })
+            //         .then((response) => {
+            //             this.aMessages = response.data.messages;
+            //             console.log("Список сообщений диалога c Id: " + dialogId, response.data);
+            //             this.statusArea = response.data.dialogState
+            //         })
+
+            //         .catch((XMLHttpRequest) => {
+            //             throw new Error("Ошибка сообщений диалога", XMLHttpRequest.response.data);
+            //         });
+            // } 
+            
+            // catch (ex) {
+            //     throw new Error(ex);
+            // }
         }
     }
 }
