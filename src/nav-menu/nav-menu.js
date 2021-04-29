@@ -30,7 +30,7 @@ export default {
     methods: {
         // Функция проставит хидер в зависимости от роли юзера.
         _initHeader() {
-            if (this.$route.name == "main") {
+            if (this.$route.name == "main" || this.$route.name == "login" || this.$route.name == "register") {
                 this.oData.bCustomer = false;
                 this.oData.bExecutor = false;
                 this.oData.bGuest = true;
