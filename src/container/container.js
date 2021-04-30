@@ -31,8 +31,7 @@ export default {
             aProveliges: [],
             sPassword: null,
             aHope: [],
-            role: null,
-            title: 'This will be the title'
+            role: null
         }
     },
     created() {

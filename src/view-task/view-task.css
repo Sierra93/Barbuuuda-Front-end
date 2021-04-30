@@ -19,14 +19,14 @@
   display: -ms-flexbox !important;
   display: flex !important;
   -webkit-box-pack: center !important;
-      -ms-flex-pack: center !important;
-          justify-content: center !important;
+  -ms-flex-pack: center !important;
+  justify-content: center !important;
 }
 
 .btn-link:focus {
   outline: none !important;
   -webkit-box-shadow: none !important;
-          box-shadow: none !important;
+  box-shadow: none !important;
   text-decoration: none !important;
 }
 
@@ -41,8 +41,7 @@
   border: none;
   padding: 0 50px !important;
   border: none;
-  -webkit-transition: all .3s ease-out;
-  transition: all .3s ease-out;
+  transition: all 0.3s ease-out;
 }
 
 .btn-create-task:focus {
@@ -51,7 +50,7 @@
 
 .btn-create-task:hover {
   -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-          box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
 .area-respond {
@@ -59,8 +58,8 @@
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
 }
 
 .input-respond {
@@ -295,4 +294,14 @@ img {
   height: 516px;
   overflow-y: auto;
 }
+
 /*# sourceMappingURL=view-task.css.map */
+.title_not_dialog {
+  font-size: 24px;
+  line-height: 32px;
+}
+
+.text_not_dialog {
+  font-size: 18px;
+  line-height: 1.5;
+}

@@ -34,7 +34,10 @@ export default {
             isRespond: false,
             bOpen : false,
             respondCount: null,
-            aDialogs: []
+            aDialogs: [],
+            statusArea: "",
+            aMessages: [],
+            dialogId: null
          }
     },    
     props: ["oData", "oEditTask"],
@@ -181,6 +184,7 @@ export default {
                     .then((response) => {
                         this.aDialogs = response.data.dialogs;
                         console.log("Список диалогов", this.aDialogs);
+                        this._openEmptyDialogArea();
                     })
 
                     .catch((XMLHttpRequest) => {
@@ -191,6 +195,71 @@ export default {
             catch (ex) {
                 throw new Error(ex);
             }
+        },
+
+        // Функция откроет пустую область чата.
+        _openEmptyDialogArea() {
+            let sUrl = this.oData.urlApi.concat("/chat/dialog");
+
+            try {
+                axios.post(sUrl, { DialogId: null })
+                    .then((response) => {
+                        this.statusArea = response.data.dialogState;
+                        console.log("Пустая область чата открыта", this.statusArea);
+                    })
+
+                    .catch((XMLHttpRequest) => {
+                        throw new Error("Ошибка открытия пустой области чата", XMLHttpRequest.response.data);
+                    });
+            } 
+            
+            catch (ex) {
+                throw new Error(ex);
+            }
+        },
+
+        // Функция получит список сообщений диалога.
+        onGetDialogMessages(dialogId) {
+            let sUrl = this.oData.urlApi.concat("/chat/dialog");
+
+            try {
+                axios.post(sUrl, { DialogId: this.dialogId })
+                    .then((response) => {
+                        this.aMessages = response.data.messages;
+                        console.log("Список сообщений диалога c Id: " + dialogId, response.data);
+                        this.statusArea = response.data.dialogState
+                    })
+
+                    .catch((XMLHttpRequest) => {
+                        throw new Error("Ошибка сообщений диалога", XMLHttpRequest.response.data);
+                    });
+            } 
+            
+            catch (ex) {
+                throw new Error(ex);
+            }
+        },
+
+        // Функция отправит сообщение.
+        onSend() {
+            let sUrl = this.oData.urlApi.concat("/chat/send");
+
+            // try {
+            //     axios.post(sUrl, { DialogId: dialogId })
+            //         .then((response) => {
+            //             this.aMessages = response.data.messages;
+            //             console.log("Список сообщений диалога c Id: " + dialogId, response.data);
+            //             this.statusArea = response.data.dialogState
+            //         })
+
+            //         .catch((XMLHttpRequest) => {
+            //             throw new Error("Ошибка сообщений диалога", XMLHttpRequest.response.data);
+            //         });
+            // } 
+            
+            // catch (ex) {
+            //     throw new Error(ex);
+            // }
         }
     }
 }
