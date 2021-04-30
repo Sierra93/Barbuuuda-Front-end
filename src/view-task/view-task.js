@@ -37,7 +37,8 @@ export default {
             aDialogs: [],
             statusArea: "",
             aMessages: [],
-            dialogId: null
+            dialogId: null,
+            message: ""
          }
     },    
     props: ["oData", "oEditTask"],
@@ -221,6 +222,7 @@ export default {
         // Функция получит список сообщений диалога.
         onGetDialogMessages(dialogId) {
             let sUrl = this.oData.urlApi.concat("/chat/dialog");
+            this.dialogId = dialogId;
 
             try {
                 axios.post(sUrl, { DialogId: this.dialogId })
@@ -243,23 +245,26 @@ export default {
         // Функция отправит сообщение.
         onSend() {
             let sUrl = this.oData.urlApi.concat("/chat/send");
+            let oDataMessage = {
+                DialogId: this.dialogId,
+                Message: this.message
+            };
 
-            // try {
-            //     axios.post(sUrl, { DialogId: dialogId })
-            //         .then((response) => {
-            //             this.aMessages = response.data.messages;
-            //             console.log("Список сообщений диалога c Id: " + dialogId, response.data);
-            //             this.statusArea = response.data.dialogState
-            //         })
+            try {
+                axios.post(sUrl, oDataMessage)
+                    .then((response) => {
+                        this.aMessages = response.data.messages;
+                        console.log("Сообщение успешно отправлено", this.aMessages);
+                    })
 
-            //         .catch((XMLHttpRequest) => {
-            //             throw new Error("Ошибка сообщений диалога", XMLHttpRequest.response.data);
-            //         });
-            // } 
+                    .catch((XMLHttpRequest) => {
+                        throw new Error("Ошибка отправки сообщения", XMLHttpRequest.response.data);
+                    });
+            } 
             
-            // catch (ex) {
-            //     throw new Error(ex);
-            // }
+            catch (ex) {
+                throw new Error(ex);
+            }
         }
     }
 }

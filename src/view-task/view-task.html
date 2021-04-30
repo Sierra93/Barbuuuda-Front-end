@@ -383,8 +383,8 @@
                     </div>
                     <div class="inbox_chat">
                       <div class="chat_list active_chat" 
-                            v-model="dialogId"
-                            v-on:click="onGetDialogMessages(dialogId)"
+                            v-bind:value="dialog.dialogId"
+                            v-on:click="onGetDialogMessages(dialog.dialogId)"
                             v-for="dialog in aDialogs">
                         <div class="chat_people">
                           <div class="chat_img"> <img class="icon_photo" v-bind:src="getImgUrl(dialog.userIcon)"> </div>
@@ -433,7 +433,10 @@
                     <!-- Область отправки сообщений. -->
                     <div class="type_msg" v-show="statusArea !== 'None'">
                       <div class="input_msg_write">
-                        <input type="text" class="write_msg" placeholder="Введите сообщение..." />
+                        <input type="text" 
+                                class="write_msg" 
+                                placeholder="Введите сообщение..." 
+                                v-model="message"/>
                         <button class="msg_send_btn" type="button" v-on:click="onSend()">
                           <i class="fa fa-paper-plane-o"
                             aria-hidden="true">
