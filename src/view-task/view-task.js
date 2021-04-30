@@ -23,6 +23,7 @@ export default {
     },
     created() {
         this._loadingResponds();
+        this._loadingDialogs();
     },
     data() {
         return {
@@ -32,12 +33,22 @@ export default {
             aResponds: [],
             isRespond: false,
             bOpen : false,
-            respondCount: null
+            respondCount: null,
+            aDialogs: [],
+            statusArea: "",
+            aMessages: [],
+            dialogId: null
          }
     },    
     props: ["oData", "oEditTask"],
     methods: {       
-        // Функция переходит к изменению здания.
+        getImgUrl(img) {
+            if (img !== null) {
+                return require('../assets/images/' + img);
+            }     
+        },
+
+        // Функция переходит к изменению задания.
         onEditTask() {
             this.oEditTask.editTask.bEdit = true;
             this.$router.push("/task/create");
@@ -109,7 +120,7 @@ export default {
             }
         },
 
-        // Функция получает список ставок к заданию.
+        // Функция получит список ставок к заданию.
         _loadingResponds() {
             let sUrl = this.oData.urlApi.concat("/task/get-responds");
 
@@ -129,13 +140,7 @@ export default {
             catch (ex) {
                 throw new Error(ex);
             }
-        },
-
-        getImgUrl(img) {
-            if (img !== null) {
-                return require('../assets/images/' + img);
-            }     
-        },
+        },        
 
         // Функция проверит, делал ли уже ставку текущий исполнитель.
         _checkRespond() {
@@ -158,6 +163,7 @@ export default {
             }
         },
 
+        // Функция разрешит или запретит нажатие кнопки "СДЕЛАТЬ СТАВКУ".
         onTogglebRespondsOpen(e) {
             let isOpen = $("#idOpen").prop("open");
 
@@ -167,6 +173,93 @@ export default {
             }
 
             this.bOpen = false;
+        },
+
+        // Функция подгружает список диалогов чата.
+        _loadingDialogs() {
+            let sUrl = this.oData.urlApi.concat("/chat/dialogs");
+
+            try {
+                axios.post(sUrl)
+                    .then((response) => {
+                        this.aDialogs = response.data.dialogs;
+                        console.log("Список диалогов", this.aDialogs);
+                        this._openEmptyDialogArea();
+                    })
+
+                    .catch((XMLHttpRequest) => {
+                        throw new Error("Ошибка списка диалогов", XMLHttpRequest.response.data);
+                    });
+            } 
+            
+            catch (ex) {
+                throw new Error(ex);
+            }
+        },
+
+        // Функция откроет пустую область чата.
+        _openEmptyDialogArea() {
+            let sUrl = this.oData.urlApi.concat("/chat/dialog");
+
+            try {
+                axios.post(sUrl, { DialogId: null })
+                    .then((response) => {
+                        this.statusArea = response.data.dialogState;
+                        console.log("Пустая область чата открыта", this.statusArea);
+                    })
+
+                    .catch((XMLHttpRequest) => {
+                        throw new Error("Ошибка открытия пустой области чата", XMLHttpRequest.response.data);
+                    });
+            } 
+            
+            catch (ex) {
+                throw new Error(ex);
+            }
+        },
+
+        // Функция получит список сообщений диалога.
+        onGetDialogMessages(dialogId) {
+            let sUrl = this.oData.urlApi.concat("/chat/dialog");
+
+            try {
+                axios.post(sUrl, { DialogId: this.dialogId })
+                    .then((response) => {
+                        this.aMessages = response.data.messages;
+                        console.log("Список сообщений диалога c Id: " + dialogId, response.data);
+                        this.statusArea = response.data.dialogState
+                    })
+
+                    .catch((XMLHttpRequest) => {
+                        throw new Error("Ошибка сообщений диалога", XMLHttpRequest.response.data);
+                    });
+            } 
+            
+            catch (ex) {
+                throw new Error(ex);
+            }
+        },
+
+        // Функция отправит сообщение.
+        onSend() {
+            let sUrl = this.oData.urlApi.concat("/chat/send");
+
+            // try {
+            //     axios.post(sUrl, { DialogId: dialogId })
+            //         .then((response) => {
+            //             this.aMessages = response.data.messages;
+            //             console.log("Список сообщений диалога c Id: " + dialogId, response.data);
+            //             this.statusArea = response.data.dialogState
+            //         })
+
+            //         .catch((XMLHttpRequest) => {
+            //             throw new Error("Ошибка сообщений диалога", XMLHttpRequest.response.data);
+            //         });
+            // } 
+            
+            // catch (ex) {
+            //     throw new Error(ex);
+            // }
         }
     }
 }

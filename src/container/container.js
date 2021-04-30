@@ -28,8 +28,7 @@ export default {
             aProveliges: [],
             sPassword: null,
             aHope: [],
-            role: null,
-            title: 'This will be the title'      
+            role: null    
         }
     },
     created() {
@@ -235,7 +234,8 @@ export default {
                             sessionStorage["role"] = response.data.role;
                             sessionStorage["user"] = response.data.user;
                             $(".right-panel").hide();
-                            this.$router.push("/home");
+                            // this.$router.push("/home");
+                            window.location.href = window.location.href.concat("home");
                         }                        
                     })
 

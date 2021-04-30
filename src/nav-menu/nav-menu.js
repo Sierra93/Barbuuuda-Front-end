@@ -30,7 +30,7 @@ export default {
     methods: {
         // Функция проставит хидер в зависимости от роли юзера.
         _initHeader() {
-            if (this.$route.name == "main") {
+            if (this.$route.name == "main" || this.$route.name == "login" || this.$route.name == "register") {
                 this.oData.bCustomer = false;
                 this.oData.bExecutor = false;
                 this.oData.bGuest = true;
@@ -136,6 +136,16 @@ export default {
             this.bHideLeftPanel = $(".left-menu").hasClass("left-panel");
             this.bHideLeftPanel ? $(".left-menu").removeClass("left-panel").addClass("left-panel-not-left") 
             : $(".left-menu").removeClass("left-panel-not-left").addClass("left-panel");
-        }       
+        },
+        
+        onRouteCreateTask() {
+            // Если нет роли заказчик, то будет ошибка.
+            if (sessionStorage["role"] !== "C") {
+                $('#idNotCustomer').modal('show');
+                return;
+            }
+
+            this.$router.push("/task/create");
+        },  
     }
 }

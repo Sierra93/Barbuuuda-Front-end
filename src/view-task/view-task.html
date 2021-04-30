@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <vue-headful title="Barbuuuda: Просмотр задания"/>
+    <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" type="text/css" rel="stylesheet"> -->
 </head>
 
 <body>
@@ -40,17 +41,34 @@
 
     <div class="d-flex block-task-title">
         <div class="col-lg-12 details-task item-view">
-            <span class=""><strong>Название задания:</strong> {{this.oEditTask.editTask[0].taskTitle}}</span>
+          <div class="mt-3 d-flex">
+            <img class="mr-1 icon_photo" 
+                  v-bind:src="getImgUrl(this.oEditTask.editTask[0].customerProfileIcon)">
+              <h4 class="ml-1"><strong>{{this.oEditTask.editTask[0].customerLogin}}</strong></h4>
+          </div>
 
-            <div class="">
-                <span><strong>Описание задания:</strong> {{this.oEditTask.editTask[0].taskDetail}}</span>
-            </div>
+          <div class="mt-3">
+            <h4><strong>{{this.oEditTask.editTask[0].taskTitle}}</strong></h4>
+            <span>{{this.oEditTask.editTask[0].taskDetail}}</span>
+          </div>
+
+          <div class="mt-3">
+            <h4><strong>Прикрепленные файлы:</strong></h4>
+          </div>
+
+          <div class="mb-3">
+            <span>К данному заданию заказчик не приложил файлов.</span>
+          </div>
         </div>
+    </div>
 
-        <!-- <div class="col-lg-2">
-            <img src="../assets/images/chat-icon.png">&nbsp;
-            <strong class="chat-link">Открыть чат</strong>
-        </div> -->
+    <div class="col-lg-2 mt-5">
+        <img src="../assets/images/chat-icon.png">&nbsp;
+        <strong class="chat-link" 
+                data-toggle="modal" 
+                data-target=".bd-example-modal-xl">
+          Открыть чат
+        </strong>
     </div>
 
     <!-- Детали задания. -->
@@ -65,7 +83,7 @@
                     </div>
 
                     <div>
-                        {{this.oEditTask.editTask[0].taskId}}
+                        <small>{{this.oEditTask.editTask[0].taskId}}</small>
                     </div>
                 </div>
 
@@ -173,7 +191,7 @@
                     </summary>    -->
 
                     <div class="card responds_list" v-for="respond in aResponds">
-                        <div class="card-body d-flex justify-content-between">
+                        <div class="card-body card_respond d-flex justify-content-between">
                         <div class="">
                             <div class="d-flex">
                                 <img class="mr-1 icon_photo" v-bind:src="getImgUrl(respond.userIcon)">
@@ -207,7 +225,7 @@
                             </div>
                         </div>
 
-                        <div class="">
+                        <div class="text-right">
                             <div>
                                 <strong>Ставка {{respond.price}} ₽</strong>
                             </div>
@@ -215,12 +233,13 @@
                             <div>
                                 <button class="btn-next form-control-sm mt-3" 
                                         v-show="oData.role == 'C'" 
-                                        v-on:click="">
+                                        data-toggle="modal" 
+                                        data-target=".bd-example-modal-xl">
                                     ОТВЕТИТЬ
                                 </button>
 
                                 <button class="btn-next form-control-sm mt-3" 
-                                        v-show="oData.role == 'E'" 
+                                        v-show="oData.role == 'E' && respond.isVisibleButton" 
                                         v-on:click="">
                                     ИЗМЕНИТЬ СТАВКУ
                                 </button>
@@ -336,6 +355,102 @@
           </div>
         </div>
       </div>
-</body>
 
+      <!-- Модальное окно переписки с исполнителями. -->
+      <div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl" role="document">
+          <div class="modal-content">
+            <div class="container">
+              <div class="d-flex justify-content-center">
+                <span class="">Messaging</span>
+              </div>
+              <div class="messaging mb-4">
+                <div class="inbox_msg">
+
+                  <!-- Область списка диалогов. -->
+                  <div class="inbox_people">
+                    <div class="headind_srch">
+                      <div class="recent_heading">
+                        <!-- <h4>Recent</h4> -->
+                      </div>
+                      <div class="srch_bar">
+                        <div class="stylish-input-group">
+                          <input type="text" class="search-bar" placeholder="Поиск...">
+                          <span class="input-group-addon">
+                            <button type="button"> <i class="fa fa-search" aria-hidden="true"></i> </button>
+                          </span> </div>
+                      </div>
+                    </div>
+                    <div class="inbox_chat">
+                      <div class="chat_list active_chat" 
+                            v-model="dialogId"
+                            v-on:click="onGetDialogMessages(dialogId)"
+                            v-for="dialog in aDialogs">
+                        <div class="chat_people">
+                          <div class="chat_img"> <img class="icon_photo" v-bind:src="getImgUrl(dialog.userIcon)"> </div>
+                          <div class="chat_ib">
+                            <h5 v-if="dialog.firstName && dialog.lastName">{{dialog.firstName}} {{dialog.lastName}} 
+                              <span class="chat_date">{{dialog.calcTime !== null ? dialog.calcTime : dialog.calcShortDate}}</span>
+                            </h5>
+
+                            <h5 v-else="!dialog.firstName && !dialog.lastName">{{dialog.userName}} 
+                              <span class="chat_date">{{dialog.calcTime !== null ? dialog.calcTime : dialog.calcShortDate}}</span>
+                            </h5>
+
+                            <p>{{dialog.lastMessage}}</p>
+
+                            <p>{{dialog.price || 'По договоренности'}} ₽</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Область сообщений. -->
+                  <div class="mesgs">
+                    <div class="msg_history">
+                      <div _class="incoming_msg" 
+                            v-bind:class="{outgoing_msg: message.isMyMessage, incoming_msg: !message.isMyMessage}" 
+                            v-for="message in aMessages">
+                        <div _class="incoming_msg_img" v-bind:class="{incoming_msg_img: !message.isMyMessage}" > 
+                          <!-- <img src="https://ptetutorials.com/images/user-profile.png"
+                              v-show="!message.isMyMessage" >  -->
+                        </div>
+                        <div _class="received_msg" v-bind:class="{outgoing_msg: message.isMyMessage, received_msg: !message.isMyMessage}" >
+                          <div _class="received_withd_msg" v-bind:class="{sent_msg: message.isMyMessage, received_withd_msg: !message.isMyMessage}">
+                            <p>{{message.message}}</p>
+                            <span class="time_date">{{message.created}}</span>
+                          </div>
+                        </div>
+                      </div> 
+
+                      <div class="text-center" v-show="statusArea == 'None'">
+                        <p class="title_not_dialog">Чат с исполнителями</p>
+                        <p class="text_not_dialog">Ваша переписка с исполнителями здесь :)</p>
+                      </div>
+                    </div>
+
+                    <!-- Область отправки сообщений. -->
+                    <div class="type_msg" v-show="statusArea !== 'None'">
+                      <div class="input_msg_write">
+                        <input type="text" class="write_msg" placeholder="Введите сообщение..." />
+                        <button class="msg_send_btn" type="button" v-on:click="onSend()">
+                          <i class="fa fa-paper-plane-o"
+                            aria-hidden="true">
+                          </i>
+                          </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+<!-- 
+                <span class="d-flex justify-content-center top_spac"> Design by <a target="_blank"
+                    href="https://www.linkedin.com/in/sunil-rajput-nattho-singh/">Sunil Rajput</a></span> -->
+                    <!-- <div>&nbsp;</div> -->
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+</body>
 </html>
