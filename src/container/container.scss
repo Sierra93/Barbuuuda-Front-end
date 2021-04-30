@@ -1,5 +1,7 @@
 $openSans: Open Sans;
 
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
 // Заголовок карточки.
 @mixin cardTitle {
   color: #000000;
@@ -42,22 +44,58 @@ $openSans: Open Sans;
 }
 
 body {
+  font-family: 'Montserrat';
   overflow-x: hidden;
 }
 
 .main-fon {
-  width: 100%;
+  position: absolute;
+  top: 50px;
+}
+
+.start {
+  display: flex;
+
+  // Левая панель.
+  .aside {
+    position: relative;
+    width: 80px;
+    background: #005F96;
+    height: 100vh;
+
+    .left-panel {
+      position: absolute;
+      top: 0;
+      left: -300px;
+
+      .block-title {
+        display: flex;
+        justify-content: center;
+      }
+    }
+
+    .left-panel-not-left {
+      position: absolute;
+      top: 0;
+      // z-index: 9999;
+      padding-left: 0;
+    }
+  }
 }
 
 // Блок с фоном.
 .block-main-fon {
-  position: relative;
+  background: url(../assets/images/fon.png) center center/cover no-repeat;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
   text-align: center;
 
   //line-height: 5;
   .title {
-    position: absolute;
-    top: 30%;
+    // position: absolute;
+    // top: 30%;
     font-family: Oswald;
     font-weight: normal;
     font-size: 40px;
@@ -65,9 +103,17 @@ body {
   }
 
   .title-dop {
-    position: absolute;
-    top: 35%;
+    font-size: 56px;
+    margin-left: 60px;
+    white-space: pre-line;
+    text-align: left;
+    max-width: 547px;
+    line-height: 57px;
     color: #666666;
+  }
+
+  .mt-3 {
+    margin-top: 50px !important;
   }
 
   .tablinks:focus {
@@ -112,30 +158,14 @@ body {
   }
 
   .centered-fon {
+    width: 100%;
     display: flex;
-    justify-content: center;
-  }
-
-  // Левая панель.
-  .left-panel {
-    position: absolute;
-    top: 0;
-    left: -300px;
-
-    .block-title {
-      display: flex;
-      justify-content: center;
-    }
-  }
-
-  .left-panel-not-left {
-    position: absolute;
-    top: 0;
-    padding-left: 0;
+    justify-content: flex-start;
   }
 
   // Правая панель.
   .right-panel {
+    display: none;
     position: absolute;
     top: 0;
     right: -20px;
@@ -185,6 +215,7 @@ body {
   }
 }
 
+
 // Для цветного скролла.
 /*.flexcroll {
   scrollbar-face-color: #367CD2;
@@ -219,10 +250,13 @@ body {
 
 #idLeftMenu {
   line-height: 1;
-  color: #98aab7;
+  color: #ffffff;
 
   .left-ul {
     align-items: flex-start;
+    height: 100vh;
+    background: #005F96;
+
 
     i {
       &:hover {
@@ -239,7 +273,8 @@ body {
 
   // Текст с иконкой левой панели.
   .nav-link {
-    color: #98aab7;
+    margin: 10px 0;
+    color: #ffffff;
     cursor: pointer;
     width: 222px;
     display: flex;
@@ -248,6 +283,8 @@ body {
       border-left-color: #00bcd4;
       background-color: #17242f;
       border-left: 2px solid #00bcd4;
+      padding-left: 15px;
+      padding-right: 15px;
 
       i {
         color: #00bcd4;
@@ -259,7 +296,7 @@ body {
     }
 
     a {
-      color: #98aab7;
+      color: #ffffff;
       text-decoration: none;
 
       &:hover {
@@ -279,13 +316,10 @@ body {
 }
 
 .left-nav {
-  background: #131e27;
-  height: 100vh;
   line-height: 2;
 }
 
 .right-nav {
-  background: #FFFFFF;
   height: 100vh;
   line-height: 2;
 }
@@ -321,7 +355,7 @@ body {
 }
 
 .gray-fon {
-  background: #FAFAFA;
+  width: 100%;
   //margin-top: -4%;
 }
 
@@ -397,7 +431,7 @@ hr {
 .tab {
   overflow: hidden;
   //border: 1px solid #ccc;
-  background-color: #FFFFFF;
+  // background-color: #FFFFFF;
   display: flex;
   justify-content: center;
 }
@@ -435,7 +469,7 @@ hr {
 }
 
 .tab-role {
-  background: white;
+  // background: white;
 }
 
 /* Change background color of buttons on hover */
@@ -449,9 +483,9 @@ hr {
 }
 
 /* Create an active/current tablink class */
-.tab-role {
-  background-color: white;
-}
+// .tab-role {
+//   background-color: white;
+// }
 
 // Скрывает вкладку роли.
 .role-hide {
@@ -482,3 +516,10 @@ hr {
 .block-work {
   flex-wrap: wrap;
 }
+
+.block-title {
+  display: none;
+}
+
+
+//меню и шапка

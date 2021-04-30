@@ -1,3 +1,16 @@
+.logo {
+  margin-left: 50px;
+  width: 300px;
+}
+
+.navbar-collapse {
+  -ms-flex-preferred-size: 40% !important;
+      flex-basis: 40% !important;
+  -webkit-box-flex: 0 !important;
+      -ms-flex-positive: 0 !important;
+          flex-grow: 0 !important;
+}
+
 .div-link {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -9,7 +22,36 @@
 }
 
 .div-link .link-add-task {
-  color: #00BCD4 !important;
+  padding-right: 10px !important;
+  font-weight: 600;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background: #005F96;
+  color: white !important;
+  border-radius: 20px;
+  font-size: 20px;
+}
+
+.div-link .link-add-task .plus {
+  margin-right: 10px;
+  display: block;
+}
+
+.div-link .link-add-task p {
+  margin: 0;
+  width: 100%;
+  text-align: center;
+}
+
+.div-link .oranged {
+  width: 150px;
+  margin-left: 24px;
+  background: #FFBC4A;
+  color: #005F96 !important;
 }
 
 .div-link .link {
@@ -21,26 +63,41 @@
 }
 
 .block-left-line {
+  background: #005F96;
+  width: 80px;
+  height: 100%;
   position: absolute;
-  top: 15%;
-  left: 1%;
+  font-size: 35px;
+  top: 0;
+  left: 0;
+}
+
+.block-left-line .fa-bars {
+  color: white;
+  height: 80px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
 .block-left-line:hover {
   cursor: pointer;
 }
 
-.block-left-line .left-line {
-  width: 35px;
-  height: 5px;
-  background-color: black;
-  margin: 6px 0;
-}
-
 .header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
+  height: 80px;
 }
 
 .btn-state-left-menu {

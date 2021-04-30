@@ -1,45 +1,102 @@
 // Кнопка создать задание справа.
+
+.logo {
+  margin-left: 50px;
+  width: 300px;
+}
+
+.navbar-collapse {
+  flex-basis: 40% !important;
+  flex-grow: 0 !important;
+}
+
+//   .navbar-nav {
+//     width: 100%;
+//   }
 .div-link {
+  display: flex;
+  align-items: center;
+  margin-right: -9rem;
+
+  .link-add-task {
+    padding-right: 10px !important;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    background: #005F96;
+    color: white !important;
+    border-radius: 20px;
+    font-size: 20px;
+
+    .plus {
+      margin-right: 10px;
+      display: block;
+    }
+
+    p {
+      margin: 0;
+      width: 100%;
+      text-align: center;
+    }
+  }
+
+  .oranged {
+    width: 150px;
+    margin-left: 24px;
+    background: #FFBC4A;
+    color: #005F96 !important;
+  }
+
+  .link {
+    cursor: pointer;
+  }
+}
+
+
+.left-panel {
+  display: block;
+}
+
+.block-left-line {
+  background: #005F96;
+  width: 80px;
+  height: 100%;
+  position: absolute;
+  font-size: 35px;
+  top: 0;
+  left: 0;
+
+  .fa-bars {
+    color: white;
+    height: 80px;
     display: flex;
     align-items: center;
-    margin-right: -9rem;
-  
-    .link-add-task {
-      color: #00BCD4 !important;
-    }
-  
-    .link {
-      cursor: pointer;
-    }
+    justify-content: center;
   }
-  
-  .left-panel {
-    display: block;
+
+  &:hover {
+    cursor: pointer;
   }
-  
-  .block-left-line {
-    position: absolute;
-    //top: 0%;
-    top: 15%;
-    left: 1%;
-  
-    &:hover {
-      cursor: pointer;
-    }
-  
-    .left-line {
-      width: 35px;
-      height: 5px;
-      background-color: black;
-      margin: 6px 0;
-    }
-  }
-  
-  .header {
-      justify-content: space-between;
-  }
-  
-  .btn-state-left-menu {
-      color: white;
-  }
-  
+
+  // .left-line {
+  //   width: 35px;
+  //   height: 5px;
+  //   background-color: black;
+  //   margin: 6px 0;
+  // }
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  height: 80px;
+  // justify-content: flex-end;
+}
+
+// .navbar {
+//   position: static;
+// }
+
+.btn-state-left-menu {
+  color: white;
+}

@@ -1,6 +1,8 @@
 /* eslint-disable */
 // eslint-disable-next-line no-unused-vars
 
+debugger;
+
 import Vue from "vue";
 import Container from '../components/container.vue';
 import NavMenu from '../components/nav-menu.vue';
@@ -16,7 +18,8 @@ export default {
         Container,
         NavMenu,
         Footer,
-        CreateTask
+        CreateTask,
+        VueRouter
     },
     props: ['oData'],
     data() {
@@ -29,7 +32,7 @@ export default {
             sPassword: null,
             aHope: [],
             role: null,
-            title: 'This will be the title'      
+            title: 'This will be the title'
         }
     },
     created() {
@@ -42,12 +45,129 @@ export default {
         // this.setSelectedRole();
         this._loadHope();
         this._loadingLastTasks();
+        this._getAuthorize();
+        this._initHeader();
     },
+    props: ['oData'],
     methods: {
+        _initHeader() {
+            if (this.$route.name == "main") {
+                this.oData.bCustomer = false;
+                this.oData.bExecutor = false;
+                this.oData.bGuest = true;
+            }
+
+            if (this.$route.name == "task-create" && this.oData.bCustomer) {
+                this.oData.bGuest = false;
+                this.oData.bExecutor = false;
+            }
+
+            if (this.$route.name == "categories" && this.oData.bCustomer) {
+                this.oData.bGuest = false;
+                this.oData.bExecutor = false;
+            }
+
+            if (this.$route.name == "auction" && this.oData.bCustomer) {
+                this.oData.bGuest = false;
+                this.oData.bExecutor = false;
+            }
+
+            if (this.$route.name == "auction" && this.oData.bExecutor) {
+                this.oData.bGuest = false;
+                this.oData.bCustomer = false;
+                this.oData.bExecutor = true;
+            }
+
+            if (this.$route.name == "task-create" && this.oData.bExecutor) {
+                this.oData.bGuest = false;
+                this.oData.bCustomer = false;
+                this.oData.bExecutor = true;
+            }
+
+            if (this.$route.name == "e-home") {
+                this.oData.bGuest = false;
+                this.oData.bCustomer = false;
+                this.oData.bExecutor = true;
+            }
+        },
+        _getAuthorize() {
+            let userRole = "";
+
+            if (!sessionStorage["userToken"]) {
+                this.$router.push("/");
+            }
+
+            if (!sessionStorage["userToken"] || !sessionStorage["role"]) {
+                userRole = "G";
+                sessionStorage["role"] = userRole;
+                this.bGuest = true;
+            }
+
+            if (sessionStorage["role"] == "G") {
+                userRole = "G";
+                sessionStorage["role"] = userRole;
+                this.bGuest = true;
+                return;
+            } else {
+                userRole = sessionStorage["role"];
+                this.bGuest = false;
+            }
+            // Формирует поля хидера для гостя.
+            const sUrl = this.oData.urlApi.concat("/user/authorize?userName=".concat(sessionStorage["user"]));
+
+            try {
+                axios.get(sUrl)
+                    .then((response) => {
+                        response.data.aHeaderFields.forEach(el => {
+                            this.oData.aHeader.push(el.headerField);
+                        });
+
+                        console.log("Хидер юзера", this.oData.aHeader);
+                    })
+
+                    // Токен протух, получить новый.
+                    .catch((XMLHttpRequest) => {
+                        if (sessionStorage["user"] !== undefined && sessionStorage["user"] !== "") {
+                            var sTokenUrl = this.oData.urlApi.concat("/user/authorize?userName=").concat(sessionStorage["user"]);
+                            axios.get(sTokenUrl)
+                                .then((response) => {
+                                    sessionStorage["userToken"] = response.data;
+                                })
+                        }
+
+                        //Удалит токен юзера.Теперь нужно снова авторизоваться.
+                        else {
+                            sessionStorage.clear();
+                        }
+                    });
+            } catch (ex) {
+                throw new Error(ex);
+            }
+        },
+
+        //Функция отображает/скрывает левую панель.
+        onStateLeftPanel() {
+            this.bHideLeftPanel = $(".left-menu").hasClass("left-panel");
+            this.bHideLeftPanel ? $(".left-menu").removeClass("left-panel").addClass("left-panel-not-left") :
+                $(".left-menu").removeClass("left-panel-not-left").addClass("left-panel");
+            if ($(".left-menu").hasClass("left-panel-not-left")) {
+                $(".aside").width(240);
+                $(".div-link").css("margin-right", "-0.5rem");
+                $(".blue").width(195);
+            }
+        },
+
+        autoClose() {
+            $(".block-main-fon").on("mousedown", function () {
+                $(".left-menu").removeClass("left-panel-not-left").addClass("left-panel");
+                $(".aside").width(80);
+            });
+        },
+
         getImgUrl(pic) {
             if (pic !== null) {
                 return require('../assets/images/' + pic);
-            }            
+            }
         },
         // Функция выгружает данные для фона.
         _loadDataFon() {
@@ -211,9 +331,7 @@ export default {
                     .catch((XMLHttpRequest) => {
                         throw new Error('Ошибка регистрации', XMLHttpRequest.response.data);
                     });
-            } 
-            
-            catch (ex) {
+            } catch (ex) {
                 throw new Error(ex);
             }
         },
@@ -234,18 +352,16 @@ export default {
                             sessionStorage["userToken"] = response.data.userToken;
                             sessionStorage["role"] = response.data.role;
                             sessionStorage["user"] = response.data.user;
-                            $(".right-panel").hide();
+                            $(".div-link").hide();
                             // this.$router.push("/home");
                             window.location.href = window.location.href.concat("home");
-                        }                        
+                        }
                     })
 
                     .catch((XMLHttpRequest) => {
                         throw new Error('Ошибка авторизации', XMLHttpRequest.response.data);
                     });
-            } 
-            
-            catch (ex) {
+            } catch (ex) {
                 throw new Error(ex);
             }
         },
@@ -258,7 +374,7 @@ export default {
             }
 
             this.$router.push("/task/create");
-        },        
+        },
 
         // Функция выгружает список категорий заданий.
         _loadingCategoryList() {
@@ -267,20 +383,20 @@ export default {
 
             setTimeout(() => {
                 this.$parent.oData.aCategories = window.aTaskCategories;
-                
+
                 // this.$parent.oData.aCategories.map(el => {
                 //     // el.url = require(el.url);
                 //     // this.images.push(el.url);
                 //     // console.log("arr", this.images);
                 //     return require(el.url);
                 // });
-            }, 1000);                        
+            }, 1000);
         },
 
         // Функция выгружает данные долгосрочного сотрудничества.
         _loadHope() {
             let sUrl = this.$parent.oData.urlApi.concat("/main/get-hope");
-            
+
             try {
                 axios.get(sUrl)
                     .then((response) => {
@@ -291,9 +407,7 @@ export default {
                     .catch((XMLHttpRequest) => {
                         throw new Error(XMLHttpRequest.response.data);
                     });
-            } 
-            
-            catch (ex) {
+            } catch (ex) {
                 throw new Error(ex);
             }
         },
@@ -301,7 +415,7 @@ export default {
         // Функция выгружает список последних заданий 5 шт., не важно, чьи они.
         _loadingLastTasks() {
             let sUrl = this.$parent.oData.urlApi.concat("/main/last");
-            
+
             try {
                 axios.get(sUrl)
                     .then((response) => {
@@ -312,9 +426,7 @@ export default {
                     .catch((XMLHttpRequest) => {
                         throw new Error(XMLHttpRequest.response.data);
                     });
-            } 
-            
-            catch (ex) {
+            } catch (ex) {
                 throw new Error(ex);
             }
         },
@@ -322,18 +434,17 @@ export default {
         onRouteExecutors() {
             this.$router.push("/executors-list");
         },
-        
+
         ontest() {
             let sUrl = this.$parent.oData.urlApi.concat("/executor/add-spec");
             let oSaveData = {
-                "Specializations": [
-                    {
+                "Specializations": [{
                         "SpecName": "Специализация1"
                     },
                     {
                         "SpecName": "Специализация2"
                     }
-                ] 
+                ]
             };
 
             axios.post(sUrl, oSaveData)
@@ -347,3 +458,5 @@ export default {
         }
     }
 }
+
+//джс шапки

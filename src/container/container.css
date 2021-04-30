@@ -1,21 +1,63 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
 body {
+  font-family: 'Montserrat';
   overflow-x: hidden;
 }
 
 .main-fon {
-  width: 100%;
+  position: absolute;
+  top: 50px;
+}
+
+.start {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.start .aside {
+  position: relative;
+  width: 80px;
+  background: #005F96;
+  height: 100vh;
+}
+
+.start .aside .left-panel {
+  position: absolute;
+  top: 0;
+  left: -300px;
+}
+
+.start .aside .left-panel .block-title {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.start .aside .left-panel-not-left {
+  position: absolute;
+  top: 0;
+  padding-left: 0;
 }
 
 .block-main-fon {
-  height: 800px;
-  position: relative;
-  background: url(../assets/images/fon.png) center center/100% no-repeat;
+  background: url(../assets/images/fon.png) center center/cover no-repeat;
+  width: 100%;
+  height: 100vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   text-align: center;
 }
 
 .block-main-fon .title {
-  position: absolute;
-  top: 30%;
   font-family: Oswald;
   font-weight: normal;
   font-size: 40px;
@@ -23,9 +65,17 @@ body {
 }
 
 .block-main-fon .title-dop {
-  position: absolute;
-  top: 35%;
+  font-size: 56px;
+  margin-left: 60px;
+  white-space: pre-line;
+  text-align: left;
+  max-width: 547px;
+  line-height: 57px;
   color: #666666;
+}
+
+.block-main-fon .mt-3 {
+  margin-top: 50px !important;
 }
 
 .block-main-fon .tablinks:focus {
@@ -71,37 +121,17 @@ body {
 }
 
 .block-main-fon .centered-fon {
+  width: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-}
-
-.block-main-fon .left-panel {
-  display: none;
-  position: absolute;
-  top: 0;
-  left: -300px;
-}
-
-.block-main-fon .left-panel .block-title {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-}
-
-.block-main-fon .left-panel-not-left {
-  position: absolute;
-  top: 0;
-  padding-left: 0;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
 }
 
 .block-main-fon .right-panel {
+  display: none;
   position: absolute;
   top: 0;
   right: -20px;
@@ -183,13 +213,15 @@ body {
 }*/
 #idLeftMenu {
   line-height: 1;
-  color: #98aab7;
+  color: #ffffff;
 }
 
 #idLeftMenu .left-ul {
   -webkit-box-align: start;
       -ms-flex-align: start;
           align-items: flex-start;
+  height: 100vh;
+  background: #005F96;
 }
 
 #idLeftMenu .left-ul i:hover {
@@ -201,7 +233,8 @@ body {
 }
 
 #idLeftMenu .nav-link {
-  color: #98aab7;
+  margin: 10px 0;
+  color: #ffffff;
   cursor: pointer;
   width: 222px;
   display: -webkit-box;
@@ -213,6 +246,8 @@ body {
   border-left-color: #00bcd4;
   background-color: #17242f;
   border-left: 2px solid #00bcd4;
+  padding-left: 15px;
+  padding-right: 15px;
 }
 
 #idLeftMenu .nav-link:hover i {
@@ -224,7 +259,7 @@ body {
 }
 
 #idLeftMenu .nav-link a {
-  color: #98aab7;
+  color: #ffffff;
   text-decoration: none;
 }
 
@@ -242,13 +277,10 @@ body {
 }
 
 .left-nav {
-  background: #131e27;
-  height: 100vh;
   line-height: 2;
 }
 
 .right-nav {
-  background: #FFFFFF;
   height: 100vh;
   line-height: 2;
 }
@@ -283,7 +315,7 @@ body {
 }
 
 .gray-fon {
-  background: #FAFAFA;
+  width: 100%;
 }
 
 .card-title {
@@ -375,7 +407,6 @@ hr {
 /* Style the tab */
 .tab {
   overflow: hidden;
-  background-color: #FFFFFF;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -415,10 +446,6 @@ hr {
   border-top: none;
 }
 
-.tab-role {
-  background: white;
-}
-
 /* Change background color of buttons on hover */
 .tab-role button:hover {
   background-color: #00BDD6;
@@ -430,10 +457,6 @@ hr {
 }
 
 /* Create an active/current tablink class */
-.tab-role {
-  background-color: white;
-}
-
 .role-hide {
   display: none;
 }
@@ -463,5 +486,9 @@ hr {
 .block-work {
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
+}
+
+.block-title {
+  display: none;
 }
 /*# sourceMappingURL=container.css.map */
