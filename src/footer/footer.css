@@ -1,18 +1,59 @@
+body {
+  font-family: 'Montserrat';
+}
+
 .footer {
-  background: #131E27;
+  background: #EFF3F6;
   color: #98AAB7;
+  font-size: 24px;
   padding-top: 50px;
   padding-bottom: 50px;
 }
 
 .footer .big-title {
   color: #98AAB7;
-  font-family: Open Sans;
   font-size: 14px;
+}
+
+.footer .contacts {
+  margin-right: 37px;
+}
+
+.footer .contacts .contact-icons {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.footer .contacts .contact-icons .fab {
+  height: 32px;
+  width: 32px;
+  font-size: 24px;
+  background: #005F96;
+  color: white;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  border-radius: 50px;
+}
+
+.footer .contacts .contact-icons .fa-instagram {
+  margin-right: 16px;
 }
 
 .footer .email {
   color: #00BDD6;
+}
+
+.footer .copy {
+  margin-top: 36px;
+  margin-left: 50px;
 }
 
 .footer .btn-app {
@@ -32,21 +73,19 @@
 }
 
 .footer .bold-text {
-  color: #98AAB7;
-  font-family: Open Sans;
+  font-weight: 600;
+  font-size: 24px;
+  color: #413839;
 }
 
 .before-footer {
   background: #F3F1F9;
   color: #0D1D4A;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
 }
 
 .block-payment {
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 /*# sourceMappingURL=footer.css.map */

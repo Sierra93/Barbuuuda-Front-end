@@ -1,12 +1,180 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <vue-headful title="Barbuuuda: Регистрация"/>
+    <vue-headful title="Barbuuuda: Регистрация" />
 </head>
+
 <body>
+    <header>
+        <img class="logo" src="../assets/images/Barbuuuda.png" alt="">
+    </header>
     <h1>Регистрация</h1>
+    <div class="form-registration">
+        <!-- Tab links -->
+        <div class="tab tab-role">
+            <button id="defaultOpen" class="tablinks" v-on:click="onChangeTab($event, 'executor')">Я &#8212;
+                Исполнитель</button>
+            <button class="tablinks" v-on:click="onChangeTab($event, 'customer')">Я &#8212; Заказчик</button>
+        </div>
+        <!-- Исполнитель. -->
+        <div id="executor" class="tabcontent">
+            <p class="text-role">
+                Получай задания с гарантией
+                от заказчиков и зарабатывай
+                на постоянном потоке заданий.
+            </p>
+
+            <div class="collapse navbar-collapse" id="idRightMenu">
+                <ul class="navbar-nav flex-column right-ul">
+                    <li class="nav-item active litem">
+                        <i class="far fa-user icon" aria-hidden="true"></i>
+                        <div class="nav-link input-line">
+                            <label for="idLogin" class="form-control-sm">Логин: &#42;</label>
+                            <input required id="idLogin" type="text" class="form-control-sm input-not-line"
+                                placeholder="Например: ivanov97" />
+                        </div>
+                    </li>
+
+
+                    <li class="nav-item active litem">
+                        <i class="far fa-envelope icon" aria-hidden="true"></i>
+                        <div class="nav-link input-line">
+                            <label for="idEmail" class="form-control-sm">Email: &#42;</label>
+                            <input required id="idEmail" type="text" class="form-control-sm input-not-line"
+                                placeholder="Например: ivanov@mail.ru" />
+                        </div>
+                    </li>
+
+                    <!-- <li class="nav-item active litem">
+                  <label for="idNumber" class="form-control-sm">Телефон</label><strong class="asterisk">&#42;</strong>
+                  <div class="nav-link input-line">
+                    <i class="fa fa-phone" aria-hidden="true"></i>
+                    <input id="idNumber" type="text" class="form-control-sm input-not-line" placeholder="+7 (___) ___-__-__" />
+                  </div>
+                </li> -->
+
+                    <li class="nav-item active litem">
+                        <i class="fas fa-lock icon" aria-hidden="true"></i>
+                        <div class="nav-link input-line pass ">
+                            <label for="idPassword" class="form-control-sm">Пароль: &#42;</label>
+                            <input required id="idPassword" type="password" class="form-control-sm input-not-line"
+                                placeholder="Пароль должен быть не менее 6 символов" />
+                            <i class="far fa-eye" v-bind:class="{noView:!view, view: view}"
+                                @click="onShowPassword(),view=!view"></i>
+                            <!-- <i class="far no-view fa-eye-slash"></i> -->
+                        </div>
+                    </li>
+
+                    <li class="nav-item active litem">
+                        <i class="fas fa-lock icon" aria-hidden="true"></i>
+                        <div class="nav-link input-line pass">
+                            <label for="idLastName" class="form-control-sm">Подтверждение пароля: &#42;</label>
+                            <input required id="idLastName" type="password" class="form-control-sm input-not-line"
+                                placeholder="Пароль должен быть не менее 6 символов" />
+                            <i class="far fa-eye" v-bind:class="{dblview: dblview, dblNoView:!dblview}"
+                                v-on:click="dblview=!dblview"></i>
+                        </div>
+                    </li>
+                    <li class="rule-check">
+                        <input type="checkbox" name="rules" id="idRules">
+                        Я принимаю <a class="rule-link" href="#">публичную оферту, условия использования</a>
+                    </li>
+
+                    <li class="nav-item active litem">
+                        <div class="nav-link input-line">
+                            <div class="col-lg-12 d-flex justify-content-center mt-3">
+                                <button class="btn-register form-control-lg btn-create-task btn-all-tasks mb-3"
+                                    v-on:click="onCreate()">
+                                    Зарегистрироваться
+                                </button>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="log d-flex justify-content-center">
+                        <p>У вас уже есть аккаунт? <a href="#" v-on:click="routLogin()">Войти</a></p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- Заказчик. -->
+        <div id="customer" class="tabcontent">
+            <p class="text-role">
+                Лучшие исполнители
+                с гарантией выполнения
+                работы в срок через безопасную сделку.
+            </p>
+
+            <div class="collapse navbar-collapse" id="idRightMenu">
+                <ul class="navbar-nav flex-column right-ul">
+                    <li class="nav-item active litem">
+                        <i class="far fa-user icon" aria-hidden="true"></i>
+                        <div class="nav-link input-line">
+                            <label for="idLog" class="form-control-sm">Логин: &#42;</label>
+                            <input id="idLog" type="text" class="form-control-sm input-not-line"
+                                placeholder="Например: ivanov97" />
+                        </div>
+                    </li>
+
+                    <li class="nav-item active litem">
+                        <i class="far fa-envelope icon" aria-hidden="true"></i>
+                        <div class="nav-link input-line">
+                            <label for="idEma1" class="form-control-sm">Email: &#42;</label>
+                            <input id="idEma1" type="text" class="form-control-sm input-not-line"
+                                placeholder="Например: ivanov@mail.ru" />
+                        </div>
+                    </li>
+
+                    <!-- <li class="nav-item active litem">
+                  <label for="idNum" class="form-control-sm">Телефон</label><strong class="asterisk">&#42;</strong>
+                  <div class="nav-link input-line">
+                    <i class="fa fa-phone" aria-hidden="true"></i>
+                    <input id="idNum" type="text" class="form-control-sm input-not-line" placeholder="+7 (___) ___-__-__" />
+                  </div>
+                </li> -->
+
+                    <li class="nav-item active litem">
+                        <i class="fas fa-lock icon" aria-hidden="true"></i>
+                        <div class="nav-link input-line pass">
+                            <label for="idPass1" class="form-control-sm">Пароль: &#42;</label>
+                            <input id="idPass1" type="password" class="form-control-sm input-not-line"
+                                placeholder="Пароль должен быть не менее 6 символов" />
+                            <i class="far fa-eye" v-bind:class="{noView:!view, view: view}"
+                                @click="onShowPassword(),view=!view"></i>
+                        </div>
+                    </li>
+
+                    <li class="nav-item active litem">
+                        <i class="fas fa-lock icon" aria-hidden="true"></i>
+                        <div class="nav-link input-line pass">
+                            <label for="idLast" class="form-control-sm">Подтверждение пароля: &#42;</label>
+                            <input id="idLast" type="text" class="form-control-sm input-not-line"
+                                placeholder="Пароль должен быть не менее 6 символов" />
+                            <i class="far fa-eye" v-bind:class="{dblview: dblview, dblNoView:!dblview}"
+                                v-on:click="dblview=!dblview"></i>
+                        </div>
+                    </li>
+
+                    <li class="nav-item active litem">
+                        <div class="nav-link input-line">
+                            <div class="col-lg-12 d-flex justify-content-center mt-3">
+                                <button class="btn-register form-control-lg btn-create-task btn-all-tasks mb-3"
+                                    v-on:click="onCreate()">
+                                    РЕГИСТРАЦИЯ
+                                </button>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <p>У вас уже есть аккаунт? <span v-on:click="routLogin()">Войти</span></p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
 </body>
+
 </html>

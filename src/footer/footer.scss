@@ -1,24 +1,54 @@
-$openSans: Open Sans;
+// $openSans: Open Sans;
 
-// body {
-//   overflow: hidden;
-// }
+body {
+  // overflow: hidden;
+  font-family: 'Montserrat';
+}
 
 .footer {
-  background: #131E27;
+  background: #EFF3F6;
   color: #98AAB7;
+  font-size: 24px;
   padding-top: 50px;
   padding-bottom: 50px;
   // margin-top: 30px;
 
   .big-title {
     color: #98AAB7;
-    font-family: $openSans;
     font-size: 14px;
+  }
+
+  .contacts {
+    margin-right: 37px;
+
+    .contact-icons {
+      display: flex;
+
+      .fab {
+        height: 32px;
+        width: 32px;
+        font-size: 24px;
+        background: #005F96;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50px;
+      }
+
+      .fa-instagram {
+        margin-right: 16px;
+      }
+    }
   }
 
   .email {
     color: #00BDD6;
+  }
+
+  .copy {
+    margin-top: 36px;
+    margin-left: 50px;
   }
 
   .btn-app {
@@ -38,8 +68,9 @@ $openSans: Open Sans;
   }
 
   .bold-text {
-    color: #98AAB7;
-    font-family: $openSans;
+    font-weight: 600;
+    font-size: 24px;
+    color: #413839;
     //font-size: 10px;
   }
 }
@@ -47,10 +78,9 @@ $openSans: Open Sans;
 .before-footer {
   background: #F3F1F9;
   color: #0D1D4A;
-//   height: 57px;
-  align-items: center;
+  //   height: 57px;
 }
 
 .block-payment {
-    align-items: center;
+  justify-content: center;
 }

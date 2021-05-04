@@ -1,0 +1,221 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+body {
+    font-family: 'Montserrat';
+}
+
+header {
+    height: 100px;
+
+    .logo {
+        margin-top: 50px;
+    }
+}
+
+h1 {
+    text-align: center;
+    font-size: 40px;
+    font-weight: 700 !important;
+    color: #413839;
+    margin-bottom: 40px !important;
+}
+
+.form-registration {
+    width: 600px;
+    margin: 0 auto;
+
+    .tab {
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        background: #8CD3E1;
+        border-radius: 14px;
+        font-size: 24px;
+        height: 71px;
+
+
+        /* Style the buttons that are used to open the tab content */
+    }
+
+    .tablinks {
+        color: #005F96;
+        background-color: inherit;
+        //float: left;
+        border: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        outline: none;
+        cursor: pointer;
+        padding: 14px 16px;
+        transition: 0.3s;
+        width: 48%;
+        border-radius: 14px;
+        height: 80%;
+    }
+
+
+    .tab button:hover {
+        background-color: #005F96;
+        color: white;
+    }
+
+    // /* Change background color of buttons on hover *
+    // /* Create an active/current tablink class */
+    .tab button.active {
+        background-color: #005F96;
+        color: white;
+    }
+
+    /* Change background color of buttons on hover */
+    .tab-role button:hover {
+        background-color: #005F96;
+        color: white;
+    }
+
+    .tab-role button:active {
+        background-color: #005F96;
+    }
+
+    .tabcontent {
+        width: 100%;
+        display: block;
+        padding: 6px 12px;
+        font-size: 24px;
+        //border: 1px solid #ccc;
+        border-top: none;
+    }
+
+}
+
+.right-ul {
+    text-align: start;
+}
+
+label {
+    margin-bottom: 0;
+}
+
+label[required=required]:after {
+    color: red;
+    //#00BCD4
+    content: " *";
+}
+
+.asterisk {
+    color: black;
+    font-size: 14px;
+}
+
+.input-line {
+    display: flex;
+    align-items: center;
+
+    // Инпут без линий кроме нижней.
+    .input-not-line {
+        background-color: transparent;
+        border: none;
+        border-bottom: 1px solid #b7b7b7;
+        border-radius: 0;
+        outline: 0;
+        height: 20px;
+        width: 100%;
+        font-size: 14px;
+        margin: 0 10px 5px;
+        padding: 0;
+        box-shadow: none;
+        box-sizing: content-box;
+        -webkit-transition: all .3s;
+        transition: all .3s;
+        color: #3c3c3c;
+    }
+}
+
+
+.text-role {
+    text-align: center;
+    line-height: 29.26px;
+    color: #8F8A8B;
+    margin-bottom: 40px;
+}
+
+.collapse:not(.show) {
+    display: block !important;
+}
+
+.active {
+    width: 100%;
+    display: flex;
+    align-items: center;
+
+    .input-line {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        // justify-content: flex-start;
+
+        .form-control-sm {
+            margin-left: 16px !important;
+            font-size: 16px;
+            font-weight: 600;
+        }
+    }
+
+    .icon {
+        height: 100%;
+        font-size: 20px;
+        padding: 20px;
+        background: #EFF3F6;
+        border-radius: 14px;
+        color: #005F96;
+    }
+
+    .pass {
+        position: relative;
+
+        .view,
+        .dblview {
+            background: url(../assets/images/invisible.png) center center/ cover no-repeat;
+            position: absolute;
+            right: 0;
+            top: 35px;
+            font-size: 15px;
+        }
+
+        .noView,
+        .dblNoView {
+            // width: 15px;
+            // height: 15px;
+            position: absolute;
+            right: 0;
+            top: 35px;
+            font-size: 15px;
+        }
+    }
+
+}
+
+.rule-check {
+    margin: 35px auto;
+    font-size: 16px;
+}
+
+.btn-register {
+    width: 100vw;
+    background: #FF9B00;
+    color: white;
+    //transition: all 0.21s ease;
+    transition: all .3s ease-out;
+    border-radius: 20px !important;
+    border-color: #00BCD4;
+    font-size: 12px;
+
+    &:hover {
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    }
+}
+
+.log {
+    font-size: 18px;
+}
