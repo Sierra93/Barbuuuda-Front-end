@@ -29,7 +29,6 @@ function refresh(sUrl) {
     $.ajax({
         type: 'GET',
         url: sUrl,
-        // data: {query: 'test'}, 
         dataType: 'text',
         success: function (data) {
             sessionStorage.userToken = data;
@@ -294,33 +293,7 @@ export default {
             catch (ex) {
                 throw new Error(ex);
             }
-        },
-
-        // Функция регистрирует юзера.
-        onCreate() {
-            const sUrl = this.oData.urlApi.concat("/user/create"); 
-
-            try {
-                axios.post(sUrl, {
-                    UserLogin: $("#idLog").val(),
-                    UserPassword: $("#idPass").val(),
-                    UserEmail: $("#idEma").val(),
-                    UserPhone: $("#idNum").val()
-                })
-                    .then((data) => {
-                        //no-debugger 
-                        //debugger;
-                    })
-
-                    .catch((XMLHttpRequest) => {
-                        throw new Error('Ошибка регистрации', XMLHttpRequest.response.data);
-                    });
-            } 
-            
-            catch (ex) {
-                throw new Error(ex);
-            }
-        },
+        },       
 
         // Функция авторизует юзера.
         onLogin() {

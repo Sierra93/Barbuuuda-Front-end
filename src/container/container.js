@@ -204,7 +204,7 @@ export default {
             try {
                 axios.post(sUrl, oData)
                     .then((response) => {
-                        console.log("Регистрация успешна");
+                        console.log("Регистрация успешна", response);
                     })
 
                     .catch((XMLHttpRequest) => {
@@ -213,7 +213,7 @@ export default {
             } 
             
             catch (ex) {
-                throw new Error(ex);
+                throw new Error("Неожиданная ошибка", ex);
             }
         },
 
