@@ -66,7 +66,8 @@
         <img src="../assets/images/chat-icon.png">&nbsp;
         <strong class="chat-link" 
                 data-toggle="modal" 
-                data-target=".bd-example-modal-xl">
+                _data-target=".bd-example-modal-xl"
+                v-on:click="onShowChat()">
           Открыть чат
         </strong>
     </div>
@@ -234,7 +235,8 @@
                                 <button class="btn-next form-control-sm mt-3" 
                                         v-show="oData.role == 'C'" 
                                         data-toggle="modal" 
-                                        data-target=".bd-example-modal-xl">
+                                        _data-target=".bd-example-modal-xl"
+                                        v-on:click="onAnswer(respond.executorId)">
                                     ОТВЕТИТЬ
                                 </button>
 
@@ -357,7 +359,7 @@
       </div>
 
       <!-- Модальное окно переписки с исполнителями. -->
-      <div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+      <div id="idChat" class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl" role="document">
           <div class="modal-content">
             <div class="container">

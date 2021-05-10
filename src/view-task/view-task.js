@@ -229,7 +229,7 @@ export default {
                     .then((response) => {
                         this.aMessages = response.data.messages;
                         console.log("Список сообщений диалога c Id: " + dialogId, response.data);
-                        this.statusArea = response.data.dialogState
+                        this.statusArea = response.data.dialogState;
                     })
 
                     .catch((XMLHttpRequest) => {
@@ -259,6 +259,37 @@ export default {
 
                     .catch((XMLHttpRequest) => {
                         throw new Error("Ошибка отправки сообщения", XMLHttpRequest.response.data);
+                    });
+            } 
+            
+            catch (ex) {
+                throw new Error(ex);
+            }
+        },
+
+        // Функция откроет чат.
+        onShowChat() {
+            $("#idChat").modal("toggle");
+        },
+
+        // Функция ответа на ставку исполнителя. Откроет чат с сообщениями диалога с исполнителем.
+        onAnswer(executorId) {
+            let sUrl = this.oData.urlApi.concat("/chat/dialog");
+            let oRespond = {
+                ExecutorId: executorId,
+                IsWriteBtn: true
+            };
+
+            try {
+                axios.post(sUrl, oRespond)
+                    .then((response) => {
+                        this.aMessages = response.data.messages;
+                        this.statusArea = response.data.dialogState;
+                        $("#idChat").modal("toggle");
+                    })
+
+                    .catch((XMLHttpRequest) => {
+                        throw new Error(XMLHttpRequest.response.data);
                     });
             } 
             
