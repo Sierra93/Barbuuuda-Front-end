@@ -3,7 +3,7 @@ body {
 }
 
 .footer {
-  background: #EFF3F6;
+  background: url(../assets/images/footer.png) center center/cover no-repeat;
   color: #98AAB7;
   font-size: 24px;
   padding-top: 50px;
@@ -26,8 +26,8 @@ body {
 }
 
 .footer .contacts .contact-icons .fab {
-  height: 32px;
-  width: 32px;
+  height: 42px;
+  width: 42px;
   font-size: 24px;
   background: #005F96;
   color: white;
@@ -48,7 +48,11 @@ body {
 }
 
 .footer .email {
-  color: #00BDD6;
+  color: #005F96;
+}
+
+.footer .timing {
+  color: white;
 }
 
 .footer .copy {
@@ -63,12 +67,10 @@ body {
 }
 
 .footer .small-text {
-  font-family: Oswald;
   font-size: 10px;
 }
 
 .footer .big-text {
-  font-family: Oswald;
   font-size: 12px;
 }
 

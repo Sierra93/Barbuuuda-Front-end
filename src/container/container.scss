@@ -5,14 +5,12 @@ $openSans: Open Sans;
 // Заголовок карточки.
 @mixin cardTitle {
   color: #000000;
-  font-family: Open Sans;
   font-size: 14px;
 }
 
 // Текст карточки.
 @mixin cardText {
   color: #9A9A9A;
-  font-family: $openSans;
   font-size: 14px;
 }
 
@@ -20,21 +18,19 @@ $openSans: Open Sans;
 @mixin blueTitleTask {
   color: #00BCD4;
   font-size: 18px;
-  font-family: $openSans;
 }
 
 // Текст задания.
 @mixin textTask {
   color: #444444;
-  font-size: 14px;
-  font-family: $openSans;
+  font-size: 17px;
+  padding-left: 14px;
 }
 
 // Цены заданий.
 @mixin taskPrice {
   color: #00BCD4;
   font-size: 20px;
-  font-family: $openSans;
 }
 
 // Голубая кнопка.
@@ -46,6 +42,7 @@ $openSans: Open Sans;
 body {
   font-family: 'Montserrat';
   overflow-x: hidden;
+  // background: url(../assets/images/fon.png) center center/cover no-repeat;
 }
 
 .main-fon {
@@ -54,6 +51,9 @@ body {
 }
 
 .start {
+  background: url(../assets/images/fon.png) center center/cover no-repeat;
+  width: 99.5%;
+  height: 900px;
   display: flex;
 
   // Левая панель.
@@ -61,12 +61,13 @@ body {
     position: relative;
     width: 80px;
     background: #005F96;
-    height: 100vh;
+    height: 900px;
 
     .left-panel {
       position: absolute;
       top: 0;
       left: -300px;
+      height: 100vh;
 
       .block-title {
         display: flex;
@@ -74,20 +75,86 @@ body {
       }
     }
 
-    .left-panel-not-left {
-      position: absolute;
-      top: 0;
-      // z-index: 9999;
-      padding-left: 0;
+    .fa-bars {
+      height: 140px;
+    }
+
+    #idLeftMenu {
+      line-height: 1;
+      color: #ffffff;
+
+      .left-ul {
+        align-items: flex-start;
+        height: 800px;
+        background: #005F96;
+
+
+        i {
+          margin-right: 14px;
+
+          &:hover {
+            color: #00bcd4;
+          }
+        }
+
+        a {
+          &:hover {
+            color: #00bcd4;
+          }
+        }
+      }
+
+      .nav-link {
+        // margin: 10px 0;
+        color: #ffffff;
+        cursor: pointer;
+        padding: 20px;
+        width: 210px !important;
+
+        &:hover {
+
+          border-left-color: #00bcd4;
+          background-color: #17242f;
+          border-left: 2px solid #00bcd4;
+          padding-left: 15px;
+          padding-right: 15px;
+
+          i {
+            color: #00bcd4;
+          }
+
+          a {
+            color: #00bcd4;
+          }
+        }
+
+        a {
+          color: #ffffff;
+          text-decoration: none;
+
+          &:hover {
+            color: #00bcd4;
+          }
+        }
+
+
+
+        .left-panel-not-left {
+          position: absolute;
+          top: 0;
+          height: 100vh;
+          // background: #005F96;
+          // z-index: 9999;
+        }
+      }
     }
   }
 }
 
 // Блок с фоном.
 .block-main-fon {
-  background: url(../assets/images/fon.png) center center/cover no-repeat;
   width: 100%;
-  height: 100vh;
+  height: 900px;
   display: flex;
   flex-direction: column;
   text-align: center;
@@ -116,15 +183,16 @@ body {
     margin-top: 50px !important;
   }
 
-  .tablinks:focus {
-    outline: none;
-  }
+  // .tablinks:focus {
+  //   outline: none;
+  // }
 
   // Кнопка создать задание.
   .btn-create-task {
     position: absolute;
     top: 45%;
-    background: #F4511E;
+    border-radius: 45px !important;
+    // background: #F4511E;
     color: white;
     //transition: all 0.21s ease;
     transition: all .3s ease-out;
@@ -145,15 +213,6 @@ body {
     display: flex;
     justify-content: flex-start;
   }
-
-  // Правая панель.
-  // .right-panel {
-  //   display: none;
-  //   position: absolute;
-  //   top: 0;
-  //   right: -20px;
-  //   width: 318px;
-  // }
 
 
   // Для цветного скролла.
@@ -187,80 +246,50 @@ body {
   /*.flexcroll::-webkit-scrollbar {
   width: 12px;
 }*/
+  // Текст с иконкой левой панели.
+  //   .nav-link {
+  //     margin: 10px 0;
+  //     color: #ffffff;
+  //     cursor: pointer;
+  //     width: 250px !important;
 
-  #idLeftMenu {
-    line-height: 1;
-    color: #ffffff;
+  //     &:hover {
+  //       border-left-color: #00bcd4;
+  //       background-color: #17242f;
+  //       border-left: 2px solid #00bcd4;
+  //       padding-left: 15px;
+  //       padding-right: 15px;
 
-    .left-ul {
-      align-items: flex-start;
-      height: 100vh;
-      background: #005F96;
+  //       i {
+  //         color: #00bcd4;
+  //       }
 
+  //       a {
+  //         color: #00bcd4;
+  //       }
+  //     }
 
-      i {
-        &:hover {
-          color: #00bcd4;
-        }
-      }
+  //     a {
+  //       color: #ffffff;
+  //       text-decoration: none;
 
-      a {
-        &:hover {
-          color: #00bcd4;
-        }
-      }
-    }
+  //       &:hover {
+  //         color: #00bcd4;
+  //       }
+  //     }
 
-    // Текст с иконкой левой панели.
-    .nav-link {
-      margin: 10px 0;
-      color: #ffffff;
-      cursor: pointer;
-      width: 222px;
-      display: flex;
+  //     .icon {
+  //       font-size: 19px;
+  //       margin-right: 15px;
 
-      &:hover {
-        border-left-color: #00bcd4;
-        background-color: #17242f;
-        border-left: 2px solid #00bcd4;
-        padding-left: 15px;
-        padding-right: 15px;
-
-        i {
-          color: #00bcd4;
-        }
-
-        a {
-          color: #00bcd4;
-        }
-      }
-
-      a {
-        color: #ffffff;
-        text-decoration: none;
-
-        &:hover {
-          color: #00bcd4;
-        }
-      }
-    }
-
-    .icon {
-      font-size: 19px;
-      margin-right: 15px;
-
-      &:hover {
-        color: #00bcd4;
-      }
-    }
-  }
+  //       &:hover {
+  //         color: #00bcd4;
+  //       }
+  //     }
+  //   }
+  // }
 
   .left-nav {
-    line-height: 2;
-  }
-
-  .right-nav {
-    height: 100vh;
     line-height: 2;
   }
 
@@ -270,141 +299,346 @@ body {
     font-size: 24px;
     text-decoration: none;
   }
+}
 
-  .what-is-work {
-    font-family: Open Sans;
-    font-size: 30px;
-    color: #000000;
-  }
+.what-is-work {
+  font-family: Open Sans;
+  font-size: 30px;
+  color: #000000;
+}
 
-  .content {
-    font-family: $openSans;
-    font-size: 14px;
-  }
+.content {
+  font-family: $openSans;
+  font-size: 14px;
+}
 
-  .content-title {
-    font-family: $openSans;
-    font-size: 16px;
-    color: #666666;
-    line-height: 1.5;
-    white-space: pre-line;
-  }
+.content-title {
+  font-size: 23px;
+  color: #666666;
+  line-height: 1.5;
+  text-align: center;
+  // white-space: pre-line;
+}
 
-  .title-color {
-    color: #F4511E;
-  }
+.block-work-head {
+  font-size: 21px;
+}
 
-  .gray-fon {
+.block-text {
+  font-size: 15px;
+  text-align: center;
+}
+
+.title-color {
+  color: #F4511E;
+}
+
+.gray-fon {
+  // background: url(../assets/images/part-fon.png) no-repeat;
+  background-size: 100%;
+  height: 100%;
+  width: 100%;
+  position: relative;
+
+  .block-with-fon {
     width: 100%;
-    //margin-top: -4%;
+    height: 300px;
+    z-index: 0;
+    position: absolute;
+    background: url(../assets/images/Subtract.png) center center/cover no-repeat;
   }
 
-  .card-title {
-    @include cardTitle;
+  .heading {
+    position: relative;
+    z-index: 5;
   }
 
-  .card-text {
-    @include cardText;
-  }
+  //margin-top: -4%;
+}
 
-  /*.card-body {
-  &:hover {
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    transition: all .3s ease-out;
-  }
-}*/
 
-  // Для строки заданий.
-  .title-row {
-    align-items: center;
+
+.card-title {
+  @include cardTitle;
+}
+
+.card-text {
+  @include cardText;
+}
+
+.card {
+  border: none !important;
+
+  .categories {
+    border-radius: 40px;
+    background: rgba(255, 189, 74, 0.1);
+    flex-direction: column;
+
+    .cat-icons {
+      background: #005F96;
+      border-radius: 30px;
+      width: 100px;
+      height: 100px;
+
+
+      img {
+        height: 60px;
+      }
+    }
+
+    &:hover {
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+      transition: all .3s ease-out;
+    }
+  }
+}
+
+.exec-fon {
+  background: url(../assets/images/executor-fon.png) center center/cover no-repeat;
+  width: 100%;
+  height: 800px;
+  position: absolute;
+}
+
+.exec-head {
+  position: relative;
+}
+
+// Для строки заданий.
+.title-row {
+  font-size: 20px;
+  align-items: center;
+  display: flex;
+}
+
+// Цвет заголовкой заданий.
+.task-title {
+  @include blueTitleTask;
+}
+
+.text-task {
+  @include textTask;
+}
+
+.task-price {
+  @include taskPrice;
+}
+
+.div-price {
+  margin-left: 15%;
+}
+
+hr {
+  margin: 0;
+}
+
+.task-footer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.task-category {
+  color: #2D7091;
+}
+
+.send-task {
+  @include textTask;
+  color: #00BCD4;
+}
+
+.btn-all-tasks {
+  background: #00BDD6;
+  border-color: #00BDD6;
+  border: none;
+  @include blueBtn;
+}
+
+.pro {
+  color: #E28327;
+  font-size: 10px;
+}
+
+.collapse:not(.show) {
+  display: block;
+}
+
+// Скрывает вкладку роли.
+.role-hide {
+  display: none;
+}
+
+.role-show {
+  display: block;
+}
+
+#idRightMenu {
+  justify-content: center;
+}
+
+// Текст описания роли.
+.text-role {
+
+  // font-family: Open Sans;
+}
+
+.selected-role {
+  background: #00BCD4;
+}
+
+.not-selected-role {
+  background: white;
+}
+
+.block-work {
+  flex-wrap: wrap;
+}
+
+.block-title {
+  display: none;
+}
+
+
+.text-center {
+  font-size: 35px;
+  font-weight: 600;
+}
+
+.gray-fon-text {
+  font-size: 20px;
+  text-align: center;
+  margin: 0 auto;
+  width: 560px !important;
+  color: #8F8A8B;
+  font-weight: 400;
+}
+
+.bordered {
+  width: 322px;
+  height: 322px;
+  border: 2px solid #FFBC4A;
+  border-radius: 50%;
+  margin-bottom: 50px;
+}
+
+.circle-bordered {
+  margin: 30px;
+  width: 258px;
+  height: 258px;
+  background: #FFBC4A;
+  border-radius: 50%;
+
+  img {
+    width: 100px;
+  }
+}
+
+
+.execs-best {
+  border-radius: 37px !important;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.25);
+}
+
+.fon {
+  position: relative;
+  display: flex;
+  background: url(../assets/images/exec-part.png) center center/cover no-repeat;
+  height: 935px;
+
+  .advantage {
+    position: absolute;
+    right: 80px;
+    top: -70px;
+    width: 620px;
     display: flex;
-  }
-
-  // Цвет заголовкой заданий.
-  .task-title {
-    @include blueTitleTask;
-  }
-
-  .text-task {
-    @include textTask;
-  }
-
-  .task-price {
-    @include taskPrice;
-  }
-
-  .div-price {
-    margin-left: 15%;
-  }
-
-  hr {
-    margin: 0;
-  }
-
-  .task-footer {
-    display: flex;
-    justify-content: space-between;
-  }
-
-  .task-category {
-    color: #2D7091;
-  }
-
-  .send-task {
-    @include textTask;
-    color: #00BCD4;
-  }
-
-  .btn-all-tasks {
-    background: #00BDD6;
-    border-color: #00BDD6;
-    border: none;
-    @include blueBtn;
-  }
-
-  .pro {
-    color: #E28327;
-    font-size: 10px;
-  }
-
-  .collapse:not(.show) {
-    display: block;
-  }
-
-  // Скрывает вкладку роли.
-  .role-hide {
-    display: none;
-  }
-
-  .role-show {
-    display: block;
-  }
-
-  #idRightMenu {
+    flex-direction: column;
     justify-content: center;
+
+    .heading-advant {
+      margin: 0 auto;
+    }
+
+    .gray-text {
+      color: #8F8A8B;
+      font-size: 23px;
+      line-height: 140%;
+      margin: 37px 0 95px 0;
+    }
+
+    .content-advantages {
+      display: flex;
+
+      img {
+        position: relative;
+        z-index: 1;
+      }
+
+      .advantages-icons {
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.25);
+        height: 180px;
+        flex-direction: column;
+
+        .advant-principes {
+          font-size: 17px;
+          margin-top: 10px;
+          text-align: center;
+        }
+      }
+    }
   }
+}
 
-  // Текст описания роли.
-  .text-role {
+.execs {
+  flex-direction: column;
+  padding-left: 14px;
+}
 
-    // font-family: Open Sans;
-  }
+.star {
+  padding-left: 14px;
+  width: 55px;
+}
 
-  .selected-role {
-    background: #00BCD4;
-  }
+.col-lg-2 {
+  max-width: 100% !important;
+}
 
-  .not-selected-role {
-    background: white;
-  }
+.item-get {
+  margin: 0 auto;
+  margin-bottom: 15px;
+  padding: 20px 0;
+  border-radius: 15px;
+  background: white;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.25);
+}
 
-  .block-work {
-    flex-wrap: wrap;
-  }
+.btn-color {
+  background: #00BDD6;
+}
 
-  .block-title {
-    display: none;
-  }
+.creating {
+  margin: 0 auto;
+}
+
+.img-reg {
+  margin-right: 45px;
+}
 
 
-  //меню и шапка
+h3 {
+  text-align: center;
+}
+
+button {
+  width: 400px;
+}
+
+.text-content {
+  margin-left: 35px;
+  margin-right: 90px;
+}
+
+
+// .img-reg:first-child {
+//   padding-right: 45px;
+// }

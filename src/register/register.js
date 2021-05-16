@@ -1,6 +1,5 @@
 /* eslint-disable */
 // eslint-disable-next-line no-unused-vars
-debugger;
 
 import Vue from "vue";
 import $ from "jquery";

@@ -16,7 +16,7 @@
     <div class="form-registration">
         <!-- Tab links -->
         <div class="tab tab-role">
-            <button id="defaultOpen" class="tablinks" v-on:click="onChangeTab($event, 'executor')">Я &#8212;
+            <button id="defaultOpen" class="tablinks active" v-on:click="onChangeTab($event, 'executor')">Я &#8212;
                 Исполнитель</button>
             <button class="tablinks" v-on:click="onChangeTab($event, 'customer')">Я &#8212; Заказчик</button>
         </div>
@@ -158,6 +158,11 @@
                         </div>
                     </li>
 
+                    <li class="rule-check">
+                        <input type="checkbox" name="rules" id="idRules">
+                        Я принимаю <a class="rule-link" href="#">публичную оферту, условия использования</a>
+                    </li>
+
                     <li class="nav-item active litem">
                         <div class="nav-link input-line">
                             <div class="col-lg-12 d-flex justify-content-center mt-3">
@@ -168,8 +173,8 @@
                             </div>
                         </div>
                     </li>
-                    <li>
-                        <p>У вас уже есть аккаунт? <span v-on:click="routLogin()">Войти</span></p>
+                    <li class="log d-flex justify-content-center">
+                        <p>У вас уже есть аккаунт? <a href="#" v-on:click="routLogin()">Войти</a></p>
                     </li>
                 </ul>
             </div>

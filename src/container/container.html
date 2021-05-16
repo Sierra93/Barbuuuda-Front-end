@@ -2,154 +2,158 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
-  <vue-headful title="Barbuuuda" />
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+	<vue-headful title="Barbuuuda" />
 </head>
 
 <body>
-  <!-- Главный фон. -->
-  <div class="start">
-    <aside class="aside">
+	<!-- Главный фон. -->
+	<div class="start">
+		<aside class="aside">
 
-      <!-- Бургер левой панели. -->
+			<!-- Бургер левой панели. -->
 
-      <div class="block-left-line" v-on:click="onStateLeftPanel()">
-        <i class="fas fa-bars"></i>
-      </div>
-      <div class="col-lg-2 left-menu left-panel">
-        <nav class="sidebar-sticky navbar-expand-md left-nav">
-          <div class="block-title">
-            <a href="#" class="logo-title">Barbuuuda</a>
-          </div>
-          <!-- если вместо navbar-toggler поставить toggled это скрыть по умолчанию -->
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
+			<div class="block-left-line" v-on:click="onStateLeftPanel()">
+				<i class="fas fa-bars"></i>
+			</div>
+			<div class="col-lg-2 left-menu left-panel">
+				<nav class="sidebar-sticky navbar-expand-md left-nav">
+					<div class="block-title">
+						<a href="#" class="logo-title">Barbuuuda</a>
+					</div>
+					<!-- если вместо navbar-toggler поставить toggled это скрыть по умолчанию -->
+					<button class="navbar-toggler" type="button" data-toggle="collapse"
+						data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+						aria-expanded="false" aria-label="Toggle navigation">
+						<span class="navbar-toggler-icon"></span>
+					</button>
 
-          <div class="collapse navbar-collapse" id="idLeftMenu">
-            <ul class="navbar-nav flex-column left-ul">
-              <li class="nav-item litem">
-                <div class="nav-link">
-                  <i class="fa fa-tasks icon" aria-hidden="true"></i>
-                  <router-link to="/auction">Все задания</router-link>
-                </div>
-              </li>
+					<div class="collapse navbar-collapse" id="idLeftMenu">
+						<ul class="navbar-nav flex-column left-ul">
+							<li class="nav-item litem">
+								<div class="nav-link d-flex align-items-center">
+									<i class="fa fa-tasks icon" aria-hidden="true"></i>
+									<router-link to="/auction">Все задания</router-link>
+								</div>
+							</li>
 
-              <li class="nav-item litem">
-                <div class="nav-link">
-                  <i class="fa fa-users icon" aria-hidden="true"></i>
-                  <a href="">Исполнители</a>
-                </div>
-              </li>
+							<li class="nav-item litem">
+								<div class="nav-link d-flex align-items-center">
+									<i class="fa fa-users icon" aria-hidden="true"></i>
+									<router-link to="/executor-list">Исполнители</router-link>
+									<!-- <a href="">Исполнители</a> -->
+								</div>
+							</li>
 
-              <li class="nav-item litem">
-                <div class="nav-link">
-                  <i class="fa fa-window-restore icon" aria-hidden="true"></i>
-                  <router-link to="/categories">Категории</router-link>
-                </div>
-              </li>
+							<li class="nav-item litem">
+								<div class="nav-link d-flex align-items-center">
+									<i class="fa fa-window-restore icon" aria-hidden="true"></i>
+									<router-link to="/categories">Категории</router-link>
+								</div>
+							</li>
 
-              <li class="nav-item litem">
-                <div class="nav-link">
-                  <i class="fa fa-exclamation-circle icon" aria-hidden="true"></i>
-                  <a href="">Правила сайта</a>
-                </div>
-              </li>
+							<li class="nav-item litem">
+								<div class="nav-link d-flex align-items-center">
+									<i class="fa fa-exclamation-circle icon" aria-hidden="true"></i>
+									<a href="">Правила сайта</a>
+								</div>
+							</li>
 
-              <li class="nav-item litem">
-                <div class="nav-link">
-                  <i class="fa fa-question-circle icon" aria-hidden="true"></i>
-                  <a href="">FAQ</a>
-                </div>
-              </li>
-            </ul>
-          </div>
-        </nav>
-      </div>
-    </aside>
-    <div class="block-main-fon" v-on:click="autoClose()">
-      <header v-show="oData.bGuest">
-        <nav class="navbar  navbar-toggleable-sm navbar-light box-shadow">
-          <img class="logo" src="../assets/images/Barbuuuda.png" alt="">
-          <!-- <div class="container"> -->
-          <!-- <button class="navbar-toggler btn-state-left-menu" type="button" data-toggle="collapse"
+							<li class="nav-item litem">
+								<div class="nav-link d-flex align-items-center">
+									<i class="fa fa-question-circle icon" aria-hidden="true"></i>
+									<a href="">FAQ</a>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</nav>
+			</div>
+		</aside>
+		<div class="block-main-fon" v-on:click="autoClose()">
+			<header v-show="oData.bGuest">
+				<nav class="navbar  navbar-toggleable-sm navbar-light box-shadow">
+					<img class="logo" src="../assets/images/Barbuuuda.png" alt="">
+					<!-- <div class="container"> -->
+					<!-- <button class="navbar-toggler btn-state-left-menu" type="button" data-toggle="collapse"
             data-target=".navbar-collapse" aria-label="Toggle navigation" v-on:click="toggle()">
             <span class="navbar-toggler-icon"></span> -->
-          </button>
+					</button>
 
-          <div class="navbar-collapse collapse d-sm-inline-flex d-flex header">
-            <div>
-              <!-- <div class="navbar-nav flex-grow"> -->
-              <div class="nav-item">
-                <div class="div-link">
-                  <!-- <img src="../assets/images/add_task.jpg" class="link" v-on:click="onRouteCreateTask()" /> -->
-                  <!-- <li>
+					<div class="navbar-collapse collapse d-sm-inline-flex d-flex header">
+						<div>
+							<!-- <div class="navbar-nav flex-grow"> -->
+							<div class="nav-item">
+								<div class="div-link">
+									<!-- <img src="../assets/images/add_task.jpg" class="link" v-on:click="onRouteCreateTask()" /> -->
+									<!-- <li>
                 <router-link to="" class="nav-link link-add-task" v-on:click="onRouteCreateTask()">Создать задание
                 </router-link>
               </li> -->
 
 
-                  <button class="nav-link btn btn-link blue link-add-task" v-on:click="onRouteCreateTask()">
-                    <img class="plus" src="../assets/images/plus.png" alt="">
-                    Создать задание
-                  </button>
+									<button class="nav-link btn btn-link blue link-add-task"
+										v-on:click="onRouteCreateTask()">
+										<img class="plus" src="../assets/images/plus.png" alt="">
+										<p>Создать задание</p>
+									</button>
 
-                  <button class="nav-link btn btn-link link-add-task oranged register-button"
-                    v-on:click="routRegister()">
-                    <p>Регистрация</p>
-                  </button>
-                  <button class="nav-link btn btn-link link-add-task oranged login" v-on:click=" routLogin()">
-                    <p>Вход</p>
-                  </button>
+									<button class="nav-link btn btn-link link-add-task oranged register-button"
+										v-on:click="routRegister()">
+										<p>Регистрация</p>
+									</button>
+									<button class="nav-link btn btn-link link-add-task oranged login"
+										v-on:click=" routLogin()">
+										<p>Вход</p>
+									</button>
 
-                </div>
-              </div>
-              <!-- </div> -->
-            </div>
-          </div>
-        </nav>
-      </header>
-      <div class="centered-fon" v-for="el in aFon">
-        <h3 class="title">{{el.mainTitle}}</h3>
-        <p class="title-dop mt-3">{{el.secondTitle}}</p>
-        <!-- <button class="btn-create-task form-control-lg" v-on:click="onRouteCreateTask()">{{el.btnText}}</button> -->
-      </div>
-    </div>
-  </div>
+								</div>
+							</div>
+							<!-- </div> -->
+						</div>
+					</div>
+				</nav>
+			</header>
+			<div class="centered-fon" v-for="el in aFon">
+				<h3 class="title">{{el.mainTitle}}</h3>
+				<p class="title-dop mt-3">{{el.secondTitle}}</p>
+				<!-- <button class="btn-create-task form-control-lg" v-on:click="onRouteCreateTask()">{{el.btnText}}</button> -->
+			</div>
+		</div>
+	</div>
 
-  <!-- Модальное окно ошибки, если нет роли заказчика. -->
-  <div class="modal fade" id="idNotCustomer" tabindex="-1" role="dialog" aria-labelledby="idNotCustomerTitle"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="idNotCustomerTitle">Вы хотите создать задание?</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
+	<!-- Модальное окно ошибки, если нет роли заказчика. -->
+	<div class="modal fade" id="idNotCustomer" tabindex="-1" role="dialog" aria-labelledby="idNotCustomerTitle"
+		aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="idNotCustomerTitle">Вы хотите создать задание?</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
 
-        <div class="modal-body">
-          Создать задание могут только зарегистрированные (Заказчики).
-          Зарегистрируйтесь или войдите на сайт под своим именем.
-        </div>
+				<div class="modal-body">
+					Создать задание могут только зарегистрированные (Заказчики).
+					Зарегистрируйтесь или войдите на сайт под своим именем.
+				</div>
 
-        <div class="modal-footer">
-          <button type="button" class="btn-create-task form-control-sm btn-create-task btn-all-tasks"
-            data-dismiss="modal">Хорошо</button>
-        </div>
-      </div>
-    </div>
-  </div>
+				<div class="modal-footer">
+					<button type="button" class="btn-create-task form-control-sm btn-create-task btn-all-tasks"
+						data-dismiss="modal">Хорошо</button>
+				</div>
+			</div>
+		</div>
+	</div>
 
-  <!-- Левая панель. -->
+	<!-- Левая панель. -->
 
 
-  <!-- Правая панель. -->
+	<!-- Правая панель.
   <div class="col-lg-3 right-menu right-panel">
     <nav class="sidebar-sticky navbar-expand-md">
       <div class="block-title">
@@ -158,7 +162,7 @@
           <button class="tablinks register" v-on:click="onChangeTab($event, 'register')">Регистрация</button>
         </div>
 
-        <!-- Войти. -->
+         Войти. 
         <div id="login" class="tabcontent">
           <h5>Вход на сайт</h5>
           <div class="collapse navbar-collapse" id="idRightMenu">
@@ -203,42 +207,46 @@
       </div>
     </nav>
   </div>
-  </div>
+  </div> -->
 
-  <!-- Как это работает? -->
-  <div class="gray-fon">
-    <div class="">
-      <h5 class="text-center pt-5" v-show="el.mainTitle" v-for="el in aWork">
-        {{el.mainTitle}}
-      </h5>
+	<!-- Как это работает? -->
+	<div class="gray-fon">
+		<div class="block-with-fon"></div>
+		<div class="heading">
+			<h5 class="text-center pt-5" v-show="el.mainTitle" v-for="el in aWork">
+				{{el.mainTitle}}
+			</h5>
 
-      <div class="text-center mb-3">
-        <img src="../assets/images/Line10.png" />
-      </div>
-    </div>
+			<div class="text-center mb-3">
+				<img src="../assets/images/Line10.png" />
+			</div>
+		</div>
 
-    <div class="col-lg-12 text-center mb-5" v-for="el in aWork">
-      <span class="content-title">
-        {{el.secondTitle}}
-      </span>
-    </div>
+		<div class="col-lg-12 gray-fon-text text-center mb-5" v-for="el in aWork">
+			<span class="content-title">
+				{{el.secondTitle}}
+			</span>
+		</div>
 
-    <div class="d-flex block-work container">
-      <div class="col-lg-4 mb-3" v-for="el in aWork">
-        <h6 class="content-title">
-          <strong>
-            {{el.blockTitle}}
-          </strong>
-        </h6>
+		<div class="d-flex block-work container">
+			<div class="col-lg-4 mb-3" v-for="el in aWork">
+				<div class="bordered">
+					<div class="circle-bordered d-flex justify-content-center align-items-center">
+						<img src="../assets/images/like.png" alt="">
+					</div>
+				</div>
+				<h6 class="content-title block-work-head">
+					{{el.blockTitle}}
+				</h6>
 
-        <span class="content-title">
-          {{el.blockText}}
-        </span>
-      </div>
-    </div>
-  </div>
+				<p class="content-title block-text">
+					{{el.blockText}}
+				</p>
+			</div>
+		</div>
+	</div>
 
-  <!-- Почему BARBUUUDA? -->
+	<!-- Почему BARBUUUDA?
   <div class="mb-3 mt-5">
     <h5 class="text-center">ПОЧЕМУ <span class="title-color">BARBUUUDA</span>?</h5>
 
@@ -247,7 +255,7 @@
     </div>
   </div>
 
-  <!-- 1 -->
+   1 
   <div class="d-flex">
     <div class="container">
       <h6 class="content-title" v-for="el in aWhyis">
@@ -260,71 +268,203 @@
         </span>
       </h6>
     </div>
-  </div>
+  </div> -->
 
-  <!-- Наши преимущества. -->
-  <div class="gray-fon">
-    <div class="">
-      <h5 class="text-center pt-5" v-show="el.mainTitle" v-for="el in aAdvantages">{{el.mainTitle}}</h5>
+	<!-- КАТЕГОРИИ -->
+	<div class="gray-fon">
+		<div class="mb-3 mt-5">
+			<h5 class="text-center">КАТЕГОРИИ</h5>
 
-      <div class="text-center mb-3">
-        <img src="../assets/images/Line9.png" />
-      </div>
-    </div>
+			<div class="text-center mb-3">
+				<img src="../assets/images/Line9.png" />
+			</div>
 
-    <div class="d-flex container pb-5">
-      <div class="col-lg-4" v-for="el in aAdvantages">
-        <h6 class="content-title">
-          <strong>
-            {{el.secondTitle}}
-          </strong>
-        </h6>
+			<div class="col-lg-12 text-center mb-5">
+				<span class="content-title">
+					Выберите категории заданий, которые хотите посмотреть.
+				</span>
+			</div>
+		</div>
+	</div>
 
-        <span class="content-title">
-          {{el.text}}
-        </span>
-      </div>
-    </div>
-  </div>
+	<!-- Секция категорий. -->
+	<div class="col-lg-12 mb-3">
+		<div class="row">
+			<div class="col-lg-4 mb-3" v-for="el in oData.aCategories">
+				<div class="card сards-items">
+					<div class="card-body categories d-flex align-items-center">
+						<div class="cat-icons d-flex align-items-center justify-content-center">
+							<img src="../assets/images/creativity.png" alt="">
+						</div>
+						<h5 class="card-title title-row">
+							<!-- <img :src="getImgUrl(el.url)" class="mr-2" /> -->
+							<strong class="mr-2">{{el.categoryName}}</strong>
+							<!-- <img src="../assets/images/Group1.png" /> -->
+						</h5>
 
-  <!-- КАТЕГОРИИ -->
-  <div class="mb-3 mt-5">
-    <h5 class="text-center">КАТЕГОРИИ</h5>
+						<span class="card-text">
+							Подкатегорий: {{el.specializations.length}}
+						</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
-    <div class="text-center mb-3">
-      <img src="../assets/images/Line9.png" />
-    </div>
+	<!-- Наши преимущества. -->
+	<div class="fon">
+		<div class="gray-fon advantage">
+			<div class="">
+				<h5 class="text-center heading-advant pt-5" v-show="el.mainTitle" v-for="el in aAdvantages">
+					{{el.mainTitle}}
+				</h5>
 
-    <div class="col-lg-12 text-center mb-5">
-      <span class="content-title">
-        Выберите категории заданий, которые хотите посмотреть.
-      </span>
-    </div>
-  </div>
+				<div class="text-center mb-3">
+					<img src="../assets/images/Line9.png" />
+				</div>
 
-  <!-- Секция категорий. -->
-  <div class="col-lg-12 mb-3">
-    <div class="row">
-      <div class="col-lg-4 mb-3" v-for="el in oData.aCategories">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title title-row">
-              <!-- <img :src="getImgUrl(el.url)" class="mr-2" /> -->
-              <strong class="mr-2">{{el.categoryName}}</strong>
-              <img src="../assets/images/Group1.png" />
-            </h5>
+				<p class="gray-text">В работе сo специалистами есть свои риски. Безопасная сделка — сервис, который эти
+					риски
+					снижает. С ним вы
+					можете быть уверены, что вам не придется оплачивать некачественную работу или что специалист не
+					исчезнет с
+					предоплатой.</p>
+			</div>
+			<div class="content-advantages">
+				<div class="d-flex container pb-5">
+					<div class="col-lg-4" v-for="el in aAdvantages">
+						<div class="advantages-icons d-flex align-items-center justify-content-center">
+							<img src="../assets/images/pig.png" alt="">
+							<h6 class="content-title advant-principes">
+								<strong>
+									{{el.secondTitle}}
+								</strong>
+							</h6>
+						</div>
 
-            <span class="card-text">
-              Подкатегорий: {{el.specializations.length}}
-            </span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+						<!-- <span class="content-title">
+            {{el.text}}
+          </span> -->
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
-  <!-- Последние задания. -->
-  <div class="gray-fon">
+	<!-- Популярные исполнители. -->
+	<div class="exec-fon"></div>
+	<div class="mb-3">
+		<h5 class="text-center exec-head">ПОПУЛЯРНЫЕ ИСПОЛНИТЕЛИ</h5>
+
+		<div class="text-center mb-3">
+			<img class="position-relative" src="../assets/images/white-line.png" />
+		</div>
+
+		<div class="col-lg-12 text-center mb-5">
+			<span class="content-title">
+				Список из 10 популярных исполнителей с наиболее высоким рейтингом.
+			</span>
+		</div>
+
+	</div>
+
+	<div class="">
+		<div class="d-flex flex-wrap justify-content-center">
+			<div class="col-lg-5">
+				<div class="card execs-best mb-3">
+					<div class="card-body d-flex align-items-center">
+						<img src="../assets/images/girl.png" class="mr-2" />
+						<div class="card-title title-row execs d-flex align-items-start">
+							<div class="col-lg-6">
+								<strong>Lorem, ipsum dolor.</strong><br />
+								<small class="">8 апр 2016</small> <small class="pro ml-2">PRO</small>
+							</div>
+							<p class="text-task">
+								Топ-10 среди разработчиков сайтов ! Качественно и в срок. .
+							</p>
+							<img class="star" src="../assets/images/star.png" />
+						</div>
+
+					</div>
+
+
+				</div>
+			</div>
+
+
+
+			<div class="col-lg-5">
+				<div class="card execs-best mb-3">
+					<div class="card-body d-flex align-items-center">
+						<img src="../assets/images/girl.png" class="mr-2" />
+						<div class="card-title title-row execs d-flex align-items-start">
+							<div class="col-lg-6">
+								<strong>Lorem, ipsum dolor.</strong><br />
+								<small class="">8 апр 2016</small> <small class="pro ml-2">PRO</small>
+							</div>
+							<p class="text-task">
+								Топ-10 среди разработчиков сайтов ! Качественно и в срок. .
+							</p>
+							<img class="star" src="../assets/images/star.png" />
+						</div>
+
+					</div>
+
+
+
+
+				</div>
+			</div>
+
+			<div class="col-lg-5">
+				<div class="card execs-best mb-3">
+					<div class="card-body d-flex align-items-center">
+						<img src="../assets/images/girl.png" class="mr-2" />
+						<div class="card-title title-row execs d-flex align-items-start">
+							<div class="col-lg-6">
+								<strong>Lorem, ipsum dolor.</strong><br />
+								<small class="">8 апр 2016</small> <small class="pro ml-2">PRO</small>
+							</div>
+							<p class="text-task">
+								Топ-10 среди разработчиков сайтов ! Качественно и в срок. .
+							</p>
+							<img class="star" src="../assets/images/star.png" />
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-lg-5">
+				<div class="card execs-best mb-3">
+					<div class="card-body d-flex align-items-center">
+						<img src="../assets/images/girl.png" class="mr-2" />
+						<div class="card-title title-row execs d-flex align-items-start">
+							<div class="col-lg-6">
+								<strong>Lorem, ipsum dolor.</strong><br />
+								<small class="">8 апр 2016</small> <small class="pro ml-2">PRO</small>
+							</div>
+							<p class="text-task">
+								Топ-10 среди разработчиков сайтов ! Качественно и в срок. .
+							</p>
+							<img class="star" src="../assets/images/star.png" />
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+
+		<div class="col-lg-12 d-flex justify-content-center mt-3">
+			<button class="btn-create-task btn-color form-control-sm btn-create-task btn-all-tasks mb-3"
+				v-on:click="onRouteExecutors()">
+				ВСЕ ИСПОЛНИТЕЛИ
+			</button>
+		</div>
+	</div>
+
+	<!-- Последние задания. -->
+	<!-- <div class="gray-fon">
     <div class="">
       <h5 class="text-center pt-5">ПОСЛЕДНИЕ ЗАДАНИЯ</h5>
 
@@ -414,164 +554,110 @@
         ВСЕ ЗАДАНИЯ
       </button>
     </div>
-  </div>
+  </div> -->
 
-  <!-- Популярные исполнители. -->
-  <div class="mb-3 mt-5">
-    <h5 class="text-center">ПОПУЛЯРНЫЕ ИСПОЛНИТЕЛИ</h5>
+	<!-- Начать зарабатывать. -->
+	<!-- Наши преимущества. -->
+	<div class="gray-fon mt-5">
+		<!-- <div class="">
+			<h5 class="text-center pt-5">СТАТЬ ИСПОЛНИТЕЛЕМ И НАЧАТЬ ЗАРАБАТЫВАТЬ НА <span
+					class="title-color">BARBUUUDA</span></h5>
 
-    <div class="text-center mb-3">
-      <img src="../assets/images/Line9.png" />
-    </div>
+			<div class="col-lg-12 text-center mb-5">
+				<p class="content-title">
+					Выполняйте задания, повышайте свой рейтинг, нарабатывайте положительные отзывы и зарабатывайте
+					деньги.
+				</p>
+			</div>
+		</div> -->
+		<div class="d-flex align-items-center">
+			<div class="creating">
+				<img class="img-reg" src="../assets/images/pen-men.png" alt="">
+				<img class="img-reg" src="../assets/images/blue-men.png" alt="">
 
-    <div class="col-lg-12 text-center mb-5">
-      <span class="content-title">
-        Список из 10 популярных исполнителей с наиболее высоким рейтингом.
-      </span>
-    </div>
+			</div>
+		</div>
+		<div class="d-flex justify-content-center">
+			<div class="col-lg-4 text-content d-flex flex-column align-items-center mt-3 pb-5">
+				<h3 class="mt-3 mb-3">Я - Исполнитель</h3>
+				<button class="btn-create-task form-control-sm btn-create-task btn-all-tasks mb-3">
+					СТАТЬ ИСПОЛНИТЕЛЕМ
+				</button>
+			</div>
+			<div class="col-lg-4 d-flex flex-column align-items-center mt-3 pb-5">
+				<!-- <div>
+				</div> -->
+				<h3 class="mt-3 mb-3">Я - Заказчик</h3>
+				<button class="btn-create-task form-control-sm btn-create-task btn-all-tasks mb-3">
+					СОЗДАТЬ ЗАДАНИЕ
+				</button>
+			</div>
+		</div>
+	</div>
 
-  </div>
+	<div class="">
+		<div class="">
+			<h5 class="text-center pt-5">ЧТО ВЫ ПОЛУЧАЕТЕ?</h5>
 
-  <div class="">
-    <div class="d-flex">
-      <div class="col-lg-6">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title title-row">
-              <img src="../assets/images/1-wiper1.png" class="mr-2" />
-              <div class="col-lg-6">
-                <strong>Wiper</strong><br />
-                <small class="">8 апр 2016</small> <small class="pro ml-2">PRO</small>
-              </div>
-            </h5>
+			<div class="text-center mb-3">
+				<img src="../assets/images/Line9.png" />
+			</div>
+		</div>
 
-            <span class="text-task">
-              №1 среди разработчиков сайтов ! Качественно и в срок. .
-            </span>
-            <hr />
-            <img src="../assets/images/Star1.png" />
-          </div>
+		<div class="">
+			<div class="col-lg-11 mt-3 item-get" v-for="el in aProveliges">
+				<h6 class="content-title">
+					<strong>
+						{{el.title}}
+					</strong>
+				</h6>
 
-          <hr />
-        </div>
-      </div>
+				<span class="content-title">
+					{{el.text}}
+				</span>
+			</div>
+		</div>
+	</div>
+	<div class="">
+		<div class="gray-fon pb-3 mt-5 item-get" v-for="el in aHope">
+			<h5 class="text-center pt-5">{{el.hopeTitle}}</h5>
 
-      <div class="col-lg-6">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title title-row">
-              <img src="../assets/images/1-wiper1.png" class="mr-2" />
-              <div class="col-lg-6">
-                <strong>Wiper</strong><br />
-                <small class="">8 апр 2016</small> <small class="pro ml-2">PRO</small>
-              </div>
-            </h5>
+			<div class="text-center mb-3">
+				<img src="../assets/images/Line9.png" />
+			</div>
+			<div class="col-lg-6 text-center mb-5">
+				<span class="content-title">
+					{{el.hopeDetails}}
+				</span>
+			</div>
 
-            <span class="text-task">
-              №1 среди разработчиков сайтов ! Качественно и в срок. .
-            </span>
-            <hr />
-            <img src="../assets/images/Star1.png" />
-          </div>
+		</div>
+	</div>
 
-          <hr />
-        </div>
-      </div>
-    </div>
+	<!-- Модальное окно ошибки, если нет роли заказчика. -->
+	<div class="modal fade" id="idNotCustomer" tabindex="-1" role="dialog" aria-labelledby="idNotCustomerTitle"
+		aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="idNotCustomerTitle">Вы хотите создать задание?</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
 
-    <div class="col-lg-12 d-flex justify-content-center mt-3">
-      <button class="btn-create-task form-control-sm btn-create-task btn-all-tasks mb-3"
-        v-on:click="onRouteExecutors()">
-        ВСЕ ИСПОЛНИТЕЛИ
-      </button>
-    </div>
-  </div>
+				<div class="modal-body">
+					Создать задание могут только зарегистрированные (Заказчики).
+					Зарегистрируйтесь или войдите на сайт под своим именем.
+				</div>
 
-  <!-- Начать зарабатывать. -->
-  <!-- Наши преимущества. -->
-  <div class="gray-fon">
-    <div class="">
-      <h5 class="text-center pt-5">СТАТЬ ИСПОЛНИТЕЛЕМ И НАЧАТЬ ЗАРАБАТЫВАТЬ НА <span
-          class="title-color">BARBUUUDA</span></h5>
-
-      <div class="col-lg-12 text-center mb-5">
-        <p class="content-title">
-          Выполняйте задания, повышайте свой рейтинг, нарабатывайте положительные отзывы и зарабатывайте деньги.
-        </p>
-      </div>
-    </div>
-
-    <div class="col-lg-12 d-flex justify-content-center mt-3 pb-5">
-      <button class="btn-create-task form-control-sm btn-create-task btn-all-tasks mb-3">
-        СТАТЬ ИСПОЛНИТЕЛЕМ
-      </button>
-    </div>
-  </div>
-
-  <div class="">
-    <div class="">
-      <h5 class="text-center pt-5">ЧТО ВЫ ПОЛУЧАЕТЕ?</h5>
-
-      <div class="text-center mb-3">
-        <img src="../assets/images/Line9.png" />
-      </div>
-    </div>
-
-    <div class="">
-      <div class="col-lg-12 mt-3" v-for="el in aProveliges">
-        <h6 class="content-title">
-          <strong>
-            {{el.title}}
-          </strong>
-        </h6>
-
-        <span class="content-title">
-          {{el.text}}
-        </span>
-      </div>
-    </div>
-  </div>
-
-  <div class="gray-fon pb-3 mt-5" v-for="el in aHope">
-    <div class="">
-      <h5 class="text-center pt-5">{{el.hopeTitle}}</h5>
-
-      <div class="text-center mb-3">
-        <img src="../assets/images/Line9.png" />
-      </div>
-
-      <div class="col-lg-12 text-center mb-5">
-        <span class="content-title">
-          {{el.hopeDetails}}
-        </span>
-      </div>
-    </div>
-  </div>
-
-  <!-- Модальное окно ошибки, если нет роли заказчика. -->
-  <div class="modal fade" id="idNotCustomer" tabindex="-1" role="dialog" aria-labelledby="idNotCustomerTitle"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="idNotCustomerTitle">Вы хотите создать задание?</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-
-        <div class="modal-body">
-          Создать задание могут только зарегистрированные (Заказчики).
-          Зарегистрируйтесь или войдите на сайт под своим именем.
-        </div>
-
-        <div class="modal-footer">
-          <button type="button" class="btn-create-task form-control-sm btn-create-task btn-all-tasks"
-            data-dismiss="modal">Хорошо</button>
-        </div>
-      </div>
-    </div>
-  </div>
+				<div class="modal-footer">
+					<button type="button" class="btn-create-task form-control-sm btn-create-task btn-all-tasks"
+						data-dismiss="modal">Хорошо</button>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
 
 </html>

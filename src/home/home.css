@@ -3,12 +3,12 @@
   display: -ms-flexbox;
   display: flex;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
   -webkit-box-orient: horizontal;
   -webkit-box-direction: reverse;
-      -ms-flex-direction: row-reverse;
-          flex-direction: row-reverse;
+  -ms-flex-direction: row-reverse;
+  flex-direction: row-reverse;
 }
 
 .subcategories {
@@ -16,10 +16,10 @@
   display: -ms-flexbox;
   display: flex;
   -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
+  flex-wrap: wrap;
   -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
 }
 
 .subcategories-categories {
@@ -27,7 +27,7 @@
   display: -ms-flexbox;
   display: flex;
   -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
+  flex-wrap: wrap;
 }
 
 .subcategories-categories .list-category {
@@ -62,8 +62,8 @@
   display: -ms-flexbox;
   display: flex;
   -webkit-box-align: start;
-      -ms-flex-align: start;
-          align-items: flex-start;
+  -ms-flex-align: start;
+  align-items: flex-start;
 }
 
 .card-subcategory .card-header {
@@ -124,7 +124,7 @@ input[type="radio"]:checked {
   display: -ms-flexbox;
   display: flex;
   -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
+  flex-wrap: wrap;
 }
 
 .circle-first {
@@ -164,7 +164,7 @@ input[type="radio"]:checked {
 
 .btn-next:hover {
   -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-          box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
 .search-block {
@@ -172,8 +172,8 @@ input[type="radio"]:checked {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
 }
 
 .search-block .btn-search {
@@ -187,7 +187,7 @@ input[type="radio"]:checked {
 }
 
 .btn-create-task {
-  background: #F4511E;
+  /* background: #F4511E; */
   color: #FFFFFF;
   border-color: #F4511E;
   border: none;
@@ -226,7 +226,7 @@ input[type="file"] {
   display: -ms-flexbox;
   display: flex;
   -ms-flex-pack: distribute;
-      justify-content: space-around;
+  justify-content: space-around;
 }
 
 .btn-task {
@@ -242,8 +242,8 @@ input[type="file"] {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
   border: 1px solid rgba(0, 0, 0, 0.125);
   border-radius: 20px 0 20px 0;
   margin: 0 15px 0 15px;
@@ -299,7 +299,7 @@ button {
   margin: 0 0 30px 30px;
   border: 1px solid rgba(0, 0, 0, 0.125);
   -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
   border-radius: 20px 0px;
 }
 
@@ -420,4 +420,5 @@ button {
 .btn-regulations:focus {
   outline: none;
 }
+
 /*# sourceMappingURL=home.css.map */

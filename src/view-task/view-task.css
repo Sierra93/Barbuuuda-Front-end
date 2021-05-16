@@ -19,14 +19,14 @@
   display: -ms-flexbox !important;
   display: flex !important;
   -webkit-box-pack: center !important;
-      -ms-flex-pack: center !important;
-          justify-content: center !important;
+  -ms-flex-pack: center !important;
+  justify-content: center !important;
 }
 
 .btn-link:focus {
   outline: none !important;
   -webkit-box-shadow: none !important;
-          box-shadow: none !important;
+  box-shadow: none !important;
   text-decoration: none !important;
 }
 
@@ -35,12 +35,13 @@
 }
 
 .btn-create-task {
-  background: #F4511E;
-  color: #FFFFFF;
+  color: #005F96;
+  border-radius: 45px !important;
   border-color: #F4511E;
   border: none;
+  font-weight: 600;
+  font-size: 21px !important;
   padding: 0 50px !important;
-  border: none;
   -webkit-transition: all .3s ease-out;
   transition: all .3s ease-out;
 }
@@ -51,7 +52,7 @@
 
 .btn-create-task:hover {
   -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-          box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
 .area-respond {
@@ -59,8 +60,8 @@
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
 }
 
 .input-respond {
@@ -305,4 +306,5 @@ img {
   font-size: 18px;
   line-height: 1.5;
 }
+
 /*# sourceMappingURL=view-task.css.map */

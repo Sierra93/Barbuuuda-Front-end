@@ -36,9 +36,9 @@
 }
 
 .card-subcategory {
-    margin: 15px 15px 0 15px!important;
-    border-radius: 20px 0 20px 0!important;
-    overflow: hidden!important;
+    margin: 15px 15px 0 15px !important;
+    border-radius: 20px 0 20px 0 !important;
+    overflow: hidden !important;
 
     .list-spec {
         display: flex;
@@ -52,10 +52,10 @@
 }
 
 .search-category {
-    width: 400px!important;
-    height: 48px!important;
+    width: 400px !important;
+    height: 48px !important;
     border: 1px solid #00BCD4;
-    border-radius: 0!important;
+    border-radius: 0 !important;
 
     &:focus {
         outline: none;
@@ -63,10 +63,10 @@
 }
 
 .detail-field {
-    width: 400px!important;
-    height: 100px!important;
+    width: 400px !important;
+    height: 100px !important;
     border: 1px solid #00BCD4;
-    border-radius: 0!important;
+    border-radius: 0 !important;
 
     &:focus {
         outline: none;
@@ -94,11 +94,11 @@ input[type='radio']:before {
 
 input[type="radio"]:checked:before {
     background: #00BCD4;
-    
+
 }
 
 input[type="radio"]:checked {
-  border-color:#00BCD4;
+    border-color: #00BCD4;
 }
 
 .block-categories {
@@ -133,7 +133,7 @@ input[type="radio"]:checked {
     color: #FFFFFF;
     border-color: #00BDD6;
     border: none;
-    padding: 0 50px!important;
+    padding: 0 50px !important;
     transition: all .3s ease-out;
 
     &:focus {
@@ -141,31 +141,31 @@ input[type="radio"]:checked {
     }
 
     &:hover {
-        box-shadow: 0 0 10px rgba(0,0,0,0.5);
-      }
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    }
 }
 
 .search-block {
     display: flex;
     justify-content: center;
-    
+
     .btn-search {
         border: 1px solid #00BCD4;
-        border-radius: 0!important;
+        border-radius: 0 !important;
 
         &:hover {
             background: #00BCD4;
             color: #FFFFFF;
         }
-    }    
+    }
 }
 
 .btn-create-task {
-    background: #F4511E;
+    // background: #F4511E;
     color: #FFFFFF;
     border-color: #F4511E;
     border: none;
-    padding: 0 50px!important;
+    padding: 0 50px !important;
     border: none;
 }
 
@@ -178,8 +178,8 @@ input[type="radio"]:checked {
 }
 
 label {
-    padding: 0!important;
-    margin: 0!important;
+    padding: 0 !important;
+    margin: 0 !important;
 }
 
 input[type="file"] {
@@ -205,7 +205,7 @@ input[type="file"] {
     color: #FFFFFF;
     border-color: #F4511E;
     border: none;
-    padding: 0 50px!important;
+    padding: 0 50px !important;
 }
 
 .block-status {
@@ -227,7 +227,7 @@ input[type="file"] {
     // align-items: center!important;
     // text-align: center!important;
     display: flex;
-    border: none!important;
+    border: none !important;
     // justify-content: center!important;
 }
 
