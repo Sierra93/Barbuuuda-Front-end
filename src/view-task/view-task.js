@@ -38,7 +38,10 @@ export default {
             statusArea: "",
             aMessages: [],
             dialogId: null,
-            message: ""
+            message: "",
+            firstName: "",
+            lastName: "",
+            userName: ""
          }
     },    
     props: ["oData", "oEditTask"],
@@ -230,6 +233,9 @@ export default {
                         this.aMessages = response.data.messages;
                         console.log("Список сообщений диалога c Id: " + dialogId, response.data);
                         this.statusArea = response.data.dialogState;
+                        this.firstName = response.data.firstName;
+                        this.lastName = response.data.lastName;
+                        this.userName = response.data.userName;
                     })
 
                     .catch((XMLHttpRequest) => {

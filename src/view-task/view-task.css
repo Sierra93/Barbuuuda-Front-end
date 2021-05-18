@@ -24,6 +24,7 @@
   box-shadow: none !important;
   text-decoration: none !important;
 }
+
 .btn-link:hover {
   text-decoration: none !important;
 }
@@ -35,11 +36,13 @@
   border: none;
   padding: 0 50px !important;
   border: none;
-  transition: all 0.3s ease-out;
+  transition: all .3s ease-out;
 }
+
 .btn-create-task:focus {
   outline: none;
 }
+
 .btn-create-task:hover {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
@@ -62,6 +65,7 @@
   margin: 15px 0 0 0 !important;
   border: none !important;
 }
+
 .responds_list .card_respond {
   border: 1px solid rgba(0, 0, 0, 0.125);
   border-radius: 20px 0 20px 0;
@@ -175,6 +179,7 @@ img {
   margin: 0;
   padding: 18px 16px 10px;
 }
+
 .chat_list:hover {
   cursor: pointer;
 }
@@ -290,4 +295,10 @@ img {
 .text_not_dialog {
   font-size: 18px;
   line-height: 1.5;
+}
+
+.block_write_dialog {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
 }

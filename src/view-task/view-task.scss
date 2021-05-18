@@ -242,3 +242,9 @@ img{ max-width:100%;}
   font-size: 18px;
   line-height: 1.5;
 }
+
+.block_write_dialog {
+    display: flex!important;
+    justify-content: space-between!important;
+    align-items: center!important;
+}
