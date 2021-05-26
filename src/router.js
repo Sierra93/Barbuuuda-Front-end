@@ -14,6 +14,7 @@ import EHOME from './components/e-home.vue';
 import Login from './components/login.vue';
 import Register from './components/register.vue';
 import PublicOffer from './components/public-offer.vue';
+import Payment from './components/payment.vue';
 
 export default new VueRouter({
   routes: [{
@@ -105,6 +106,12 @@ export default new VueRouter({
       path: '/public-offer',
       name: 'public-offer',
       component: PublicOffer,
+      props: true
+    },
+    {
+      path: '/payment',
+      name: 'payment',
+      component: Payment,
       props: true
     }
   ],

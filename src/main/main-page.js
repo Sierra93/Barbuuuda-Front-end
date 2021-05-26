@@ -95,7 +95,7 @@ export default {
                     console.log('Ошибка обновления токена');
                 }
             });    
-        }             
+        }                     
     },
     data() {
         return {

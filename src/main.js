@@ -26,6 +26,7 @@ import vueHeadful from 'vue-headful';
 import Login from './components/login.vue';
 import Register from './components/register.vue';
 import PublicOffer from './components/public-offer.vue';
+import Payment from './components/payment.vue';
 
 Vue.use(VueRouter);
 Vue.component('Container', Container);
@@ -43,6 +44,7 @@ Vue.component('vue-headful', vueHeadful);
 Vue.component('Login', Login);
 Vue.component('Register', Register);
 Vue.component('PublicOffer', PublicOffer);
+Vue.component('Payment', Payment);
 
 // Общие функции приложения.
 const utils = {

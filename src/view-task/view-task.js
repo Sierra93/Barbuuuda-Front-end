@@ -23,8 +23,11 @@ export default {
     },
     created() {
         this._loadingResponds();
-        this._loadingDialogs();
+        this._loadingDialogs();        
     },
+    // mounted() {
+    //     paypal.Buttons().render('#paypal-button-container');
+    // },
     data() {
         return {
             picker: new Date(),
