@@ -74,7 +74,7 @@ export default {
         _getAuthorize() {
             let userRole = "";
 
-            if (!sessionStorage["userToken"]) {
+            if (!sessionStorage["userToken"] && this.$route.name !== "public-offer") {
                 this.$router.push("/");
             }
 

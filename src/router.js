@@ -13,6 +13,7 @@ import ExecutorList from './components/executor-list.vue';
 import EHOME from './components/e-home.vue';
 import Login from './components/login.vue';
 import Register from './components/register.vue';
+import PublicOffer from './components/public-offer.vue';
 
 export default new VueRouter({
   routes: [{
@@ -98,6 +99,12 @@ export default new VueRouter({
       path: '/register',
       name: 'register',
       component: Register,
+      props: true
+    },
+    {
+      path: '/public-offer',
+      name: 'public-offer',
+      component: PublicOffer,
       props: true
     }
   ],

@@ -25,6 +25,7 @@ import ExecutorList from './components/executor-list.vue';
 import vueHeadful from 'vue-headful';
 import Login from './components/login.vue';
 import Register from './components/register.vue';
+import PublicOffer from './components/public-offer.vue';
 
 Vue.use(VueRouter);
 Vue.component('Container', Container);
@@ -41,6 +42,7 @@ Vue.component('ExecutorList', ExecutorList);
 Vue.component('vue-headful', vueHeadful);
 Vue.component('Login', Login);
 Vue.component('Register', Register);
+Vue.component('PublicOffer', PublicOffer);
 
 // Общие функции приложения.
 const utils = {

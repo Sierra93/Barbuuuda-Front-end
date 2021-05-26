@@ -13,8 +13,8 @@ import axios from 'axios';
 // Функция обновит токен через каждые 9 мин.
 $(function () {
     setInterval(function () {
-        const sUrl = "http://localhost:58822".concat("/user/token?userName=").concat(sessionStorage.user);
-        // const sUrl = "https://barbuuuda.online".concat("/user/token?userName=").concat(sessionStorage.user);
+        // const sUrl = "http://localhost:58822".concat("/user/token?userName=").concat(sessionStorage.user);
+        const sUrl = "https://barbuuuda.online".concat("/user/token?userName=").concat(sessionStorage.user);
 
         if (!sessionStorage.userToken) {
             clearInterval(intervalID);
@@ -69,8 +69,8 @@ export default {
         // Функция обновит токен через каждые 9 мин.
         __VUE_HOT_MAP__.refreshToken = function() {
             setInterval(function () {
-                const sUrl = "http://localhost:58822".concat("/user/token?userName=").concat(sessionStorage.user);
-                // const sUrl = "https://barbuuuda.online".concat("/user/token?userName=").concat(sessionStorage.user);
+                // const sUrl = "http://localhost:58822".concat("/user/token?userName=").concat(sessionStorage.user);
+                const sUrl = "https://barbuuuda.online".concat("/user/token?userName=").concat(sessionStorage.user);
         
                 if (!sessionStorage.userToken) {
                     clearInterval(intervalID);
@@ -100,8 +100,8 @@ export default {
     data() {
         return {
             oData: {
-                urlApi: "http://localhost:58822",
-                // urlApi: "https://barbuuuda.online",
+                // urlApi: "http://localhost:58822",
+                urlApi: "https://barbuuuda.online",
                 aHeader: [],
                 bGuest: false,
                 bCustomer: false,
