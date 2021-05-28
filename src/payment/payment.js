@@ -50,7 +50,7 @@ export default {
                     //     shape:   'rect',
                     //     label:   'paypal'
                     //   }
-                    commit: false,
+                    // commit: false,
                     payment: function (data, actions) {
                         return actions.payment.create({
                             payment: {
@@ -77,7 +77,7 @@ export default {
                     // Функция настроит детали транзакции. 
                     // Срабатывает при нажатии на кнопку PayPal либо карты.
                     createOrder: function (data, actions) {
-                        let sUrl = context.oData.urlApi.concat("/payment/create-order");
+                        let sUrl = context.oData.urlApi.concat("/payment/setup-transaction");
 
                         try {
                             return axios.post(sUrl)
@@ -99,8 +99,25 @@ export default {
 
                     // Функция соберет средства от транзакции.
                     onApprove: function (data, actions) {
-                        return actions.order.capture()
-                            .then(function (details) {});
+                        let sUrl = context.oData.urlApi.concat("/payment/capture-transaction");
+                        let captureData = {
+                            OrderId: data.orderID
+                        };
+
+                        try {
+                            return axios.post(sUrl, captureData)
+                                .then((response) => {
+                                    console.log(response.data);                            
+                                })
+
+                                .catch((XMLHttpRequest) => {
+                                    throw new Error(XMLHttpRequest.response.data);
+                                });
+                        } 
+                        
+                        catch (ex) {
+                            throw new Error(ex);
+                        }    
                     },                   
                 }).render('.pay_pal');
             })
