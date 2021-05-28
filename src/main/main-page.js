@@ -10,11 +10,14 @@ import VueRouter from 'vue-router';
 import $ from "jquery";
 import axios from 'axios';
 
+const apiUrlLocal = "http://localhost:58822";
+const apiUrlProd = "https://barbuuuda.online";
+
 // Функция обновит токен через каждые 9 мин.
 $(function () {
     setInterval(function () {
-        const sUrl = "http://localhost:58822".concat("/user/token?userName=").concat(sessionStorage.user);
-        // const sUrl = "https://barbuuuda.online".concat("/user/token?userName=").concat(sessionStorage.user);
+        // const sUrl = apiUrlLocal.concat("/user/token?userName=").concat(sessionStorage.user);
+        const sUrl = apiUrlProd.concat("/user/token?userName=").concat(sessionStorage.user);
 
         if (!sessionStorage.userToken) {
             clearInterval(intervalID);
@@ -69,8 +72,8 @@ export default {
         // Функция обновит токен через каждые 9 мин.
         __VUE_HOT_MAP__.refreshToken = function() {
             setInterval(function () {
-                const sUrl = "http://localhost:58822".concat("/user/token?userName=").concat(sessionStorage.user);
-                // const sUrl = "https://barbuuuda.online".concat("/user/token?userName=").concat(sessionStorage.user);
+                // const sUrl = apiUrlLocal.concat("/user/token?userName=").concat(sessionStorage.user);
+                const sUrl = apiUrlProd.concat("/user/token?userName=").concat(sessionStorage.user);
         
                 if (!sessionStorage.userToken) {
                     clearInterval(intervalID);
@@ -97,11 +100,14 @@ export default {
             });    
         }                     
     },
+    mounted() {
+        console.log("test");
+    },
     data() {
         return {
             oData: {
-                urlApi: "http://localhost:58822",
-                // urlApi: "https://barbuuuda.online",
+                // urlApi: apiUrlLocal,
+                urlApi: apiUrlProd,
                 loadScriptPayPal: "https://www.paypal.com/sdk/js?client-id=AaT69mnC2Wl5xQ4i2vk67EscPVhnE6yNFzzwTFr8V93AVddY14Lhj29ZRyECJ_ReduhNyd6gX_AqzgR4",
                 aHeader: [],
                 bGuest: false,

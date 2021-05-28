@@ -9,7 +9,8 @@ import axios from 'axios';
 import Calendar from 'v-calendar/lib/components/calendar.umd';
 import DatePicker from 'v-calendar/lib/components/date-picker.umd';
 
-$(function () {    
+$(function () {  
+    // TODO: Переделать на другой способ глобального хранения!   
     __VUE_HOT_MAP__.refreshToken();
 });
 

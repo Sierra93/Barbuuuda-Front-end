@@ -7,6 +7,7 @@ import $ from "jquery";
 import axios from 'axios';
 
 $(function () {    
+    // TODO: Переделать на другой способ глобального хранения! 
     __VUE_HOT_MAP__.refreshToken();
 });
 
