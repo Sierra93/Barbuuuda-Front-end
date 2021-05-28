@@ -43,6 +43,7 @@ export default {
                 // Настройки кнопок и их функции.
                 // Названия функций менять нельзя! Они определены в SDK PayPal!
                 paypal.Buttons({
+                    // env: 'sandbox',
                     // style: {
                     //     layout:  'vertical',
                     //     color:   'blue',
@@ -51,75 +52,64 @@ export default {
                     //   }
                     commit: false,
                     payment: function (data, actions) {
-                        // return actions.payment.create({
-                        //     payment: {
-                        //         transactions: [{
-                        //             amount: {
-                        //                 total: '100',
-                        //                 currency: 'RUB'
-                        //             }
-                        //         }]
-                        //     },
-                        //     experience: {
-                        //         input_fields: {
-                        //             no_shipping: 1
-                        //         }
-                        //     }
-                        // });
-                        return actions.request.post('/my-api/create-payment/')
-                            .then(function (res) {
-                                // 3. Return res.id from the response
-                                return res.id;
-                            });
+                        return actions.payment.create({
+                            payment: {
+                                transactions: [{
+                                    amount: {
+                                        total: '100',
+                                        currency: 'RUB'
+                                    }
+                                }]
+                            },
+                            experience: {
+                                input_fields: {
+                                    no_shipping: 1
+                                }
+                            }
+                        });
+                        // return actions.request.post(this.oData.urlApi.concat("/payment/create-order"))
+                        //     .then(function (res) {
+                        //         // 3. Return res.id from the response
+                        //         return res.id;
+                        //     });
                     },
 
-                    // Функция установит детали транзакции включая сумму и позицию. 
+                    // Функция настроит детали транзакции. 
                     // Срабатывает при нажатии на кнопку PayPal либо карты.
-                    // createOrder: function (data, actions) {
-                    //     context.onCreateOrder();
-                    // },
+                    createOrder: function (data, actions) {
+                        let sUrl = context.oData.urlApi.concat("/payment/create-order");
+
+                        try {
+                            return axios.post(sUrl)
+                                .then((response) => {
+                                    console.log("transaction id:", response.data.id);
+                                    
+                                    return response.data.id;
+                                })
+
+                                .catch((XMLHttpRequest) => {
+                                    throw new Error(XMLHttpRequest.response.data);
+                                });
+                        } 
+                        
+                        catch (ex) {
+                            throw new Error(ex);
+                        }                                         
+                    },
 
                     // Функция соберет средства от транзакции.
-                    // onApprove: function (data, actions) {
-                    //     return actions.order.capture()
-                    //         .then(function (details) {});
-                    // },
-
-                    // Execute the payment:
-                    // 1. Add an onAuthorize callback
-                    onAuthorize: function (data, actions) {
-                        // 2. Make a request to your server
-                        return actions.request.post('/my-api/execute-payment/', {
-                                paymentID: data.paymentID,
-                                payerID: data.payerID
-                            })
-                            .then(function (res) {
-                                // 3. Show the buyer a confirmation message.
-                            });
-                    }
+                    onApprove: function (data, actions) {
+                        return actions.order.capture()
+                            .then(function (details) {});
+                    },                   
                 }).render('.pay_pal');
             })
             .catch((ex) => {
-                console.log(ex);
+                throw new Error(ex);
             });
     },
 
     methods: {
-        // onCreateOrder() {
-        //     let sUrl = this.oData.urlApi.concat("/payment/create-order");
 
-        //     try {
-        //         axios.post(sUrl)
-        //             .then((response) => {
-        //                 console.log(response.data);
-        //             })
-
-        //             .catch((XMLHttpRequest) => {
-        //                 throw new Error(XMLHttpRequest.response.data);
-        //             });
-        //     } catch (ex) {
-        //         throw new Error(ex);
-        //     }
-        // }
     }
 }

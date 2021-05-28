@@ -16,8 +16,8 @@ const apiUrlProd = "https://barbuuuda.online";
 // Функция обновит токен через каждые 9 мин.
 $(function () {
     setInterval(function () {
-        // const sUrl = apiUrlLocal.concat("/user/token?userName=").concat(sessionStorage.user);
-        const sUrl = apiUrlProd.concat("/user/token?userName=").concat(sessionStorage.user);
+        const sUrl = apiUrlLocal.concat("/user/token?userName=").concat(sessionStorage.user);
+        // const sUrl = apiUrlProd.concat("/user/token?userName=").concat(sessionStorage.user);
 
         if (!sessionStorage.userToken) {
             clearInterval(intervalID);
@@ -72,8 +72,8 @@ export default {
         // Функция обновит токен через каждые 9 мин.
         __VUE_HOT_MAP__.refreshToken = function() {
             setInterval(function () {
-                // const sUrl = apiUrlLocal.concat("/user/token?userName=").concat(sessionStorage.user);
-                const sUrl = apiUrlProd.concat("/user/token?userName=").concat(sessionStorage.user);
+                const sUrl = apiUrlLocal.concat("/user/token?userName=").concat(sessionStorage.user);
+                // const sUrl = apiUrlProd.concat("/user/token?userName=").concat(sessionStorage.user);
         
                 if (!sessionStorage.userToken) {
                     clearInterval(intervalID);
@@ -100,14 +100,11 @@ export default {
             });    
         }                     
     },
-    mounted() {
-        console.log("test");
-    },
     data() {
         return {
             oData: {
-                // urlApi: apiUrlLocal,
-                urlApi: apiUrlProd,
+                urlApi: apiUrlLocal,
+                // urlApi: apiUrlProd,
                 loadScriptPayPal: "https://www.paypal.com/sdk/js?client-id=AaT69mnC2Wl5xQ4i2vk67EscPVhnE6yNFzzwTFr8V93AVddY14Lhj29ZRyECJ_ReduhNyd6gX_AqzgR4",
                 aHeader: [],
                 bGuest: false,
