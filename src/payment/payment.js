@@ -38,42 +38,11 @@ export default {
 
     mounted() {
         // Загружает скрипт PayPal SDK.
+        // Настройки кнопок и их функции.
+        // Названия функций менять нельзя! Они определены в SDK PayPal!
         Vue.loadScript(this.oData.loadScriptPayPal)
-            .then(() => {
-                // Настройки кнопок и их функции.
-                // Названия функций менять нельзя! Они определены в SDK PayPal!
-                paypal.Buttons({
-                    // env: 'sandbox',
-                    // style: {
-                    //     layout:  'vertical',
-                    //     color:   'blue',
-                    //     shape:   'rect',
-                    //     label:   'paypal'
-                    //   }
-                    // commit: false,
-                    payment: function (data, actions) {
-                        return actions.payment.create({
-                            payment: {
-                                transactions: [{
-                                    amount: {
-                                        total: '100',
-                                        currency: 'RUB'
-                                    }
-                                }]
-                            },
-                            experience: {
-                                input_fields: {
-                                    no_shipping: 1
-                                }
-                            }
-                        });
-                        // return actions.request.post(this.oData.urlApi.concat("/payment/create-order"))
-                        //     .then(function (res) {
-                        //         // 3. Return res.id from the response
-                        //         return res.id;
-                        //     });
-                    },
-
+            .then(() => {               
+                paypal.Buttons({                    
                     // Функция настроит детали транзакции. 
                     // Срабатывает при нажатии на кнопку PayPal либо карты.
                     createOrder: function (data, actions) {
@@ -97,7 +66,7 @@ export default {
                         }                                         
                     },
 
-                    // Функция соберет средства от транзакции.
+                    // Функция соберет средства от транзакции и выполнит платеж.
                     onApprove: function (data, actions) {
                         let sUrl = context.oData.urlApi.concat("/payment/capture-transaction");
                         let captureData = {
