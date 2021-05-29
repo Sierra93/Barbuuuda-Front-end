@@ -23,8 +23,6 @@ import Auction from './components/auction.vue';
 import CProfile from './components/c-profile.vue';
 import ExecutorList from './components/executor-list.vue';
 import vueHeadful from 'vue-headful';
-import Login from './components/login.vue';
-import Register from './components/register.vue';
 import PublicOffer from './components/public-offer.vue';
 import Payment from './components/payment.vue';
 
@@ -41,8 +39,6 @@ Vue.component('auction', Auction);
 Vue.component('CProfile', CProfile);
 Vue.component('ExecutorList', ExecutorList);
 Vue.component('vue-headful', vueHeadful);
-Vue.component('Login', Login);
-Vue.component('Register', Register);
 Vue.component('PublicOffer', PublicOffer);
 Vue.component('Payment', Payment);
 
