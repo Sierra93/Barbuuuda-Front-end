@@ -193,7 +193,7 @@
 
                     <div class="card responds_list" v-for="respond in aResponds">
                         <div class="card-body card_respond d-flex justify-content-between">
-                        <div class="">
+                        <div class="block_respond">
                             <div class="d-flex">
                                 <img class="mr-1 icon_photo" v-bind:src="getImgUrl(respond.userIcon)">
                                 
@@ -233,13 +233,15 @@
                             
                             <div>
                               <button 
-                                      class="btn-next form-control-sm mt-3 mr-3" 
+                                      class="btn-next btn-create-task form-control-sm mt-3" 
                                       v-show="oData.role == 'C'"
                                       _data-toggle="modal"
                                       _data-target=".bd-example-modal-xl" 
                                       v-on:click="">
-                                ВЫБРАТЬ ИСПОЛНИТЕЛЕМ
+                                ВЫБРАТЬ
                               </button>
+
+                              <br>
                               
                                 <button class="btn-next form-control-sm mt-3" 
                                         v-show="oData.role == 'C'" 
@@ -380,7 +382,7 @@
                 <!-- <span v-if="dialog.firstName && dialog.lastName">{{dialog.firstName}} {{dialog.lastName}}</span>
                 <span v-else="!dialog.firstName && !dialog.lastName">{{dialog.userName}}</span> -->
                 <button 
-                class="btn-next form-control-sm mt-3 mb-3 mr-3" 
+                class="btn-create-task btn-next form-control-sm mt-3 mb-3 mr-3" 
                 v-show="oData.role == 'C'"
                 _data-toggle="modal"
                 _data-target=".bd-example-modal-xl" 

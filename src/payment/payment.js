@@ -59,7 +59,9 @@ export default {
                                 .catch((XMLHttpRequest) => {
                                     throw new Error(XMLHttpRequest.response.data);
                                 });
-                        } catch (ex) {
+                        } 
+                        
+                        catch (ex) {
                             throw new Error(ex);
                         }
                     },
@@ -81,7 +83,9 @@ export default {
                                 .catch((XMLHttpRequest) => {
                                     throw new Error(XMLHttpRequest.response.data);
                                 });
-                        } catch (ex) {
+                        } 
+                        
+                        catch (ex) {
                             throw new Error(ex);
                         }
                     },
