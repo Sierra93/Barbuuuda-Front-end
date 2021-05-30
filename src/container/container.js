@@ -194,12 +194,25 @@ export default {
         // Функция регистрирует юзера.
         onCreate() {
             const sUrl = this.oData.urlApi.concat("/user/create");
-            let oData = {
-                UserName: $("#idLogin").val(),
-                UserPassword: $("#idPassword").val(),
-                Email: $("#idEmail").val(),
-                UserRole: this.role
-            };
+            let oData = {};
+
+            if (this.role == "C") {
+                oData = {
+                    UserName: $("#idLog").val(),
+                    UserPassword: $("#idPass1").val(),
+                    Email: $("#idEma1").val(),
+                    UserRole: this.role
+                };
+            }
+
+            else {
+                oData = {
+                    UserName: $("#idLogin").val(),
+                    UserPassword: $("#idPassword").val(),
+                    Email: $("#idEmail").val(),
+                    UserRole: this.role
+                };
+            }            
 
             try {
                 axios.post(sUrl, oData)
