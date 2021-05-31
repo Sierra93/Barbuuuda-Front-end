@@ -205,7 +205,7 @@ export default {
                 };
             }
 
-            else {
+            else if (this.role == "E") {
                 oData = {
                     UserName: $("#idLogin").val(),
                     UserPassword: $("#idPassword").val(),

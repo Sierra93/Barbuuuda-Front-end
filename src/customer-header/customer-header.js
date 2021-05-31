@@ -102,7 +102,7 @@ export default {
             try {
                 axios.post(sUrl)
                     .then((response) => {
-                        console.log("Баланс: ", response.data);    
+                        console.log("Баланс:", response.data);    
                         this.balance = response.data;              
                     })
 

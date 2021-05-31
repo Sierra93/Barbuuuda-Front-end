@@ -22,13 +22,12 @@ export default {
         Calendar,
         DatePicker
     },
+
     created() {
         this._loadingResponds();
         this._loadingDialogs();        
     },
-    // mounted() {
-    //     paypal.Buttons().render('#paypal-button-container');
-    // },
+
     data() {
         return {
             picker: new Date(),
@@ -296,6 +295,29 @@ export default {
                         this.aMessages = response.data.messages;
                         this.statusArea = response.data.dialogState;
                         $("#idChat").modal("toggle");
+                    })
+
+                    .catch((XMLHttpRequest) => {
+                        throw new Error(XMLHttpRequest.response.data);
+                    });
+            } 
+            
+            catch (ex) {
+                throw new Error(ex);
+            }
+        },
+
+        // Функция проверит, оплатил ли заказчик текущее задание.
+        onCheckPayTask(taskId) {
+            let sUrl = this.oData.urlApi.concat("/task/is-pay");
+            let oTaskData = {
+                TaskId: taskId
+            };
+
+            try {
+                axios.post(sUrl, oTaskData)
+                    .then((response) => {
+                        console.log("Задание оплачено:", response.data);
                     })
 
                     .catch((XMLHttpRequest) => {
