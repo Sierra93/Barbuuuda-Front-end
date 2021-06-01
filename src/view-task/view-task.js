@@ -307,17 +307,23 @@ export default {
             }
         },
 
-        // Функция проверит, оплатил ли заказчик текущее задание.
-        onCheckPayTask(taskId) {
-            let sUrl = this.oData.urlApi.concat("/task/is-pay");
+        // Функция выберет исполнителя задания.
+        onSelectExecutor(taskId, executorId) {
+            let sUrl = this.oData.urlApi.concat("/task/select");
             let oTaskData = {
-                TaskId: taskId
+                TaskId: taskId,
+                ExecutorId: executorId
             };
 
             try {
                 axios.post(sUrl, oTaskData)
                     .then((response) => {
-                        console.log("Задание оплачено:", response.data);
+                        console.log(response.data);
+
+                        if (response.data) {
+                            $('#idSuccessSelectExecutor').modal('show');
+                            return;
+                        }
                     })
 
                     .catch((XMLHttpRequest) => {

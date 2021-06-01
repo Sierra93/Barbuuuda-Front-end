@@ -237,7 +237,7 @@
                                       v-show="oData.role == 'C'"
                                       _data-toggle="modal"
                                       _data-target=".bd-example-modal-xl" 
-                                      v-on:click="onCheckPayTask(oData.oViewTaskId)">
+                                      v-on:click="onSelectExecutor(oData.oViewTaskId, respond.executorId)">
                                 ВЫБРАТЬ
                               </button>
 
@@ -476,11 +476,39 @@
 <!-- 
                 <span class="d-flex justify-content-center top_spac"> Design by <a target="_blank"
                     href="https://www.linkedin.com/in/sunil-rajput-nattho-singh/">Sunil Rajput</a></span> -->
-                    <!-- <div>&nbsp;</div> -->
-              </div>
+                    <!-- <div>&nbsp;</div> -->                   
+              </div>              
             </div>
           </div>
         </div>
+        </div>
+
+         <!-- Модалка уведомления о выборе исполнителя. -->
+         <div class="modal fade" id="idSuccessSelectExecutor" tabindex="-1" role="dialog" aria-labelledby="idSuccessSelectExecutorTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="idSuccessSelectExecutorTitle">Выбор исполнителя задания</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+      
+              <div class="modal-body">
+                Исполнитель вашего задания выбран. После подтверждения согласия исполнителем, 
+                статус вашего задания изменится на "В работе".
+                Статусы своих заданий вы можете отслеживать на своей главной странице.
+              </div>
+      
+              <div class="modal-footer">            
+                  <button type="button" 
+                          class="btn-next form-control-sm"
+                          data-dismiss="modal">
+                      Закрыть
+                  </button>
+              </div>
+            </div>
+          </div>
         </div>
 </body>
 </html>
