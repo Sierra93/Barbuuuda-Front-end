@@ -28,6 +28,10 @@ export default {
         this._loadingCountQuestions();
         this._loadingProfile();
         this._loadingCategoryList();
+
+        if (sessionStorage["role"] == "E") {
+            this.onGetInvities();
+        }
     },
     data() {
         return {
@@ -44,7 +48,9 @@ export default {
             aProfileData: [],
             aCategories: [],
             aExecutorSpecializations: [],
-            checked: null
+            checked: null,
+            aInvities: [],
+            bActivity: false
         }
     },    
     methods: {
@@ -257,6 +263,25 @@ export default {
                 return;
             }    
             console.log("checked false");        
+        },
+
+        // Функция получит список заданий, в которых был выбран исполнитель.
+        onGetInvities() {
+            let sUrl = this.oData.urlApi.concat("/executor/invite");
+
+            axios.post(sUrl)
+                .then((response) => {
+                    this.aInvities = response.data.invities;
+                    console.log("Список приглашений", response.data);
+
+                    if (response.data.invities.length > 0) {
+                        this.bActivity = true;
+                    }
+                })
+
+                .catch((XMLHttpRequest) => {
+                    throw new Error(XMLHttpRequest.response.data);
+                });
         }
     }
 }

@@ -24,7 +24,7 @@ export default {
         }
     },
     created() {
-        
+        console.log("init e-home");
     },
     methods: {
          
