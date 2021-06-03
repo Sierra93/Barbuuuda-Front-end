@@ -51,8 +51,8 @@
             </div>
 
             <!-- Список заданий. -->
-            <div class="block-my-tasks">
-                <div class="card card-task card-subcategory" v-for="el in oData.aCustomerTasks">                    
+            <div class="block-my-tasks mb-3">                
+                <div class="card card-task card-subcategory" v-for="el in aMyTasks">
                     <div class="card-header header-task">
                         <div class="block-icon">
                             <div>
@@ -76,11 +76,11 @@
                             <span class="text-dark">{{el.countViews}}</span>
                         </div>
 
-                        <div class="badge badge-pill badge-primary content-title">
+                        <div class="badge badge-pill badge-primary">
                             <span>{{el.typeCode}}</span>
                         </div>
 
-                        <div class="badge badge-pill badge-warning content-title">
+                        <div class="badge badge-pill badge-warning">
                             <span>{{el.statusName}}</span>
                         </div>
 
@@ -112,32 +112,38 @@
                                 <span>{{el.categoryName}}</span>
                             </div>
 
-
-                            <div class="offer">
-                                <!-- <button class="btn-next form-control-sm" v-on:click="">КО ВСЕМ СТАВКАМ</button> -->
-                                
+                            <!-- <div class="offer">
                                 <button 
                                     class="btn-next form-control-sm" 
-                                    _v-bind:value="el.taskId"
-                                    v-on:click="onGetTask(el.taskId)">
-                                    ОТКРЫТЬ ЗАДАНИЕ
+                                    _v-show="el.countOffers"
+                                    v-on:click="onAcceptTask(el.taskId)">
+                                    ПРИНЯТЬ
                                 </button>
-                            </div>
+
+                                &nbsp;
+
+                                <button 
+                                    class="btn-next btn-create-task" 
+                                    _v-show="!el.countOffers"
+                                    v-on:click="onCancelTask(el.taskId)">
+                                    ОТКАЗАТЬСЯ
+                                </button>
+                            </div> -->
                         </div>
                     </div>
-                </div>                
+                </div>
             </div>
 
             <!-- Если нет активных заданий у исполнителя. -->
              <div class="d-flex justify-content-center mb-3">
-                <span v-show="aActiveTasks.length == 0 && oData.role == 'E'">
+                <span v-show="aMyTasks.length == 0 && oData.role == 'E'">
                     На данный момент у вас нет заданий взятых в работу...
                 </span>                
             </div> 
 
             <!-- Пагинация. -->
             <pagination class="pagination-sm block-pagination card-subcategory"
-            _v-show="aActiveTasks.length >= 10 && oData.role == 'E'">
+            v-show="aMyTasks.length > 0 && oData.role == 'E'">
                 <nav aria-label="Page navigation example">
                     <ul class="pagination">
                         <li class="page-item">

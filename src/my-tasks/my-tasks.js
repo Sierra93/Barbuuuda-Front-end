@@ -24,11 +24,13 @@ export default {
         this._loadingTaskList();
         this._totalPageetPagination();
         this.onGetPagination(1);
+        this._loadMyTasks();
     },
     data() {
         return {
             sSearch: null,
-            aActiveTasks: []
+            aActiveTasks: [],
+            aMyTasks: []
          }
     },    
     props: ["oData", "oEditTask"],
@@ -209,6 +211,27 @@ export default {
                     .then((response) => {         
                         console.log("filter pagination", response.data);
                         this.oData.aCustomerTasks = response.data.tasks;
+                    })
+
+                    .catch((XMLHttpRequest) => {
+                        throw new Error(XMLHttpRequest.response.data);
+                    });
+            } 
+            
+            catch (ex) {
+                throw new Error(ex);
+            }
+        },
+
+        // Функция получит задания, которые находятся в работе у исполнителя.
+        _loadMyTasks() {
+            let sUrl = this.oData.urlApi.concat("/executor/my");
+
+            try {
+                axios.post(sUrl)
+                    .then((response) => {               
+                        this.aMyTasks = response.data.invities;
+                        console.log("Задания в работе", response.data.invities);
                     })
 
                     .catch((XMLHttpRequest) => {

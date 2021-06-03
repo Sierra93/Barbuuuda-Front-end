@@ -17,9 +17,10 @@
                 <div class="notifications">
                     <div class="notifications__wrp">
                         <span class="notifications__subtitle">Уведомления</span>
-                        <span class="notifications__history ml-3">История уведомлений</span>
+                        <span class="notifications__history ml-3">История уведомлений</span>                        
                     </div>
                     <p class="notifications__txt" v-show="!bActivity">Новых уведомлений нет</p>
+                    <h5 class="ml-3 mt-3" v-show="aInvities.length > 0">Задания, в которых вас выбрали исполнителем</h5>
 
                     <!-- Список уведомлений. -->
                     <div class="block-my-tasks mb-3">                
@@ -87,7 +88,7 @@
                                         <button 
                                             class="btn-next form-control-sm" 
                                             _v-show="el.countOffers"
-                                            v-on:click="onGetTask(el.taskId)">
+                                            v-on:click="onAcceptTask(el.taskId)">
                                             ПРИНЯТЬ
                                         </button>
 
@@ -96,7 +97,7 @@
                                         <button 
                                             class="btn-next btn-create-task" 
                                             _v-show="!el.countOffers"
-                                            v-on:click="onGetTask(el.taskId)">
+                                            v-on:click="onCancelTask(el.taskId)">
                                             ОТКАЗАТЬСЯ
                                         </button>
                                     </div>

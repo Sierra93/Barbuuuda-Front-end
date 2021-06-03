@@ -50,7 +50,9 @@ export default {
             aExecutorSpecializations: [],
             checked: null,
             aInvities: [],
-            bActivity: false
+            bActivity: false,
+            bAccept: false,
+            bCancel: false
         }
     },    
     methods: {
@@ -276,6 +278,52 @@ export default {
 
                     if (response.data.invities.length > 0) {
                         this.bActivity = true;
+                    }
+                })
+
+                .catch((XMLHttpRequest) => {
+                    throw new Error(XMLHttpRequest.response.data);
+                });
+        },
+
+        // Функция принятия в работу задания.
+        onAcceptTask(taskId) {
+            let sUrl = this.oData.urlApi.concat("/executor/accept");
+            let oTaskData = {
+                TaskId: taskId
+            };
+
+            axios.post(sUrl, oTaskData)
+                .then((response) => {
+                    console.log("Задача ".concat(taskId).concat(" принята в работу"), response.data);
+
+                    if (response.data) {
+                        this.bAccept = true;
+
+                        return this.onGetInvities();
+                    }
+                })
+
+                .catch((XMLHttpRequest) => {
+                    throw new Error(XMLHttpRequest.response.data);
+                });
+        },
+
+        // Функция отказа от работы над заданием.
+        onCancelTask(taskId) {
+            let sUrl = this.oData.urlApi.concat("/executor/cancel");
+            let oTaskData = {
+                TaskId: taskId
+            };
+
+            axios.post(sUrl, oTaskData)
+                .then((response) => {
+                    console.log("Задача ".concat(taskId).concat(" отклонена"), response.data);
+
+                    if (response.data) {
+                        this.bCancel = true;
+
+                        return this.onGetInvities();
                     }
                 })
 
