@@ -48,6 +48,7 @@ export default {
             this.editTask = this.oEditTask.editTask[0];
             this.sCategoryName = this.oEditTask.editTask[0].categoryName;
             this.sSpecName = this.oEditTask.editTask[0].specName;
+            this.sEditTaskTitle = this.oEditTask.editTask[0].taskTitle;
         }
 
         refreshToken();
@@ -140,7 +141,7 @@ export default {
                     CategoryCode: this.sCategoryCode,
                     SpecCode: this.sSpecCode,
                     TaskEndda: $("#idDateTaskEndda").val(),
-                    TaskPrice: +$("#idPrice").val()
+                    TaskPrice: $("#idPrice").val()
                 };
             }
 
@@ -153,9 +154,12 @@ export default {
                     CategoryCode: this.editTask.categoryCode,
                     SpecCode: this.editTask.specCode,
                     TaskEndda: $("#idEditDateTaskEndda").val(),
-                    TaskPrice: +$("#idEditPrice").val()
+                    TaskPrice: $("#idEditPrice").val()
                 };
             }
+
+            let formatPrice = this.utils.replaceSpacesPrice(oData.TaskPrice);
+            oData.TaskPrice = +formatPrice;
 
             try {
                 axios.post(sUrl, oData)

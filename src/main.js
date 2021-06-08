@@ -78,6 +78,10 @@ const utils = {
       });
   },
 
+  replaceSpacesPrice: (price) => {
+    return price.replace(/\s/g, '');
+  },
+
   // Функция отсчитывает время бездействия юзера, по окончании простоя убивает сессию и перенаправляет на стартовую для авторизации.
   deadlineSession: () => {
     var idleTime = 0;
@@ -105,7 +109,7 @@ const utils = {
             $(".right-panel").show();
             this.$router.push("/");
         }
-    }
+    }    
   },
 
   // Функция обновит токен через каждые 9 мин.

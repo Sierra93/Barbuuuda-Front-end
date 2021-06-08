@@ -112,8 +112,8 @@
                                 <span>{{el.categoryName}}</span>
                             </div>
 
-                            <!-- <div class="offer">
-                                <button 
+                            <div class="offer">
+                                <!-- <button 
                                     class="btn-next form-control-sm" 
                                     _v-show="el.countOffers"
                                     v-on:click="onAcceptTask(el.taskId)">
@@ -127,8 +127,22 @@
                                     _v-show="!el.countOffers"
                                     v-on:click="onCancelTask(el.taskId)">
                                     ОТКАЗАТЬСЯ
+                                </button> -->
+
+                                <button 
+                                    class="btn-next form-control-sm" 
+                                    v-show="el.countOffers"
+                                    v-on:click="onGetTask(el.taskId)">
+                                    КО ВСЕМ СТАВКАМ
                                 </button>
-                            </div> -->
+
+                                <button 
+                                    class="btn-next form-control-sm" 
+                                    v-show="!el.countOffers"
+                                    v-on:click="onGetTask(el.taskId)">
+                                    ОТКРЫТЬ ЗАДАНИЕ
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>

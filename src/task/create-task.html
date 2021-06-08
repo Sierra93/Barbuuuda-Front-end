@@ -176,13 +176,13 @@
               <input id="idTaskTitle" 
                       class="form-control-sm input-task search-category" 
                       placeholder="Введите название"
-                      v-show="!editTask.length">
+                      v-show="!oEditTask.editTask.bEdit">
 
               <input  id="idEditTaskTitle" 
                       class="form-control-sm input-task search-category" 
                       placeholder="Введите название"
-                      v-show="editTask.length"
-                      :value="editTask.taskTitle">
+                      v-show="oEditTask.editTask.bEdit"
+                      :value="oEditTask.editTask[0].taskTitle">
             </div>            
 
             <div class="mb-3">
@@ -193,13 +193,13 @@
               <textarea id="idTaskDetail" 
                         class="form-control-sm input-task detail-field"
                         placeholder="Опишите, что именно вам нужно"
-                        v-show="!editTask.length"/>
+                        v-show="!oEditTask.editTask.bEdit"/>
 
               <textarea id="idEditTaskDetail" 
                         class="form-control-sm input-task detail-field"
                         placeholder="Опишите, что именно вам нужно"
-                        v-show="editTask.length"
-                        :value="editTask.taskDetail"/><br>
+                        v-show="oEditTask.editTask.bEdit"
+                        :value="oEditTask.editTask[0].taskDetail"/><br>
 
               <input type="file"
                       class="form-control-sm"
@@ -214,13 +214,13 @@
               <input id="idDateTaskEndda"
                       type="datetime-local"
                       class="form-control-sm date-endda"
-                      v-show="!editTask.length">
+                      v-show="!oEditTask.editTask.bEdit">
 
               <input id="idEditDateTaskEndda"
                       type="datetime-local"
                       class="form-control-sm date-endda"
-                      v-show="editTask.length"
-                      :value="editTask.taskEndda">
+                      v-show="oEditTask.editTask.bEdit"
+                      :value="oEditTask.editTask[0].taskEndda">
             </div>
 
             <div class="mb-3">
@@ -230,12 +230,12 @@
               <strong class="asterisk">&nbsp;&#42;</strong><br>
               <input id="idPrice" 
                       class="form-control-sm input-task-price date-endda"
-                      v-show="!editTask.length">
+                      v-show="!oEditTask.editTask.bEdit">
 
                       <input id="idEditPrice" 
                       class="form-control-sm input-task-price date-endda"
-                      v-show="editTask.length"
-                      :value="editTask.taskPrice">
+                      v-show="oEditTask.editTask.bEdit"
+                      :value="oEditTask.editTask[0].taskPrice">
             </div>
 
             <button class="btn-next form-control-sm" v-on:click="onBack()">НАЗАД</button>
