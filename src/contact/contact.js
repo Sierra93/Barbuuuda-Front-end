@@ -7,10 +7,12 @@ import VueRouter from 'vue-router';
 import axios from 'axios';
 import $ from "jquery";
 
-$(function () {    
-    // TODO: Переделать на другой способ глобального хранения! 
-    __VUE_HOT_MAP__.refreshToken();
-});
+import { refreshToken } from '../store.js';
+
+// $(function () {    
+//     // TODO: Переделать на другой способ глобального хранения! 
+//     __VUE_HOT_MAP__.refreshToken();
+// });
 
 export default {
     name: 'contact',
@@ -20,6 +22,7 @@ export default {
     },
     created() {
        this._loadContacts();
+       refreshToken();
     },
     data() {
         return {

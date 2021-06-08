@@ -9,9 +9,11 @@ import DatePicker from 'v-calendar/lib/components/date-picker.umd';
 import $ from "jquery";
 import axios from 'axios';
 
-$(function () {    
-    __VUE_HOT_MAP__.refreshToken();
-});
+import { refreshToken } from '../store.js';
+
+// $(function () {    
+//     __VUE_HOT_MAP__.refreshToken();
+// });
 
 export default {
     name: 'c-home',
@@ -32,6 +34,8 @@ export default {
         if (sessionStorage["role"] == "E") {
             this.onGetInvities();
         }
+
+        refreshToken();
     },
     data() {
         return {

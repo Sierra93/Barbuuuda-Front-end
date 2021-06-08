@@ -1,6 +1,7 @@
 /* eslint-disable */
 // eslint-disable-next-line no-unused-vars
 
+import Vue from "vue";
 import Container from '../components/container.vue';
 import NavMenu from '../components/nav-menu.vue';
 import Footer from '../components/footer.vue';
@@ -10,39 +11,43 @@ import VueRouter from 'vue-router';
 import $ from "jquery";
 import axios from 'axios';
 
-const apiUrlLocal = "http://localhost:58822";
-const apiUrlProd = "https://barbuuuda.online";
+import { refreshToken } from '../store.js';
+import { apiUrlLocalConst } from '../store.js';
+import { apiUrlProdConst } from '../store.js';
+
+const apiUrlLocal = apiUrlLocalConst;
+const apiUrlProd = apiUrlProdConst;
 
 // Функция обновит токен через каждые 9 мин.
-$(function () {
-    setInterval(function () {
-        const sUrl = apiUrlLocal.concat("/user/token?userName=").concat(sessionStorage.user);
-        // const sUrl = apiUrlProd.concat("/user/token?userName=").concat(sessionStorage.user);
+// $(function () {
+//     setInterval(function () {
+//         const sUrl = apiUrlLocal.concat("/user/token?userName=").concat(sessionStorage.user);
+//         // const sUrl = apiUrlProd.concat("/user/token?userName=").concat(sessionStorage.user);
 
-        if (!sessionStorage.userToken) {
-            clearInterval(intervalID);
-            return;
-        }
-        refresh(sUrl);
-    }, 530000); // Каждые 9 мин.
-});
+//         if (!sessionStorage.userToken) {
+//             clearInterval(intervalID);
+//             return;
+//         }
+//         refresh(sUrl);
+//     }, 530000); // Каждые 9 мин.
+// });
 
 // Функция обновит токен.
-function refresh(sUrl) {
-    $.ajax({
-        type: 'GET',
-        url: sUrl,
-        dataType: 'text',
-        success: function (data) {
-            sessionStorage.userToken = data;
-            console.log("refresh token");
-        },
+// function refresh(sUrl) {
+//     $.ajax({
+//         type: 'GET',
+//         url: sUrl,
+//         dataType: 'text',
+//         success: function (data) {
+//             sessionStorage.userToken = data;
+//             console.log("refresh token");
+//         },
 
-        error: function (jqXHR) {
-            console.log('Ошибка обновления токена');
-        }
-    });    
-}
+//         error: function (jqXHR) {
+//             console.log('Ошибка обновления токена');
+//         }
+//     });    
+// }
    
 export default {
     name: 'main-page',    
@@ -70,36 +75,49 @@ export default {
         this.oData.role = sessionStorage["role"];
 
         // Функция обновит токен через каждые 9 мин.
-        __VUE_HOT_MAP__.refreshToken = function() {
-            setInterval(function () {
-                const sUrl = apiUrlLocal.concat("/user/token?userName=").concat(sessionStorage.user);
-                // const sUrl = apiUrlProd.concat("/user/token?userName=").concat(sessionStorage.user);
+        // __VUE_HOT_MAP__.refreshToken = function() {
+        //     setInterval(function () {
+        //         const sUrl = apiUrlLocal.concat("/user/token?userName=").concat(sessionStorage.user);
+        //         // const sUrl = apiUrlProd.concat("/user/token?userName=").concat(sessionStorage.user);
         
-                if (!sessionStorage.userToken) {
-                    clearInterval(intervalID);
-                    return;
-                }
-                refresh(sUrl);
-            }, 530000); // Каждые 9 мин.
-        },
+        //         if (!sessionStorage.userToken) {
+        //             clearInterval(intervalID);
+        //             return;
+        //         }
+        //         refresh(sUrl);
+        //     }, 530000); // Каждые 9 мин.
+        // },
 
-        function refresh(sUrl) {
-            $.ajax({
-                type: 'GET',
-                url: sUrl,
-                // data: {query: 'test'}, 
-                dataType: 'text',
-                success: function (data) {
-                    sessionStorage.userToken = data;
-                    console.log("refresh token");
-                },
+        // function refresh(sUrl) {
+        //     $.ajax({
+        //         type: 'GET',
+        //         url: sUrl,
+        //         // data: {query: 'test'}, 
+        //         dataType: 'text',
+        //         success: function (data) {
+        //             sessionStorage.userToken = data;
+        //             console.log("refresh token");
+        //         },
         
-                error: function (jqXHR) {
-                    console.log('Ошибка обновления токена');
-                }
-            });    
-        }                     
+        //         error: function (jqXHR) {
+        //             console.log('Ошибка обновления токена');
+        //         }
+        //     });    
+        // }                
+        
+        refreshToken();
     },
+    // mounted() {
+    //     // Загружает класс GlobalMethods.
+    //     Vue.loadScript("/src/store.js")
+    //         .then(() => {
+    //             window.GlobalMethods.refreshToken();
+    //             console.log("init GlobalMethods end");
+    //         })
+    //         .catch((ex) => {
+    //             throw new Error(ex);
+    //         });
+    // },
     data() {
         return {
             oData: {

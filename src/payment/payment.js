@@ -8,14 +8,16 @@ import axios from 'axios';
 import VueRouter from 'vue-router';
 import LoadScript from 'vue-plugin-load-script';
 
+import { refreshToken } from '../store.js';
+
 Vue.use(LoadScript);
 
 let context = null;
 
-$(function () {
-    // TODO: Переделать на другой способ глобального хранения! 
-    __VUE_HOT_MAP__.refreshToken();
-});
+// $(function () {
+//     // TODO: Переделать на другой способ глобального хранения! 
+//     __VUE_HOT_MAP__.refreshToken();
+// });
 
 export default {
     name: 'customer-header',
@@ -26,15 +28,16 @@ export default {
 
     props: ["oData"],
 
+    created() {
+        context = this;
+        refreshToken();
+    },
+
     data() {
         return {
 
         }
-    },
-
-    created() {
-        context = this;
-    },
+    },    
 
     mounted() {
         // Загружает скрипт PayPal SDK.

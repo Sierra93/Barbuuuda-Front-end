@@ -6,10 +6,12 @@ import CustomerHeader from '../components/customer-header.vue';
 import $ from "jquery";
 import axios from 'axios';
 
-$(function () {    
-    // TODO: Переделать на другой способ глобального хранения! 
-    __VUE_HOT_MAP__.refreshToken();
-});
+import { refreshToken } from '../store.js';
+
+// $(function () {    
+//     // TODO: Переделать на другой способ глобального хранения! 
+//     __VUE_HOT_MAP__.refreshToken();
+// });
 
 export default {
     name: 'profile',
@@ -18,7 +20,7 @@ export default {
     },
     props: ['oData'],
     created() {
-        
+        refreshToken();
     },
     data() {
         return {

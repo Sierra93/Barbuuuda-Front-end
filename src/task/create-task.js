@@ -5,10 +5,12 @@ import CreateTask from '../components/create-task.vue';
 import $ from "jquery";
 import axios from 'axios';
 
-$(function () {  
-    // TODO: Переделать на другой способ глобального хранения!   
-    __VUE_HOT_MAP__.refreshToken();
-});
+import { refreshToken } from '../store.js';
+
+// $(function () {  
+//     // TODO: Переделать на другой способ глобального хранения!   
+//     __VUE_HOT_MAP__.refreshToken();
+// });
 
 export default {
     name: 'task-create',
@@ -47,6 +49,8 @@ export default {
             this.sCategoryName = this.oEditTask.editTask[0].categoryName;
             this.sSpecName = this.oEditTask.editTask[0].specName;
         }
+
+        refreshToken();
     },
     props: ["oData", "oEditTask"],
     data() {

@@ -6,10 +6,12 @@ import $ from "jquery";
 import VueRouter from 'vue-router';
 import axios from 'axios';
 
-$(function () {    
-    // TODO: Переделать на другой способ глобального хранения! 
-    __VUE_HOT_MAP__.refreshToken();
-});
+import { refreshToken } from '../store.js';
+
+// $(function () {    
+//     // TODO: Переделать на другой способ глобального хранения! 
+//     __VUE_HOT_MAP__.refreshToken();
+// });
 
 export default {
     name: 'categories',
@@ -18,6 +20,7 @@ export default {
     },
     created() {
         this._loadingCategoryList();
+        refreshToken();
     },
     data() {
         return {
