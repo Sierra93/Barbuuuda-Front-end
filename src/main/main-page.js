@@ -132,6 +132,7 @@ export default {
                 aCalendarTasks: [],
                 aTasks: [],
                 aCustomerTasks: [],
+                aMyTasks: [],
                 aLastTasks: [],
                 countTotalTask: null,
                 countAuctionTask: null,

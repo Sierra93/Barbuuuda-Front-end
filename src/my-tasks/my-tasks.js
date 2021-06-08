@@ -46,8 +46,8 @@ export default {
                 try {
                     axios.post(sUrl)
                         .then((response) => {
-                            this.oData.aCustomerTasks = response.data;
-                            console.log("Список заданий", this.oData.aCustomerTasks);
+                            this.oData.aMyTasks = response.data;
+                            console.log("Список заданий", this.oData.aMyTasks);
                         })
 
                         .catch((XMLHttpRequest) => {
@@ -213,7 +213,7 @@ export default {
                 axios.get(sUrl)
                     .then((response) => {         
                         console.log("filter pagination", response.data);
-                        this.oData.aCustomerTasks = response.data.tasks;
+                        this.oData.aMyTasks = response.data.tasks;
                     })
 
                     .catch((XMLHttpRequest) => {
@@ -233,7 +233,7 @@ export default {
             try {
                 axios.post(sUrl)
                     .then((response) => {               
-                        this.aMyTasks = response.data.invities;
+                        this.oData.aMyTasks = response.data.invities;
                         console.log("Задания в работе", response.data.invities);
                     })
 
