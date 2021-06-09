@@ -154,7 +154,7 @@ export default {
                 axios.get(sUrl)
                     .then((response) => {         
                         console.log("filter data", response.data);
-                        this.oData.aTasks = response.data;
+                        this.oData.aMyTasks = response.data;
 
                         if (+param === NaN) {
                             newUrl = window.location.href + "/search=" + param;

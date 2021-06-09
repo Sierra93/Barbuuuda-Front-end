@@ -229,12 +229,16 @@
                         <div class="text-right">
                             <div>
                                 <strong>Ставка {{respond.price}} ₽</strong>
+                                <br>
+                                <div class="badge badge-pill badge-warning mt-3" v-show="bSelectPay && oData.role == 'C'">
+                                  <span class="">Исполнитель выбран. Ожидание подтверждения исполнителем.</span>
+                                </div>   
                             </div>
                             
                             <div>
                               <button 
                                       class="btn-next btn-create-task form-control-sm mt-3" 
-                                      v-show="oData.role == 'C'"
+                                      v-show="oData.role == 'C' && !bSelectPay"
                                       _data-toggle="modal"
                                       _data-target=".bd-example-modal-xl" 
                                       v-on:click="onSelectExecutor(oData.oViewTaskId, respond.executorId)">
@@ -244,7 +248,7 @@
                               <br>
                               
                                 <button class="btn-next form-control-sm mt-3" 
-                                        v-show="oData.role == 'C'" 
+                                        v-show="oData.role == 'C' && !bSelectPay" 
                                         data-toggle="modal" 
                                         _data-target=".bd-example-modal-xl"
                                         v-on:click="onAnswer(respond.executorId)">
@@ -255,7 +259,7 @@
                                         v-show="oData.role == 'E' && respond.isVisibleButton" 
                                         v-on:click="">
                                     ИЗМЕНИТЬ СТАВКУ
-                                </button>
+                                </button>                                                             
                             </div>
                         </div>
                         </div>
@@ -280,18 +284,18 @@
             </div>
     
             <div class="modal-footer">
-                <button type="button" 
-                        class="btn btn-secondary" 
-                        data-dismiss="modal">
-                    Отменить
-                </button>
-
-                <button type="button" 
+              <button type="button" 
                         class="btn btn-danger"
                         data-dismiss="modal"
                         v-on:click="OnDeleteTask()">
                     Удалить
                 </button>
+
+                <button type="button" 
+                        class="btn btn-secondary" 
+                        data-dismiss="modal">
+                    Отменить
+                </button>                
             </div>
           </div>
         </div>

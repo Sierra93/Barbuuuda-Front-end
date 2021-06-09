@@ -26,9 +26,11 @@ export default {
     },
 
     created() {
+        refreshToken();     
+
         this._loadingResponds();
         this._loadingDialogs();   
-        refreshToken();     
+        this._checkSelectPayTask();        
     },
 
     data() {
@@ -47,7 +49,8 @@ export default {
             message: "",
             firstName: "",
             lastName: "",
-            userName: ""
+            userName: "",
+            bSelectPay: false
          }
     },    
     props: ["oData", "oEditTask"],
@@ -327,6 +330,30 @@ export default {
                             $('#idSuccessSelectExecutor').modal('show');
                             return;
                         }
+                    })
+
+                    .catch((XMLHttpRequest) => {
+                        throw new Error(XMLHttpRequest.response.data);
+                    });
+            } 
+            
+            catch (ex) {
+                throw new Error(ex);
+            }
+        },
+
+        // Функция проверит оплачено ли задание и выбран ли исполнитель.
+        _checkSelectPayTask() {
+            let sUrl = this.oData.urlApi.concat("/task/check-select-pay");
+            let oTaskData = {
+                TaskId: this.oData.oViewTaskId
+            };
+
+            try {
+                axios.post(sUrl, oTaskData)
+                    .then((response) => {
+                        console.log("Оплачено и выбран исполнитель", response.data);
+                        this.bSelectPay = response.data;
                     })
 
                     .catch((XMLHttpRequest) => {
