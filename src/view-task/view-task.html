@@ -178,8 +178,11 @@
                 <h6 class="mt-3 mb-3" v-show="oData.role == 'E'">
                     <strong>Ставок к заданию: </strong> {{respondCount}} </h6>
 
-                <h5 class="mt-3 mb-3" v-show="oData.role == 'C'">
+                <h5 class="mt-3 mb-3" v-show="oData.role == 'C' && bSelectPay && oData.role == 'C' && !bWorkAccept">
                     <strong>Выберите исполнителя</strong> для вашего задания</h5>
+
+                    <h5 class="mt-3 mb-3" v-show="oData.role == 'C' && bSelectPay && oData.role == 'C' && bWorkAccept">
+                      Выбранный исполнитель</h5>
 
                 <!-- Область со списком ставок к заданию. -->
                 <!-- <details id="idOpen" v-on:click="onTogglebRespondsOpen($event)">
@@ -230,8 +233,12 @@
                             <div>
                                 <strong>Ставка {{respond.price}} ₽</strong>
                                 <br>
-                                <div class="badge badge-pill badge-warning mt-3" v-show="bSelectPay && oData.role == 'C'">
-                                  <span class="">Исполнитель выбран. Ожидание подтверждения исполнителем.</span>
+                                <div class="">
+                                  <span class="badge badge-pill badge-warning"
+                                        v-show="bSelectPay && oData.role == 'C' && !bWorkAccept">
+                                        Исполнитель выбран. Ожидание подтверждения исполнителем.</span>
+                                  
+                                  <span class="badge badge-pill badge-success">Исполнитель выбран.</span>
                                 </div>   
                             </div>
                             

@@ -30,7 +30,8 @@ export default {
 
         this._loadingResponds();
         this._loadingDialogs();   
-        this._checkSelectPayTask();        
+        this._checkSelectPayTask();    
+        this._loadWorkRespond();    
     },
 
     data() {
@@ -50,7 +51,8 @@ export default {
             firstName: "",
             lastName: "",
             userName: "",
-            bSelectPay: false
+            bSelectPay: false,
+            bWorkAccept : false
          }
     },    
     props: ["oData", "oEditTask"],
@@ -354,6 +356,31 @@ export default {
                     .then((response) => {
                         console.log("Оплачено и выбран исполнитель", response.data);
                         this.bSelectPay = response.data;
+                    })
+
+                    .catch((XMLHttpRequest) => {
+                        throw new Error(XMLHttpRequest.response.data);
+                    });
+            } 
+            
+            catch (ex) {
+                throw new Error(ex);
+            }
+        },
+
+        // Функция оставит только ставку исполнителя, который принял в работу задание.
+        _loadWorkRespond() {
+            let sUrl = this.oData.urlApi.concat("/task/check-accept-invite");
+            let oTaskData = {
+                TaskId: this.oData.oViewTaskId
+            };
+
+            try {
+                axios.post(sUrl, oTaskData)
+                    .then((response) => {
+                        console.log(response.data);
+                        this.aResponds = response.data.responds;
+                        this.bWorkAccept = response.data.isWorkAccept;
                     })
 
                     .catch((XMLHttpRequest) => {
