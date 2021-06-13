@@ -30,8 +30,11 @@ export default {
 
         this._loadingResponds();
         this._loadingDialogs();   
-        this._checkSelectPayTask();    
-        this._loadWorkRespond();    
+
+        if (this.oData.role == "C") {
+            this._checkSelectPayTask();
+            this._loadWorkRespond();
+        }
     },
 
     data() {

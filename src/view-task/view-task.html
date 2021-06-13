@@ -238,7 +238,8 @@
                                         v-show="bSelectPay && oData.role == 'C' && !bWorkAccept">
                                         Исполнитель выбран. Ожидание подтверждения исполнителем.</span>
                                   
-                                  <span class="badge badge-pill badge-success">Исполнитель выбран.</span>
+                                  <span class="badge badge-pill badge-success"
+                                        v-show="bSelectPay && oData.role == 'C' && bWorkAccept">Исполнитель выбран.</span>
                                 </div>   
                             </div>
                             

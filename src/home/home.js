@@ -277,7 +277,7 @@ export default {
 
             axios.post(sUrl)
                 .then((response) => {
-                    this.aInvities = response.data.invities;
+                    this.aInvities = response.data.tasks;
                     console.log("Список приглашений", response.data);
 
                     if (response.data.invities.length > 0) {
