@@ -11,6 +11,8 @@ import DatePicker from 'v-calendar/lib/components/date-picker.umd';
 
 import { refreshToken } from '../store.js';
 
+let context = null;
+
 // $(function () {    
 //     // TODO: Переделать на другой способ глобального хранения! 
 //     __VUE_HOT_MAP__.refreshToken();
@@ -26,6 +28,7 @@ export default {
     },
 
     created() {
+        context = this;
         refreshToken();     
 
         this._loadingResponds();
@@ -249,7 +252,7 @@ export default {
                         this.statusArea = response.data.dialogState;
                         this.firstName = response.data.firstName;
                         this.lastName = response.data.lastName;
-                        this.userName = response.data.userName;
+                        this.userName = response.data.userName;                                              
                     })
 
                     .catch((XMLHttpRequest) => {
@@ -305,6 +308,13 @@ export default {
                     .then((response) => {
                         this.aMessages = response.data.messages;
                         this.statusArea = response.data.dialogState;
+
+                        // Запишет Id диалога.
+                        if (response.data.messages.length > 0) {
+                            context.dialogId = response.data.messages[0].dialogId;
+                            this.onGetDialogMessages(context.dialogId);   
+                        }  
+                                             
                         $("#idChat").modal("toggle");
                     })
 
