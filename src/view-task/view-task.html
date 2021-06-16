@@ -4,8 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <vue-headful title="Barbuuuda: Просмотр задания"/>
-    <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" type="text/css" rel="stylesheet"> -->
+    <vue-headful title="Barbuuuda: Просмотр задания"/>  
 </head>
 
 <body>    
@@ -227,15 +226,23 @@
                                     <span>{{respond.countNegative}}</span>
                                 </div>
                             </div>
-                        </div>
+                        </div>                      
 
                         <div class="text-right">
-                            <div>
+                            <div>                              
+                              <div>
+                                <button type="button" class="close close-icon" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                              </div>
+                              
+                              <br>
+
                                 <strong>Ставка {{respond.price}} ₽</strong>
                                 <br>
                                 <div class="">
                                   <span class="badge badge-pill badge-warning"
-                                        v-show="bSelectPay && oData.role == 'C' && !bWorkAccept">
+                                        v-show="bSelectPay && oData.role == 'C' && bWorkAccept == false">
                                         Исполнитель выбран. Ожидание подтверждения исполнителем.</span>
                                   
                                   <span class="badge badge-pill badge-success"
@@ -246,7 +253,7 @@
                             <div>
                               <button 
                                       class="btn-next btn-create-task form-control-sm mt-3" 
-                                      v-show="oData.role == 'C' && !bSelectPay"
+                                      v-show="oData.role == 'C'"
                                       _data-toggle="modal"
                                       _data-target=".bd-example-modal-xl" 
                                       v-on:click="onSelectExecutor(oData.oViewTaskId, respond.executorId)">
@@ -256,18 +263,18 @@
                               <br>
                               
                                 <button class="btn-next form-control-sm mt-3" 
-                                        v-show="oData.role == 'C' && !bSelectPay" 
+                                        v-show="oData.role == 'C'" 
                                         data-toggle="modal" 
                                         _data-target=".bd-example-modal-xl"
                                         v-on:click="onAnswer(respond.executorId)">
                                     ОТВЕТИТЬ
                                 </button>                               
 
-                                <button class="btn-next form-control-sm mt-3" 
+                                <button class="btn-next btn-create-task form-control-sm mt-3" 
                                         v-show="oData.role == 'E' && respond.isVisibleButton" 
                                         v-on:click="">
                                     ИЗМЕНИТЬ СТАВКУ
-                                </button>                                                             
+                                </button>                                                                         
                             </div>
                         </div>
                         </div>

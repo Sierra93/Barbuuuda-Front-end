@@ -148,9 +148,107 @@
                 </div>
             </div>
 
+            <!-- Список заданий в работе у исполнителя. -->
+            <div class="block-my-tasks mb-3">                
+                <div class="card card-task card-subcategory" v-for="el in oData.aWorkTasks">
+                    <div class="card-header header-task">
+                        <div class="block-icon">
+                            <div>
+                                <img src="../assets/images/1-wiper1.png">
+                            </div>
+                            &nbsp;
+
+                            <div class="ml-1 text-dark">
+                                <span>{{el.userName}}</span><br>
+                                <small>{{el.taskBegda}}</small>
+                            </div>
+                        </div>
+
+                        <div class="">
+                            <img src="../assets/images/message.png">&nbsp;
+                            <span class="text-dark">{{el.countOffers}}</span>
+                        </div>
+
+                        <div class="">
+                            <img src="../assets/images/Icon.png">&nbsp;
+                            <span class="text-dark">{{el.countViews}}</span>
+                        </div>
+
+                        <div class="badge badge-pill badge-primary">
+                            <span>{{el.typeCode}}</span>
+                        </div>
+
+                        <div class="badge badge-pill badge-warning">
+                            <span>{{el.statusName}}</span>
+                        </div>
+
+                        <div class="task-price">
+                            <img src="../assets/images/date_range.png">
+                            <span>{{el.taskEndda}}</span>
+                        </div>
+
+                        <div class="task-price">
+                            <span>{{el.taskPrice || 'По договоренности'}}
+                                <span v-show="el.taskPrice">₽</span>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <h5 class="card-title task-title">
+                            {{el.taskTitle}}
+                        </h5>
+
+                        <p class="card-text task-detail">
+                            {{el.taskDetail}}
+                        </p>
+                    </div>
+
+                    <div class="card-footer task-detail">
+                        <div class="block-footer">
+                            <div class="task-category">
+                                <span>{{el.categoryName}}</span>
+                            </div>
+
+                            <div class="offer">
+                                <!-- <button 
+                                    class="btn-next form-control-sm" 
+                                    _v-show="el.countOffers"
+                                    v-on:click="onAcceptTask(el.taskId)">
+                                    ПРИНЯТЬ
+                                </button>
+
+                                &nbsp;
+
+                                <button 
+                                    class="btn-next btn-create-task" 
+                                    _v-show="!el.countOffers"
+                                    v-on:click="onCancelTask(el.taskId)">
+                                    ОТКАЗАТЬСЯ
+                                </button> -->
+
+                                <button 
+                                    class="btn-next form-control-sm" 
+                                    v-show="el.countOffers"
+                                    v-on:click="onGetTask(el.taskId)">
+                                    КО ВСЕМ СТАВКАМ
+                                </button>
+
+                                <button 
+                                    class="btn-next form-control-sm" 
+                                    v-show="!el.countOffers"
+                                    v-on:click="onGetTask(el.taskId)">
+                                    ОТКРЫТЬ ЗАДАНИЕ
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- Если нет активных заданий у исполнителя. -->
              <div class="d-flex justify-content-center mb-3">
-                <span v-show="oData.aMyTasks.length == 0 && oData.role == 'E'">
+                <span v-show="oData.aWorkTasks.length == 0 && oData.role == 'E'">
                     На данный момент у вас нет заданий взятых в работу...
                 </span>                
             </div> 

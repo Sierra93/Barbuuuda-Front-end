@@ -332,6 +332,7 @@ export default {
                         console.log(response.data);
 
                         if (response.data) {
+                            this._loadingResponds();
                             $('#idSuccessSelectExecutor').modal('show');
                             return;
                         }

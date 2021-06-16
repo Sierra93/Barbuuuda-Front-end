@@ -228,13 +228,19 @@ export default {
 
         // Функция получит задания, которые находятся в работе у исполнителя.
         _loadMyTasks() {
-            let sUrl = this.oData.urlApi.concat("/executor/my");
+            let sUrl = this.oData.urlApi.concat("/executor/work");
 
             try {
                 axios.post(sUrl)
                     .then((response) => {               
-                        this.oData.aMyTasks = response.data.invities;
-                        console.log("Задания в работе", response.data.invities);
+                        if (this.oData.role == "E") {
+                            this.oData.aWorkTasks = response.data.tasks;
+                        }
+
+                        if (this.oData.role == "C") {
+                            this.oData.aMyTasks = response.data.tasks;
+                        }                    
+                        console.log("Задания в работе", response.data.tasks);
                     })
 
                     .catch((XMLHttpRequest) => {
