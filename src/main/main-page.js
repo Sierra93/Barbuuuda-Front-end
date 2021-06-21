@@ -123,8 +123,8 @@ export default {
             oData: {
                 urlApi: apiUrlLocal,
                 // urlApi: apiUrlProd,
-                currency: "RUB",
-                loadScriptPayPal: "https://www.paypal.com/sdk/js?client-id=AaT69mnC2Wl5xQ4i2vk67EscPVhnE6yNFzzwTFr8V93AVddY14Lhj29ZRyECJ_ReduhNyd6gX_AqzgR4&currency=RUB",
+                // currency: "RUB",
+                loadScriptPayment: "https://arsenalpay.ru/widget/script.js",
                 aHeader: [],
                 bGuest: false,
                 bCustomer: false,

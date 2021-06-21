@@ -18,8 +18,9 @@ function _refreshToken() {
     console.log("init refreshToken start");
     setInterval(function () {
         const apiUrlLocal = apiUrlLocalConst;
+        const apiUrlProd = apiUrlProdConst;
         const sUrl = apiUrlLocal.concat("/user/token?userName=").concat(sessionStorage.user);
-        // const sUrl = apiUrlProdConst.concat("/user/token?userName=").concat(sessionStorage.user);
+        // const sUrl = apiUrlProd.concat("/user/token?userName=").concat(sessionStorage.user);
 
         if (!sessionStorage.userToken) {
             // clearInterval(intervalID);
