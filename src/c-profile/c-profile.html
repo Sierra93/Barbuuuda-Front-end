@@ -67,11 +67,11 @@
               <button 
               id="idBtnAddScore"
               class="btn-next form-control-sm ml-1" 
-              v-on:click="">Пополнить счет</button>
+              v-on:click="onRouteRefillOrder()">Пополнить счет</button>
      </div>
      
      <div class="mt-1" v-show="bErrorScore">
-      <small class="text-danger">Минимальная сумма для пополнения 400 ₽</small>
+      <small class="text-danger">Минимальная сумма для пополнения 150 ₽</small>
      </div>
 
      <!-- История операций. -->     

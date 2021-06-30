@@ -23,8 +23,7 @@ export default {
     data() {
         return {
             bGuest: false,
-            bCreateBtn: false,
-            balance: null
+            bCreateBtn: false
         }
     },
     created() {
@@ -106,7 +105,7 @@ export default {
                 axios.post(sUrl)
                     .then((response) => {
                         console.log("Баланс:", response.data);    
-                        this.balance = response.data;              
+                        this.oData.balance = response.data;              
                     })
 
                     .catch((XMLHttpRequest) => {

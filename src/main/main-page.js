@@ -17,37 +17,6 @@ import { apiUrlProdConst } from '../store.js';
 
 const apiUrlLocal = apiUrlLocalConst;
 const apiUrlProd = apiUrlProdConst;
-
-// Функция обновит токен через каждые 9 мин.
-// $(function () {
-//     setInterval(function () {
-//         const sUrl = apiUrlLocal.concat("/user/token?userName=").concat(sessionStorage.user);
-//         // const sUrl = apiUrlProd.concat("/user/token?userName=").concat(sessionStorage.user);
-
-//         if (!sessionStorage.userToken) {
-//             clearInterval(intervalID);
-//             return;
-//         }
-//         refresh(sUrl);
-//     }, 530000); // Каждые 9 мин.
-// });
-
-// Функция обновит токен.
-// function refresh(sUrl) {
-//     $.ajax({
-//         type: 'GET',
-//         url: sUrl,
-//         dataType: 'text',
-//         success: function (data) {
-//             sessionStorage.userToken = data;
-//             console.log("refresh token");
-//         },
-
-//         error: function (jqXHR) {
-//             console.log('Ошибка обновления токена');
-//         }
-//     });    
-// }
    
 export default {
     name: 'main-page',    
@@ -72,59 +41,17 @@ export default {
         this.oData.bGuest = sessionStorage["role"] == "G" ? true : false;
         this.oData.bCustomer = sessionStorage["role"] == "C" ? true : false;
         this.oData.bExecutor = sessionStorage["role"] == "E" ? true : false;
-        this.oData.role = sessionStorage["role"];
-
-        // Функция обновит токен через каждые 9 мин.
-        // __VUE_HOT_MAP__.refreshToken = function() {
-        //     setInterval(function () {
-        //         const sUrl = apiUrlLocal.concat("/user/token?userName=").concat(sessionStorage.user);
-        //         // const sUrl = apiUrlProd.concat("/user/token?userName=").concat(sessionStorage.user);
-        
-        //         if (!sessionStorage.userToken) {
-        //             clearInterval(intervalID);
-        //             return;
-        //         }
-        //         refresh(sUrl);
-        //     }, 530000); // Каждые 9 мин.
-        // },
-
-        // function refresh(sUrl) {
-        //     $.ajax({
-        //         type: 'GET',
-        //         url: sUrl,
-        //         // data: {query: 'test'}, 
-        //         dataType: 'text',
-        //         success: function (data) {
-        //             sessionStorage.userToken = data;
-        //             console.log("refresh token");
-        //         },
-        
-        //         error: function (jqXHR) {
-        //             console.log('Ошибка обновления токена');
-        //         }
-        //     });    
-        // }                
-        
+        this.oData.role = sessionStorage["role"];                  
         refreshToken();
     },
-    // mounted() {
-    //     // Загружает класс GlobalMethods.
-    //     Vue.loadScript("/src/store.js")
-    //         .then(() => {
-    //             window.GlobalMethods.refreshToken();
-    //             console.log("init GlobalMethods end");
-    //         })
-    //         .catch((ex) => {
-    //             throw new Error(ex);
-    //         });
-    // },
     data() {
         return {
             oData: {
                 urlApi: apiUrlLocal,
                 // urlApi: apiUrlProd,
-                // currency: "RUB",
-                loadScriptPayment: "https://arsenalpay.ru/widget/script.js",
+                // currency: "RUB",                
+                // loadScriptPayment: "https://arsenalpay.ru/widget/script.js",
+                loadScriptPayment: "https://paymaster.ru/widget/widget.bundle.js",
                 aHeader: [],
                 bGuest: false,
                 bCustomer: false,
@@ -171,7 +98,9 @@ export default {
             aWork: [],
             aAdvantages: [],
             aProveliges: [],
-            sPassword: null                             
+            sPassword: null,
+            balance: null,
+            refillAmount: null
         }
     },    
     methods: {             
