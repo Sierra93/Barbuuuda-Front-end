@@ -25,6 +25,8 @@ import ExecutorList from './components/executor-list.vue';
 import vueHeadful from 'vue-headful';
 import PublicOffer from './components/public-offer.vue';
 import Payment from './components/payment.vue';
+import Register from './components/register.vue';
+import Login from './components/login.vue';
 
 Vue.use(VueRouter);
 Vue.component('Container', Container);
@@ -41,6 +43,8 @@ Vue.component('ExecutorList', ExecutorList);
 Vue.component('vue-headful', vueHeadful);
 Vue.component('PublicOffer', PublicOffer);
 Vue.component('Payment', Payment);
+Vue.component('Register', Register);
+Vue.component('Login', Login);
 
 // Общие функции приложения.
 const utils = {

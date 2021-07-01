@@ -8,11 +8,6 @@ import VueRouter from 'vue-router';
 
 import { refreshToken } from '../store.js';
 
-// $(function () {
-//     // TODO: Переделать на другой способ глобального хранения! 
-//     __VUE_HOT_MAP__.refreshToken();
-// });
-
 export default {
     name: 'customer-header',
     components: {

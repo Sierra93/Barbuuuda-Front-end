@@ -9,11 +9,6 @@ import axios from 'axios';
 
 import { refreshToken } from '../store.js';
 
-// $(function () {    
-//     // TODO: Переделать на другой способ глобального хранения! 
-//     __VUE_HOT_MAP__.refreshToken();
-// });
-
 export default {
     name: 'nav-menu',
     components: {
@@ -34,6 +29,7 @@ export default {
     methods: {
         // Функция проставит хидер в зависимости от роли юзера.
         _initHeader() {
+            // Начало цепочки проверок для хидера.
             if (this.$route.name == "main") {
                 this.oData.bCustomer = false;
                 this.oData.bExecutor = false;
@@ -72,6 +68,14 @@ export default {
                 this.oData.bCustomer = false;
                 this.oData.bExecutor = true;   
             }     
+
+            if (this.$route.name == "login" || this.$route.name == "register") {
+                // sessionStorage.clear();
+                // sessionStorage["role"] = "G";
+                this.oData.bGuest = true;
+            }
+
+            // Конец цепочки проверок для хидера.
         },
 
         // Функция проверяет авторизован ли юзер. 
