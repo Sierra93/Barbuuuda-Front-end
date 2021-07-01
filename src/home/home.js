@@ -131,11 +131,12 @@ export default {
                     })
 
                     .catch((XMLHttpRequest) => {
-                        // if (XMLHttpRequest.response.status === 401) {
-                        //     sessionStorage.clear();
-                        //     localStorage.clear();
-                        //     this.$router.push("/");
-                        // }
+                        if (XMLHttpRequest.response.status === 401) {
+                            sessionStorage.clear();
+                            sessionStorage["role"] = "G";
+                            this.oData.bGuest = true;
+                            this.$router.push("/");
+                        }
 
                         throw new Error('Ошибка кол-во вопросов', XMLHttpRequest.response.data);
                     });
