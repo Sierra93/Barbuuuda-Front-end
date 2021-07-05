@@ -14,12 +14,19 @@
             Barbuuuda                   
           </div>
         </a>
-        <img src="../assets/images/earth1.png" class="mr-4" />
-        <img src="../assets/images/mail1.png" class="mr-4" />   
+        <img src="../assets/images/earth1.png" 
+              class="mr-4" 
+              v-show="!oData.bHideHeader" />
+        <img src="../assets/images/mail1.png" 
+              class="mr-4"
+              v-show="!oData.bHideHeader" />   
       </div>
 
       <div class="d-flex align-items-center">
-        <a class="navbar-brand header-text" v-for="el in oData.aHeader" v-on:click="onGetMenu(el)">{{el}}</a>
+        <a class="navbar-brand header-text" 
+            v-show="!oData.bHideHeader"
+            v-for="el in oData.aHeader" 
+            v-on:click="onGetMenu(el)">{{el}}</a>
       </div>
 
       <!-- <div class="d-flex align-items-center">
@@ -37,13 +44,23 @@
       </div> -->
 
       <div class="right-head d-flex align-items-center">
-        <img src="../assets/images/pig1.png" class="mr-1" /><span class="price mr-2 d-flex">{{oData.balance || 0}} руб.</span>
-        <img src="../assets/images/get_money.png" class="ml-1" />
+        <img src="../assets/images/pig1.png" 
+              class="mr-1"
+              v-show="!oData.bHideHeader" />
+              <span class="price mr-2 d-flex"
+                    v-if="!oData.bHideHeader">{{oData.balance || 0}}                    
+            </span>
+
+            <span class="price mr-2 d-flex" v-if="!oData.bHideHeader">руб.</span>
+            
+        <img src="../assets/images/get_money.png" 
+              class="ml-1"
+              v-show="!oData.bHideHeader" />
        
 
         <div class="d-flex align-items-center">
           <!-- Выпадающее меню. -->
-          <div class="drop-down">
+          <div class="drop-down" v-show="!oData.bHideHeader">
             <button type="button" class="btn-item btn btn-default state" id="dropdownMenuButton" data-toggle="dropdown"
               aria-haspopup="true" aria-expanded="false">
               <i class="fa fa-user-circle-o d-flex align-items-center" aria-hidden="true">

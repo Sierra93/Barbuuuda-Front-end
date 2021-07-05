@@ -34,47 +34,52 @@ export default {
                 this.oData.bCustomer = false;
                 this.oData.bExecutor = false;
                 this.oData.bGuest = true;
+                this._showGuestHeader();
             }
     
             if (this.$route.name == "task-create" && this.oData.bCustomer) {
                 this.oData.bGuest = false;
                 this.oData.bExecutor = false;
+                this._showGuestHeader();
             }
 
             if (this.$route.name == "categories" && this.oData.bCustomer) {
                 this.oData.bGuest = false;
-                this.oData.bExecutor = false;                
+                this.oData.bExecutor = false;     
+                this._showGuestHeader();           
             }
 
             if (this.$route.name == "auction" && this.oData.bCustomer) {
                 this.oData.bGuest = false;
-                this.oData.bExecutor = false;                
+                this.oData.bExecutor = false;      
+                this._showGuestHeader();          
             }
 
             if (this.$route.name == "auction" && this.oData.bExecutor) {
                 this.oData.bGuest = false;
                 this.oData.bCustomer = false;
-                this.oData.bExecutor = true;                
+                this.oData.bExecutor = true;        
+                this._showGuestHeader();        
             }
     
             if (this.$route.name == "task-create" && this.oData.bExecutor) {
                 this.oData.bGuest = false;
                 this.oData.bCustomer = false;
                 this.oData.bExecutor = true;   
+                this._showGuestHeader();
             }            
 
             if (this.$route.name == "e-home") {
                 this.oData.bGuest = false;
                 this.oData.bCustomer = false;
-                this.oData.bExecutor = true;   
+                this.oData.bExecutor = true;            
+                this._showGuestHeader();       
             }     
 
-            if (this.$route.name == "login" || this.$route.name == "register") {
-                // sessionStorage.clear();
-                // sessionStorage["role"] = "G";
-                this.oData.bGuest = true;
-            }
-
+            if (this.$route.name == "login" || this.$route.name == "register") {                
+                this.oData.bExecutor = true;        
+                this._hideGuestHeader();                   
+            }            
             // Конец цепочки проверок для хидера.
         },
 
@@ -82,7 +87,8 @@ export default {
         _getAuthorize() {
             let userRole = "";
 
-            if (!sessionStorage["userToken"] && this.$route.name !== "public-offer") {
+            if (!sessionStorage["userToken"] && this.$route.name !== "public-offer" 
+            && this.$route.name !== "register" && this.$route.name !== "login") {
                 this.$router.push("/");
             }
 
@@ -109,10 +115,13 @@ export default {
 
             try {
                 axios.get(sUrl)
-                    .then((response) => {
-                        response.data.aHeaderFields.forEach(el => {
-                            this.oData.aHeader.push(el.headerField);
-                        });
+                    .then((response) => {        
+                        // Если не страница регистрации и не страница авторизации, то запишет поля хидера.               
+                        if (this.$route.name !== "login" && this.$route.name !== "register") {
+                            response.data.aHeaderFields.forEach(el => {
+                                this.oData.aHeader.push(el.headerField);
+                            });
+                        }
 
                         console.log("Хидер юзера", this.oData.aHeader);
                     })
@@ -155,5 +164,15 @@ export default {
 
             this.$router.push("/task/create");
         },  
+
+        // Функция скроет гостевой хидер.
+        _hideGuestHeader() {
+            this.oData.bHideHeader = true;
+        },
+
+        // Функция покажет гостевой хидер.
+        _showGuestHeader() {
+            this.oData.bHideHeader = false;
+        }
     }
 }

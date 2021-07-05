@@ -47,8 +47,8 @@ export default {
     data() {
         return {
             oData: {
-                urlApi: apiUrlLocal,
-                // urlApi: apiUrlProd,
+                // urlApi: apiUrlLocal,
+                urlApi: apiUrlProd,
                 // currency: "RUB",                
                 // loadScriptPayment: "https://arsenalpay.ru/widget/script.js",
                 loadScriptPayment: "https://paymaster.ru/widget/widget.bundle.js",
@@ -100,7 +100,8 @@ export default {
             aProveliges: [],
             sPassword: null,
             balance: null,
-            refillAmount: null
+            refillAmount: null,
+            bHideHeader: false
         }
     },    
     methods: {             

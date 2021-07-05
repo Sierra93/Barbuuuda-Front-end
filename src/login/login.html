@@ -6,7 +6,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <vue-headful title="Barbuuuda:Вход"/>
 </head>
-<body>
-    Авторизация
+<body>    
+    <h3 class="mt-5 text-center">Авторизация</h3>
+    <div class="mt-3 d-flex justify-content-center">
+        <div class="form-register">
+            <div>
+                <label>Login или E-mail</label><strong class="asterisk">&#42;</strong>
+                <input type="text" class="form-control" aria-label="First name">
+            </div>        
+
+            <div class="mt-3">
+                <label>Пароль</label><strong class="asterisk">&#42;</strong>
+                <input type="text" class="form-control" aria-label="First name">
+            </div>     
+
+            <div class="mt-3 text-center">
+                <button class="btn-register form-control-sm btn-create-task btn-all-tasks mb-3"
+                      _v-on:click="onCreate()">
+                        ВОЙТИ
+                </button>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
