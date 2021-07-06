@@ -2,4 +2,54 @@
 
 .form-register {
     width: 30%;
+    // position: absolute;
+    // top: 45%;
+    background: #00BDD6;
+    color: white;
+    //transition: all 0.21s ease;
+    transition: all .3s ease-out;
+    border-radius: initial;
+    // border-color: #F4511E;
+    font-family: Oswald;
+    // font-size: 12px;
+    // border-color: #00BDD6;
+    border: none;
+
+    :focus {
+        outline: none;
+    }
+}
+
+ // Кнопка создать задание.
+//  .btn-create-task {
+//     position: absolute;
+//     top: 45%;
+//     background: #F4511E;
+//     color: white;
+//     //transition: all 0.21s ease;
+//     transition: all .3s ease-out;
+//     border-radius: initial;
+//     border-color: #F4511E;
+//     font-family: Oswald;
+//     font-size: 12px;
+//     border-color: #00BDD6;
+//     border: none;
+
+//     &:hover {
+//       box-shadow: 0 0 10px rgba(0,0,0,0.5);
+//     }
+//   }
+
+.btn-register {
+    // position: absolute;
+    // top: 45%;
+    background: #f4511e;
+    color: #fff;
+    transition: all .3s ease-out;
+    border-radius: initial;
+    border-color: #f4511e;
+    font-family: Oswald;
+    font-size: 12px;
+    border-color: #00bdd6;
+    border: none;
 }
