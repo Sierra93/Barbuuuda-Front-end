@@ -9,9 +9,11 @@ import DatePicker from 'v-calendar/lib/components/date-picker.umd';
 import $ from "jquery";
 import axios from 'axios';
 
-$(function () {    
-    __VUE_HOT_MAP__.refreshToken();
-});
+import { refreshToken } from '../store.js';
+
+// $(function () {    
+//     __VUE_HOT_MAP__.refreshToken();
+// });
 
 export default {
     name: 'c-home',
@@ -28,6 +30,12 @@ export default {
         this._loadingCountQuestions();
         this._loadingProfile();
         this._loadingCategoryList();
+
+        if (sessionStorage["role"] == "E") {
+            this.onGetInvities();
+        }
+
+        refreshToken();
     },
     data() {
         return {
@@ -44,7 +52,11 @@ export default {
             aProfileData: [],
             aCategories: [],
             aExecutorSpecializations: [],
-            checked: null
+            checked: null,
+            aInvities: [],
+            bActivity: false,
+            bAccept: false,
+            bCancel: false
         }
     },    
     methods: {
@@ -119,11 +131,12 @@ export default {
                     })
 
                     .catch((XMLHttpRequest) => {
-                        // if (XMLHttpRequest.response.status === 401) {
-                        //     sessionStorage.clear();
-                        //     localStorage.clear();
-                        //     this.$router.push("/");
-                        // }
+                        if (XMLHttpRequest.response.status === 401) {
+                            sessionStorage.clear();
+                            sessionStorage["role"] = "G";
+                            this.oData.bGuest = true;
+                            this.$router.push("/");
+                        }
 
                         throw new Error('Ошибка кол-во вопросов', XMLHttpRequest.response.data);
                     });
@@ -257,6 +270,71 @@ export default {
                 return;
             }    
             console.log("checked false");        
+        },
+
+        // Функция получит список заданий, в которых был выбран исполнитель.
+        onGetInvities() {
+            let sUrl = this.oData.urlApi.concat("/executor/invite");
+
+            axios.post(sUrl)
+                .then((response) => {
+                    this.aInvities = response.data.tasks;
+                    console.log("Список приглашений", response.data);
+
+                    if (response.data.invities.length > 0) {
+                        this.bActivity = true;
+                    }
+                })
+
+                .catch((XMLHttpRequest) => {
+                    throw new Error(XMLHttpRequest.response.data);
+                });
+        },
+
+        // Функция принятия в работу задания.
+        onAcceptTask(taskId) {
+            let sUrl = this.oData.urlApi.concat("/executor/accept");
+            let oTaskData = {
+                TaskId: taskId
+            };
+
+            axios.post(sUrl, oTaskData)
+                .then((response) => {
+                    console.log("Задача ".concat(taskId).concat(" принята в работу"), response.data);
+
+                    if (response.data) {
+                        this.bAccept = true;
+
+                        return this.onGetInvities();
+                    }
+                })
+
+                .catch((XMLHttpRequest) => {
+                    throw new Error(XMLHttpRequest.response.data);
+                });
+        },
+
+        // Функция отказа от работы над заданием.
+        onCancelTask(taskId) {
+            let sUrl = this.oData.urlApi.concat("/executor/cancel");
+            let oTaskData = {
+                TaskId: taskId
+            };
+
+            axios.post(sUrl, oTaskData)
+                .then((response) => {
+                    console.log("Задача ".concat(taskId).concat(" отклонена"), response.data);
+
+                    if (response.data) {
+                        this.bCancel = true;
+
+                        return this.onGetInvities();
+                    }
+                })
+
+                .catch((XMLHttpRequest) => {
+                    throw new Error(XMLHttpRequest.response.data);
+                });
         }
     }
 }

@@ -17,9 +17,94 @@
                 <div class="notifications">
                     <div class="notifications__wrp">
                         <span class="notifications__subtitle">Уведомления</span>
-                        <span class="notifications__history ml-3">История уведомлений</span>
+                        <span class="notifications__history ml-3">История уведомлений</span>                        
                     </div>
-                    <p class="notifications__txt">Новых уведомлений нет</p>
+                    <p class="notifications__txt" v-show="!bActivity">Новых уведомлений нет</p>
+                    <h5 class="ml-3 mt-3" v-show="aInvities.length > 0">Задания, в которых вас выбрали исполнителем</h5>
+
+                    <!-- Список уведомлений. -->
+                    <div class="block-my-tasks mb-3">                
+                        <div class="card card-task card-subcategory" v-for="el in aInvities">
+                            <div class="card-header header-task">
+                                <div class="block-icon">
+                                    <div>
+                                        <img src="../assets/images/1-wiper1.png">
+                                    </div>
+                                    &nbsp;
+        
+                                    <div class="ml-1 text-dark">
+                                        <span>{{el.userName}}</span><br>
+                                        <small>{{el.taskBegda}}</small>
+                                    </div>
+                                </div>
+        
+                                <div class="">
+                                    <img src="../assets/images/message.png">&nbsp;
+                                    <span class="text-dark">{{el.countOffers}}</span>
+                                </div>
+        
+                                <div class="">
+                                    <img src="../assets/images/Icon.png">&nbsp;
+                                    <span class="text-dark">{{el.countViews}}</span>
+                                </div>
+        
+                                <div class="badge badge-pill badge-primary">
+                                    <span>{{el.typeCode}}</span>
+                                </div>
+        
+                                <div class="badge badge-pill badge-warning">
+                                    <span>{{el.statusName}}</span>
+                                </div>
+        
+                                <div class="task-price">
+                                    <img src="../assets/images/date_range.png">
+                                    <span>{{el.taskEndda}}</span>
+                                </div>
+        
+                                <div class="task-price">
+                                    <span>{{el.taskPrice || 'По договоренности'}}
+                                        <span v-show="el.taskPrice">₽</span>
+                                    </span>
+                                </div>
+                            </div>
+        
+                            <div class="card-body">
+                                <h5 class="card-title task-title">
+                                    {{el.taskTitle}}
+                                </h5>
+        
+                                <p class="card-text task-detail">
+                                    {{el.taskDetail}}
+                                </p>
+                            </div>
+        
+                            <div class="card-footer task-detail">
+                                <div class="block-footer">
+                                    <div class="task-category">
+                                        <span>{{el.categoryName}}</span>
+                                    </div>
+        
+                                    <div class="offer">
+                                        <button 
+                                            class="btn-next form-control-sm" 
+                                            _v-show="el.countOffers"
+                                            v-on:click="onAcceptTask(el.taskId)">
+                                            ПРИНЯТЬ
+                                        </button>
+
+                                        &nbsp;
+        
+                                        <button 
+                                            class="btn-next btn-create-task" 
+                                            _v-show="!el.countOffers"
+                                            v-on:click="onCancelTask(el.taskId)">
+                                            ОТКАЗАТЬСЯ
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                
                   <!-- Панель перед началом теста. -->

@@ -5,9 +5,12 @@ import CreateTask from '../components/create-task.vue';
 import $ from "jquery";
 import axios from 'axios';
 
-$(function () {    
-    __VUE_HOT_MAP__.refreshToken();
-});
+import { refreshToken } from '../store.js';
+
+// $(function () {  
+//     // TODO: Переделать на другой способ глобального хранения!   
+//     __VUE_HOT_MAP__.refreshToken();
+// });
 
 export default {
     name: 'task-create',
@@ -45,7 +48,10 @@ export default {
             this.editTask = this.oEditTask.editTask[0];
             this.sCategoryName = this.oEditTask.editTask[0].categoryName;
             this.sSpecName = this.oEditTask.editTask[0].specName;
+            this.sEditTaskTitle = this.oEditTask.editTask[0].taskTitle;
         }
+
+        refreshToken();
     },
     props: ["oData", "oEditTask"],
     data() {
@@ -135,7 +141,7 @@ export default {
                     CategoryCode: this.sCategoryCode,
                     SpecCode: this.sSpecCode,
                     TaskEndda: $("#idDateTaskEndda").val(),
-                    TaskPrice: +$("#idPrice").val()
+                    TaskPrice: $("#idPrice").val()
                 };
             }
 
@@ -148,9 +154,12 @@ export default {
                     CategoryCode: this.editTask.categoryCode,
                     SpecCode: this.editTask.specCode,
                     TaskEndda: $("#idEditDateTaskEndda").val(),
-                    TaskPrice: +$("#idEditPrice").val()
+                    TaskPrice: $("#idEditPrice").val()
                 };
             }
+
+            let formatPrice = this.utils.replaceSpacesPrice(oData.TaskPrice);
+            oData.TaskPrice = +formatPrice;
 
             try {
                 axios.post(sUrl, oData)

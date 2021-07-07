@@ -1,26 +1,11 @@
-# barbuuuda-front-end
+# Barbuuuda-Front-end - фронт онлайн-сервиса удаленной работы.
+# Стек фронта:
 
-HTML, CSS, SAAS/SCSS, Bootstrap, jQuery, JavaScript (es5, es6), Vue.js.
+HTML, CSS, SCSS, Bootstrap, jQuery, JavaScript (es5, es6), Vue.js.
 
-## Project setup
-```
-yarn install
-```
-
-### Compiles and hot-reloads for development
-```
-yarn serve
-```
-
-### Compiles and minifies for production
-```
-yarn build
-```
-
-### Lints and fixes files
-```
-yarn lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+# Для запуска приложения на локалке:
+1. npm install.
+2. Установить Node.js.
+3. Установить vue-cli глобально.
+4. npm run serve
+5. Для работы с бэком на локалке фронта использовать apiUrlLocal в файле main-page.js.

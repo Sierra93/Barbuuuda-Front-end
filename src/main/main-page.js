@@ -1,6 +1,7 @@
 /* eslint-disable */
 // eslint-disable-next-line no-unused-vars
 
+import Vue from "vue";
 import Container from '../components/container.vue';
 import NavMenu from '../components/nav-menu.vue';
 import Footer from '../components/footer.vue';
@@ -10,37 +11,12 @@ import VueRouter from 'vue-router';
 import $ from "jquery";
 import axios from 'axios';
 
-// Функция обновит токен через каждые 9 мин.
-$(function () {
-    setInterval(function () {
-        const sUrl = "http://localhost:58822".concat("/user/token?userName=").concat(sessionStorage.user);
-        // const sUrl = "https://barbuuuda.online".concat("/user/token?userName=").concat(sessionStorage.user);
+import { refreshToken } from '../store.js';
+import { apiUrlLocalConst } from '../store.js';
+import { apiUrlProdConst } from '../store.js';
 
-        if (!sessionStorage.userToken) {
-            clearInterval(intervalID);
-            return;
-        }
-        refresh(sUrl);
-    }, 530000); // Каждые 9 мин.
-});
-
-// Функция обновит токен.
-function refresh(sUrl) {
-    $.ajax({
-        type: 'GET',
-        url: sUrl,
-        // data: {query: 'test'}, 
-        dataType: 'text',
-        success: function (data) {
-            sessionStorage.userToken = data;
-            console.log("refresh token");
-        },
-
-        error: function (jqXHR) {
-            console.log('Ошибка обновления токена');
-        }
-    });    
-}
+const apiUrlLocal = apiUrlLocalConst;
+const apiUrlProd = apiUrlProdConst;
    
 export default {
     name: 'main-page',    
@@ -65,44 +41,17 @@ export default {
         this.oData.bGuest = sessionStorage["role"] == "G" ? true : false;
         this.oData.bCustomer = sessionStorage["role"] == "C" ? true : false;
         this.oData.bExecutor = sessionStorage["role"] == "E" ? true : false;
-        this.oData.role = sessionStorage["role"];
-
-        // Функция обновит токен через каждые 9 мин.
-        __VUE_HOT_MAP__.refreshToken = function() {
-            setInterval(function () {
-                const sUrl = "http://localhost:58822".concat("/user/token?userName=").concat(sessionStorage.user);
-                // const sUrl = "https://barbuuuda.online".concat("/user/token?userName=").concat(sessionStorage.user);
-        
-                if (!sessionStorage.userToken) {
-                    clearInterval(intervalID);
-                    return;
-                }
-                refresh(sUrl);
-            }, 530000); // Каждые 9 мин.
-        },
-
-        function refresh(sUrl) {
-            $.ajax({
-                type: 'GET',
-                url: sUrl,
-                // data: {query: 'test'}, 
-                dataType: 'text',
-                success: function (data) {
-                    sessionStorage.userToken = data;
-                    console.log("refresh token");
-                },
-        
-                error: function (jqXHR) {
-                    console.log('Ошибка обновления токена');
-                }
-            });    
-        }             
+        this.oData.role = sessionStorage["role"];                  
+        refreshToken();
     },
     data() {
         return {
             oData: {
-                urlApi: "http://localhost:58822",
-                // urlApi: "https://barbuuuda.online",
+                // urlApi: apiUrlLocal,
+                urlApi: apiUrlProd,
+                // currency: "RUB",                
+                // loadScriptPayment: "https://arsenalpay.ru/widget/script.js",
+                loadScriptPayment: "https://paymaster.ru/widget/widget.bundle.js",
                 aHeader: [],
                 bGuest: false,
                 bCustomer: false,
@@ -110,6 +59,8 @@ export default {
                 aCalendarTasks: [],
                 aTasks: [],
                 aCustomerTasks: [],
+                aMyTasks: [],
+                aWorkTasks: [],
                 aLastTasks: [],
                 countTotalTask: null,
                 countAuctionTask: null,
@@ -147,7 +98,10 @@ export default {
             aWork: [],
             aAdvantages: [],
             aProveliges: [],
-            sPassword: null                             
+            sPassword: null,
+            balance: null,
+            refillAmount: null,
+            bHideHeader: false
         }
     },    
     methods: {             
@@ -294,33 +248,7 @@ export default {
             catch (ex) {
                 throw new Error(ex);
             }
-        },
-
-        // Функция регистрирует юзера.
-        onCreate() {
-            const sUrl = this.oData.urlApi.concat("/user/create"); 
-
-            try {
-                axios.post(sUrl, {
-                    UserLogin: $("#idLog").val(),
-                    UserPassword: $("#idPass").val(),
-                    UserEmail: $("#idEma").val(),
-                    UserPhone: $("#idNum").val()
-                })
-                    .then((data) => {
-                        //no-debugger 
-                        //debugger;
-                    })
-
-                    .catch((XMLHttpRequest) => {
-                        throw new Error('Ошибка регистрации', XMLHttpRequest.response.data);
-                    });
-            } 
-            
-            catch (ex) {
-                throw new Error(ex);
-            }
-        },
+        },       
 
         // Функция авторизует юзера.
         onLogin() {

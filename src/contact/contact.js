@@ -1,10 +1,11 @@
 /* eslint-disable */
 // eslint-disable-next-line no-unused-vars
 
-import CustomerHeader from '../components/customer-header.vue';
-import $ from "jquery";
-import axios from 'axios';
+import Vue from "vue";
+import NavMenu from '../components/nav-menu.vue';
 import VueRouter from 'vue-router';
+import axios from 'axios';
+import $ from "jquery";
 
 import { refreshToken } from '../store.js';
 
@@ -14,31 +15,31 @@ import { refreshToken } from '../store.js';
 // });
 
 export default {
-    name: 'customer-header',
+    name: 'contact',
     components: {
-        CustomerHeader,
+        NavMenu,
         VueRouter
     },
-    props: ["oData", "oEditTask"],
+    created() {
+       this._loadContacts();
+       refreshToken();
+    },
     data() {
         return {
-            aExecutors: []
-        }
-    },
-    created() {
-        this._loadingExecutorList();
-        refreshToken();
-    },
-    methods: {
-         // Функция выгружает список исполнителей.
-        _loadingExecutorList() {
-            let sUrl = this.$parent.oData.urlApi.concat("/executor/list");
-            
+            oContact: {}
+         }
+    },    
+    props: ["oData"],
+    methods: {       
+        // Функция получит контактную информацию.
+        _loadContacts() {
+            let sUrl = this.oData.urlApi.concat("/main/contacts");
+
             try {
                 axios.post(sUrl)
                     .then((response) => {
-                        this.aExecutors = response.data;
-                        console.log("Список исполнителей", this.aExecutors);
+                        this.oContact = response.data;  
+                        console.log("Контакты", this.oContact);                      
                     })
 
                     .catch((XMLHttpRequest) => {

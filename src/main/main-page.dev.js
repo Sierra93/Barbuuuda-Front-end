@@ -5,8 +5,6 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports["default"] = void 0;
 
-var _vue = _interopRequireDefault(require("vue"));
-
 var _container = _interopRequireDefault(require("../components/container.vue"));
 
 var _navMenu = _interopRequireDefault(require("../components/nav-menu.vue"));
@@ -14,6 +12,8 @@ var _navMenu = _interopRequireDefault(require("../components/nav-menu.vue"));
 var _footer = _interopRequireDefault(require("../components/footer.vue"));
 
 var _createTask = _interopRequireDefault(require("../components/create-task.vue"));
+
+var _customerHeader = _interopRequireDefault(require("../components/customer-header.vue"));
 
 var _vueRouter = _interopRequireDefault(require("vue-router"));
 
@@ -23,30 +23,53 @@ var _axios = _interopRequireDefault(require("axios"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-/* eslint-disable */
-// eslint-disable-next-line no-unused-vars
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+// Функция обновит токен через каждые 9 мин.
+(0, _jquery["default"])(function () {
+  setInterval(function () {
+    var sUrl = "http://localhost:58822".concat("/user/token?userName=").concat(sessionStorage.user); // const sUrl = "https://barbuuuda.online".concat("/user/token?userName=").concat(sessionStorage.user);
+
+    if (!sessionStorage.userToken) {
+      clearInterval(intervalID);
+      return;
+    }
+
+    refresh(sUrl);
+  }, 530000); // Каждые 9 мин.
+}); // Функция обновит токен.
+
+function refresh(sUrl) {
+  _jquery["default"].ajax({
+    type: 'GET',
+    url: sUrl,
+    dataType: 'text',
+    success: function success(data) {
+      sessionStorage.userToken = data;
+      console.log("refresh token");
+    },
+    error: function error(jqXHR) {
+      console.log('Ошибка обновления токена');
+    }
+  });
+}
+
 var _default = {
-  name: 'container',
+  name: 'main-page',
   components: {
     Container: _container["default"],
     NavMenu: _navMenu["default"],
     Footer: _footer["default"],
-    CreateTask: _createTask["default"]
-  },
-  props: ['oData'],
-  data: function data() {
-    return {
-      aFon: [],
-      aWhyis: [],
-      aWork: [],
-      aAdvantages: [],
-      aProveliges: [],
-      sPassword: null,
-      aHope: [],
-      role: null
-    };
+    CreateTask: _createTask["default"],
+    CustomerHeader: _customerHeader["default"]
   },
   created: function created() {
+    // Автоматически добавит любым запросам токен для авторизации.
+    _axios["default"].defaults.headers.common = {
+      "Authorization": "Bearer ".concat(sessionStorage["userToken"])
+    };
+    this.utils.deadlineSession();
+
     this._loadDataFon();
 
     this._loadDataWhy();
@@ -57,19 +80,81 @@ var _default = {
 
     this._loadPriveleges();
 
-    this._loadingCategoryList(); // this.setSelectedRole();
+    this.oData.bGuest = sessionStorage["role"] == "G" ? true : false;
+    this.oData.bCustomer = sessionStorage["role"] == "C" ? true : false;
+    this.oData.bExecutor = sessionStorage["role"] == "E" ? true : false;
+    this.oData.role = sessionStorage["role"]; // Функция обновит токен через каждые 9 мин.
 
+    __VUE_HOT_MAP__.refreshToken = function () {
+      setInterval(function () {
+        var sUrl = "http://localhost:58822".concat("/user/token?userName=").concat(sessionStorage.user); // const sUrl = "https://barbuuuda.online".concat("/user/token?userName=").concat(sessionStorage.user);
 
-    this._loadHope();
+        if (!sessionStorage.userToken) {
+          clearInterval(intervalID);
+          return;
+        }
 
-    this._loadingLastTasks();
+        refresh(sUrl);
+      }, 530000); // Каждые 9 мин.
+    }, function refresh(sUrl) {
+      _jquery["default"].ajax({
+        type: 'GET',
+        url: sUrl,
+        // data: {query: 'test'}, 
+        dataType: 'text',
+        success: function success(data) {
+          sessionStorage.userToken = data;
+          console.log("refresh token");
+        },
+        error: function error(jqXHR) {
+          console.log('Ошибка обновления токена');
+        }
+      });
+    };
+  },
+  data: function data() {
+    var _oData;
+
+    return {
+      oData: (_oData = {
+        urlApi: "http://localhost:58822",
+        // urlApi: "https://barbuuuda.online",
+        aHeader: [],
+        bGuest: false,
+        bCustomer: false,
+        bExecutor: false,
+        aCalendarTasks: [],
+        aTasks: [],
+        aCustomerTasks: [],
+        aLastTasks: [],
+        countTotalTask: null,
+        countAuctionTask: null
+      }, _defineProperty(_oData, "countAuctionTask", null), _defineProperty(_oData, "countWorkTask", null), _defineProperty(_oData, "countGarantTask", null), _defineProperty(_oData, "countCompleteTask", null), _defineProperty(_oData, "countPerechetTask", null), _defineProperty(_oData, "countDraftTask", null), _defineProperty(_oData, "countTotalPage", null), _defineProperty(_oData, "role", null), _defineProperty(_oData, "oTaskStatus", {
+        Total: "Всего",
+        Auction: "В аукционе",
+        Work: "В работе",
+        Garant: "На гарантии",
+        Complete: "Завершено",
+        Perechet: "Перерасчет",
+        Draft: "В черновике"
+      }), _defineProperty(_oData, "aCategories", []), _defineProperty(_oData, "dateRegister", null), _defineProperty(_oData, "oViewTaskId", null), _oData),
+      oEditTask: {
+        editTask: {},
+        sTypes: {
+          All: "All",
+          Single: "Single"
+        },
+        bEdit: false
+      },
+      aFon: [],
+      aWhyis: [],
+      aWork: [],
+      aAdvantages: [],
+      aProveliges: [],
+      sPassword: null
+    };
   },
   methods: {
-    getImgUrl: function getImgUrl(pic) {
-      if (pic !== null) {
-        return require('../assets/images/' + pic);
-      }
-    },
     // Функция выгружает данные для фона.
     _loadDataFon: function _loadDataFon() {
       var _this = this;
@@ -153,14 +238,6 @@ var _default = {
         (0, _jquery["default"])(".tab-role").removeClass("role-hide");
         (0, _jquery["default"])(".tab-role").addClass("role-show");
         (0, _jquery["default"])(".register").addClass("selected-role");
-      }
-
-      if (type == "executor") {
-        this.role = "E";
-      }
-
-      if (type == "customer") {
-        this.role = "C";
       } // Get all elements with class="tabcontent" and hide them
 
 
@@ -202,127 +279,40 @@ var _default = {
         throw new Error(ex);
       }
     },
-    // Функция регистрирует юзера.
-    onCreate: function onCreate() {
-      var sUrl = this.oData.urlApi.concat("/user/create");
-      var oData = {
-        UserName: (0, _jquery["default"])("#idLogin").val(),
-        UserPassword: (0, _jquery["default"])("#idPassword").val(),
-        Email: (0, _jquery["default"])("#idEmail").val(),
-        UserRole: this.role
-      };
+    // Функция авторизует юзера.
+    onLogin: function onLogin() {
+      var sUrl = this.oData.urlApi.concat("/user/login");
 
       try {
-        _axios["default"].post(sUrl, oData).then(function (response) {
-          console.log("Регистрация успешна", response);
+        _axios["default"].post(sUrl, {
+          UserEmail: (0, _jquery["default"])("#idEma").val(),
+          UserPassword: this.pass
+        }).then(function (response) {
+          sessionStorage["user"] = response.data.sLogin;
+          (0, _jquery["default"])(".right-panel").hide();
         })["catch"](function (XMLHttpRequest) {
           throw new Error('Ошибка регистрации', XMLHttpRequest.response.data);
         });
       } catch (ex) {
-        throw new Error("Неожиданная ошибка", ex);
-      }
-    },
-    // Функция авторизует юзера.
-    onLogin: function onLogin() {
-      var sUrl = this.oData.urlApi.concat("/user/login");
-      var oData = {
-        UserName: (0, _jquery["default"])("#idEma").val(),
-        UserPassword: this.sPassword
-      };
-
-      try {
-        _axios["default"].post(sUrl, oData).then(function (response) {
-          // Если токен есть, то в зависимости от роли распределяет по интерфейсам.
-          if (response.data.userToken) {
-            sessionStorage["userToken"] = response.data.userToken;
-            sessionStorage["role"] = response.data.role;
-            sessionStorage["user"] = response.data.user;
-            (0, _jquery["default"])(".right-panel").hide(); // this.$router.push("/home");
-
-            window.location.href = window.location.href.concat("home");
-          }
-        })["catch"](function (XMLHttpRequest) {
-          throw new Error('Ошибка авторизации', XMLHttpRequest.response.data);
-        });
-      } catch (ex) {
         throw new Error(ex);
       }
     },
-    onRouteCreateTask: function onRouteCreateTask() {
-      // Если нет роли заказчик, то будет ошибка.
-      if (sessionStorage["role"] !== "C") {
-        (0, _jquery["default"])('#idNotCustomer').modal('show');
-        return;
-      }
-
-      this.$router.push("/task/create");
-    },
-    // Функция выгружает список категорий заданий.
-    _loadingCategoryList: function _loadingCategoryList() {
+    selectDate: function selectDate(date) {
       var _this6 = this;
 
-      var sUrl = this.$parent.oData.urlApi.concat("/main/category-list");
-      this.utils.getTaskCategories(sUrl);
-      setTimeout(function () {
-        _this6.$parent.oData.aCategories = window.aTaskCategories; // this.$parent.oData.aCategories.map(el => {
-        //     // el.url = require(el.url);
-        //     // this.images.push(el.url);
-        //     // console.log("arr", this.images);
-        //     return require(el.url);
-        // });
-      }, 1000);
-    },
-    // Функция выгружает данные долгосрочного сотрудничества.
-    _loadHope: function _loadHope() {
-      var _this7 = this;
-
-      var sUrl = this.$parent.oData.urlApi.concat("/main/get-hope");
+      var formatDate = date.toLocaleString();
+      var sUrl = this.$parent.oData.urlApi.concat("/task/concretely-date?date=".concat(formatDate));
 
       try {
         _axios["default"].get(sUrl).then(function (response) {
-          _this7.aHope.push(response.data);
-
-          console.log("Данные сотрудничества", _this7.aHope);
+          _this6.$parent.oData.aTasks = response.data;
+          console.log("Задания выбранной даты", _this6.$parent.oData.aTasks);
         })["catch"](function (XMLHttpRequest) {
-          throw new Error(XMLHttpRequest.response.data);
+          throw new Error('Ошибка получения заданий выбранной даты', XMLHttpRequest.response.data);
         });
       } catch (ex) {
         throw new Error(ex);
       }
-    },
-    // Функция выгружает список последних заданий 5 шт., не важно, чьи они.
-    _loadingLastTasks: function _loadingLastTasks() {
-      var _this8 = this;
-
-      var sUrl = this.$parent.oData.urlApi.concat("/main/last");
-
-      try {
-        _axios["default"].get(sUrl).then(function (response) {
-          _this8.oData.aLastTasks = response.data;
-          console.log("Последние задания", _this8.oData.aLastTasks);
-        })["catch"](function (XMLHttpRequest) {
-          throw new Error(XMLHttpRequest.response.data);
-        });
-      } catch (ex) {
-        throw new Error(ex);
-      }
-    },
-    onRouteExecutors: function onRouteExecutors() {
-      this.$router.push("/executors-list");
-    },
-    ontest: function ontest() {
-      var sUrl = this.$parent.oData.urlApi.concat("/executor/add-spec");
-      var oSaveData = {
-        "Specializations": [{
-          "SpecName": "Специализация1"
-        }, {
-          "SpecName": "Специализация2"
-        }]
-      };
-
-      _axios["default"].post(sUrl, oSaveData).then(function (response) {})["catch"](function (XMLHttpRequest) {
-        throw new Error(XMLHttpRequest.response.data);
-      });
     }
   }
 };

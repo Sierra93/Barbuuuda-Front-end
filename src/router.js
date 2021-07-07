@@ -11,8 +11,10 @@ import Profile from './components/profile.vue';
 import CProfile from './components/c-profile.vue';
 import ExecutorList from './components/executor-list.vue';
 import EHOME from './components/e-home.vue';
-import Login from './components/login.vue';
+import PublicOffer from './components/public-offer.vue';
+import Payment from './components/payment.vue';
 import Register from './components/register.vue';
+import Login from './components/login.vue';
 
 export default new VueRouter({
   routes: [{
@@ -21,79 +23,108 @@ export default new VueRouter({
       component: Container,
       props: true
     },
+
     {
       path: '/task/create',
       name: 'task-create',
       component: CreateTask,
       props: true,
-      meta: {title: 'create'}
+      meta: {
+        title: 'create'
+      }
     },
+
     {
       path: '/home',
       name: 'home',
       component: CHome,
       props: true
     },
+
     {
       path: '/tasks/my',
       name: 'my-tasks',
       component: MyTasks,
       props: true
     },
+
     {
       path: '/profile-bar',
       name: 'profile-bar',
       component: ProfileBar,
       props: true
     },
+
     {
       path: '/task/view/:taskId',
       name: 'view-task',
       component: TaskView,
       props: true
     },
+
     {
       path: '/categories',
       name: 'categories',
       component: Categories,
       props: true
     },
+
     {
       path: '/auction',
       name: 'auction',
       component: Auction,
       props: true
     },
+
     {
       path: '/profile',
       name: 'profile',
       component: Profile,
       props: true
     },
+
     {
       path: '/c/profile',
       name: 'c-profile',
       component: CProfile,
       props: true
     },
+
     {
       path: '/executors-list',
       name: 'executor-list',
       component: ExecutorList,
       props: true
     },
+
     {
       path: '/e/home',
       name: 'e-home',
       component: EHOME,
       props: true
     },
+
+    {
+      path: '/public-offer',
+      name: 'public-offer',
+      component: PublicOffer,
+      props: true
+    },
+
+    {
+      path: '/payment',
+      name: 'payment',
+      component: Payment,
+      props: true
+    },
+
     {
       path: '/login',
       name: 'login',
       component: Login,
       props: true
     },
+
     {
       path: '/register',
       name: 'register',

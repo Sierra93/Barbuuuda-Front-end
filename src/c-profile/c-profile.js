@@ -5,27 +5,28 @@ import Vue from "vue";
 import CustomerHeader from '../components/customer-header.vue';
 import $ from "jquery";
 import axios from 'axios';
+import VueRouter from 'vue-router';
 
-$(function () {    
-    __VUE_HOT_MAP__.refreshToken();
-});
+import { refreshToken } from '../store.js';
 
 export default {
     name: 'c-profile',
     components: {
-        CustomerHeader
+        CustomerHeader,
+        VueRouter
     },
     props: ['oData'],
     created() {
         this._loadingProfile();
         this._loadingCategoryList();
+        refreshToken();
     },
     data() {
         return {
             aProfileData: [],
             bMale: null,
             bFemale: null,
-            iDefaultScore: "400",
+            iDefaultScore: "150",
             bErrorScore: false,
             aCategories: [],
             aExecutorSpecializations: [],
@@ -46,6 +47,13 @@ export default {
                 })
 
                 .catch((XMLHttpRequest) => {
+                    if (XMLHttpRequest.response.status === 401) {
+                        sessionStorage.clear();
+                        sessionStorage["role"] = "G";
+                        this.oData.bGuest = true;
+                        this.$router.push("/");
+                    }
+
                     throw new Error(XMLHttpRequest.response.data);
                 });
         },
@@ -91,13 +99,15 @@ export default {
             if (this.iDefaultScore == "") {
                 this.iDefaultScore = "0";
                 this.bErrorScore = true;
+                
                 return;
             }  
 
-            if (this.iDefaultScore < "400") {                    
+            if (this.iDefaultScore < "150") {                    
                 this.bErrorScore = true;
                 return;
             }              
+
             this.bErrorScore = false;
         },
 
@@ -131,6 +141,12 @@ export default {
                 .catch((XMLHttpRequest) => {
                     throw new Error(XMLHttpRequest.response.data);
                 });
+        },
+
+        // Функция перейдет на страницу оплаты.
+        onRouteRefillOrder() {
+            this.$parent.oData.refillAmount = this.iDefaultScore;
+            this.$router.push("/payment");
         }
     }
 }

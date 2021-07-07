@@ -51,7 +51,8 @@ var _default = {
       aDialogs: [],
       statusArea: "",
       aMessages: [],
-      dialogId: null
+      dialogId: null,
+      message: ""
     };
   },
   props: ["oData", "oEditTask"],
@@ -216,6 +217,7 @@ var _default = {
       var _this7 = this;
 
       var sUrl = this.oData.urlApi.concat("/chat/dialog");
+      this.dialogId = dialogId;
 
       try {
         _axios["default"].post(sUrl, {
@@ -233,20 +235,24 @@ var _default = {
     },
     // Функция отправит сообщение.
     onSend: function onSend() {
-      var sUrl = this.oData.urlApi.concat("/chat/send"); // try {
-      //     axios.post(sUrl, { DialogId: dialogId })
-      //         .then((response) => {
-      //             this.aMessages = response.data.messages;
-      //             console.log("Список сообщений диалога c Id: " + dialogId, response.data);
-      //             this.statusArea = response.data.dialogState
-      //         })
-      //         .catch((XMLHttpRequest) => {
-      //             throw new Error("Ошибка сообщений диалога", XMLHttpRequest.response.data);
-      //         });
-      // } 
-      // catch (ex) {
-      //     throw new Error(ex);
-      // }
+      var _this8 = this;
+
+      var sUrl = this.oData.urlApi.concat("/chat/send");
+      var oDataMessage = {
+        DialogId: this.dialogId,
+        Message: this.message
+      };
+
+      try {
+        _axios["default"].post(sUrl, oDataMessage).then(function (response) {
+          _this8.aMessages = response.data.messages;
+          console.log("Сообщение успешно отправлено", _this8.aMessages);
+        })["catch"](function (XMLHttpRequest) {
+          throw new Error("Ошибка отправки сообщения", XMLHttpRequest.response.data);
+        });
+      } catch (ex) {
+        throw new Error(ex);
+      }
     }
   }
 };

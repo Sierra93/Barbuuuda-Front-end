@@ -9,9 +9,12 @@ import axios from 'axios';
 import Calendar from 'v-calendar/lib/components/calendar.umd';
 import DatePicker from 'v-calendar/lib/components/date-picker.umd';
 
-$(function () {    
-    __VUE_HOT_MAP__.refreshToken();
-});
+import { refreshToken } from '../store.js';
+
+// $(function () {  
+//     // TODO: Переделать на другой способ глобального хранения!   
+//     __VUE_HOT_MAP__.refreshToken();
+// });
 
 export default {
     name: 'profile-bar',
@@ -29,6 +32,8 @@ export default {
         if (this.$route.name == "profile") {
             this.bHideCalendar = true;
         }
+
+        refreshToken();
     },
     data() {
         return {

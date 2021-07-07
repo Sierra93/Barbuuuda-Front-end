@@ -6,9 +6,12 @@ import $ from "jquery";
 import axios from 'axios';
 import VueRouter from 'vue-router';
 
-$(function () {    
-    __VUE_HOT_MAP__.refreshToken();
-});
+import { refreshToken } from '../store.js';
+
+// $(function () {    
+//     // TODO: Переделать на другой способ глобального хранения! 
+//     __VUE_HOT_MAP__.refreshToken();
+// });
 
 export default {
     name: 'customer-header',
@@ -23,7 +26,8 @@ export default {
         }
     },
     created() {
-        
+        console.log("init e-home");
+        refreshToken();
     },
     methods: {
          

@@ -8,9 +8,12 @@ import $ from "jquery";
 import VueRouter from 'vue-router';
 import axios from 'axios';
 
-$(function () {    
-    __VUE_HOT_MAP__.refreshToken();
-});
+import { refreshToken } from '../store.js';
+
+// $(function () {    
+//     // TODO: Переделать на другой способ глобального хранения! 
+//     __VUE_HOT_MAP__.refreshToken();
+// });
 
 export default {
     name: 'my-tasks',
@@ -23,11 +26,14 @@ export default {
         this._loadingTaskList();
         this._totalPageetPagination();
         this.onGetPagination(1);
+        this._loadMyTasks();
+        refreshToken();
     },
     data() {
         return {
             sSearch: null,
-            aActiveTasks: []
+            aActiveTasks: [],
+            aMyTasks: []
          }
     },    
     props: ["oData", "oEditTask"],
@@ -40,8 +46,8 @@ export default {
                 try {
                     axios.post(sUrl)
                         .then((response) => {
-                            this.oData.aCustomerTasks = response.data;
-                            console.log("Список заданий", this.oData.aCustomerTasks);
+                            this.oData.aMyTasks = response.data;
+                            console.log("Список заданий", this.oData.aMyTasks);
                         })
 
                         .catch((XMLHttpRequest) => {
@@ -148,7 +154,7 @@ export default {
                 axios.get(sUrl)
                     .then((response) => {         
                         console.log("filter data", response.data);
-                        this.oData.aTasks = response.data;
+                        this.oData.aMyTasks = response.data;
 
                         if (+param === NaN) {
                             newUrl = window.location.href + "/search=" + param;
@@ -207,7 +213,34 @@ export default {
                 axios.get(sUrl)
                     .then((response) => {         
                         console.log("filter pagination", response.data);
-                        this.oData.aCustomerTasks = response.data.tasks;
+                        this.oData.aMyTasks = response.data.tasks;
+                    })
+
+                    .catch((XMLHttpRequest) => {
+                        throw new Error(XMLHttpRequest.response.data);
+                    });
+            } 
+            
+            catch (ex) {
+                throw new Error(ex);
+            }
+        },
+
+        // Функция получит задания, которые находятся в работе у исполнителя.
+        _loadMyTasks() {
+            let sUrl = this.oData.urlApi.concat("/executor/work");
+
+            try {
+                axios.post(sUrl)
+                    .then((response) => {               
+                        if (this.oData.role == "E") {
+                            this.oData.aWorkTasks = response.data.tasks;
+                        }
+
+                        if (this.oData.role == "C") {
+                            this.oData.aMyTasks = response.data.tasks;
+                        }                    
+                        console.log("Задания в работе", response.data.tasks);
                     })
 
                     .catch((XMLHttpRequest) => {

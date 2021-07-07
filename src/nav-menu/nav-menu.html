@@ -4,8 +4,9 @@
   
 </head>
 <body>
-  <header v-show="oData.bGuest">      
-    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow">
+  <header>      
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow"
+          v-show="oData.bGuest && !oData.bHideHeader">
       <div class="container">
         <button class="navbar-toggler btn-state-left-menu"
                 type="button"
@@ -47,7 +48,7 @@
           </div>
         </div>
       </div>
-    </nav>
+    </nav>   
   </header>
 
   <!-- Модальное окно ошибки, если нет роли заказчика. -->  
@@ -67,7 +68,9 @@
         </div>
 
         <div class="modal-footer">
-          <button type="button" class="btn-create-task form-control-sm btn-create-task btn-all-tasks" data-dismiss="modal">Хорошо</button>
+          <button type="button" 
+                  class="btn-create-task form-control-sm btn-create-task btn-all-tasks" 
+                  data-dismiss="modal">Хорошо</button>
         </div>
       </div>
     </div>

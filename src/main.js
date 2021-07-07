@@ -23,8 +23,10 @@ import Auction from './components/auction.vue';
 import CProfile from './components/c-profile.vue';
 import ExecutorList from './components/executor-list.vue';
 import vueHeadful from 'vue-headful';
-import Login from './components/login.vue';
+import PublicOffer from './components/public-offer.vue';
+import Payment from './components/payment.vue';
 import Register from './components/register.vue';
+import Login from './components/login.vue';
 
 Vue.use(VueRouter);
 Vue.component('Container', Container);
@@ -39,8 +41,10 @@ Vue.component('auction', Auction);
 Vue.component('CProfile', CProfile);
 Vue.component('ExecutorList', ExecutorList);
 Vue.component('vue-headful', vueHeadful);
-Vue.component('Login', Login);
+Vue.component('PublicOffer', PublicOffer);
+Vue.component('Payment', Payment);
 Vue.component('Register', Register);
+Vue.component('Login', Login);
 
 // Общие функции приложения.
 const utils = {
@@ -78,6 +82,10 @@ const utils = {
       });
   },
 
+  replaceSpacesPrice: (price) => {
+    return price.replace(/\s/g, '');
+  },
+
   // Функция отсчитывает время бездействия юзера, по окончании простоя убивает сессию и перенаправляет на стартовую для авторизации.
   deadlineSession: () => {
     var idleTime = 0;
@@ -105,7 +113,7 @@ const utils = {
             $(".right-panel").show();
             this.$router.push("/");
         }
-    }
+    }    
   },
 
   // Функция обновит токен через каждые 9 мин.

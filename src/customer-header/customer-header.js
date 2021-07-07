@@ -6,9 +6,7 @@ import $ from "jquery";
 import axios from 'axios';
 import VueRouter from 'vue-router';
 
-$(function () {    
-    __VUE_HOT_MAP__.refreshToken();
-});
+import { refreshToken } from '../store.js';
 
 export default {
     name: 'customer-header',
@@ -24,20 +22,20 @@ export default {
         }
     },
     created() {
-        this.bGuest = sessionStorage["role"] == "G" ? true : false;        
-    },    
+        this.bGuest = sessionStorage["role"] == "G" ? true : false;
+        this._getBalance();
+        refreshToken();
+    },
     methods: {
-         // Функция проверяет авторизован ли юзер. 
-         _getAuthorize() {
+        // Функция проверяет авторизован ли юзер. 
+        _getAuthorize() {
             let userRole = "";
 
             if (!sessionStorage["userToken"] || !sessionStorage["role"] || sessionStorage["role"] == "G") {
-                userRole = "G";                
-                sessionStorage["role"] = userRole;                
+                userRole = "G";
+                sessionStorage["role"] = userRole;
                 this.bGuest = true;
-            }
-
-            else {
+            } else {
                 userRole = sessionStorage["role"];
                 this.bGuest = false;
             }
@@ -47,22 +45,20 @@ export default {
 
             try {
                 axios.post(sUrl, {
-                    UserLogin: sessionStorage["user"],
-                    UserRole: userRole
-                })
+                        UserLogin: sessionStorage["user"],
+                        UserRole: userRole
+                    })
                     .then((response) => {
                         response.data.aHeaderFields.forEach(el => {
-                            this.oData.aHeader.push(el.headerField); 
-                        });                        
+                            this.oData.aHeader.push(el.headerField);
+                        });
                         console.log("Хидер юзера", this.oData.aHeader);
                     })
 
                     .catch((XMLHttpRequest) => {
                         throw new Error('Ошибка получения полей хидера', XMLHttpRequest.response.data);
                     });
-            } 
-            
-            catch (ex) {
+            } catch (ex) {
                 throw new Error(ex);
             }
         },
@@ -72,21 +68,21 @@ export default {
             if (value.target && value.currentTarget.text == " Barbuuuda ") {
                 this.oData.bGuest = true;
                 this.$router.push("/");
-            }
-
+            } 
+            
             else if (value == "Главная") {
                 this.$router.push("/home");
-            }
-
-            else if (value == "Мои задания") {                
+            } 
+            
+            else if (value == "Мои задания") {
                 this.$router.push("/tasks/my");
-            }
-
+            } 
+            
             else if (value == "Создать задание") {
                 this.oEditTask.editTask.bEdit = false;
                 this.$router.push("/task/create");
-            }
-
+            } 
+            
             else if (value == "Аукцион заданий") {
                 this.oEditTask.editTask.bEdit = false;
                 this.$router.push("/auction");
@@ -95,6 +91,26 @@ export default {
 
         onGoProfile() {
             this.$router.push("/profile");
-        }    
+        },
+
+        _getBalance() {
+            let sUrl = this.oData.urlApi.concat("/payment/balance");
+
+            try {
+                axios.post(sUrl)
+                    .then((response) => {
+                        console.log("Баланс:", response.data);    
+                        this.oData.balance = response.data;              
+                    })
+
+                    .catch((XMLHttpRequest) => {
+                        throw new Error(XMLHttpRequest.response.data);
+                    });
+            } 
+            
+            catch (ex) {
+                throw new Error(ex);
+            }
+        }
     }
 }
