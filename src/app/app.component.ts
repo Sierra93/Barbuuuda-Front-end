@@ -6,8 +6,6 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 
-export class App implements OnInit {
-  ngOnInit() {
-    console.log("init start");
-  }
+export class App {
+  
 }

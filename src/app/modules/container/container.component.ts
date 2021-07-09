@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'container',
@@ -8,14 +8,16 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
 })
 
 export class Container implements OnInit {
+  aWhyis: any[] = [];
+
   constructor(private http: HttpClient) { }
 
-  async ngOnInit() {
-    console.log("init container");
-    return await this.http.post<any>("http://localhost:58822/get-fon", {})
+  public async ngOnInit() {
+    return await this.http.post("http://localhost:58822/main/get-fon", {})
       .subscribe({
-        next: (response: HttpResponse<any>) => {
-          console.log("test");
+        next: (response) => {
+          this.aWhyis.push(response);
+          console.log("Данные фона", response);
         },
         error: (err) => {
           console.log("error", err);

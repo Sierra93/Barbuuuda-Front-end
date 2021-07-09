@@ -15,8 +15,8 @@ import { HttpClientModule } from '@angular/common/http';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
 
   providers: [],
@@ -25,5 +25,5 @@ import { HttpClientModule } from '@angular/common/http';
 })
 
 export class AppModule {
-
+  
 }
