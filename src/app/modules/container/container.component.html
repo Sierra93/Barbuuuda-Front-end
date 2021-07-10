@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+       <!-- Главный фон. -->
+       <div class="block-main-fon">
+        <img src="../assets/images/welcome.jpg" class="main-fon" />
+    
+        <div class="centered-fon" *ngFor="let el of aFon">
+          <h3 class="title">{{el.mainTitle}}</h3>
+          <span class="title-dop mt-3">{{el.secondTitle}}</span>
+          <button class="btn-create-task form-control-lg"
+                  v-on:click="onRouteCreateTask()">{{el.btnText}}</button>
+        </div>
+    
+        <!-- Левая панель. -->
+        <div class="col-lg-2 left-menu left-panel">
+          <nav class="sidebar-sticky navbar-expand-md left-nav">
+            <div class="block-title">
+              <a href="#" class="logo-title">Barbuuuda</a>
+            </div>
+            <!-- если вместо navbar-toggler поставить toggled это скрыть по умолчанию -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+    
+            <div class="collapse navbar-collapse" id="idLeftMenu">
+              <ul class="navbar-nav flex-column left-ul">
+                <li class="nav-item active litem">
+                  <div class="nav-link">
+                    <i class="fa fa-tasks icon" aria-hidden="true"></i>
+                    <!-- <router-link to="/auction">Все задания</router-link> -->
+                  </div>
+                </li>
+    
+                <li class="nav-item litem">
+                  <div class="nav-link">
+                    <i class="fa fa-users icon" aria-hidden="true"></i>
+                    <a href="">Исполнители</a>
+                  </div>
+                </li>
+    
+                <li class="nav-item litem">
+                  <div class="nav-link">
+                    <i class="fa fa-window-restore icon" aria-hidden="true"></i>
+                    <!-- <router-link to="/categories">Категории</router-link> -->
+                  </div>
+                </li>
+    
+                <li class="nav-item litem">
+                  <div class="nav-link">
+                    <i class="fa fa-exclamation-circle icon" aria-hidden="true"></i>
+                    <a href="">Правила сайта</a>
+                  </div>
+                </li>
+    
+                <li class="nav-item litem">
+                  <div class="nav-link">
+                    <i class="fa fa-question-circle icon" aria-hidden="true"></i>
+                    <a href="">FAQ</a>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </nav>
+        </div>          
+      </div>
+    
+      <!-- Как это работает? -->
+      <div class="gray-fon">
+        <div class="">
+          <h5 class="text-center pt-5" _ngIf="el.mainTitle" *ngFor="let work of aWork">
+            <div *ngFor="let el of work">
+              <span>{{el.mainTitle}}</span>
+            </div>
+          </h5>
+    
+          <div class="text-center mb-3">
+            <img src="../assets/images/Line10.png" />
+          </div>
+        </div>
+    
+        <div class="col-lg-12 text-center mb-5" *ngFor="let work of aWork">
+          <div *ngFor="let el of work">
+            <span class="content-title">
+              {{el.secondTitle}}            
+            </span>
+          </div>
+        </div>
+    
+        <div class="d-flex block-work container">
+          <div class="mb-3 d-flex" *ngFor="let work of aWork">
+            <div class="col-lg-4" *ngFor="let el of work">
+              <h6 class="content-title">
+                <strong>
+                  {{el.blockTitle}}
+                </strong>
+              </h6>
+      
+              <span class="content-title">
+                {{el.blockText}}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+      <!-- Почему BARBUUUDA? -->
+      <div class="mb-3 mt-5">
+        <h5 class="text-center">ПОЧЕМУ <span class="title-color">BARBUUUDA</span>?</h5>
+    
+        <div class="text-center mb-3">
+          <img src="../assets/images/Line9.png" />
+        </div>
+      </div>
+    
+      <!-- 1 -->
+      <div class="d-flex">
+        <div class="container">
+          <h6 class="content-title" *ngFor="let el of aWhyis">
+            <strong>
+              {{el.secondTitle}}<br />
+            </strong>
+    
+            <span class="content-title">
+              {{el.text}}
+            </span>
+          </h6>
+        </div>
+      </div>
+    
+      <!-- Наши преимущества. -->
+      <div class="gray-fon">
+        <div class="">
+          <h5 class="text-center pt-5" _ngIf="el.mainTitle" *ngFor="let el of aAdvantages">{{el.mainTitle}}</h5>
+    
+          <div class="text-center mb-3">
+            <img src="../assets/images/Line9.png" />
+          </div>
+        </div>
+    
+        <div class="d-flex container pb-5">
+          <div class="col-lg-4" *ngFor="let el of aAdvantages">
+            <h6 class="content-title">
+              <strong>
+                {{el.secondTitle}}
+              </strong>
+            </h6>
+    
+            <span class="content-title">
+              {{el.text}}
+            </span>
+          </div>
+        </div>
+      </div>
+    
+      <!-- КАТЕГОРИИ -->
+      <div class="mb-3 mt-5">
+        <h5 class="text-center">КАТЕГОРИИ</h5>
+    
+        <div class="text-center mb-3">
+          <img src="../assets/images/Line9.png" />
+        </div>
+    
+        <div class="col-lg-12 text-center mb-5">
+          <span class="content-title">
+            Выберите категории заданий, которые хотите посмотреть.
+          </span>
+        </div>
+      </div>
+    
+      <!-- Секция категорий. -->
+      <!-- <div class="col-lg-12 mb-3">
+        <div class="row">
+          <div class="col-lg-4 mb-3" *ngFor="let el of oData.aCategories">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title title-row">
+                  <strong class="mr-2">{{el.categoryName}}</strong>
+                  <img src="../assets/images/Group1.png" />
+                </h5>
+    
+                <span class="card-text">
+                  Подкатегорий: {{el.specializations.length}}
+                </span>
+              </div>
+            </div>
+          </div>    
+        </div>
+      </div> -->
+    
+      <!-- Последние задания. -->
+      <div class="gray-fon">
+        <div class="">
+          <h5 class="text-center pt-5">ПОСЛЕДНИЕ ЗАДАНИЯ</h5>
+    
+          <div class="text-center mb-3">
+            <img src="../assets/images/Line9.png" />
+          </div>
+        </div>
+    
+        <div class="col-lg-12 text-center mb-5">
+          <span class="content-title">
+            Последние опубликованные задания в реальном времени.
+          </span>
+        </div>
+    
+        <div class="block-my-tasks">
+          <div class="card card-task card-subcategory" *ngFor="let el of aLastTasks">
+              <div class="card-header header-task">
+                  <div class="block-icon">
+                      <div>
+                          <img src="../assets/images/1-wiper1.png">
+                      </div>
+                      &nbsp;
+    
+                      <div class="ml-1 text-dark">
+                          <span>{{el.userName}}</span><br>
+                          <small>{{el.taskBegda}}</small>
+                      </div>
+                  </div>
+    
+                  <div class="">
+                      <img src="../assets/images/message.png">&nbsp;
+                      <span class="text-dark">{{el.countOffers}}</span>
+                  </div>
+    
+                  <div class="">
+                      <img src="../assets/images/Icon.png">&nbsp;
+                      <span class="text-dark">{{el.countViews}}</span>
+                  </div>
+    
+                  <div class="badge badge-pill badge-primary content-title">
+                      <span>{{el.typeCode}}</span>
+                  </div>
+    
+                  <div class="badge badge-pill badge-warning content-title">
+                      <span>{{el.statusName}}</span>
+                  </div>
+    
+                  <div class="task-price">
+                      <img src="../assets/images/date_range.png">
+                      <span>{{el.taskEndda}}</span>
+                  </div>
+    
+                  <div class="task-price">
+                      <span>{{el.taskPrice || 'По договоренности'}}
+                          <span *ngIf="el.taskPrice">₽</span>
+                      </span>
+                  </div>
+              </div>
+    
+              <div class="card-body">
+                  <h5 class="card-title task-title">
+                      {{el.taskTitle}}
+                  </h5>
+    
+                  <p class="card-text task-detail">
+                      {{el.taskDetail}}
+                  </p>
+              </div>
+    
+              <div class="card-footer task-detail">
+                  <div class="block-footer">
+                      <div class="task-category">
+                          <span>{{el.categoryName}}</span>
+                      </div>
+    
+    
+                      <div class="offer">
+                          <span class="send-task">ОСТАВИТЬ ПРЕДЛОЖЕНИЕ</span>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+    
+        <div class="col-lg-12 d-flex justify-content-center pt-3 pb-3">
+          <button class="btn-create-task form-control-sm btn-all-tasks mb-3">
+            ВСЕ ЗАДАНИЯ
+          </button>
+        </div>
+      </div>
+    
+      <!-- Популярные исполнители. -->
+      <div class="mb-3 mt-5">
+        <h5 class="text-center">ПОПУЛЯРНЫЕ ИСПОЛНИТЕЛИ</h5>
+    
+        <div class="text-center mb-3">
+          <img src="../assets/images/Line9.png" />
+        </div>
+    
+        <div class="col-lg-12 text-center mb-5">
+          <span class="content-title">
+            Список из 10 популярных исполнителей с наиболее высоким рейтингом.
+          </span>
+        </div>
+    
+      </div>
+    
+      <div class="">
+        <div class="d-flex">
+          <div class="col-lg-6">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title title-row">
+                  <img src="../assets/images/1-wiper1.png" class="mr-2" />
+                  <div class="col-lg-6">
+                    <strong>Wiper</strong><br />
+                    <small class="">8 апр 2016</small> <small class="pro ml-2">PRO</small>
+                  </div>
+                </h5>
+    
+                <span class="text-task">
+                  №1 среди разработчиков сайтов ! Качественно и в срок. .
+                </span>
+                <hr />
+                <img src="../assets/images/Star1.png" />
+              </div>
+    
+              <hr />
+            </div>
+          </div>
+    
+          <div class="col-lg-6">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title title-row">
+                  <img src="../assets/images/1-wiper1.png" class="mr-2" />
+                  <div class="col-lg-6">
+                    <strong>Wiper</strong><br />
+                    <small class="">8 апр 2016</small> <small class="pro ml-2">PRO</small>
+                  </div>
+                </h5>
+    
+                <span class="text-task">
+                  №1 среди разработчиков сайтов ! Качественно и в срок. .
+                </span>
+                <hr />
+                <img src="../assets/images/Star1.png" />
+              </div>
+    
+              <hr />
+            </div>
+          </div>
+        </div>
+    
+        <div class="col-lg-12 d-flex justify-content-center mt-3">
+          <button class="btn-create-task form-control-sm btn-create-task btn-all-tasks mb-3"
+                  v-on:click="onRouteExecutors()">
+            ВСЕ ИСПОЛНИТЕЛИ
+          </button>
+        </div>
+      </div>
+    
+      <!-- Начать зарабатывать. -->
+      <!-- Наши преимущества. -->
+      <div class="gray-fon">
+        <div class="">
+          <h5 class="text-center pt-5">СТАТЬ ИСПОЛНИТЕЛЕМ И НАЧАТЬ ЗАРАБАТЫВАТЬ НА <span class="title-color">BARBUUUDA</span></h5>
+    
+          <div class="col-lg-12 text-center mb-5">
+            <p class="content-title">
+              Выполняйте задания, повышайте свой рейтинг, нарабатывайте положительные отзывы и зарабатывайтете деньги.
+            </p>
+          </div>
+        </div>
+    
+        <div class="col-lg-12 d-flex justify-content-center mt-3 pb-5">
+          <button class="btn-create-task form-control-sm btn-create-task btn-all-tasks mb-3">
+            СТАТЬ ИСПОЛНИТЕЛЕМ
+          </button>
+        </div>
+      </div>
+    
+      <div class="">
+        <div class="">
+          <h5 class="text-center pt-5">ЧТО ВЫ ПОЛУЧАЕТЕ?</h5>
+    
+          <div class="text-center mb-3">
+            <img src="../assets/images/Line9.png" />
+          </div>
+        </div>
+    
+        <div class="">
+          <div class="col-lg-12 mt-3" *ngFor="let el of aProveliges">
+            <h6 class="content-title">
+              <strong>
+                {{el.title}}
+              </strong>
+            </h6>
+    
+            <span class="content-title">
+              {{el.text}}
+            </span>
+          </div>
+        </div>
+      </div>
+    
+      <div class="gray-fon pb-3 mt-5" *ngFor="let el of aHope">
+        <div class="">
+          <h5 class="text-center pt-5">{{el.hopeTitle}}</h5>
+    
+          <div class="text-center mb-3">
+            <img src="../assets/images/Line9.png" />
+          </div>
+    
+          <div class="col-lg-12 text-center mb-5">
+            <span class="content-title">
+              {{el.hopeDetails}}
+            </span>
+          </div>
+        </div>
+      </div>
+    
+      <!-- Модальное окно ошибки, если нет роли заказчика. -->  
+      <div class="modal fade" id="idNotCustomer" tabindex="-1" role="dialog" aria-labelledby="idNotCustomerTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="idNotCustomerTitle">Вы хотите создать задание?</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+    
+            <div class="modal-body">
+              Создать задание могут только зарегистрированные (Заказчики).
+              Зарегистрируйтесь или войдите на сайт под своим именем.
+            </div>
+    
+            <div class="modal-footer">
+              <button type="button" class="btn-create-task form-control-sm btn-create-task btn-all-tasks" data-dismiss="modal">Хорошо</button>
+            </div>
+          </div>
+        </div>
+      </div>
+</body>
+</html>

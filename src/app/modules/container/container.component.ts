@@ -1,12 +1,16 @@
-import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { apiUrls } from '../../core/core-urls/api-url';
-import { commonObjectData } from '../../core/common-data/models/common-object-data';
+import "bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "popper.js/dist/popper.min.js";
+import "bootstrap/dist/js/bootstrap.min.js";
+import { Component, OnInit } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
+import { API_URL } from "../../core/core-urls/api-url";
+import { DataService } from "../../services/data.service";
 
 @Component({
-  selector: 'container',
-  templateUrl: './container.component.html',
-  styleUrls: ['./container.component.scss']
+  selector: "container",
+  templateUrl: "./container.component.html",
+  styleUrls: ["./container.component.scss"]
 })
 
 export class ContainerModule implements OnInit {
@@ -15,8 +19,10 @@ export class ContainerModule implements OnInit {
   aWork: any[] = [];
   aProveliges: any[] = [];
   aAdvantages: any[] = [];
-  
-  constructor(private http: HttpClient) { }
+  aHope: any[] = [];
+  aLastTasks: any[] = [];
+
+  constructor(private http: HttpClient, private dataService: DataService) { }
 
   public async ngOnInit() {
     this.loadDataFonAsync();
@@ -25,12 +31,14 @@ export class ContainerModule implements OnInit {
     this.loadDataPrivilegeAsync();
     this.loadDataAdvantageAsync();
     this.loadCategoryListAsync();
+    this.loadDataHopeAsync();
+    this.loadLastTasksAsync();
   };
 
   // Функция подгрузит данные секции фона.
   private async loadDataFonAsync(): Promise<void> {
     try {
-      await this.http.post(apiUrls.apiUrl.concat("/main/get-fon"), {})
+      await this.http.post(API_URL.apiUrl.concat("/main/get-fon"), {})
         .subscribe({
           next: (response) => {
             this.aFon.push(response);
@@ -51,7 +59,7 @@ export class ContainerModule implements OnInit {
   // Функция подгрузит данные секции почему.
   private async loadDataWhyAsync(): Promise<void> {
     try {
-      await this.http.post(apiUrls.apiUrl.concat("/main/get-why"), {})
+      await this.http.post(API_URL.apiUrl.concat("/main/get-why"), {})
         .subscribe({
           next: (response) => {
             this.aWhyis.push(response);
@@ -72,7 +80,7 @@ export class ContainerModule implements OnInit {
   // Функция подгрузит данные для секции как это работает.
   private async loadDataWorkAsync(): Promise<void> {
     try {
-      await this.http.post(apiUrls.apiUrl.concat("/main/get-work"), {})
+      await this.http.post(API_URL.apiUrl.concat("/main/get-work"), {})
         .subscribe({
           next: (response) => {
             this.aWork.push(response);
@@ -93,7 +101,7 @@ export class ContainerModule implements OnInit {
   // Функция подгрузит данные секции что вы получаете.
   private async loadDataPrivilegeAsync(): Promise<void> {
     try {
-      await this.http.post(apiUrls.apiUrl.concat("/main/get-privilege"), {})
+      await this.http.post(API_URL.apiUrl.concat("/main/get-privilege"), {})
         .subscribe({
           next: (response) => {
             this.aProveliges.push(response);
@@ -114,7 +122,7 @@ export class ContainerModule implements OnInit {
   // Функция подгрузит данные секции преимущества.
   private async loadDataAdvantageAsync(): Promise<void> {
     try {
-      await this.http.post(apiUrls.apiUrl.concat("/main/get-advantage"), {})
+      await this.http.post(API_URL.apiUrl.concat("/main/get-advantage"), {})
         .subscribe({
           next: (response) => {
             this.aAdvantages.push(response);
@@ -135,11 +143,53 @@ export class ContainerModule implements OnInit {
   // Функция подгрузит категории заданий.
   private async loadCategoryListAsync(): Promise<void> {
     try {
-      await this.http.post(apiUrls.apiUrl.concat("/main/category-list"), {})
+      await this.http.post(API_URL.apiUrl.concat("/main/category-list"), {})
         .subscribe({
           next: (response) => {
-            this.aAdvantages.push(response);
-            console.log("Данные секции преимущества", response);
+            this.dataService.aTaskCategories.push(response);
+            console.log("Данные секции категории заданий", response);
+          },
+
+          error: (err) => {
+            console.log(err);
+          }
+        });
+    }
+
+    catch (e) {
+      throw new Error(e);
+    }
+  };
+
+  // Функция получит данные секции сотрудничество.
+  private async loadDataHopeAsync(): Promise<void> {
+    try {
+      await this.http.post(API_URL.apiUrl.concat("/main/get-hope"), {})
+        .subscribe({
+          next: (response) => {
+            this.aHope.push(response);
+            console.log("Данные секции сотрудничества", response);
+          },
+
+          error: (err) => {
+            console.log(err);
+          }
+        });
+    }
+
+    catch (e) {
+      throw new Error(e);
+    }
+  };
+
+  // Функция получит данные секции последние задания.
+  private async loadLastTasksAsync(): Promise<void> {
+    try {
+      await this.http.post(API_URL.apiUrl.concat("/main/last"), {})
+        .subscribe({
+          next: (response) => {
+            this.aLastTasks.push(response);
+            console.log("Данные секции последних заданий", response);
           },
 
           error: (err) => {
