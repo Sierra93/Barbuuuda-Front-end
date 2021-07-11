@@ -72,7 +72,7 @@
       </div>
     
       <!-- Как это работает? -->
-      <div class="gray-fon">
+      <div class="gray-fon pb-5">
         <div class="">
           <h5 class="text-center pt-5" _ngIf="el.mainTitle" *ngFor="let work of aWork">
             <div *ngFor="let el of work">
@@ -120,9 +120,10 @@
       </div>
     
       <!-- 1 -->
-      <div class="d-flex">
-        <div class="container">
-          <h6 class="content-title" *ngFor="let el of aWhyis">
+      <div class="d-flex pb-5">
+        <div class="container" *ngFor="let item of aWhyis">
+         <div *ngFor="let el of item">
+          <h6 class="content-title">
             <strong>
               {{el.secondTitle}}<br />
             </strong>
@@ -131,21 +132,25 @@
               {{el.text}}
             </span>
           </h6>
+         </div>
         </div>
       </div>
     
       <!-- Наши преимущества. -->
       <div class="gray-fon">
         <div class="">
-          <h5 class="text-center pt-5" _ngIf="el.mainTitle" *ngFor="let el of aAdvantages">{{el.mainTitle}}</h5>
-    
-          <div class="text-center mb-3">
-            <img src="../assets/images/Line9.png" />
+          <div class="pt-5" *ngFor="let item of aAdvantages">
+            <h5 class="text-center" _ngIf="el.mainTitle" *ngFor="let el of item">{{el.mainTitle}}</h5>
+
+            <div class="text-center mb-3">
+              <img src="../assets/images/Line9.png" />
+            </div>
           </div>
         </div>
     
-        <div class="d-flex container pb-5">
-          <div class="col-lg-4" *ngFor="let el of aAdvantages">
+        <div class="container pb-5">
+         <div class="d-flex" *ngFor="let item of aAdvantages">
+          <div class="col-lg-4" *ngFor="let el of item">
             <h6 class="content-title">
               <strong>
                 {{el.secondTitle}}
@@ -156,6 +161,7 @@
               {{el.text}}
             </span>
           </div>
+         </div>
         </div>
       </div>
     
@@ -175,9 +181,10 @@
       </div>
     
       <!-- Секция категорий. -->
-      <!-- <div class="col-lg-12 mb-3">
-        <div class="row">
-          <div class="col-lg-4 mb-3" *ngFor="let el of oData.aCategories">
+      <div class="col-lg-12 mb-3">
+        <div>
+         <div class="d-flex block-category" *ngFor="let item of aCategories">
+          <div class="col-lg-4 mb-3" *ngFor="let el of item">
             <div class="card">
               <div class="card-body">
                 <h5 class="card-title title-row">
@@ -190,9 +197,10 @@
                 </span>
               </div>
             </div>
-          </div>    
+          </div>   
+         </div> 
         </div>
-      </div> -->
+      </div>
     
       <!-- Последние задания. -->
       <div class="gray-fon">
@@ -211,73 +219,75 @@
         </div>
     
         <div class="block-my-tasks">
-          <div class="card card-task card-subcategory" *ngFor="let el of aLastTasks">
-              <div class="card-header header-task">
-                  <div class="block-icon">
-                      <div>
-                          <img src="../assets/images/1-wiper1.png">
-                      </div>
-                      &nbsp;
-    
-                      <div class="ml-1 text-dark">
-                          <span>{{el.userName}}</span><br>
-                          <small>{{el.taskBegda}}</small>
-                      </div>
-                  </div>
-    
-                  <div class="">
-                      <img src="../assets/images/message.png">&nbsp;
-                      <span class="text-dark">{{el.countOffers}}</span>
-                  </div>
-    
-                  <div class="">
-                      <img src="../assets/images/Icon.png">&nbsp;
-                      <span class="text-dark">{{el.countViews}}</span>
-                  </div>
-    
-                  <div class="badge badge-pill badge-primary content-title">
-                      <span>{{el.typeCode}}</span>
-                  </div>
-    
-                  <div class="badge badge-pill badge-warning content-title">
-                      <span>{{el.statusName}}</span>
-                  </div>
-    
-                  <div class="task-price">
-                      <img src="../assets/images/date_range.png">
-                      <span>{{el.taskEndda}}</span>
-                  </div>
-    
-                  <div class="task-price">
-                      <span>{{el.taskPrice || 'По договоренности'}}
-                          <span *ngIf="el.taskPrice">₽</span>
-                      </span>
-                  </div>
-              </div>
-    
-              <div class="card-body">
-                  <h5 class="card-title task-title">
-                      {{el.taskTitle}}
-                  </h5>
-    
-                  <p class="card-text task-detail">
-                      {{el.taskDetail}}
-                  </p>
-              </div>
-    
-              <div class="card-footer task-detail">
-                  <div class="block-footer">
-                      <div class="task-category">
-                          <span>{{el.categoryName}}</span>
-                      </div>
-    
-    
-                      <div class="offer">
-                          <span class="send-task">ОСТАВИТЬ ПРЕДЛОЖЕНИЕ</span>
-                      </div>
-                  </div>
-              </div>
-          </div>
+         <div *ngFor="let item of aLastTasks">
+          <div class="card card-task card-subcategory" *ngFor="let el of item">
+            <div class="card-header header-task">
+                <div class="block-icon">
+                    <div>
+                        <img src="../assets/images/1-wiper1.png">
+                    </div>
+                    &nbsp;
+  
+                    <div class="ml-1 text-dark">
+                        <span>{{el.userName}}</span><br>
+                        <small>{{el.taskBegda}}</small>
+                    </div>
+                </div>
+  
+                <div class="">
+                    <img src="../assets/images/message.png">&nbsp;
+                    <span class="text-dark">{{el.countOffers}}</span>
+                </div>
+  
+                <div class="">
+                    <img src="../assets/images/Icon.png">&nbsp;
+                    <span class="text-dark">{{el.countViews}}</span>
+                </div>
+  
+                <div class="badge badge-pill badge-primary content-title">
+                    <span>{{el.typeCode}}</span>
+                </div>
+  
+                <div class="badge badge-pill badge-warning content-title">
+                    <span>{{el.statusName}}</span>
+                </div>
+  
+                <div class="task-price">
+                    <img src="../assets/images/date_range.png">
+                    <span>{{el.taskEndda}}</span>
+                </div>
+  
+                <div class="task-price">
+                    <span>{{el.taskPrice || 'По договоренности'}}
+                        <span *ngIf="el.taskPrice">₽</span>
+                    </span>
+                </div>
+            </div>
+  
+            <div class="card-body">
+                <h5 class="card-title task-title">
+                    {{el.taskTitle}}
+                </h5>
+  
+                <p class="card-text task-detail">
+                    {{el.taskDetail}}
+                </p>
+            </div>
+  
+            <div class="card-footer task-detail">
+                <div class="block-footer">
+                    <div class="task-category">
+                        <span>{{el.categoryName}}</span>
+                    </div>
+  
+  
+                    <div class="offer">
+                        <span class="send-task">ОСТАВИТЬ ПРЕДЛОЖЕНИЕ</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+         </div>
       </div>
     
         <div class="col-lg-12 d-flex justify-content-center pt-3 pb-3">
@@ -359,7 +369,6 @@
       </div>
     
       <!-- Начать зарабатывать. -->
-      <!-- Наши преимущества. -->
       <div class="gray-fon">
         <div class="">
           <h5 class="text-center pt-5">СТАТЬ ИСПОЛНИТЕЛЕМ И НАЧАТЬ ЗАРАБАТЫВАТЬ НА <span class="title-color">BARBUUUDA</span></h5>
@@ -378,6 +387,7 @@
         </div>
       </div>
     
+      <!-- Что вы получаете. -->
       <div class="">
         <div class="">
           <h5 class="text-center pt-5">ЧТО ВЫ ПОЛУЧАЕТЕ?</h5>
@@ -388,16 +398,18 @@
         </div>
     
         <div class="">
-          <div class="col-lg-12 mt-3" *ngFor="let el of aProveliges">
-            <h6 class="content-title">
-              <strong>
-                {{el.title}}
-              </strong>
-            </h6>
-    
-            <span class="content-title">
-              {{el.text}}
-            </span>
+          <div *ngFor="let item of aProveliges">
+            <div class="col-lg-12 mt-3" *ngFor="let el of item">
+              <h6 class="content-title">
+                <strong>
+                  {{el.title}}
+                </strong>
+              </h6>
+      
+              <span class="content-title">
+                {{el.text}}
+              </span>
+            </div>
           </div>
         </div>
       </div>
@@ -440,5 +452,7 @@
           </div>
         </div>
       </div>
+
+      <!-- <footer></footer> -->
 </body>
 </html>

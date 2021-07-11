@@ -1,7 +1,3 @@
-import "bootstrap";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "popper.js/dist/popper.min.js";
-import "bootstrap/dist/js/bootstrap.min.js";
 import { Component, OnInit } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { API_URL } from "../../core/core-urls/api-url";
@@ -21,6 +17,7 @@ export class ContainerModule implements OnInit {
   aAdvantages: any[] = [];
   aHope: any[] = [];
   aLastTasks: any[] = [];
+  aCategories: any[] = [];
 
   constructor(private http: HttpClient, private dataService: DataService) { }
 
@@ -33,6 +30,8 @@ export class ContainerModule implements OnInit {
     this.loadCategoryListAsync();
     this.loadDataHopeAsync();
     this.loadLastTasksAsync();
+
+    this.aCategories = this.dataService.aTaskCategories;
   };
 
   // Функция подгрузит данные секции фона.

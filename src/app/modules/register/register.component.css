@@ -427,3 +427,33 @@ hr {
 .block-category {
   flex-wrap: wrap;
 }
+
+.form-register {
+  width: 30%;
+  background: #00BDD6;
+  color: white;
+  transition: all .3s ease-out;
+  border-radius: initial;
+  font-family: Oswald;
+  border: none;
+}
+
+.form-register :focus {
+  outline: none;
+}
+
+.btn-register {
+  background: #f4511e;
+  color: #fff;
+  transition: all .3s ease-out;
+  border-radius: initial;
+  border-color: #f4511e;
+  font-family: Oswald;
+  font-size: 12px;
+  border-color: #00bdd6;
+  border: none;
+}
+
+.form-register {
+  padding: 10px 10px;
+}
