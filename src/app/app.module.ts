@@ -11,13 +11,15 @@ import { FormsModule } from "@angular/forms";
 import { HttpClientModule } from "@angular/common/http";
 import { FooterModule } from "./modules/footer/footer.component";
 import { RegisterModule } from "./modules/register/register.component";
+import { LoginModule } from "./modules/login/login.component";
 
 @NgModule({
   declarations: [
     App,
     ContainerModule,
     FooterModule,
-    RegisterModule
+    RegisterModule,
+    LoginModule
   ],
 
   imports: [

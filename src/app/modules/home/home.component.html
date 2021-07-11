@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <vue-headful title="Barbuuuda: Главная"/>
+</head>
+
+<body>
+    <main class="container-fluid mt-5">
+        <div class="main-wrapper d-flex justify-content-between">
+            <div class="content-wrapper col-lg-3">
+                <!-- TODO: добавить профильбар отдельным шаблоном -->
+                <!-- <ProfileBar></ProfileBar> -->
+            </div>
+
+            <div class="content-wrapper col-lg-9">
+                <div class="notifications">
+                    <div class="notifications__wrp">
+                        <span class="notifications__subtitle">Уведомления</span>
+                        <span class="notifications__history ml-3">История уведомлений</span>                        
+                    </div>
+                    <p class="notifications__txt" v-show="!bActivity">Новых уведомлений нет</p>
+                    <h5 class="ml-3 mt-3" v-show="aInvities.length > 0">Задания, в которых вас выбрали исполнителем</h5>
+
+                    <!-- Список уведомлений. -->
+                    <div class="block-my-tasks mb-3">                
+                        <div class="card card-task card-subcategory" v-for="el in aInvities">
+                            <div class="card-header header-task">
+                                <div class="block-icon">
+                                    <div>
+                                        <img src="../assets/images/1-wiper1.png">
+                                    </div>
+                                    &nbsp;
+        
+                                    <div class="ml-1 text-dark">
+                                        <span>{{el.userName}}</span><br>
+                                        <small>{{el.taskBegda}}</small>
+                                    </div>
+                                </div>
+        
+                                <div class="">
+                                    <img src="../assets/images/message.png">&nbsp;
+                                    <span class="text-dark">{{el.countOffers}}</span>
+                                </div>
+        
+                                <div class="">
+                                    <img src="../assets/images/Icon.png">&nbsp;
+                                    <span class="text-dark">{{el.countViews}}</span>
+                                </div>
+        
+                                <div class="badge badge-pill badge-primary">
+                                    <span>{{el.typeCode}}</span>
+                                </div>
+        
+                                <div class="badge badge-pill badge-warning">
+                                    <span>{{el.statusName}}</span>
+                                </div>
+        
+                                <div class="task-price">
+                                    <img src="../assets/images/date_range.png">
+                                    <span>{{el.taskEndda}}</span>
+                                </div>
+        
+                                <div class="task-price">
+                                    <span>{{el.taskPrice || 'По договоренности'}}
+                                        <span v-show="el.taskPrice">₽</span>
+                                    </span>
+                                </div>
+                            </div>
+        
+                            <div class="card-body">
+                                <h5 class="card-title task-title">
+                                    {{el.taskTitle}}
+                                </h5>
+        
+                                <p class="card-text task-detail">
+                                    {{el.taskDetail}}
+                                </p>
+                            </div>
+        
+                            <div class="card-footer task-detail">
+                                <div class="block-footer">
+                                    <div class="task-category">
+                                        <span>{{el.categoryName}}</span>
+                                    </div>
+        
+                                    <div class="offer">
+                                        <button 
+                                            class="btn-next form-control-sm" 
+                                            _v-show="el.countOffers"
+                                            v-on:click="onAcceptTask(el.taskId)">
+                                            ПРИНЯТЬ
+                                        </button>
+
+                                        &nbsp;
+        
+                                        <button 
+                                            class="btn-next btn-create-task" 
+                                            _v-show="!el.countOffers"
+                                            v-on:click="onCancelTask(el.taskId)">
+                                            ОТКАЗАТЬСЯ
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+               
+                  <!-- Панель перед началом теста. -->
+                  <div class="panel-before-test" v-show="!isHideStepsTest && oData.role == 'E'">
+                      <div class="mb-3">
+                        <span class="notifications__subtitle">Добро пожаловать на Barbuuuda!</span>
+                      </div>
+
+                      <div class="content-title mb-3">
+                          <span>Barbuuuda - это онлайн-сервис, где заказчики и исполнители могут находить друг друга. Вы сами находите задания и работаете с заказчиком напрямую.</span>                        
+                      </div>
+
+                      <div class="content-title">
+                        <strong>Пройдите 4 простых шага для того, чтобы начать работать на сервисе Barbuuuda.</strong>
+                      </div>
+
+                      <button class="btn-next form-control-sm mb-3 mt-3" 
+                              v-on:click="onStartSteps()">НАЧАТЬ</button><hr>
+
+                        <div>
+                            <strong class="content-title">
+                                Если у вас что-то не получается, обратитесь в службу поддержки 
+                                <span class="email">info.barbuuuda@mail.ru</span><br>
+                                Наши сотрудники обязательно вам помогут.
+                            </strong>
+                        </div>
+                  </div>
+
+                   <!-- Панель прохождения теста. -->
+                <div class="panel-test" v-show="isHidePanelTest && oData.role == 'E'">
+                    <ul class="nav nav-pills nav-justified">
+                        <li class="nav-item mb-3">
+                            <a class="nav-link active" data-toggle="tab" role="tab" href="#idRegulations">
+                                <small>Шаг 1</small><br>
+                                <small>Ознакомление с правилами</small>
+                            </a>
+                        </li>
+
+                        <li class="nav-item mb-3">
+                            <a class="nav-link" data-toggle="tab" role="tab" href="#idInfoMe">
+                                <small>Шаг 2</small><br>
+                                <small>Заполнение информации о себе</small>
+                            </a>
+                        </li>
+
+                        <li class="nav-item mb-3">
+                            <a class="nav-link" data-toggle="tab" role="tab" href="#idSelectCategory">
+                                <small>Шаг 3</small><br>
+                                <small>Выбор категорий и подкатегорий</small>
+                            </a>
+                        </li>
+
+                        <li class="nav-item mb-3">
+                            <a class="nav-link" data-toggle="tab" role="tab" href="#idTest">
+                                <small>Шаг 4</small><br>
+                                <small>Прохождение теста</small>
+                            </a>
+                        </li>
+                    </ul>
+    
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active" id="idRegulations" role="tabpanel"
+                            aria-labelledby="home-tab">
+                            <div class="content-title">
+                                Для работы на сервисе Barbuuuda, Вы должны ознакомиться с правилами работы на сервисе.
+                            </div>
+                            
+                            <button class="btn-regulations form-control-sm mb-3 mt-3" 
+                                    v-on:click="">ПРАВИЛА</button>                         
+                        </div>
+
+                        <div class="tab-pane fade" id="idInfoMe" role="tabpanel" aria-labelledby="profile-tab" v-for="el in aProfileData">
+                            <div class="tab-pane fade show active" id="about" role="tabpanel" aria-labelledby="about-tab">
+                                <h4>Немного о себе</h4>
+                                <span>{{el.aboutInfo}}</span>
+
+                                <br>
+
+                                <button class="btn-next form-control-sm mb-3 mt-3" 
+                            v-on:click="">ЗАПОЛНИТЬ ПОЗЖЕ</button>
+                              </div>
+                        </div>
+
+                        <div class="tab-pane fade" id="idSelectCategory" role="tabpanel" aria-labelledby="contact-tab" v-for="el in aProfileData">  
+                            <h4 class="mt-3">Категории и специализации выполняемых заданий</h4>
+                            <div class="mt-3" v-for="(category, idx) in aCategories">
+                              <strong>{{category.categoryName}}</strong><small class="ml-2">Выбрать все</small><br>
+                              <div v-for="spec in aCategories[idx].specializations">
+                                <div class="d-flex align-items-center">
+                                  <input type="checkbox" 
+                                          class="mr-1"
+                                          v-model="checked"
+                                          v-on:click="onSelectSpec(!checked, spec.specName)"><span>{{spec.specName}}</span>
+                                </div>
+                              </div>
+                            </div>
+                      
+                            <button class="btn-next form-control-sm mt-3 mr-1" v-on:click="onSaveSpecies()">Сохранить</button>
+
+                            <button class="btn-next form-control-sm mb-3 mt-3" 
+                            v-on:click="">ЗАПОЛНИТЬ ПОЗЖЕ</button>
+                        </div>
+
+                        <div class="tab-pane fade" id="idTest" role="tabpanel" aria-labelledby="contact-tab">
+                            <span>Для обеспечения качества работы исполнителей, мы должны быть уверены, что Вы ознакомились с правилами работы на сервисе.</span>  
+                            <br>
+                            <button class="btn-next form-control-sm mb-3 mt-3" 
+                            v-on:click="onStartTest()">НАЧАТЬ</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Панель вопросов теста. -->
+                <div class="panel-test" v-show="isHidePanelStartTest && oData.role == 'E'">
+                    <div v-for="el in aQuestion">
+                        <div>
+                            <div class="mb-3">
+                                <span class="notifications__subtitle">
+                                    Вопрос {{currentQuestion}} из {{iQuestionsCount}}
+                                </span>
+                            </div>
+                            <div class="content-title mb-3">
+                                <strong>
+                                    {{el.questionText}}
+                                </strong>
+                            </div>
+
+                            <div class="content-title" v-for="question in el.answerVariantText">
+                                <input id="idSelectedVariant"
+                                        type="radio" 
+                                        name="variant"
+                                        _v-on:click="onAddVariant(question)">
+                                <span>
+                                    {{question.answerVariantText}}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <br>
+
+                    <button class="btn-next form-control-sm mb-3 mt-1" 
+                            v-if="currentQuestion < 7"
+                            v-on:click="onNextQuestion()">ДАЛЕЕ</button>
+
+                            <button class="btn-next form-control-sm mb-3 mt-1" 
+                            v-if="currentQuestion == 7"
+                            v-on:click="onCheckAnswersTest()">ЗАКОНЧИТЬ ТЕСТ</button>
+                </div>
+            </div>
+        </div>
+        </div>
+
+         <!-- Модальное окно ошибки, если нет роли заказчика. -->  
+  <div class="modal fade" id="idNotSelectedVariant" tabindex="-1" role="dialog" aria-labelledby="idNotCustomerTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="idNotCustomerTitle">Ошибка</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <div class="modal-body">
+          Не выбран вариант ответа.
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="form-control-sm btn-next" data-dismiss="modal">Закрыть</button>
+        </div>
+      </div>
+    </div>
+  </div>
+    </main>
+</body>
+
+</html>

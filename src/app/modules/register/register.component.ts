@@ -59,6 +59,7 @@ export class RegisterModule implements OnInit {
         evt.currentTarget.className += " active";
     };
 
+    // Функция регистрирует пользователя.
     public async onCreate() {
         let params = {};
 
@@ -88,7 +89,7 @@ export class RegisterModule implements OnInit {
                 },
       
                 error: (err) => {
-                  console.log(err);
+                    throw new Error(err);
                 }
               });
           }

@@ -4,6 +4,8 @@ import { App } from "./app.component";
 import { RegisterModule } from "./modules/register/register.component";
 import { BrowserModule } from "@angular/platform-browser";
 import { ContainerModule } from "./modules/container/container.component";
+import { LoginModule } from "./modules/login/login.component";
+import { HomeModule } from "./modules/home/home.component";
 
 const routes: Routes = [
   {
@@ -13,6 +15,14 @@ const routes: Routes = [
   {
     path: "register", component: RegisterModule
   },
+
+  {
+    path: "login", component: LoginModule
+  },
+
+  {
+    path: "home", component: HomeModule
+  }
 ];
 
 @NgModule({

@@ -4,4 +4,6 @@ import { Injectable } from '@angular/core';
 export class DataService {
     aTasks: any[] = [];
     aTaskCategories: any[] = [];    
+    bGuest: boolean = false;
+    dateRegister: string = "";
 }

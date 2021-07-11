@@ -22,14 +22,14 @@ export class ContainerModule implements OnInit {
   constructor(private http: HttpClient, private dataService: DataService) { }
 
   public async ngOnInit() {
-    this.loadDataFonAsync();
-    this.loadDataWhyAsync();
-    this.loadDataWorkAsync();
-    this.loadDataPrivilegeAsync();
-    this.loadDataAdvantageAsync();
-    this.loadCategoryListAsync();
-    this.loadDataHopeAsync();
-    this.loadLastTasksAsync();
+    await this.loadDataFonAsync();
+    await this.loadDataWhyAsync();
+    await this.loadDataWorkAsync();
+    await this.loadDataPrivilegeAsync();
+    await this.loadDataAdvantageAsync();
+    await this.loadCategoryListAsync();
+    await this.loadDataHopeAsync();
+    await this.loadLastTasksAsync();
 
     this.aCategories = this.dataService.aTaskCategories;
   };
