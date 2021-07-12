@@ -124,6 +124,7 @@ button {
 
 .panel-test .nav-link.active {
   background: #00BDD6 !important;
+  color: white;
 }
 
 .email {
@@ -144,4 +145,29 @@ button {
 
 .btn-regulations:focus {
   outline: none;
+}
+
+.btn-next {
+  background: #00BDD6;
+  color: #FFFFFF;
+  border-color: #00BDD6;
+  border: none;
+  padding: 0 50px !important;
+  transition: all .3s ease-out;
+}
+
+.btn-next:focus {
+  outline: none;
+}
+
+.btn-next:hover {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.content-title {
+  font-family: Open Sans;
+  font-size: 16px;
+  color: #666666;
+  line-height: 1.5;
+  white-space: pre-line;
 }
