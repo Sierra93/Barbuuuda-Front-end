@@ -1,7 +1,8 @@
 import { HttpClient } from "@angular/common/http";
 import { Component, OnInit } from "@angular/core";
-import { API_URL } from "src/app/core/core-urls/api-url";
 import {Router} from '@angular/router';
+import { API_URL } from "src/app/core/core-urls/api-url";
+import * as $ from 'jquery';
 
 @Component({
     selector: "login",
@@ -24,13 +25,13 @@ export class LoginModule implements OnInit {
         };
 
         try {
-            await this.http.post(API_URL.apiUrl.concat("/user/create"), params)
+            await this.http.post(API_URL.apiUrl.concat("/user/login"), params)
               .subscribe({
                 next: (response: any) => {
                     if (response.userToken) {
-                        sessionStorage["userToken"] = response.data.userToken;
-                        sessionStorage["role"] = response.data.role;
-                        sessionStorage["user"] = response.data.user;
+                        sessionStorage["userToken"] = response.userToken;
+                        sessionStorage["role"] = response.role;
+                        sessionStorage["user"] = response.user;
 
                         this.router.navigate(["/home"]);
                     }

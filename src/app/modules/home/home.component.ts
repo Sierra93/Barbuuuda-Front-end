@@ -28,6 +28,7 @@ export class HomeModule implements OnInit {
     bActivity: boolean = false;
     bAccept: boolean = false;
     bCancel: boolean = false;
+    role: string = "";
 
     constructor(private http: HttpClient, private dataService: DataService, private router: Router, private commonDataService: CommonDataService) { }
 
@@ -41,6 +42,8 @@ export class HomeModule implements OnInit {
         await this.loadingCountQuestionsAsync();
         await this.loadingProfileAsync();
         await this.loadingCategoryListAsync();
+
+        this.role = this.dataService.role;
     };
 
     // Функция получает активные задания заказчика.
@@ -104,14 +107,14 @@ export class HomeModule implements OnInit {
 
                     error: (err: any) => {
                         // TODO: Проверить есть ли у ошибки статус.
-                        if (err.status === 401) {
-                            sessionStorage.clear();
-                            sessionStorage["role"] = "G";
+                        // if (err.status === 401) {
+                        //     sessionStorage.clear();
+                        //     sessionStorage["role"] = "G";
 
-                            this.dataService.bGuest = true;
+                        //     this.dataService.bGuest = true;
 
-                            this.router.navigate(["/"]);
-                        }
+                        //     this.router.navigate(["/"]);
+                        // }
 
                         throw new Error(err);
                     }
@@ -250,7 +253,7 @@ export class HomeModule implements OnInit {
     };
 
     // Функция добавляет специализацию.
-    public async onSelectSpec(bCheck: boolean, specName: string): Promise<void> {
+    public async onSelectSpecAsync(bCheck: boolean, specName: string): Promise<void> {
         // Добавит специализацию в массив.
         if (bCheck) {
             this.aExecutorSpecializations.push({ SpecName: specName });

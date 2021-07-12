@@ -8,10 +8,13 @@ import { AppRoutingModule } from "./app-routing.module";
 import { App } from "./app.component";
 import { ContainerModule } from "./modules/container/container.component";
 import { FormsModule } from "@angular/forms";
-import { HttpClientModule } from "@angular/common/http";
+import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { FooterModule } from "./modules/footer/footer.component";
 import { RegisterModule } from "./modules/register/register.component";
 import { LoginModule } from "./modules/login/login.component";
+// import { ApiService } from "./services/api.service";
+import { ParamInterceptor } from "./api-interceptor";
+import { DataService } from "./services/data.service";
 
 @NgModule({
   declarations: [
@@ -29,11 +32,24 @@ import { LoginModule } from "./modules/login/login.component";
     FormsModule
   ],
 
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ParamInterceptor,
+      multi: true
+    }
+  ],
 
   bootstrap: [App]
 })
 
 export class AppModule implements OnInit {
-  ngOnInit() { }
+  constructor (private dataService: DataService) { }
+
+  public ngOnInit() { 
+    this.dataService.bGuest = sessionStorage["role"] == "G" ? true : false;
+    this.dataService.bCustomer = sessionStorage["role"] == "C" ? true : false;
+    this.dataService.bExecutor = sessionStorage["role"] == "E" ? true : false;
+    this.dataService.role = sessionStorage["role"];  
+  }
 }

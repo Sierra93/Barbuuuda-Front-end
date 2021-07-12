@@ -9,19 +9,23 @@ import { HomeModule } from "./modules/home/home.component";
 
 const routes: Routes = [
   {
-    path: "", component: ContainerModule,
+    path: "",
+    component: ContainerModule,
   },
 
   {
-    path: "register", component: RegisterModule
+    path: "register",
+    component: RegisterModule
   },
 
   {
-    path: "login", component: LoginModule
+    path: "login",
+    component: LoginModule
   },
 
   {
-    path: "home", component: HomeModule
+    path: "home",
+    component: HomeModule
   }
 ];
 

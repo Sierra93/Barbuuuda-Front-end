@@ -47,10 +47,12 @@ export class CommonDataService {
                     .subscribe({
                         next: (response: any) => {
                             sessionStorage.userToken = response;
+                            console.log("refresh token");
                         },
 
                         error: (err) => {
                             console.log(err);
+                            console.log('Ошибка обновления токена');
                         }
                     });
             }
@@ -64,7 +66,7 @@ export class CommonDataService {
     // Функция получает список всех категорий.
     public async getTaskCategoriesAsync(): Promise<void> {
         try {
-            await this.http.get(API_URL.apiUrl.concat("/main/category-list"))
+            await this.http.post(API_URL.apiUrl.concat("/main/category-list"), {})
                 .subscribe({
                     next: (response: any) => {
                         this.dataService.aTaskCategories = response;
@@ -105,7 +107,7 @@ export class CommonDataService {
         });
 
         const timerIncrement = () => {
-            idleTime = idleTime + 1;
+            idleTime++;
 
             if (idleTime > 19) { // 20 minutes
                 sessionStorage.clear();

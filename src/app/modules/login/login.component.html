@@ -12,12 +12,15 @@
         <div class="form-register">
             <div>
                 <label for="idEma">Login или E-mail</label><strong class="asterisk">&#42;</strong>
-                <input type="text" id="idEma" class="form-control" aria-label="First name">
+                <input type="text" 
+                id="idEma" 
+                class="form-control" 
+                aria-label="First name">
             </div>        
 
             <div class="mt-3">
                 <label>Пароль</label><strong class="asterisk">&#42;</strong>
-                <input id="idPass" v-model="sPassword" type="text" class="form-control" aria-label="First name">
+                <input id="idPass" [(ngModel)]="sPassword" type="password" class="form-control" aria-label="First name">
             </div>     
 
             <div class="mt-3 text-center">
