@@ -8,13 +8,14 @@ import { AppRoutingModule } from "./app-routing.module";
 import { App } from "./app.component";
 import { ContainerModule } from "./modules/container/container.component";
 import { FormsModule } from "@angular/forms";
-import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { FooterModule } from "./modules/footer/footer.component";
 import { RegisterModule } from "./modules/register/register.component";
 import { LoginModule } from "./modules/login/login.component";
-// import { ApiService } from "./services/api.service";
 import { ParamInterceptor } from "./api-interceptor";
 import { DataService } from "./services/data.service";
+import { HeaderModule } from "./modules/header/header.component";
+import { HeaderDropMenuModule } from "./modules/header-drop-menu/header-drop-menu.component";
 
 @NgModule({
   declarations: [
@@ -22,7 +23,9 @@ import { DataService } from "./services/data.service";
     ContainerModule,
     FooterModule,
     RegisterModule,
-    LoginModule
+    LoginModule,
+    HeaderModule,
+    HeaderDropMenuModule
   ],
 
   imports: [
@@ -51,5 +54,5 @@ export class AppModule implements OnInit {
     this.dataService.bCustomer = sessionStorage["role"] == "C" ? true : false;
     this.dataService.bExecutor = sessionStorage["role"] == "E" ? true : false;
     this.dataService.role = sessionStorage["role"];  
-  }
+  };
 }

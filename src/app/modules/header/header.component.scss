@@ -1,0 +1,45 @@
+// Кнопка создать задание справа.
+.div-link {
+    display: flex;
+    align-items: center;
+    margin-right: -9rem;
+  
+    .link-add-task {
+      color: #00BCD4 !important;
+    }
+  
+    .link {
+      cursor: pointer;
+    }
+  }
+  
+  .left-panel {
+    display: block;
+  }
+  
+  .block-left-line {
+    position: absolute;
+    //top: 0%;
+    top: 15%;
+    left: 1%;
+  
+    &:hover {
+      cursor: pointer;
+    }
+  
+    .left-line {
+      width: 35px;
+      height: 5px;
+      background-color: black;
+      margin: 6px 0;
+    }
+  }
+  
+  .header {
+      justify-content: space-between;
+  }
+  
+  .btn-state-left-menu {
+      color: white;
+  }
+  

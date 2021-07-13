@@ -1,0 +1,42 @@
+.div-link {
+  display: flex;
+  align-items: center;
+  margin-right: -9rem;
+}
+
+.div-link .link-add-task {
+  color: #00BCD4 !important;
+}
+
+.div-link .link {
+  cursor: pointer;
+}
+
+.left-panel {
+  display: block;
+}
+
+.block-left-line {
+  position: absolute;
+  top: 15%;
+  left: 1%;
+}
+
+.block-left-line:hover {
+  cursor: pointer;
+}
+
+.block-left-line .left-line {
+  width: 35px;
+  height: 5px;
+  background-color: black;
+  margin: 6px 0;
+}
+
+.header {
+  justify-content: space-between;
+}
+
+.btn-state-left-menu {
+  color: white;
+}
