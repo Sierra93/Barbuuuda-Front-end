@@ -31,7 +31,7 @@ export class ContainerModule implements OnInit {
     await this.loadDataHopeAsync();
     await this.loadLastTasksAsync();
 
-    this.aCategories = this.dataService.aTaskCategories;
+    this.aCategories = this.dataService.getTaskCategories();
   };
 
   // Функция подгрузит данные секции фона.
@@ -145,7 +145,7 @@ export class ContainerModule implements OnInit {
       await this.http.post(API_URL.apiUrl.concat("/main/category-list"), {})
         .subscribe({
           next: (response) => {
-            this.dataService.aTaskCategories.push(response);
+            this.dataService.setTaskCategories(response);
             console.log("Данные секции категории заданий", response);
           },
 

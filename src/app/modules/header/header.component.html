@@ -3,12 +3,11 @@
 <head>
   
 </head>
-<body>
-  <!-- <header>      
-    
-  </header> -->
+
+<body>  
   <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow"
-          [hidden]="bGuest && !bHideHeader">
+          >
+          <!-- [hidden]="bGuest && !bHideHeader" -->
       <div class="container">
         <button class="navbar-toggler btn-state-left-menu"
                 type="button"
@@ -35,17 +34,21 @@
             <ul class="navbar-nav flex-grow">
               <li class="nav-item">
                 <div class="div-link">
+                  <li *ngFor="let el of aHeader">
+                    <div>{{el.headerField}}</div>
+                  </li>
+
                   <img src="../assets/images/add_task.jpg" class="link"
                         (click)="onRouteCreateTask()" />
                   <!-- <li><router-link to="" class="nav-link link-add-task"
-                    (click)="onRouteCreateTask()">Создать задание</router-link></li> -->
+                    (click)="onRouteCreateTask()">Создать задание</router-link></li> -->                    
 
                     <li>
                       <button class="nav-link btn btn-link link-add-task" 
                               (click)="onRouteCreateTask()">
                         Создать задание
                       </button>
-                    </li>
+                    </li>                    
                 </div>
               </li>
             </ul>

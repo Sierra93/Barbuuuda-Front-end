@@ -1,12 +1,15 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Router } from "@angular/router";
+import { NavigationEnd, Router } from "@angular/router";
+import { Subject } from "rxjs";
 import { API_URL } from "../core/core-urls/api-url";
 import { DataService } from "../services/data.service";
 
-@Injectable({ providedIn: 'root' })
-// Модуль общих функций приложения.
+// Сервис общих функций приложения.
+@Injectable()
 export class CommonDataService {
+    private aHeader: any[] = [];
+
     constructor(private http: HttpClient, private dataService: DataService, private router: Router) { }
 
     // Функция получит список заданий выбранной даты в календаре.
@@ -18,8 +21,7 @@ export class CommonDataService {
                 .concat("task/concretely-date?date=".concat(formatDate)))
                 .subscribe({
                     next: (response) => {
-                        this.dataService.aTasks.push(response);
-                        console.log(this.dataService.aTasks);
+                        this.dataService.setTasksList(response);
                     },
 
                     error: (err) => {
@@ -69,7 +71,7 @@ export class CommonDataService {
             await this.http.post(API_URL.apiUrl.concat("/main/category-list"), {})
                 .subscribe({
                     next: (response: any) => {
-                        this.dataService.aTaskCategories = response;
+                        this.dataService.setTaskCategories(response);
                         console.log("Список категорий заданий", response);
                     },
 
@@ -115,6 +117,70 @@ export class CommonDataService {
                 // $(".right-panel").show();
                 this.router.navigate(["/"]);
             }
+        }
+    };
+
+    // Функция проверит авторизован ли пользователь. 
+    public async getUserAuthorizeAsync(): Promise<any[]> {
+        let self = this;
+
+        this.router.events.subscribe(function (s) {
+            if (s instanceof NavigationEnd) {
+                if (s.url === "/login" || s.url === "/register") {
+                    sessionStorage["role"] = "G";
+                    self.dataService.setGuestUserRole(true);
+                    return;
+                }
+
+                if (!sessionStorage["userToken"] && s.url !== "/public-offer"
+                    && s.url !== "/register" && s.url !== "/login") {
+                    self.router.navigate(["/"]);
+                }
+
+                if (!sessionStorage["userToken"] || !sessionStorage["role"]) {
+                    sessionStorage["role"] = "G";
+                    self.dataService.setGuestUserRole(true);
+                }
+
+                else {
+                    self.dataService.setGuestUserRole(false);
+                }
+            }
+        });
+
+        try {
+            return new Promise<any[]>(async resolve => {
+                await this.http.get(API_URL.apiUrl.concat("/user/authorize?userName=".concat(sessionStorage["user"])))
+                    .subscribe({
+                        next: (response: any) => {
+                            console.log("Хидер пользователя", response.aHeaderFields);
+                            resolve(response.aHeaderFields);
+                        },
+
+                        // Токен протух, получить новый.
+                        error: async () => {
+                            await this.http.get(API_URL.apiUrl.concat("/user/authorize?userName=").concat(sessionStorage["user"]))
+                                .subscribe({
+                                    next: (response: any) => {
+                                        if (sessionStorage["user"] !== undefined && sessionStorage["user"] !== "") {
+                                            sessionStorage["userToken"] = response;
+                                        }
+
+                                        // Удалит токен юзера. Теперь нужно снова авторизоваться.
+                                        else {
+                                            sessionStorage.clear();
+                                        }
+                                    },
+
+                                    error: () => { }
+                                });
+                        }
+                    });
+            })
+        }
+
+        catch (e) {
+            throw new Error(e);
         }
     };
 }

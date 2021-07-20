@@ -1,5 +1,5 @@
-import { HttpClient } from "@angular/common/http";
 import { Component, OnInit } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
 import { Router } from "@angular/router";
 import { API_URL } from "src/app/core/core-urls/api-url";
 import { CommonDataService } from "src/app/services/common-data.service";
@@ -8,7 +8,8 @@ import { DataService } from "src/app/services/data.service";
 @Component({
     selector: "home",
     templateUrl: "./home.component.html",
-    styleUrls: ["./home.component.scss"]
+    styleUrls: ["./home.component.scss"],
+    providers: [DataService]
 })
 
 export class HomeModule implements OnInit {
@@ -43,7 +44,7 @@ export class HomeModule implements OnInit {
         await this.loadingProfileAsync();
         await this.loadingCategoryListAsync();
 
-        this.role = this.dataService.role;
+        this.role = this.dataService.getUserRole();        
     };
 
     // Функция получает активные задания заказчика.
@@ -53,7 +54,7 @@ export class HomeModule implements OnInit {
                 .subscribe({
                     next: (response: any) => {
                         console.log("Активные задания", response);
-                        this.dataService.aTasks = response;
+                        this.dataService.setTasksList(response);
                     },
 
                     error: (err) => {
@@ -211,7 +212,8 @@ export class HomeModule implements OnInit {
                 .subscribe({
                     next: (response: any) => {
                         this.aProfileData.push(response);
-                        this.dataService.dateRegister = response.dateRegister.split(".")[0];
+                        let date = response.dateRegister.split(".")[0];
+                        this.dataService.setDateRegister(date);
                         console.log("Данные профиля", this.aProfileData);
                     },
 
@@ -229,7 +231,7 @@ export class HomeModule implements OnInit {
      // Функция выгружает список категорий заданий.
     private async loadingCategoryListAsync(): Promise<void> {
         await this.commonDataService.getTaskCategoriesAsync();
-        this.aCategories = this.dataService.aTaskCategories;
+        this.aCategories = this.dataService.getTaskCategories();
     };
 
     // Функция сохраняет выбранные специализации исполнителя.

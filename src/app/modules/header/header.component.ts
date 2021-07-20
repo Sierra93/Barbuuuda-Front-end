@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Component, OnInit } from "@angular/core";
-import { Router } from "@angular/router";
+import { Router, NavigationEnd } from "@angular/router";
 import { API_URL } from "src/app/core/core-urls/api-url";
 import { CommonDataService } from "src/app/services/common-data.service";
 import { DataService } from "src/app/services/data.service";
@@ -15,158 +15,105 @@ export class HeaderModule implements OnInit {
     bHideLeftPanel = false;
     bGuest = false;
     bHideHeader = false;
+    aHeader: any[] = [];
 
     constructor(private http: HttpClient, private router: Router, private dataService: DataService, private commonService: CommonDataService) { }
 
     public async ngOnInit() {
         console.log("header init");
-        this.bGuest = this.dataService.bGuest;
-        this.bHideHeader = this.dataService.bHideHeader;
+        let bGuestRole = sessionStorage["role"] == "G" ? true : false;
+        this.dataService.setGuestUserRole(bGuestRole);
 
-        this.InitHeader();
-        this.GetUserAuthorize();
+        let bCustomerRole = sessionStorage["role"] == "C" ? true : false;
+        this.dataService.setCustomerUserRole(bCustomerRole);
+
+        let bExecutorRole = sessionStorage["role"] == "E" ? true : false;
+        this.dataService.setExecutorUserRole(bExecutorRole);
+
+        let role = sessionStorage["role"];
+        this.dataService.setUserRole(role);  
+        // this.bGuest = this.dataService.bGuest;
+        this.bHideHeader = this.dataService.getHeaderStatus();               
+        this.dataService.setGuestUserRole(false);
+        this.InitHeader();         
         this.commonService.refreshToken();
+
+        this.bGuest = this.dataService.getGuestUserRole();
+
+        console.log("bHideHeader", this.bHideHeader);
+        console.log("bGuest", this.dataService.getGuestUserRole());    
+        console.log("bExecutor", this.dataService.getExecutorUserRole());  
+        console.log("bCustomer", this.dataService.getCustomerUserRole());             
     };
 
     // Функция проставит хидер в зависимости от роли пользователя.
     private async InitHeader() {
-        // Начало цепочки проверок для хидера.
-        if (this.router.url === "main") {
-            this.dataService.bCustomer = false;
-            this.dataService.bExecutor = false;
-            this.dataService.bGuest = true;
-            this.ShowGuestHeader();
-        }
+        let self = this;
 
-        if (this.router.url === "task-create" && this.dataService.bCustomer) {
-            this.dataService.bGuest = false;
-            this.dataService.bExecutor = false;
-            this.ShowGuestHeader();
-        }
+        this.router.events.subscribe(function (s) {
+            if (s instanceof NavigationEnd) {
+                // Начало цепочки проверок для хидера.
+                if (s.url === "/main") {
+                    self.dataService.setCustomerUserRole(false);
+                    self.dataService.setExecutorUserRole(false);
+                    self.dataService.setGuestUserRole(true);
+                    self.dataService.setHeaderStatus(false);
+                }
 
-        if (this.router.url === "categories" && this.dataService.bCustomer) {
-            this.dataService.bGuest = false;
-            this.dataService.bExecutor = false;
-            this.ShowGuestHeader();
-        }
+                if (s.url === "/task-create" && self.dataService.getCustomerUserRole()) {
+                    self.dataService.setGuestUserRole(false);
+                    self.dataService.setExecutorUserRole(false);
+                }
 
-        if (this.router.url === "auction" && this.dataService.bCustomer) {
-            this.dataService.bGuest = false;
-            this.dataService.bExecutor = false;
-            this.ShowGuestHeader();
-        }
+                if (s.url === "/categories" && self.dataService.getCustomerUserRole()) {
+                    self.dataService.setGuestUserRole(false);
+                    self.dataService.setExecutorUserRole(false);
+                }
 
-        if (this.router.url === "auction" && this.dataService.bExecutor) {
-            this.dataService.bGuest = false;
-            this.dataService.bCustomer = false;
-            this.dataService.bExecutor = true;
-            this.ShowGuestHeader();
-        }
+                if (s.url === "/auction" && self.dataService.getCustomerUserRole()) {
+                    self.dataService.setGuestUserRole(false);
+                    self.dataService.setExecutorUserRole(false);
+                }
 
-        if (this.router.url === "task-create" && this.dataService.bExecutor) {
-            this.dataService.bGuest = false;
-            this.dataService.bCustomer = false;
-            this.dataService.bExecutor = true;
-            this.ShowGuestHeader();
-        }
+                if (s.url === "/auction" && self.dataService.getExecutorUserRole()) {
+                    self.dataService.setGuestUserRole(false);
+                    self.dataService.setCustomerUserRole(false);
+                    self.dataService.setExecutorUserRole(true);
+                }
 
-        if (this.router.url === "e-home") {
-            this.dataService.bGuest = false;
-            this.dataService.bCustomer = false;
-            this.dataService.bExecutor = true;
-            this.ShowGuestHeader();
-        }
+                if (s.url === "/task-create" && self.dataService.getExecutorUserRole()) {
+                    self.dataService.setGuestUserRole(false);
+                    self.dataService.setCustomerUserRole(false);
+                    self.dataService.setExecutorUserRole(true);
+                }
 
-        if (this.router.url === "login" || this.router.url === "register") {
-            this.dataService.bExecutor = true;
-            this.HideGuestHeader();
-        }
-        // Конец цепочки проверок для хидера.
-    };
+                if (s.url === "/home") {
+                    self.dataService.setGuestUserRole(false);
+                    self.dataService.setCustomerUserRole(false);
+                    self.dataService.setExecutorUserRole(true);
+                }
 
-    // Функция покажет гостевой хидер.
-    private ShowGuestHeader() {
-        this.dataService.bHideHeader = false;
-    };
+                if (s.url === "/login" || s.url === "/register") {
+                    self.dataService.setExecutorUserRole(true);
+                    self.dataService.setHeaderStatus(true);
+                }
+                // Конец цепочки проверок для хидера.                
+            }
+        });
 
-    // Функция скроет гостевой хидер.
-    private HideGuestHeader() {
-        this.dataService.bHideHeader = true;
-    };
-
-    // Функция проверит авторизован ли пользователь. 
-    private async GetUserAuthorize() {
-        let userRole = "";
-
-        if (!sessionStorage["userToken"] && this.router.url !== "public-offer"
-            && this.router.url !== "register" && this.router.url !== "login") {
-            this.router.navigate(["/"]);
-        }
-
-        if (!sessionStorage["userToken"] || !sessionStorage["role"]) {
-            userRole = "G";
-            sessionStorage["role"] = userRole;
-            this.dataService.bGuest = true;
-        }
-
-        if (sessionStorage["role"] == "G") {
-            userRole = "G";
-            sessionStorage["role"] = userRole;
-            this.dataService.bGuest = true;
-            return;
-        }
-
-        else {
-            userRole = sessionStorage["role"];
-            this.dataService.bGuest = false;
-        }
-
-        try {
-            await this.http.get(API_URL.apiUrl.concat("/user/authorize?userName=".concat(sessionStorage["user"])))
-                .subscribe({
-                    next: (response: any) => {
-                        // Если не страница регистрации и не страница авторизации, то запишет поля хидера.               
-                        if (this.router.url !== "login" && this.router.url !== "register") {
-                            response.data.aHeaderFields.forEach((el: any) => {
-                                this.dataService.aHeader.push(el.headerField);
-                            });
-                        }
-
-                        console.log("Хидер пользователя", this.dataService.aHeader);
-                    },
-
-                    // Токен протух, получить новый.
-                    error: async () => {
-                        await this.http.get(API_URL.apiUrl.concat("/user/authorize?userName=").concat(sessionStorage["user"]))
-                            .subscribe({
-                                next: (response: any) => {
-                                    if (sessionStorage["user"] !== undefined && sessionStorage["user"] !== "") {
-                                        sessionStorage["userToken"] = response;
-                                    }
-
-                                    // Удалит токен юзера. Теперь нужно снова авторизоваться.
-                                    else {
-                                        sessionStorage.clear();
-                                    }
-                                },
-
-                                // Токен протух, получить новый.
-                                error: () => { }
-                            });
-                    }
-                });
-        }
-
-        catch (e) {
-            throw new Error(e);
-        }
-    };
+        // Получит поля хидера.    
+        await this.commonService.getUserAuthorizeAsync().then((data: any) => {
+            this.aHeader = data;
+         });
+        
+        console.log("header data", this.aHeader);    
+    };        
 
     // Функция отобразит/скроет левую панель.
     public onStateLeftPanel() {
         this.bHideLeftPanel = $(".left-menu").hasClass("left-panel");
-        this.bHideLeftPanel ? $(".left-menu").removeClass("left-panel").addClass("left-panel-not-left") 
-        : $(".left-menu").removeClass("left-panel-not-left").addClass("left-panel");
+        this.bHideLeftPanel ? $(".left-menu").removeClass("left-panel").addClass("left-panel-not-left")
+            : $(".left-menu").removeClass("left-panel-not-left").addClass("left-panel");
     };
 
     public onRouteCreateTask() {

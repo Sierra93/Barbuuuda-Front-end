@@ -2,7 +2,7 @@ import "bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "popper.js/dist/popper.min.js";
 import "bootstrap/dist/js/bootstrap.min.js";
-import { NgModule, OnInit } from "@angular/core";
+import { NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 import { AppRoutingModule } from "./app-routing.module";
 import { App } from "./app.component";
@@ -13,9 +13,11 @@ import { FooterModule } from "./modules/footer/footer.component";
 import { RegisterModule } from "./modules/register/register.component";
 import { LoginModule } from "./modules/login/login.component";
 import { ParamInterceptor } from "./api-interceptor";
-import { DataService } from "./services/data.service";
 import { HeaderModule } from "./modules/header/header.component";
 import { HeaderDropMenuModule } from "./modules/header-drop-menu/header-drop-menu.component";
+import { HomeModule } from "./modules/home/home.component";
+import { CommonDataService } from "./services/common-data.service";
+import { DataService } from "./services/data.service";
 
 @NgModule({
   declarations: [
@@ -25,14 +27,15 @@ import { HeaderDropMenuModule } from "./modules/header-drop-menu/header-drop-men
     RegisterModule,
     LoginModule,
     HeaderModule,
-    HeaderDropMenuModule
+    HeaderDropMenuModule,
+    HomeModule
   ],
 
   imports: [
     BrowserModule,
+    FormsModule,
     AppRoutingModule,
-    HttpClientModule,
-    FormsModule
+    HttpClientModule
   ],
 
   providers: [
@@ -40,19 +43,12 @@ import { HeaderDropMenuModule } from "./modules/header-drop-menu/header-drop-men
       provide: HTTP_INTERCEPTORS,
       useClass: ParamInterceptor,
       multi: true
-    }
+    },
+    CommonDataService,
+    DataService
   ],
 
   bootstrap: [App]
 })
 
-export class AppModule implements OnInit {
-  constructor (private dataService: DataService) { }
-
-  public ngOnInit() { 
-    this.dataService.bGuest = sessionStorage["role"] == "G" ? true : false;
-    this.dataService.bCustomer = sessionStorage["role"] == "C" ? true : false;
-    this.dataService.bExecutor = sessionStorage["role"] == "E" ? true : false;
-    this.dataService.role = sessionStorage["role"];  
-  };
-}
+export class AppModule { }

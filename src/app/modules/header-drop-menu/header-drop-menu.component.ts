@@ -16,19 +16,16 @@ export class HeaderDropMenuModule implements OnInit {
     bCreateBtn: boolean = false;
     bHideHeader: boolean = false;
     balance: string = "";
-    aHeader: string[] = [];
+    aHeader: any[] = [];
+    bExecutor = false;
+    bCustomer = false;    
 
-    constructor(private http: HttpClient, private dataService: DataService, private commonService: CommonDataService, private router: Router) {
-        this.bGuest = this.dataService.bGuest;
-        this.bHideHeader = this.dataService.bHideHeader;
-        this.balance = this.dataService.balance;
-        this.aHeader = this.dataService.aHeader;
-    };
+    constructor(private http: HttpClient, private dataService: DataService, private commonService: CommonDataService, private router: Router) { };
 
-    public ngOnInit() {
+    public async ngOnInit() {
+        this.balance = this.dataService.getUserBalance();
         this.commonService.refreshToken();
-        this.bGuest = sessionStorage["role"] == "G" ? true : false;
-        this.GetBalanceAsync();
+        this.GetBalanceAsync();              
     };
 
      // Функция распределит по пунктам хидера.
@@ -47,12 +44,12 @@ export class HeaderDropMenuModule implements OnInit {
         } 
         
         else if (value == "Создать задание") {
-            this.dataService.oEditTask.bEdit = false;
+            this.dataService.setIsEditTask(false);
             this.router.navigate(["/task/create"]);
         } 
         
         else if (value == "Аукцион заданий") {
-            this.dataService.oEditTask.bEdit = false;
+            this.dataService.setIsEditTask(false);
             this.router.navigate(["/auction"]);
         }
     };
@@ -68,7 +65,7 @@ export class HeaderDropMenuModule implements OnInit {
                 .subscribe({
                     next: (response: any) => {
                         console.log("Баланс:", response);
-                        this.dataService.balance = response;
+                        this.dataService.setUserBalance(response);
                     },
 
                     error: (err) => {

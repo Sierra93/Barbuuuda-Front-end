@@ -2,7 +2,6 @@ import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { App } from "./app.component";
 import { RegisterModule } from "./modules/register/register.component";
-import { BrowserModule } from "@angular/platform-browser";
 import { ContainerModule } from "./modules/container/container.component";
 import { LoginModule } from "./modules/login/login.component";
 import { HomeModule } from "./modules/home/home.component";
@@ -10,7 +9,7 @@ import { HomeModule } from "./modules/home/home.component";
 const routes: Routes = [
   {
     path: "",
-    component: ContainerModule,
+    component: ContainerModule
   },
 
   {
@@ -30,7 +29,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [BrowserModule, RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
   bootstrap: [App]
 })
