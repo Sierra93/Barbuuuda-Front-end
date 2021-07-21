@@ -23,29 +23,29 @@ export class HeaderModule implements OnInit {
 
     public async ngOnInit() {
         console.log("header init");
-        let bGuestRole = sessionStorage["role"] == "G" ? true : false;
-        this.dataService.setGuestUserRole(bGuestRole);
+        // let bGuestRole = sessionStorage["role"] == "G" ? true : false;
+        // this.dataService.setGuestUserRole(bGuestRole);
 
-        let bCustomerRole = sessionStorage["role"] == "C" ? true : false;
-        this.dataService.setCustomerUserRole(bCustomerRole);
+        // let bCustomerRole = sessionStorage["role"] == "C" ? true : false;
+        // this.dataService.setCustomerUserRole(bCustomerRole);
 
-        let bExecutorRole = sessionStorage["role"] == "E" ? true : false;
-        this.dataService.setExecutorUserRole(bExecutorRole);
+        // let bExecutorRole = sessionStorage["role"] == "E" ? true : false;
+        // this.dataService.setExecutorUserRole(bExecutorRole);
 
-        let role = sessionStorage["role"];
-        this.dataService.setUserRole(role);  
+        // let role = sessionStorage["role"];
+        // this.dataService.setUserRole(role);  
         // this.bGuest = this.dataService.bGuest;
-        this.bHideHeader = this.dataService.getHeaderStatus();               
-        this.dataService.setGuestUserRole(false);
+        // this.bHideHeader = this.dataService.getHeaderStatus();               
+        // this.dataService.setGuestUserRole(false);
         this.initHeader();         
         this.commonService.refreshToken();
 
-        this.bGuest = this.dataService.getGuestUserRole();
+        // this.bGuest = this.dataService.getGuestUserRole();
 
-        console.log("bHideHeader", this.bHideHeader);
-        console.log("bGuest", this.dataService.getGuestUserRole());    
-        console.log("bExecutor", this.dataService.getExecutorUserRole());  
-        console.log("bCustomer", this.dataService.getCustomerUserRole());      
+        // console.log("bHideHeader", this.bHideHeader);
+        // console.log("bGuest", this.dataService.getGuestUserRole());    
+        // console.log("bExecutor", this.dataService.getExecutorUserRole());  
+        // console.log("bCustomer", this.dataService.getCustomerUserRole());      
         
         await this.checkUserRoleAsync();
         await this.GetBalanceAsync();     
@@ -59,48 +59,49 @@ export class HeaderModule implements OnInit {
             if (s instanceof NavigationEnd) {
                 // Начало цепочки проверок для хидера.
                 if (s.url === "/main") {
-                    self.dataService.setCustomerUserRole(false);
-                    self.dataService.setExecutorUserRole(false);
-                    self.dataService.setGuestUserRole(true);
-                    self.dataService.setHeaderStatus(false);
+                    // self.dataService.setCustomerUserRole(false);
+                    // self.dataService.setExecutorUserRole(false);
+                    // self.dataService.setGuestUserRole(true);
+                    // self.dataService.setHeaderStatus(false);
                 }
 
                 if (s.url === "/task-create" && self.dataService.getCustomerUserRole()) {
-                    self.dataService.setGuestUserRole(false);
-                    self.dataService.setExecutorUserRole(false);
+                    // self.dataService.setGuestUserRole(false);
+                    // self.dataService.setExecutorUserRole(false);
                 }
 
                 if (s.url === "/categories" && self.dataService.getCustomerUserRole()) {
-                    self.dataService.setGuestUserRole(false);
-                    self.dataService.setExecutorUserRole(false);
+                    // self.dataService.setGuestUserRole(false);
+                    // self.dataService.setExecutorUserRole(false);
                 }
 
                 if (s.url === "/auction" && self.dataService.getCustomerUserRole()) {
-                    self.dataService.setGuestUserRole(false);
-                    self.dataService.setExecutorUserRole(false);
+                    // self.dataService.setGuestUserRole(false);
+                    // self.dataService.setExecutorUserRole(false);
                 }
 
                 if (s.url === "/auction" && self.dataService.getExecutorUserRole()) {
-                    self.dataService.setGuestUserRole(false);
-                    self.dataService.setCustomerUserRole(false);
-                    self.dataService.setExecutorUserRole(true);
+                    // self.dataService.setGuestUserRole(false);
+                    // self.dataService.setCustomerUserRole(false);
+                    // self.dataService.setExecutorUserRole(true);
                 }
 
                 if (s.url === "/task-create" && self.dataService.getExecutorUserRole()) {
-                    self.dataService.setGuestUserRole(false);
-                    self.dataService.setCustomerUserRole(false);
-                    self.dataService.setExecutorUserRole(true);
+                    // self.dataService.setGuestUserRole(false);
+                    // self.dataService.setCustomerUserRole(false);
+                    // self.dataService.setExecutorUserRole(true);
                 }
 
                 if (s.url === "/home") {
-                    self.dataService.setGuestUserRole(false);
-                    self.dataService.setCustomerUserRole(false);
-                    self.dataService.setExecutorUserRole(true);
+                    // self.dataService.setGuestUserRole(false);
+                    // self.dataService.setCustomerUserRole(false);
+                    // self.dataService.setExecutorUserRole(true);
                 }
 
                 if (s.url === "/login" || s.url === "/register") {
-                    self.dataService.setExecutorUserRole(true);
-                    self.dataService.setHeaderStatus(true);
+                    // self.dataService.setExecutorUserRole(true);
+                    // self.dataService.setHeaderStatus(true);
+                    self.bHideHeader = true;
                 }
                 // Конец цепочки проверок для хидера.                
             }
@@ -160,6 +161,7 @@ export class HeaderModule implements OnInit {
     private async checkUserRoleAsync() {   
         await this.commonService.getUserRoleAsync().then((data: any) => {
             this.role = data.userRole;
+            sessionStorage["role"] = data.userRole;
          });    
     };
 
@@ -170,7 +172,7 @@ export class HeaderModule implements OnInit {
                 .subscribe({
                     next: (response: any) => {
                         console.log("Баланс:", response);
-                        this.dataService.setUserBalance(response);
+                        this.balance = response;
                     },
 
                     error: (err) => {

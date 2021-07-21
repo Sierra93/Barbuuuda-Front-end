@@ -14,7 +14,6 @@ import { RegisterModule } from "./modules/register/register.component";
 import { LoginModule } from "./modules/login/login.component";
 import { ParamInterceptor } from "./api-interceptor";
 import { HeaderModule } from "./modules/header/header.component";
-import { HeaderDropMenuModule } from "./modules/header-drop-menu/header-drop-menu.component";
 import { HomeModule } from "./modules/home/home.component";
 import { CommonDataService } from "./services/common-data.service";
 import { DataService } from "./services/data.service";
@@ -26,8 +25,7 @@ import { DataService } from "./services/data.service";
     FooterModule,
     RegisterModule,
     LoginModule,
-    HeaderModule,
-    HeaderDropMenuModule,
+    HeaderModule,  
     HomeModule
   ],
 
