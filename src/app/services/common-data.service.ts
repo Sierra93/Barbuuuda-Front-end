@@ -47,7 +47,7 @@ export class CommonDataService {
                 await this.http.get(API_URL.apiUrl.concat("/user/token?userName=").concat(sessionStorage.user))
                     .subscribe({
                         next: (response: any) => {
-                            sessionStorage.userToken = response;
+                            sessionStorage.userToken = response.userToken;
                             console.log("refresh token");
                         },
 
