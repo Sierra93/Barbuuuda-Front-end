@@ -1,7 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { NavigationEnd, Router } from "@angular/router";
-import { Subject } from "rxjs";
 import { API_URL } from "../core/core-urls/api-url";
 import { DataService } from "../services/data.service";
 
@@ -174,6 +173,29 @@ export class CommonDataService {
 
                                     error: () => { }
                                 });
+                        }
+                    });
+            })
+        }
+
+        catch (e) {
+            throw new Error(e);
+        }
+    };
+
+    // Функция проверит роль пользователя.
+    public async getUserRoleAsync(): Promise<string> {
+        try {
+            return new Promise<string>(async resolve => {
+                await this.http.post(API_URL.apiUrl.concat("/user/role"), {})
+                    .subscribe({
+                        next: (response: any) => {
+                            console.log("role data: ", response);
+                            resolve(response);
+                        },
+
+                        error: (err) => {
+                            console.log(err);
                         }
                     });
             })

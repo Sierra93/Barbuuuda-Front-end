@@ -45,7 +45,8 @@ import { DataService } from "./services/data.service";
       multi: true
     },
     CommonDataService,
-    DataService
+    DataService,
+    ParamInterceptor
   ],
 
   bootstrap: [App]

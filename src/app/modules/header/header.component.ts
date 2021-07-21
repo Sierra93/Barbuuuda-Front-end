@@ -16,6 +16,8 @@ export class HeaderModule implements OnInit {
     bGuest = false;
     bHideHeader = false;
     aHeader: any[] = [];
+    role: string = "";
+    balance: string = "";
 
     constructor(private http: HttpClient, private router: Router, private dataService: DataService, private commonService: CommonDataService) { }
 
@@ -35,7 +37,7 @@ export class HeaderModule implements OnInit {
         // this.bGuest = this.dataService.bGuest;
         this.bHideHeader = this.dataService.getHeaderStatus();               
         this.dataService.setGuestUserRole(false);
-        this.InitHeader();         
+        this.initHeader();         
         this.commonService.refreshToken();
 
         this.bGuest = this.dataService.getGuestUserRole();
@@ -43,11 +45,14 @@ export class HeaderModule implements OnInit {
         console.log("bHideHeader", this.bHideHeader);
         console.log("bGuest", this.dataService.getGuestUserRole());    
         console.log("bExecutor", this.dataService.getExecutorUserRole());  
-        console.log("bCustomer", this.dataService.getCustomerUserRole());             
+        console.log("bCustomer", this.dataService.getCustomerUserRole());      
+        
+        await this.checkUserRoleAsync();
+        await this.GetBalanceAsync();     
     };
 
     // Функция проставит хидер в зависимости от роли пользователя.
-    private async InitHeader() {
+    private async initHeader() {
         let self = this;
 
         this.router.events.subscribe(function (s) {
@@ -124,5 +129,58 @@ export class HeaderModule implements OnInit {
         }
 
         this.router.navigate(["/task/create"]);
+    };
+
+    // Функция распределит по пунктам хидера.
+    public onGetMenu(value: any) {
+        if (value && value == " Barbuuuda ") {
+            this.bGuest = true;
+            this.router.navigate(["/"]);
+        } 
+        
+        else if (value == "Главная") {
+            this.router.navigate(["/home"]);
+        } 
+        
+        else if (value == "Мои задания") {
+            this.router.navigate(["/tasks/my"]);
+        } 
+        
+        else if (value == "Создать задание") {
+            this.dataService.setIsEditTask(false);
+            this.router.navigate(["/task/create"]);
+        } 
+        
+        else if (value == "Аукцион заданий") {
+            this.dataService.setIsEditTask(false);
+            this.router.navigate(["/auction"]);
+        }
+    };
+
+    private async checkUserRoleAsync() {   
+        await this.commonService.getUserRoleAsync().then((data: any) => {
+            this.role = data.userRole;
+         });    
+    };
+
+    // Фугкция получит сумму баланса пользователя.
+    private async GetBalanceAsync() {
+        try {
+            await this.http.post(API_URL.apiUrl.concat("/payment/balance"), {})
+                .subscribe({
+                    next: (response: any) => {
+                        console.log("Баланс:", response);
+                        this.dataService.setUserBalance(response);
+                    },
+
+                    error: (err) => {
+                        throw new Error(err);
+                    }
+                });
+        }
+
+        catch (e) {
+            throw new Error(e);
+        }
     };
 }
