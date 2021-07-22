@@ -7,7 +7,7 @@ import { DataService } from "../services/data.service";
 // Сервис общих функций приложения.
 @Injectable()
 export class CommonDataService {
-    private aHeader: any[] = [];
+    private bShowGuestHeader: boolean = false;
 
     constructor(private http: HttpClient, private dataService: DataService, private router: Router) { }
 
@@ -48,7 +48,9 @@ export class CommonDataService {
                     .subscribe({
                         next: (response: any) => {
                             sessionStorage.userToken = response.userToken;
+                            sessionStorage["role"] = response.userRole;
                             console.log("refresh token");
+                            console.log("refresh role", response.userRole);
                         },
 
                         error: (err) => {
@@ -61,7 +63,7 @@ export class CommonDataService {
             catch (e) {
                 throw new Error(e);
             }
-        }, 530000); // Каждые 9 мин. 
+        }, 530000); // Каждые 9 мин.  
     };
 
     // Функция получает список всех категорий.
@@ -125,9 +127,9 @@ export class CommonDataService {
 
         this.router.events.subscribe(function (s) {
             if (s instanceof NavigationEnd) {
-                if (s.url === "/login" || s.url === "/register") {
-                    sessionStorage["role"] = "G";
-                    self.dataService.setGuestUserRole(true);
+                // Условие для показа гостевого хидера.
+                if (s.url === "/login" || s.url === "/register" || s.url === "/") {
+                    self.bShowGuestHeader = true;
                     return;
                 }
 
@@ -136,14 +138,9 @@ export class CommonDataService {
                     self.router.navigate(["/"]);
                 }
 
-                if (!sessionStorage["userToken"] || !sessionStorage["role"]) {
-                    sessionStorage["role"] = "G";
-                    self.dataService.setGuestUserRole(true);
-                }
-
-                else {
-                    self.dataService.setGuestUserRole(false);
-                }
+                // if (!sessionStorage["userToken"] || !sessionStorage["role"]) {
+                //     sessionStorage["role"] = "G";
+                // }
             }
         });
 
@@ -152,8 +149,13 @@ export class CommonDataService {
                 await this.http.get(API_URL.apiUrl.concat("/user/authorize?userName=".concat(sessionStorage["user"])))
                     .subscribe({
                         next: (response: any) => {
-                            console.log("Хидер пользователя", response.aHeaderFields);
-                            resolve(response.aHeaderFields);
+                            if (!this.bShowGuestHeader) {
+                                console.log("Хидер пользователя", response.aHeaderFields);
+                                resolve(response.aHeaderFields);
+                                return;
+                            }
+                            
+                            return [];
                         },
 
                         // Токен протух, получить новый.
@@ -196,6 +198,33 @@ export class CommonDataService {
 
                         error: (err) => {
                             console.log(err);
+                        }
+                    });
+            })
+        }
+
+        catch (e) {
+            throw new Error(e);
+        }
+    };
+
+    // Фугкция получит сумму баланса пользователя.
+    public async GetBalanceAsync(): Promise<any> {
+        try {
+            let params = {
+                UserName: sessionStorage["user"]
+            };
+
+            return new Promise<any>(async resolve => {
+                await this.http.post(API_URL.apiUrl.concat("/payment/balance"), params)
+                    .subscribe({
+                        next: (response: any) => {
+                            console.log("Баланс:", response.amount);
+                            resolve(response.amount);
+                        },
+
+                        error: (err) => {
+                            throw new Error(err);
                         }
                     });
             })

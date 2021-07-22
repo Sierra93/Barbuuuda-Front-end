@@ -86,13 +86,13 @@
     @include headerTitle;
   }
 
-  .header-nav {
+  .header_nav {
     background: #00BCD4!important;
     display: flex;
     justify-content: space-around!important;
-    color: black;//
+    color: white;
   }
-  
+
   .header-title {
     @include headerTitle;
   }

@@ -18,37 +18,19 @@ export class HeaderModule implements OnInit {
     aHeader: any[] = [];
     role: string = "";
     balance: string = "";
+    bShowGuestHeader: boolean = false;
+    bStart: boolean = false;
 
     constructor(private http: HttpClient, private router: Router, private dataService: DataService, private commonService: CommonDataService) { }
 
     public async ngOnInit() {
-        console.log("header init");
-        // let bGuestRole = sessionStorage["role"] == "G" ? true : false;
-        // this.dataService.setGuestUserRole(bGuestRole);
-
-        // let bCustomerRole = sessionStorage["role"] == "C" ? true : false;
-        // this.dataService.setCustomerUserRole(bCustomerRole);
-
-        // let bExecutorRole = sessionStorage["role"] == "E" ? true : false;
-        // this.dataService.setExecutorUserRole(bExecutorRole);
-
-        // let role = sessionStorage["role"];
-        // this.dataService.setUserRole(role);  
-        // this.bGuest = this.dataService.bGuest;
-        // this.bHideHeader = this.dataService.getHeaderStatus();               
-        // this.dataService.setGuestUserRole(false);
+        console.log("header init");       
         this.initHeader();         
         this.commonService.refreshToken();
-
-        // this.bGuest = this.dataService.getGuestUserRole();
-
-        // console.log("bHideHeader", this.bHideHeader);
-        // console.log("bGuest", this.dataService.getGuestUserRole());    
-        // console.log("bExecutor", this.dataService.getExecutorUserRole());  
-        // console.log("bCustomer", this.dataService.getCustomerUserRole());      
-        
         await this.checkUserRoleAsync();
-        await this.GetBalanceAsync();     
+        await this.commonService.GetBalanceAsync();     
+        console.log("bShowGuestHeader", this.bShowGuestHeader);
+        await this.GetBalanceAsync();
     };
 
     // Функция проставит хидер в зависимости от роли пользователя.
@@ -57,51 +39,42 @@ export class HeaderModule implements OnInit {
 
         this.router.events.subscribe(function (s) {
             if (s instanceof NavigationEnd) {
-                // Начало цепочки проверок для хидера.
+                // Начало цепочки проверок для хидера.     
+                if (s.url === "/") {
+                    self.bStart = true;
+                    self.bShowGuestHeader = true;
+                }
+                
                 if (s.url === "/main") {
-                    // self.dataService.setCustomerUserRole(false);
-                    // self.dataService.setExecutorUserRole(false);
-                    // self.dataService.setGuestUserRole(true);
-                    // self.dataService.setHeaderStatus(false);
+                    self.bShowGuestHeader = false;
                 }
 
                 if (s.url === "/task-create" && self.dataService.getCustomerUserRole()) {
-                    // self.dataService.setGuestUserRole(false);
-                    // self.dataService.setExecutorUserRole(false);
+                    self.bShowGuestHeader = false;
                 }
 
                 if (s.url === "/categories" && self.dataService.getCustomerUserRole()) {
-                    // self.dataService.setGuestUserRole(false);
-                    // self.dataService.setExecutorUserRole(false);
+                    self.bShowGuestHeader = false;
                 }
 
                 if (s.url === "/auction" && self.dataService.getCustomerUserRole()) {
-                    // self.dataService.setGuestUserRole(false);
-                    // self.dataService.setExecutorUserRole(false);
+                    self.bShowGuestHeader = false;
                 }
 
                 if (s.url === "/auction" && self.dataService.getExecutorUserRole()) {
-                    // self.dataService.setGuestUserRole(false);
-                    // self.dataService.setCustomerUserRole(false);
-                    // self.dataService.setExecutorUserRole(true);
+                    self.bShowGuestHeader = false;
                 }
 
                 if (s.url === "/task-create" && self.dataService.getExecutorUserRole()) {
-                    // self.dataService.setGuestUserRole(false);
-                    // self.dataService.setCustomerUserRole(false);
-                    // self.dataService.setExecutorUserRole(true);
+                    self.bShowGuestHeader = false;
                 }
 
                 if (s.url === "/home") {
-                    // self.dataService.setGuestUserRole(false);
-                    // self.dataService.setCustomerUserRole(false);
-                    // self.dataService.setExecutorUserRole(true);
+                    self.bShowGuestHeader = false;
                 }
 
-                if (s.url === "/login" || s.url === "/register") {
-                    // self.dataService.setExecutorUserRole(true);
-                    // self.dataService.setHeaderStatus(true);
-                    self.bHideHeader = true;
+                if (s.url === "/login" || s.url === "/register") {                    
+                    self.bShowGuestHeader = true;
                 }
                 // Конец цепочки проверок для хидера.                
             }
@@ -109,8 +82,8 @@ export class HeaderModule implements OnInit {
 
         // Получит поля хидера.    
         await this.commonService.getUserAuthorizeAsync().then((data: any) => {
-            this.aHeader = data;
-         });
+            this.aHeader = data;            
+         });         
         
         console.log("header data", this.aHeader);    
     };        
@@ -163,26 +136,12 @@ export class HeaderModule implements OnInit {
             this.role = data.userRole;
             sessionStorage["role"] = data.userRole;
          });    
-    };
+    };    
 
-    // Фугкция получит сумму баланса пользователя.
     private async GetBalanceAsync() {
-        try {
-            await this.http.post(API_URL.apiUrl.concat("/payment/balance"), {})
-                .subscribe({
-                    next: (response: any) => {
-                        console.log("Баланс:", response);
-                        this.balance = response;
-                    },
-
-                    error: (err) => {
-                        throw new Error(err);
-                    }
-                });
-        }
-
-        catch (e) {
-            throw new Error(e);
-        }
-    };
+        // Получит баланс пользоватея на сервисе.
+        await this.commonService.GetBalanceAsync().then((data: any) => {
+            this.balance = data;            
+         });
+    }
 }
