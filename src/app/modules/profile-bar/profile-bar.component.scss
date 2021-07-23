@@ -1,0 +1,32 @@
+.fon-profile {
+  .stat-item {
+    display: flex;
+    justify-content: space-between;
+    color: #B6B6B6;
+  }
+  
+  .stat-item-active {
+    display: flex;
+    justify-content: space-between;
+    color: #B6B6B6;
+
+
+    &:hover {
+      background: rgb(245, 245, 245);
+      cursor: pointer;
+    }
+  }
+}
+
+// Стили компонентов Nebular.
+::ng-deep .layout {
+  min-height: 100px !important;
+}
+
+::ng-deep nb-card {
+  width: 100% !important;
+}
+
+::ng-deep nb-layout-column {
+  padding: 0 !important;
+}

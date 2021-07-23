@@ -19,7 +19,7 @@ export class HeaderModule implements OnInit {
     role: string = "";
     balance: string = "";
     bShowGuestHeader: boolean = false;
-    bStart: boolean = false;
+    bStart: boolean = false;    
 
     constructor(private http: HttpClient, private router: Router, private dataService: DataService, private commonService: CommonDataService) { }
 
@@ -143,5 +143,5 @@ export class HeaderModule implements OnInit {
         await this.commonService.GetBalanceAsync().then((data: any) => {
             this.balance = data;            
          });
-    }
+    };
 }

@@ -107,15 +107,12 @@ export class HomeModule implements OnInit {
                     },
 
                     error: (err: any) => {
-                        // TODO: Проверить есть ли у ошибки статус.
-                        // if (err.status === 401) {
-                        //     sessionStorage.clear();
-                        //     sessionStorage["role"] = "G";
+                        if (err.status === 401) {
+                            sessionStorage.clear();
+                            sessionStorage["role"] = "G";
 
-                        //     this.dataService.bGuest = true;
-
-                        //     this.router.navigate(["/"]);
-                        // }
+                            this.router.navigate(["/"]);
+                        }
 
                         throw new Error(err);
                     }

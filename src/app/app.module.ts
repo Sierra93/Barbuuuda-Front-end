@@ -17,6 +17,10 @@ import { HeaderModule } from "./modules/header/header.component";
 import { HomeModule } from "./modules/home/home.component";
 import { CommonDataService } from "./services/common-data.service";
 import { DataService } from "./services/data.service";
+import { ProfileBarModule } from "./modules/profile-bar/profile-bar.component";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NbThemeModule, NbLayoutModule, NbDatepickerModule, NbTimepickerModule, NbCalendarModule } from '@nebular/theme';
+import { NbEvaIconsModule } from '@nebular/eva-icons';
 
 @NgModule({
   declarations: [
@@ -26,14 +30,23 @@ import { DataService } from "./services/data.service";
     RegisterModule,
     LoginModule,
     HeaderModule,  
-    HomeModule
+    HomeModule,
+    ProfileBarModule
   ],
 
   imports: [
     BrowserModule,
     FormsModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule,
+    NbThemeModule.forRoot({ name: 'default' }),
+    NbDatepickerModule.forRoot(),
+    NbTimepickerModule.forRoot(),
+    NbLayoutModule,
+    NbEvaIconsModule,
+    NbDatepickerModule,
+    NbCalendarModule
   ],
 
   providers: [

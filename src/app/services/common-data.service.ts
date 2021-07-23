@@ -122,8 +122,12 @@ export class CommonDataService {
     };
 
     // Функция проверит авторизован ли пользователь. 
-    public async getUserAuthorizeAsync(): Promise<any[]> {
+    public async getUserAuthorizeAsync() {
         let self = this;
+
+        if (!sessionStorage["userToken"] || !sessionStorage["role"]) {
+            return;
+        }
 
         this.router.events.subscribe(function (s) {
             if (s instanceof NavigationEnd) {
@@ -136,15 +140,11 @@ export class CommonDataService {
                 if (!sessionStorage["userToken"] && s.url !== "/public-offer"
                     && s.url !== "/register" && s.url !== "/login") {
                     self.router.navigate(["/"]);
-                }
-
-                // if (!sessionStorage["userToken"] || !sessionStorage["role"]) {
-                //     sessionStorage["role"] = "G";
-                // }
+                }                
             }
         });
 
-        try {
+        try {            
             return new Promise<any[]>(async resolve => {
                 await this.http.get(API_URL.apiUrl.concat("/user/authorize?userName=".concat(sessionStorage["user"])))
                     .subscribe({
