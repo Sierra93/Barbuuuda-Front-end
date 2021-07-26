@@ -5,6 +5,7 @@ import { RegisterModule } from "./modules/register/register.component";
 import { ContainerModule } from "./modules/container/container.component";
 import { LoginModule } from "./modules/login/login.component";
 import { HomeModule } from "./modules/home/home.component";
+import { MyTaskModule } from "./modules/my-tasks/my-tasks.component";
 
 const routes: Routes = [
   {
@@ -25,6 +26,11 @@ const routes: Routes = [
   {
     path: "home",
     component: HomeModule
+  },
+
+  {
+    path: "tasks/my",
+    component: MyTaskModule
   }
 ];
 
