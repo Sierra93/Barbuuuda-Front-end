@@ -6,6 +6,10 @@ import { Component, OnInit } from "@angular/core";
     styleUrls: ["./create-task.component.scss"]
 })
 
-export class CreateTaskModule {
-    
+export class CreateTaskModule implements OnInit {
+    constructor() { }
+
+    public async ngOnInit() {
+
+    };
 }

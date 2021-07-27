@@ -134,14 +134,14 @@
                                 <button 
                                     class="btn-next form-control-sm" 
                                     *ngIf="el.countOffers > 0"
-                                    (click)="onGetTaskAsync(el.taskId)">
+                                    (click)="onSetTransitionAsync(el.taskId)">
                                     КО ВСЕМ СТАВКАМ
                                 </button>
 
                                 <button 
                                     class="btn-next form-control-sm" 
                                     *ngIf="el.countOffers == 0"
-                                    (click)="onGetTaskAsync(el.taskId)">
+                                    (click)="onSetTransitionAsync(el.taskId)">
                                     ОТКРЫТЬ ЗАДАНИЕ
                                 </button>
                             </div>
@@ -232,14 +232,14 @@
                                 <button 
                                     class="btn-next form-control-sm" 
                                     *ngIf="el.countOffers"
-                                    (click)="onGetTaskAsync(el)">
+                                    (click)="onSetTransitionAsync(el)">
                                     КО ВСЕМ СТАВКАМ
                                 </button>
 
                                 <button 
                                     class="btn-next form-control-sm" 
                                     *ngIf="el.countOffers == 0"
-                                    (click)="onGetTaskAsync(el)">
+                                    (click)="onSetTransitionAsync(el)">
                                     ОТКРЫТЬ ЗАДАНИЕ
                                 </button>
                             </div>

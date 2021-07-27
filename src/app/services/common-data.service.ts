@@ -234,4 +234,53 @@ export class CommonDataService {
             throw new Error(e);
         }
     };
+
+    // Функция запишет переход либо перезапишет существующий.
+    public async setTransitionAsync(taskId: number, type: string) : Promise<void> {        
+        try {
+            let params = {
+                TaskId: taskId,
+                Type: type
+            };
+
+            return new Promise<any>(async () => {
+                await this.http.post(API_URL.apiUrl.concat("/task/set-transition"), params)
+                    .subscribe({
+                        next: (response: any) => {
+                            if (type == "View") {
+                                this.router.navigate(["/task/view"]);
+                            }
+                          
+                            if (type == "Edit") {
+                                this.router.navigate(["/task/edit"]);
+                            }
+                        },
+
+                        error: (err) => {
+                            if (err.status === 401) {
+                                sessionStorage.clear();
+                                sessionStorage["role"] = "G";
+    
+                                this.router.navigate(["/"]);
+                            }
+
+                            throw new Error(err);
+                        }
+                    })
+            });
+        }
+
+        catch (e) {
+            throw new Error(e);
+        }
+    };
+
+    public routeToStart(err: any) {
+        if (err.status === 401) {
+            sessionStorage.clear();
+            sessionStorage["role"] = "G";
+
+            this.router.navigate(["/"]);
+        }
+    };
 }

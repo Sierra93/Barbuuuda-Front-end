@@ -22,7 +22,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NbThemeModule, NbLayoutModule, NbDatepickerModule, NbTimepickerModule, NbCalendarModule } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { MyTaskModule } from "./modules/my-tasks/my-tasks.component";
-import { CreateTaskModule } from "./modules/task/create-task.component";
+import { CreateTaskModule } from "./modules/create-task/create-task.component";
+import { ViewTaskModule } from "./modules/view-task/view-task.component";
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { CreateTaskModule } from "./modules/task/create-task.component";
     HomeModule,
     ProfileBarModule,
     MyTaskModule,
-    CreateTaskModule
+    CreateTaskModule,
+    ViewTaskModule
   ],
 
   imports: [
