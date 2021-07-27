@@ -33,7 +33,8 @@ export class LoginModule implements OnInit {
                         sessionStorage["role"] = response.role;
                         sessionStorage["user"] = response.user;
 
-                        this.router.navigate(["/home"]);
+                        // this.router.navigate(["/home"]);
+                        window.location.href = window.location.href.replace("/login", "/home");
                     }
                 },
       

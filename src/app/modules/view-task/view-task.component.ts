@@ -43,28 +43,10 @@ export class ViewTaskModule implements OnInit {
     };
 
     // Функция получит задание для просмотра.
-    private async getViewTaskAsync() : Promise<void> {
-        try {
-            let params = {
-                TaskId: this.taskId
-            };
-
-            await this.http.post(API_URL.apiUrl.concat("/task/get-view"), params)
-                .subscribe({
-                    next: (response: any) => {                    
-                        console.log("view task", response);
-                        this.viewTask = response;
-                    },
-
-                    error: (err) => {
-                        this.commonService.routeToStart(err);
-                        throw new Error(err);
-                    }
-                });
-        }
-
-        catch (e) {
-            throw new Error(e);
-        }
+    private async getViewTaskAsync(): Promise<void> {
+        await this.commonService.loadTaskListAsync("Single", this.taskId).then((data: any) => {
+            this.viewTask = data;
+            console.log("viewTask", this.viewTask);
+        });
     };
 }

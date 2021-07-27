@@ -30,28 +30,9 @@ export class MyTaskModule implements OnInit {
 
     // Функция получит список заданий заказчика.
     private async loadTaskListAsync() {
-        try {
-            let params = {
-                Type: "All"
-            };
-
-            await this.http.post(API_URL.apiUrl.concat("/task/tasks-list"), params)
-                .subscribe({
-                    next: (response: any) => {
-                        this.aMyTasks = response;
-                        console.log("Список заданий", this.aMyTasks);
-                    },
-
-                    error: (err) => {
-                        this.commonService.routeToStart(err);
-                        throw new Error(err);
-                    }
-                });
-        }
-
-        catch (e) {
-            throw new Error(e);
-        }
+        await this.commonService.loadTaskListAsync("All", null).then((data: any) => {
+            this.aMyTasks = data;            
+         });           
     };
 
     // Функция получит общее кол-во страниц.

@@ -7,7 +7,8 @@ import { DataService } from "../services/data.service";
 // Сервис общих функций приложения.
 @Injectable()
 export class CommonDataService {
-    private bShowGuestHeader: boolean = false;
+    bShowGuestHeader: boolean = false;
+    aMyTasks: any = [];
 
     constructor(private http: HttpClient, private dataService: DataService, private router: Router) { }
 
@@ -281,6 +282,46 @@ export class CommonDataService {
             sessionStorage["role"] = "G";
 
             this.router.navigate(["/"]);
+        }
+    };
+
+    // Функция получит либо одно задание либо список.
+    public async loadTaskListAsync(type: string, taskId: number | null) : Promise<any> {
+        try {
+            let params = {};
+
+            // Если Id задания передан, значит идет просмотр задания.
+            if (taskId == null) {
+                params = {
+                    Type: type,                    
+                };
+            }
+            
+            else {
+                params = {
+                    Type: type,
+                    TaskId: taskId
+                };
+            }
+
+            return new Promise<any>(async resolve => {
+                await this.http.post(API_URL.apiUrl.concat("/task/tasks-list"), params)
+                    .subscribe({
+                        next: (response: any) => {
+                            console.log("Задания", this.aMyTasks);
+                            resolve(response);
+                        },
+
+                        error: (err) => {
+                            this.routeToStart(err);
+                            throw new Error(err);
+                        }
+                    })
+            });
+        }
+
+        catch (e) {
+            throw new Error(e);
         }
     };
 }
