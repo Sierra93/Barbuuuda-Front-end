@@ -109,7 +109,7 @@ export class HeaderModule implements OnInit {
     public onGetMenu(value: any) {
         if (value && value == " Barbuuuda ") {
             this.bGuest = true;
-            this.router.navigate(["/"]);
+            this.router.navigate(["/login"]);
         } 
         
         else if (value == "Главная") {

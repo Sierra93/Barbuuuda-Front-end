@@ -117,7 +117,7 @@ export class CommonDataService {
                 sessionStorage.clear();
                 localStorage.clear();
                 // $(".right-panel").show();
-                this.router.navigate(["/"]);
+                this.router.navigate(["/login"]);
             }
         }
     };
@@ -140,7 +140,7 @@ export class CommonDataService {
 
                 if (!sessionStorage["userToken"] && s.url !== "/public-offer"
                     && s.url !== "/register" && s.url !== "/login") {
-                    self.router.navigate(["/"]);
+                    self.router.navigate(["/login"]);
                 }                
             }
         });
@@ -237,7 +237,7 @@ export class CommonDataService {
     };
 
     // Функция запишет переход либо перезапишет существующий.
-    public async setTransitionAsync(taskId: number, type: string) : Promise<void> {        
+    public async setTransitionAsync(taskId: any, type: string) : Promise<void> {        
         try {
             let params = {
                 TaskId: taskId,
@@ -249,11 +249,11 @@ export class CommonDataService {
                     .subscribe({
                         next: (response: any) => {
                             if (type == "View") {
-                                this.router.navigate(["/task/view"]);
+                                this.router.navigate(['/task/view'], { queryParams: { id: taskId } });
                             }
                           
                             if (type == "Edit") {
-                                this.router.navigate(["/task/edit"]);
+                                this.router.navigate(['/task/edit'], { queryParams: { id: taskId } });
                             }
                         },
 
@@ -262,7 +262,7 @@ export class CommonDataService {
                                 sessionStorage.clear();
                                 sessionStorage["role"] = "G";
     
-                                this.router.navigate(["/"]);
+                                this.router.navigate(["/login"]);
                             }
 
                             throw new Error(err);
@@ -281,7 +281,7 @@ export class CommonDataService {
             sessionStorage.clear();
             sessionStorage["role"] = "G";
 
-            this.router.navigate(["/"]);
+            this.router.navigate(["/login"]);
         }
     };
 

@@ -1,3 +1,8 @@
+.fon-profile {
+  background: whitesmoke;
+  padding: 15px 15px 15px 15px;
+}
+
 .fon-profile .stat-item {
   display: flex;
   justify-content: space-between;
@@ -11,7 +16,7 @@
 }
 
 .fon-profile .stat-item-active:hover {
-  background: whitesmoke;
+  background: #FFFFFF;
   cursor: pointer;
 }
 
