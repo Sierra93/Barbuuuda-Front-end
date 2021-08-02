@@ -360,4 +360,28 @@ export class CommonDataService {
             throw new Error(e);
         }
     };
+
+    // Функция подгрузит список категорий заданий.
+    public async loadTaskCategoriesAsync(): Promise<any> {
+        try {
+            return new Promise<any>(async resolve => {
+                await this.http.post(API_URL.apiUrl.concat("/task/get-categories"), {})
+                    .subscribe({
+                        next: (response: any) => {
+                            console.log("Список категорий", response);
+                            resolve(response);
+                        },
+
+                        error: (err) => {
+                            this.routeToStart(err);
+                            throw new Error(err);
+                        }
+                    })
+            });
+        }
+
+        catch (e) {
+            throw new Error(e);
+        }
+    };
 }
