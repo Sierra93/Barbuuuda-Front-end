@@ -92,13 +92,8 @@
   </div>
 
   <!-- Календарь. -->
-  <div class="mt-3">
-    <nb-layout>
-      <nb-layout-column>
-        <nb-calendar [(date)]="selectedDate" [boundingMonth]="false" (dateChange)="handleDateChange(selectedDate)">
-        </nb-calendar>
-      </nb-layout-column>
-    </nb-layout>
+  <div class="mt-3 calendar">
+    <p-calendar class="cal" dateFormat="dd.mm.yy" [(ngModel)]="date" [inline]="true" [showTime]="true" inputId="time"></p-calendar>
   </div>
 </body>
 

@@ -9,6 +9,7 @@ import { MyTaskModule } from "./modules/my-tasks/my-tasks.component";
 import { ViewTaskModule } from "./modules/view-task/view-task.component";
 import { CreateTaskModule } from "./modules/create-task/create-task.component";
 import { EditTaskModule } from "./modules/edit-task/edit-task.component";
+import { AuctionModule } from "./modules/auction/auction.component";
 
 const routes: Routes = [
   {
@@ -49,6 +50,11 @@ const routes: Routes = [
   {
     path: "task/edit",
     component: EditTaskModule
+  },
+
+  {
+    path: "auction",
+    component: AuctionModule
   }
 ];
 

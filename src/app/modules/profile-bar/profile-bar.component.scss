@@ -1,6 +1,7 @@
 .fon-profile {
   background: rgb(245, 245, 245);
   padding: 15px 15px 15px 15px;
+  // margin: 10px -15px 10px 0px;
 
   .stat-item {
     display: flex;
@@ -21,15 +22,7 @@
   }
 }
 
-// Стили компонентов Nebular.
-::ng-deep .layout {
-  min-height: 100px !important;
-}
-
-::ng-deep nb-card {
-  width: 100% !important;
-}
-
-::ng-deep nb-layout-column {
-  padding: 0 !important;
+// Ширина календаря.
+::ng-deep .p-datepicker table td {
+  padding: 0!important;
 }

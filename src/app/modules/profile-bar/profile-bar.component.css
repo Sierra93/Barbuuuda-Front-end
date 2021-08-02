@@ -20,14 +20,6 @@
   cursor: pointer;
 }
 
-::ng-deep .layout {
-  min-height: 100px !important;
-}
-
-::ng-deep nb-card {
-  width: 100% !important;
-}
-
-::ng-deep nb-layout-column {
+::ng-deep .p-datepicker table td {
   padding: 0 !important;
 }

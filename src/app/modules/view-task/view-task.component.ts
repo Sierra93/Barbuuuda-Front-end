@@ -1,13 +1,15 @@
 import { HttpClient } from "@angular/common/http";
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, TemplateRef } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { API_URL } from "src/app/core/core-urls/api-url";
 import { CommonDataService } from "src/app/services/common-data.service";
+import { ConfirmationService, MessageService, PrimeNGConfig, Message, ConfirmEventType } from "primeng/api";
 
 @Component({
     selector: "task-view",
     templateUrl: "./view-task.component.html",
-    styleUrls: ["./view-task.component.scss"]
+    styleUrls: ["./view-task.component.scss"],
+    providers: [ConfirmationService,MessageService]
 })
 
 export class ViewTaskModule implements OnInit {
@@ -31,8 +33,16 @@ export class ViewTaskModule implements OnInit {
     statusArea: string = "";
     aResponds: any = [];
     routeParam: number;
+    displayModal: boolean = false;
+    msgs: Message[] = [];
+    position: string = "";
 
-    constructor(private commonService: CommonDataService, private http: HttpClient, private router: Router, private route: ActivatedRoute) { 
+    constructor(private commonService: CommonDataService,
+        private http: HttpClient, private router: Router,
+        private route: ActivatedRoute,
+        private primengConfig: PrimeNGConfig,
+        private confirmationService: ConfirmationService,
+        private messageService: MessageService) {
         this.routeParam = +this.route.snapshot.queryParams.id;  // Получит параметр из роута.
     };
 
@@ -41,24 +51,19 @@ export class ViewTaskModule implements OnInit {
         await this.loadRespondsAsync();
 
         this.role = sessionStorage["role"];
-    };
+
+        this.primengConfig.ripple = true;
+    };        
 
     // Функция получит переход.
     private async getTransitionAsync() : Promise<void> {
         try {
-            await this.http.post(API_URL.apiUrl.concat("/task/get-transition"), {})
-                .subscribe({
-                    next: (response: any) => {                    
-                        console.log("get transition", response.taskId);
-                        this.taskId = response.taskId;
-                        this.getViewTaskAsync();
-                    },
-
-                    error: (err) => {
-                        this.commonService.routeToStart(err);
-                        throw new Error(err);
-                    }
-                });
+            await this.commonService.getTransitionAsync().then((data: any) => {
+                this.viewTask = data.taskId;
+                this.taskId = data.taskId;
+                this.getViewTaskAsync();
+                console.log("viewTask", this.viewTask);
+            });            
         }
 
         catch (e) {
@@ -188,4 +193,74 @@ export class ViewTaskModule implements OnInit {
             throw new Error(e);
         }
     };
+
+    public showModalDialog() {
+        this.displayModal = true;
+    };
+
+    confirm1() {
+        this.confirmationService.confirm({
+            message: 'Are you sure that you want to proceed?',
+            header: 'Confirmation',
+            icon: 'pi pi-exclamation-triangle',
+            accept: () => {
+                this.messageService.add({severity:'info', summary:'Confirmed', detail:'You have accepted'});
+            },
+            reject: (type: any) => {
+                switch(type) {
+                    case ConfirmEventType.REJECT:
+                        this.messageService.add({severity:'error', summary:'Rejected', detail:'You have rejected'});
+                    break;
+                    case ConfirmEventType.CANCEL:
+                        this.messageService.add({severity:'warn', summary:'Cancelled', detail:'You have cancelled'});
+                    break;
+                }
+            }
+        });
+    }
+    
+    confirm2() {
+        this.confirmationService.confirm({
+            message: 'Do you want to delete this record?',
+            header: 'Delete Confirmation',
+            icon: 'pi pi-info-circle',
+            accept: () => {
+                this.messageService.add({severity:'info', summary:'Confirmed', detail:'Record deleted'});
+            },
+            reject: (type: any) => {
+                switch(type) {
+                    case ConfirmEventType.REJECT:
+                        this.messageService.add({severity:'error', summary:'Rejected', detail:'You have rejected'});
+                    break;
+                    case ConfirmEventType.CANCEL:
+                        this.messageService.add({severity:'warn', summary:'Cancelled', detail:'You have cancelled'});
+                    break;
+                }
+            }
+        });
+    }
+
+    confirmPosition(position: string) {
+        this.position = position;
+
+        this.confirmationService.confirm({
+            message: 'Do you want to delete this record?',
+            header: 'Delete Confirmation',
+            icon: 'pi pi-info-circle',
+            accept: () => {
+                this.messageService.add({severity:'info', summary:'Confirmed', detail:'Record deleted'});
+            },
+            reject: (type: any) => {
+                switch(type) {
+                    case ConfirmEventType.REJECT:
+                        this.messageService.add({severity:'error', summary:'Rejected', detail:'You have rejected'});
+                    break;
+                    case ConfirmEventType.CANCEL:
+                        this.messageService.add({severity:'warn', summary:'Cancelled', detail:'You have cancelled'});
+                    break;
+                }
+            },
+            key: "positionDialog"
+        });
+    }
 }

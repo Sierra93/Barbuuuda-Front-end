@@ -2,6 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { NavigationEnd, Router } from "@angular/router";
 import { API_URL } from "../core/core-urls/api-url";
+import { TaskOutput } from "../models/task/output/task-output";
 import { DataService } from "../services/data.service";
 
 // Сервис общих функций приложения.
@@ -318,6 +319,41 @@ export class CommonDataService {
                         }
                     })
             });
+        }
+
+        catch (e) {
+            throw new Error(e);
+        }
+    };
+
+    // Функция получит переход.
+    public async getTransitionAsync() : Promise<TaskOutput> {
+        try {
+            return new Promise<TaskOutput>(async resolve => {
+                await this.http.post(API_URL.apiUrl.concat("/task/get-transition"), {})
+                    .subscribe({
+                        next: (response: any) => {
+                            console.log("get transition", response.taskId);
+
+                            let task = new TaskOutput();
+                            task.taskId = response.taskId;
+                            // task.customerLogin = response[0].customerLogin;
+                            // task.taskTitle = response[0].taskTitle;
+                            // task.taskDetail = response[0].taskDetail;
+                            // task.taskPrice = response[0].taskPrice;
+                            // task.taskBegda = response[0].taskBegda;
+                            // task.categoryName = response[0].categoryName;
+                            // task.specName = response[0].specName;
+
+                            resolve(task);
+                        },
+
+                        error: (err) => {
+                            this.routeToStart(err);
+                            throw new Error(err);
+                        }
+                    })
+            });            
         }
 
         catch (e) {

@@ -20,6 +20,7 @@ export class ProfileBarModule implements OnInit {
     countTotalTasks = 0;
     boundingMonth = false;
     selectedDate = new Date();
+    date: Date = new Date();
 
     constructor(private http: HttpClient, private router: Router) { }
 

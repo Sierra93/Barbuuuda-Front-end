@@ -230,6 +230,11 @@ input[type="file"] {
   outline: #00BCD4;
 }
 
+.fon-profile {
+  background: whitesmoke;
+  padding: 15px 15px 15px 15px;
+}
+
 .fon-profile .stat-item {
   display: flex;
   justify-content: space-between;
@@ -243,7 +248,7 @@ input[type="file"] {
 }
 
 .fon-profile .stat-item-active:hover {
-  background: whitesmoke;
+  background: #FFFFFF;
   cursor: pointer;
 }
 

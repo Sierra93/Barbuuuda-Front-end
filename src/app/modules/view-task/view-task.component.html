@@ -8,6 +8,15 @@
 </head>
 
 <body>
+<p-confirmDialog [style]="{width: '50vw'}" [baseZIndex]="10000" rejectButtonStyleClass="p-button-text"></p-confirmDialog>
+
+<!-- <p-button (click)="confirm1()" icon="pi pi-check" label="Confirm" styleClass="p-mr-2"></p-button> -->
+<!-- <p-button (click)="confirm2()" icon="pi pi-times" label="Delete"></p-button> -->
+
+<p-confirmDialog [style]="{width: '50vw'}" key="positionDialog" [position]="position" [baseZIndex]="10000" rejectButtonStyleClass="p-button-outlined"></p-confirmDialog>
+
+<p-toast></p-toast>
+
   <!-- Статусы. -->
   <div class="mt-4 pt-3 mb-4 text-center block-status">
     <div class="mb-3 item-status">
@@ -243,11 +252,11 @@
                         <div>
                           <!-- (click)="onSelectExecutor(oData.oViewTaskId, respond.executorId)" -->
                           <button 
-                                  class="btn-next btn-create-task form-control-sm mt-3" 
+                                  class="btn-next btn-create-task form-control-sm mt-3"  
                                   *ngIf="role == 'C'"
                                   _data-toggle="modal"
                                   _data-target=".bd-example-modal-xl" 
-                                  >
+                                  (click)="confirm1()">
                             ВЫБРАТЬ
                           </button>
 

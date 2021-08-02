@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <vue-headful title="Barbuuuda: Аукцион заданий"/> -->
+</head>
+
+<body>
+    <div class="block-before-my-tasks col-lg-12">
+        <div class="">
+            
+        </div>        
+    </div>
+
+    <!-- Левая панель. -->
+    <div class="d-flex mt-3 col-lg-12">
+        <div class="col-lg-3">
+            <!-- <ProfileBar></ProfileBar> -->
+        </div>        
+
+        <!-- Правая часть. -->
+        <div class="col-lg-9">
+            <div class="d-flex align-items-center">
+                <h4 class="my-tasks">Найдено {{countTasks}} заданий</h4>
+            <small class="text-muted ml-2">Всего в аукционе: {{countTasks}}</small>
+            </div>
+            <div class="search-block-task mb-3 mt-3">
+                <div class="d-flex">
+                    <input type="search" class="form-control-sm search-category"
+                        placeholder="Поиск задания по ID или названию..."
+                        [ngModel]="sSearch"
+                        >
+                        <!-- v-on:keyup.enter="onSearchTask($event.target.value)" -->
+                    <div class="input-group-append">
+                        <button class="btn btn-detault btn-search" 
+                                type="button"
+                                [value]="sSearch"
+                                >
+                            Найти
+                        </button>
+                        <!-- (click)="onSearchTask(sSearch)" -->
+                    </div>
+                </div>
+
+                <div>
+                    <!-- TODO: добавить селект из primeng -->
+                    <span>Сортировать: &nbsp;</span>
+                    <!-- <select class="form-control-sm task-filter"
+                            v-on:change="onFilterTasks($event.target.value)">
+                        <option></option>
+                        <option>По дате создания</option>
+                        <option>По дате сдачи</option>
+                    </select> -->
+                </div>
+            </div>
+
+            <!-- Аукцион-->
+            <div class="block-my-tasks">
+                
+                <div class="card card-task card-subcategory" *ngFor="let el of aAuctionTasks">
+                    <div class="card-header header-task">
+                        <div class="block-icon">
+                            <div>
+                                <img src="../assets/images/1-wiper1.png">
+                            </div>
+                            &nbsp;
+
+                            <div class="ml-1 text-dark">
+                                <span>{{el.userName}}</span><br>
+                                <small>{{el.taskBegda}}</small>
+                            </div>
+                        </div>
+
+                        <div class="">
+                            <img src="../assets/images/message.png">&nbsp;
+                            <span class="text-dark">{{el.countOffers}}</span>
+                        </div>
+
+                        <div class="">
+                            <img src="../assets/images/Icon.png">&nbsp;
+                            <span class="text-dark">{{el.countViews}}</span>
+                        </div>
+
+                        <div class="badge badge-pill badge-primary">
+                            <span>{{el.typeCode}}</span>
+                        </div>
+
+                        <div class="badge badge-pill badge-warning">
+                            <span>{{el.statusName}}</span>
+                        </div>
+
+                        <div class="task-price">
+                            <img src="../assets/images/date_range.png">
+                            <span>{{el.taskEndda}}</span>
+                        </div>
+
+                        <div class="task-price">
+                            <span>{{el.taskPrice || 'По договоренности'}}
+                                <span *ngIf="el.taskPrice">₽</span>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <h5 class="card-title task-title">
+                            {{el.taskTitle}}
+                        </h5>
+
+                        <p class="card-text task-detail">
+                            {{el.taskDetail}}
+                        </p>
+                    </div>
+
+                    <div class="card-footer task-detail">
+                        <div class="block-footer">
+                            <div class="task-category">
+                                <span>{{el.categoryName}}</span>
+                            </div>
+
+                            <div class="offer">
+                                <!-- <button 
+                                    class="btn-next form-control-sm" 
+                                    *ngIf="el.countOffers"
+                                    (click)="onGetTaskAsync(el.taskId)">
+                                    КО ВСЕМ СТАВКАМ
+                                </button>
+
+                                <button 
+                                    class="btn-next form-control-sm" 
+                                    *ngIf="!el.countOffers"
+                                    (click)="onGetTaskAsync(el.taskId)">
+                                    ОТКРЫТЬ ЗАДАНИЕ
+                                </button> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+           <!-- Пагинация. -->
+           <!-- TODO: пагинацию из primeng сюда -->
+           <!-- <pagination class="pagination-sm block-pagination card-subcategory"
+           *ngIf="aAuctionTasks.length > 0 && role == 'E'">
+               <nav aria-label="Page navigation example">
+                   <ul class="pagination">
+                       <li class="page-item">
+                           <a class="page-link" href="#" aria-label="Previous">
+                               <span aria-hidden="true">&laquo;</span>
+                           </a>
+                       </li>
+
+                       <li class="page-item" *ngFor="let el of countTotalPage" (click)="onGetPaginationAsync(el)">
+                           <a class="page-link">{{el}}</a>
+                       </li>
+
+                       <li class="page-item">
+                           <a class="page-link" href="#" aria-label="Next">
+                               <span aria-hidden="true">&raquo;</span>
+                           </a>
+                       </li>
+                   </ul>
+               </nav>
+           </pagination> -->
+        </div>
+    </div>
+</body>
+
+</html>
