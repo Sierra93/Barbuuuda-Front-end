@@ -9,7 +9,7 @@ import { ConfirmationService, MessageService, PrimeNGConfig, Message, ConfirmEve
     selector: "task-view",
     templateUrl: "./view-task.component.html",
     styleUrls: ["./view-task.component.scss"],
-    providers: [ConfirmationService,MessageService]
+    providers: [ConfirmationService, MessageService]
 })
 
 export class ViewTaskModule implements OnInit {
@@ -36,6 +36,8 @@ export class ViewTaskModule implements OnInit {
     displayModal: boolean = false;
     msgs: Message[] = [];
     position: string = "";
+    dialogId: number = 0;
+    aDialogs: any;
 
     constructor(private commonService: CommonDataService,
         private http: HttpClient, private router: Router,
@@ -49,21 +51,27 @@ export class ViewTaskModule implements OnInit {
     public async ngOnInit() {
         await this.getTransitionAsync();
         await this.loadRespondsAsync();
+        await this.loadDialogs();
 
         this.role = sessionStorage["role"];
 
         this.primengConfig.ripple = true;
-    };        
+
+        if (this.role == "C") {
+            await this.checkSelectPayTaskAsync();
+            await this.loadWorkRespondAsync();
+        }
+    };
 
     // Функция получит переход.
-    private async getTransitionAsync() : Promise<void> {
+    private async getTransitionAsync(): Promise<void> {
         try {
             await this.commonService.getTransitionAsync().then((data: any) => {
                 this.viewTask = data.taskId;
                 this.taskId = data.taskId;
                 this.getViewTaskAsync();
                 console.log("viewTask", this.viewTask);
-            });            
+            });
         }
 
         catch (e) {
@@ -113,11 +121,11 @@ export class ViewTaskModule implements OnInit {
     };
 
     // Функция проверит, делал ли уже ставку текущий исполнитель.
-    private async checkRespondAsync() {
+    private async checkRespondAsync() : Promise<void> {
         try {
             await this.http.post(API_URL.apiUrl.concat("/executor/check-respond"), {})
                 .subscribe({
-                    next: (response: any) => {                    
+                    next: (response: any) => {
                         this.isRespond = response;
                         console.log(this.isRespond);
                     },
@@ -135,17 +143,17 @@ export class ViewTaskModule implements OnInit {
     };
 
     // Функция отправит сообщение.
-    public async onSendAsync() {
+    public async onSendAsync() : Promise<void> {
         try {
-            let oDataMessage = {
-                // DialogId: this.dialogId,
-                // Message: this.message
+            let params = {
+                DialogId: this.dialogId,
+                Message: this.message
             };
 
-            await this.http.post(API_URL.apiUrl.concat("/chat/send"), oDataMessage)
+            await this.http.post(API_URL.apiUrl.concat("/chat/send"), params)
                 .subscribe({
-                    next: (response: any) => {                    
-                        this.aMessages = response.data.messages;
+                    next: (response: any) => {
+                        this.aMessages = response.messages;
                         console.log("Сообщение успешно отправлено", this.aMessages);
                     },
 
@@ -161,15 +169,15 @@ export class ViewTaskModule implements OnInit {
         }
     };
 
-    private async loadRespondsAsync() {
+    private async loadRespondsAsync() : Promise<void> {
         try {
             let params = {
-                TaskId: this.routeParam 
+                TaskId: this.routeParam
             };
-            
+
             await this.http.post(API_URL.apiUrl.concat("/task/get-responds"), params)
                 .subscribe({
-                    next: (response: any) => {                    
+                    next: (response: any) => {
                         console.log("Список ставок к заданию", response);
                         this.aResponds = response.responds;
                         this.respondCount = response.count;
@@ -197,37 +205,37 @@ export class ViewTaskModule implements OnInit {
             header: 'Confirmation',
             icon: 'pi pi-exclamation-triangle',
             accept: () => {
-                this.messageService.add({severity:'info', summary:'Confirmed', detail:'You have accepted'});
+                this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted' });
             },
             reject: (type: any) => {
-                switch(type) {
+                switch (type) {
                     case ConfirmEventType.REJECT:
-                        this.messageService.add({severity:'error', summary:'Rejected', detail:'You have rejected'});
-                    break;
+                        this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected' });
+                        break;
                     case ConfirmEventType.CANCEL:
-                        this.messageService.add({severity:'warn', summary:'Cancelled', detail:'You have cancelled'});
-                    break;
+                        this.messageService.add({ severity: 'warn', summary: 'Cancelled', detail: 'You have cancelled' });
+                        break;
                 }
             }
         });
     };
-    
+
     confirm2() {
         this.confirmationService.confirm({
             message: 'Do you want to delete this record?',
             header: 'Delete Confirmation',
             icon: 'pi pi-info-circle',
             accept: () => {
-                this.messageService.add({severity:'info', summary:'Confirmed', detail:'Record deleted'});
+                this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Record deleted' });
             },
             reject: (type: any) => {
-                switch(type) {
+                switch (type) {
                     case ConfirmEventType.REJECT:
-                        this.messageService.add({severity:'error', summary:'Rejected', detail:'You have rejected'});
-                    break;
+                        this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected' });
+                        break;
                     case ConfirmEventType.CANCEL:
-                        this.messageService.add({severity:'warn', summary:'Cancelled', detail:'You have cancelled'});
-                    break;
+                        this.messageService.add({ severity: 'warn', summary: 'Cancelled', detail: 'You have cancelled' });
+                        break;
                 }
             }
         });
@@ -241,16 +249,16 @@ export class ViewTaskModule implements OnInit {
             header: 'Delete Confirmation',
             icon: 'pi pi-info-circle',
             accept: () => {
-                this.messageService.add({severity:'info', summary:'Confirmed', detail:'Record deleted'});
+                this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Record deleted' });
             },
             reject: (type: any) => {
-                switch(type) {
+                switch (type) {
                     case ConfirmEventType.REJECT:
-                        this.messageService.add({severity:'error', summary:'Rejected', detail:'You have rejected'});
-                    break;
+                        this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected' });
+                        break;
                     case ConfirmEventType.CANCEL:
-                        this.messageService.add({severity:'warn', summary:'Cancelled', detail:'You have cancelled'});
-                    break;
+                        this.messageService.add({ severity: 'warn', summary: 'Cancelled', detail: 'You have cancelled' });
+                        break;
                 }
             },
             key: "positionDialog"
@@ -261,5 +269,201 @@ export class ViewTaskModule implements OnInit {
     public async onSetTransitionAsync(taskId: number) {
         console.log("taskId", taskId);
         this.commonService.setTransitionAsync(taskId, "Edit");
+    };
+
+    // Функция ответа на ставку исполнителя. Откроет чат с сообщениями диалога с исполнителем.
+    public async onAnswerAsync(executorId: string): Promise<void> {
+        try {
+            let params = {
+                ExecutorId: executorId,
+                IsWriteBtn: true
+            };
+
+            await this.http.post(API_URL.apiUrl.concat("/chat/dialog"), params)
+                .subscribe({
+                    next: (response: any) => {
+                        this.aMessages = response.messages;
+                        this.statusArea = response.dialogState;
+
+                        // Запишет Id диалога.
+                        if (response.messages.length > 0) {
+                            this.dialogId = response.messages[0].dialogId;
+                            this.onGetDialogMessagesAsync(this.dialogId);
+                        }
+                    },
+
+                    error: (err) => {
+                        this.commonService.routeToStart(err);
+                        throw new Error(err);
+                    }
+                });
+        }
+
+        catch (e) {
+            throw new Error(e);
+        }
+    };
+
+     // Функция получит список сообщений диалога.
+    public async onGetDialogMessagesAsync(dialogId: number) : Promise<void> {
+        try {
+            let params = {
+                DialogId: this.dialogId
+            };
+            this.dialogId = dialogId;
+
+            await this.http.post(API_URL.apiUrl.concat("/chat/dialog"), params)
+                .subscribe({
+                    next: (response: any) => {
+                        this.aMessages = response.messages;
+                        this.statusArea = response.dialogState;
+
+                        // Запишет Id диалога.
+                        if (response.messages.length > 0) {
+                            this.dialogId = response.messages[0].dialogId;
+                            this.onGetDialogMessagesAsync(this.dialogId);
+                        }
+                    },
+
+                    error: (err) => {
+                        this.commonService.routeToStart(err);
+                        throw new Error(err);
+                    }
+                });
+        }
+
+        catch (e) {
+            throw new Error(e);
+        }
+    };
+
+    // Функция подгрузит список диалогов чата.
+    private async loadDialogs() : Promise<void> {
+        try {
+            await this.http.post(API_URL.apiUrl.concat("/chat/dialogs"), {})
+                .subscribe({
+                    next: (response: any) => {
+                        this.aDialogs = response.dialogs;
+                        console.log("Список диалогов", this.aDialogs);
+                        this.openEmptyDialogAreaAsync();
+                    },
+
+                    error: (err) => {
+                        this.commonService.routeToStart(err);
+                        throw new Error(err);
+                    }
+                });
+        }
+
+        catch (e) {
+            throw new Error(e);
+        }
+    };
+
+     // Функция подгрузит список диалогов чата.
+    private async openEmptyDialogAreaAsync() : Promise<void> {
+        try {
+            await this.http.post(API_URL.apiUrl.concat("/chat/dialog"), {})
+                .subscribe({
+                    next: (response: any) => {
+                        this.statusArea = response.dialogState;
+                        console.log("Пустая область чата открыта", this.statusArea);
+                    },
+
+                    error: (err) => {
+                        this.commonService.routeToStart(err);
+                        throw new Error(err);
+                    }
+                });
+        }
+
+        catch (e) {
+            throw new Error(e);
+        }
+    };
+
+     // Функция проверит оплачено ли задание и выбран ли исполнитель.
+    private async checkSelectPayTaskAsync() : Promise<void> {
+        try {
+            let params = {
+                TaskId: this.taskId
+            };
+
+            await this.http.post(API_URL.apiUrl.concat("/task/check-select-pay"), params)
+                .subscribe({
+                    next: (response: any) => {
+                        console.log("Оплачено и выбран исполнитель", response);
+                        this.bSelectPay = response;
+                    },
+
+                    error: (err) => {
+                        this.commonService.routeToStart(err);
+                        throw new Error(err);
+                    }
+                });
+        }
+
+        catch (e) {
+            throw new Error(e);
+        }
+    };
+
+    // Функция оставит только ставку исполнителя, который принял в работу задание.
+    private async loadWorkRespondAsync() : Promise<void> {
+        try {
+            let params = {
+                TaskId: this.taskId
+            };
+
+            await this.http.post(API_URL.apiUrl.concat("/task/check-accept-invite"), params)
+                .subscribe({
+                    next: (response: any) => {
+                        console.log(response);
+                        this.aResponds = response.responds;
+                        this.bWorkAccept = response.isWorkAccept;
+                    },
+
+                    error: (err) => {
+                        this.commonService.routeToStart(err);
+                        throw new Error(err);
+                    }
+                });
+        }
+
+        catch (e) {
+            throw new Error(e);
+        }
+    };
+
+     // Функция выберет исполнителя задания.
+    public async onSelectExecutorAsync(taskId: number, executorId: string) {
+        try {
+            let params = {
+                TaskId: taskId,
+                ExecutorId: executorId
+            };
+
+            await this.http.post(API_URL.apiUrl.concat("/task/select"), params)
+                .subscribe({
+                    next: (response: any) => {
+                        console.log(response.data);
+
+                        if (response.data) {
+                            this.loadRespondsAsync();
+                            // $('#idSuccessSelectExecutor').modal('show');
+                            return;
+                        }
+                    },
+
+                    error: (err) => {
+                        this.commonService.routeToStart(err);
+                        throw new Error(err);
+                    }
+                });
+        }
+
+        catch (e) {
+            throw new Error(e);
+        }
     };
 }

@@ -261,12 +261,12 @@
                           </button>
 
                           <br>
-                          <!-- (click)="onAnswer(respond.executorId)" -->
+                          
                             <button class="btn-next form-control-sm mt-3" 
                                     *ngIf="role == 'C'" 
                                     data-toggle="modal" 
                                     _data-target=".bd-example-modal-xl"
-                                    >
+                                    (click)="onAnswerAsync(respond.executorId)">
                                 ОТВЕТИТЬ
                             </button>                               
 
