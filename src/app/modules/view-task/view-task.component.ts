@@ -134,13 +134,6 @@ export class ViewTaskModule implements OnInit {
         }
     };
 
-    // TODO: тут доработать на получение с бэка флага редактирования bEdit.
-    // Функция переходит к изменению задания.
-    onEditTask() {
-        // this.oEditTask.editTask.bEdit = true;
-        this.router.navigate(["/task/create"]);
-    };
-
     // Функция отправит сообщение.
     public async onSendAsync() {
         try {
@@ -217,7 +210,7 @@ export class ViewTaskModule implements OnInit {
                 }
             }
         });
-    }
+    };
     
     confirm2() {
         this.confirmationService.confirm({
@@ -238,7 +231,7 @@ export class ViewTaskModule implements OnInit {
                 }
             }
         });
-    }
+    };
 
     confirmPosition(position: string) {
         this.position = position;
@@ -262,5 +255,11 @@ export class ViewTaskModule implements OnInit {
             },
             key: "positionDialog"
         });
-    }
+    };
+
+    // Функция запишет переход либо перезапишет существующий.
+    public async onSetTransitionAsync(taskId: number) {
+        console.log("taskId", taskId);
+        this.commonService.setTransitionAsync(taskId, "Edit");
+    };
 }

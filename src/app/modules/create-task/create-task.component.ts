@@ -40,7 +40,7 @@ export class CreateTaskModule implements OnInit {
         }
     };
 
-     // Функция создаст или изменит задание.
+     // Функция создаст задание.
     public async onCreateTaskAsync() {
         try {
             let task = new TaskInput();
@@ -78,6 +78,6 @@ export class CreateTaskModule implements OnInit {
     };
 
     public onBack() {
-        
+
     };
 }
