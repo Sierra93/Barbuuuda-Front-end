@@ -38,6 +38,12 @@ export class ViewTaskModule implements OnInit {
     position: string = "";
     dialogId: number = 0;
     aDialogs: any;
+    displayDeleteModal: boolean = false;
+    displaySelectExecutorModal: boolean = false;
+    firstName: string = "";
+    lastName: string = "";
+    userName: string = "";
+    displayChatModal: boolean = false;
 
     constructor(private commonService: CommonDataService,
         private http: HttpClient, private router: Router,
@@ -51,7 +57,7 @@ export class ViewTaskModule implements OnInit {
     public async ngOnInit() {
         await this.getTransitionAsync();
         await this.loadRespondsAsync();
-        await this.loadDialogs();
+        await this.loadDialogsAsync();
 
         this.role = sessionStorage["role"];
 
@@ -103,7 +109,8 @@ export class ViewTaskModule implements OnInit {
 
     // Функция покажет модалку об удалении задания.
     public onShowDeleteModal() {
-        $('#idAcceptDeleteTask').modal('show');
+        // $('#idAcceptDeleteTask').modal('show');
+        this.displayDeleteModal = true;
     };
 
     // Функция покажет модалку ставки к заданию.
@@ -290,6 +297,8 @@ export class ViewTaskModule implements OnInit {
                             this.dialogId = response.messages[0].dialogId;
                             this.onGetDialogMessagesAsync(this.dialogId);
                         }
+
+                        this.displayChatModal = true;
                     },
 
                     error: (err) => {
@@ -308,7 +317,7 @@ export class ViewTaskModule implements OnInit {
     public async onGetDialogMessagesAsync(dialogId: number) : Promise<void> {
         try {
             let params = {
-                DialogId: this.dialogId
+                DialogId: dialogId
             };
             this.dialogId = dialogId;
 
@@ -317,12 +326,9 @@ export class ViewTaskModule implements OnInit {
                     next: (response: any) => {
                         this.aMessages = response.messages;
                         this.statusArea = response.dialogState;
-
-                        // Запишет Id диалога.
-                        if (response.messages.length > 0) {
-                            this.dialogId = response.messages[0].dialogId;
-                            this.onGetDialogMessagesAsync(this.dialogId);
-                        }
+                        this.firstName = response.firstName;
+                        this.lastName = response.lastName;
+                        this.userName = response.userName;                          
                     },
 
                     error: (err) => {
@@ -338,7 +344,7 @@ export class ViewTaskModule implements OnInit {
     };
 
     // Функция подгрузит список диалогов чата.
-    private async loadDialogs() : Promise<void> {
+    private async loadDialogsAsync() : Promise<void> {
         try {
             await this.http.post(API_URL.apiUrl.concat("/chat/dialogs"), {})
                 .subscribe({
@@ -450,9 +456,31 @@ export class ViewTaskModule implements OnInit {
 
                         if (response.data) {
                             this.loadRespondsAsync();
-                            // $('#idSuccessSelectExecutor').modal('show');
+                            this.displaySelectExecutorModal = true;
                             return;
                         }
+                    },
+
+                    error: (err) => {
+                        this.commonService.routeToStart(err);
+                        throw new Error(err);
+                    }
+                });
+        }
+
+        catch (e) {
+            throw new Error(e);
+        }
+    };
+
+     // Функция удалит задание.
+    public async OnDeleteTaskAsync() {
+        try {            
+            await this.http.get(API_URL.apiUrl.concat("/task/delete/".concat(this.taskId.toString())))
+                .subscribe({
+                    next: (response: any) => {
+                        // TODO: выводить тут сообщение тостом об успешном удалении.
+                        console.log("Удалено");
                     },
 
                     error: (err) => {

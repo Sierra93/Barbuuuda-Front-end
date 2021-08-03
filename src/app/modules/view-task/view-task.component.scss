@@ -254,6 +254,10 @@ line-height: 1.5;
 
 // Значок крестика у напротив ставки.
 .close-icon {
-margin-top: -10%;
+  margin-top: -10%;
   margin-right: -5%;
+}
+
+::ng-deep .p-dialog .p-dialog-content {
+  display: none;
 }

@@ -51,7 +51,7 @@
     <div class="col-lg-12 details-task item-view">
       <div class="mt-3 d-flex">
         <img class="mr-1 icon_photo" 
-              v-bind:src="getImgUrl(this.oEditTask.editTask[0].customerProfileIcon)">
+              v-bind:src="getImgUrl(oEditTask.editTask[0].customerProfileIcon)">
           <h4 class="ml-1"><strong>{{customerLogin}}</strong></h4>
       </div>
 
@@ -161,7 +161,7 @@
 
             <br>
 
-            <button class="form-control-sm btn btn-link" 
+            <button class="form-control-sm btn btn-link text-danger" 
                     *ngIf="role == 'C'" 
                     (click)="onShowDeleteModal()">
                 Удалить
@@ -256,7 +256,7 @@
                                   *ngIf="role == 'C'"
                                   _data-toggle="modal"
                                   _data-target=".bd-example-modal-xl" 
-                                  (click)="confirm1()">
+                                  (click)="onSelectExecutorAsync(taskId, respond.executorId)">
                             ВЫБРАТЬ
                           </button>
 
@@ -282,7 +282,139 @@
     </div>
 </div>
 
-<!-- Модалки. -->
+<!-- Диалоги. -->
+<!-- Диалог удаления задания. -->
+<p-dialog header="Вы уверены, что хотите удалить задание?" [(visible)]="displayDeleteModal" [modal]="true" [style]="{width: '50vw'}" [baseZIndex]="10000"
+  [draggable]="false" [resizable]="false">
+  <p class="p-m-0">Удаленное задание невозможно будет восстановить.</p>
+  <ng-template pTemplate="footer">
+    <!-- <p-button icon="pi pi-check" (click)="displayDeleteModal=false" label="Отмена" styleClass="p-button-outlined p-button-secondary"></p-button> -->
+    <p-button icon="pi pi-times" (click)="OnDeleteTaskAsync()" label="Удалить" styleClass="p-button-danger"></p-button>
+  </ng-template>
+</p-dialog>
+
+<!-- Диалог поссле выбора исполнителя. -->
+<p-dialog header="Выбор исполнителя задания" [(visible)]="displaySelectExecutorModal" [modal]="true" [style]="{width: '50vw'}" [baseZIndex]="10000"
+  [draggable]="false" [resizable]="false">
+  <p class="p-m-0"> Исполнитель вашего задания выбран. После подтверждения согласия исполнителем, 
+    статус вашего задания изменится на "В работе".
+    Статусы своих заданий вы можете отслеживать на своей главной странице.</p>
+  <ng-template pTemplate="footer">
+   
+  </ng-template>
+</p-dialog>
+
+<!-- Диалог чата. -->
+<p-dialog header="Чат с исполнителями" [(visible)]="displayChatModal" [modal]="true" [style]="{width: '100vw'}" [baseZIndex]="10000"
+  [draggable]="false" [resizable]="false">
+  <!-- <p class="p-m-0">111 </p> -->
+  <ng-template pTemplate="footer">
+    <div class="container">
+        <div class="d-flex">
+          <div class="col-lg-5"></div>
+         <div class="col-lg-7 d-flex justify-content-between align-items-center">
+          <span class="" *ngIf="firstName && lastName">{{firstName}} {{lastName}}</span>
+          <span class="" *ngIf="!firstName && !lastName">{{userName}}</span>
+          <!-- <span v-if="dialog.firstName && dialog.lastName">{{dialog.firstName}} {{dialog.lastName}}</span>
+          <span v-else="!dialog.firstName && !dialog.lastName">{{dialog.userName}}</span> -->
+          <button class="btn-create-task btn-next form-control-sm mt-3 mb-3 mr-3" 
+                *ngIf="role == 'C'"
+                _data-toggle="modal"
+                _data-target=".bd-example-modal-xl" >
+            ВЫБРАТЬ
+          </button>
+         </div>
+        </div>
+        <div class="messaging mb-4">
+          <div class="inbox_msg">
+            <!-- Область списка диалогов. -->
+            <div class="inbox_people">
+              <div class="headind_srch">
+                <div class="recent_heading">
+                  <!-- <h4>Recent</h4> -->
+                </div>
+                <div class="srch_bar">
+                  <div class="stylish-input-group">
+                    <input type="text" class="search-bar" placeholder="Поиск...">
+                    <span class="input-group-addon">
+                      <button type="button"> <i class="fa fa-search" aria-hidden="true"></i> </button>
+                    </span> </div>
+                </div>
+              </div>
+              <div class="inbox_chat">
+                <div class="chat_list active_chat" 
+                      [ngModel]="dialog.dialogId"
+                      (click)="onGetDialogMessagesAsync(dialog.dialogId)"
+                      *ngFor="let dialog of aDialogs">
+                  <div class="chat_people">
+                    <!-- <div class="chat_img"> <img class="icon_photo" v-bind:src="getImgUrl(dialog.userIcon)"> </div> -->
+                    <div class="chat_ib">
+                      <h5 v-if="dialog.firstName && dialog.lastName">{{dialog.firstName}} {{dialog.lastName}} 
+                        <span class="chat_date">{{dialog.calcTime !== null ? dialog.calcTime : dialog.calcShortDate}}</span>
+                      </h5>
+
+                      <h5 v-else="!dialog.firstName && !dialog.lastName">{{dialog.userName}} 
+                        <span class="chat_date">{{dialog.calcTime !== null ? dialog.calcTime : dialog.calcShortDate}}</span>
+                      </h5>
+
+                      <p>{{dialog.lastMessage}}</p>
+
+                      <p>{{dialog.price || 'По договоренности'}} ₽</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Область сообщений. -->
+            <div class="mesgs">
+              <div class="msg_history">
+                <div _class="incoming_msg" 
+                      [ngClass]="{outgoing_msg: message.isMyMessage, incoming_msg: !message.isMyMessage}" 
+                      *ngFor="let message of aMessages">
+                  <div _class="incoming_msg_img" [ngClass]="{incoming_msg_img: !message.isMyMessage}" > 
+                    <!-- <img src="https://ptetutorials.com/images/user-profile.png"
+                        *ngIf="!message.isMyMessage" >  -->
+                  </div>
+                  <div _class="received_msg" [ngClass]="{outgoing_msg: message.isMyMessage, received_msg: !message.isMyMessage}" >
+                    <div _class="received_withd_msg" [ngClass]="{sent_msg: message.isMyMessage, received_withd_msg: !message.isMyMessage}">
+                      <p>{{message.message}}</p>
+                      <span class="time_date">{{message.created}}</span>
+                    </div>
+                  </div>
+                </div> 
+
+                <div class="text-center" *ngIf="statusArea == 'None'">
+                  <p class="title_not_dialog">Чат с исполнителями</p>
+                  <p class="text_not_dialog">Ваша переписка с исполнителями здесь :)</p>
+                </div>
+              </div>
+
+              <!-- Область отправки сообщений. -->
+              <div class="type_msg" *ngIf="statusArea !== 'None'">
+                <div class="input_msg_write">
+                  <input type="text" 
+                          class="write_msg" 
+                          placeholder="Введите сообщение..." 
+                          v-model="message"/>
+                  <button class="msg_send_btn" type="button" (click)="onSendAsync()">
+                    <i class="fa fa-paper-plane-o"
+                      aria-hidden="true">
+                    </i>
+                    </button>
+                </div>
+              </div>
+            </div>
+          </div>
+<!-- 
+          <span class="d-flex justify-content-center top_spac"> Design by <a target="_blank"
+              href="https://www.linkedin.com/in/sunil-rajput-nattho-singh/">Sunil Rajput</a></span> -->
+              <!-- <div>&nbsp;</div> -->                   
+        </div>              
+      </div>
+  </ng-template>
+</p-dialog>
 
 </body>
+
 </html>
