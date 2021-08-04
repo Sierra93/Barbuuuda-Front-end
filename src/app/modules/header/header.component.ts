@@ -144,4 +144,8 @@ export class HeaderModule implements OnInit {
             this.balance = data;            
          });
     };
+
+    public onGoProfile() {
+        this.router.navigate(["profile"]);
+    };
 }

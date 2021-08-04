@@ -69,19 +69,21 @@ export class CommonDataService {
     };
 
     // Функция получает список всех категорий.
-    public async getTaskCategoriesAsync(): Promise<void> {
+    public async getTaskCategoriesAsync(): Promise<any> {
         try {
-            await this.http.post(API_URL.apiUrl.concat("/main/category-list"), {})
-                .subscribe({
-                    next: (response: any) => {
-                        this.dataService.setTaskCategories(response);
-                        console.log("Список категорий заданий", response);
-                    },
+            return new Promise<any>(async resolve => {
+                await this.http.post(API_URL.apiUrl.concat("/main/category-list"), {})
+                    .subscribe({
+                        next: (response: any) => {
+                            console.log("Список категорий заданий", response);
+                            resolve(response);
+                        },
 
-                    error: (err) => {
-                        console.log(err);
-                    }
-                });
+                        error: (err) => {
+                            console.log(err);
+                        }
+                    });
+            })            
         }
 
         catch (e) {
@@ -259,13 +261,7 @@ export class CommonDataService {
                         },
 
                         error: (err) => {
-                            if (err.status === 401) {
-                                sessionStorage.clear();
-                                sessionStorage["role"] = "G";
-    
-                                this.router.navigate(["/login"]);
-                            }
-
+                            this.routeToStart(err);
                             throw new Error(err);
                         }
                     })

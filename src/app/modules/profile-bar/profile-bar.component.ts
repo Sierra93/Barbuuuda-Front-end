@@ -69,5 +69,5 @@ export class ProfileBarModule implements OnInit {
     
     public async handleDateChange(selectedDate: Date) {
         let date = selectedDate.toLocaleDateString();
-    }
+    };
 }

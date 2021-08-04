@@ -31,6 +31,7 @@ import { MessagesModule } from "primeng/messages";
 import { ToastModule } from "primeng/toast";
 import { CalendarModule } from "primeng/calendar";
 import { AuctionModule } from "./modules/auction/auction.component";
+import { ProfileModule } from "./modules/profile/profile.component";
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { AuctionModule } from "./modules/auction/auction.component";
     MyTaskModule,
     CreateTaskModule,
     ViewTaskModule,
-    AuctionModule
+    AuctionModule,
+    ProfileModule
   ],
 
   entryComponents: [],
