@@ -32,6 +32,7 @@ import { ToastModule } from "primeng/toast";
 import { CalendarModule } from "primeng/calendar";
 import { AuctionModule } from "./modules/auction/auction.component";
 import { ProfileModule } from "./modules/profile/profile.component";
+import {TabViewModule} from "primeng/tabview";
 
 @NgModule({
   declarations: [
@@ -72,7 +73,8 @@ import { ProfileModule } from "./modules/profile/profile.component";
     ConfirmDialogModule,
     MessagesModule,
     ToastModule,
-    CalendarModule
+    CalendarModule,
+    TabViewModule
   ],
 
   providers: [

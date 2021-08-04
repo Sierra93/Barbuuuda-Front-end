@@ -113,7 +113,7 @@ export class ProfileModule implements OnInit {
     };
 
     // Функция проверит введенную сумму.
-    public onCheckScore() {
+    public onCheckScore(iDefaultScore: string) {
         if (this.iDefaultScore == "") {
             this.iDefaultScore = "0";
             this.bErrorScore = true;
@@ -121,7 +121,7 @@ export class ProfileModule implements OnInit {
             return;
         }
 
-        if (this.iDefaultScore < "150") {
+        if (+this.iDefaultScore < 150) {
             this.bErrorScore = true;
             return;
         }
