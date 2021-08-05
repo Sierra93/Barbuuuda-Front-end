@@ -128,33 +128,6 @@ export class AuctionModule implements OnInit {
         }
     };
 
-    // TODO: вынести в общий сервис
-     // Функция получит выделенное задание.
-    // public async onGetTaskAsync(taskId: number) {
-    //     try {
-    //         let params = {
-    //             TaskId: taskId
-    //         };
-
-    //         await this.http.post(API_URL.apiUrl.concat("/task/tasks-list="), params)
-    //             .subscribe({
-    //                 next: (response: any) => {
-    //                     console.log("filter pagination", response);
-    //                     this.aAuctionTasks = response.tasks;
-    //                 },
-
-    //                 error: (err) => {
-    //                     this.commonService.routeToStart(err);
-    //                     throw new Error(err);
-    //                 }
-    //             });
-    //     }
-
-    //     catch (e) {
-    //         throw new Error(e);
-    //     }
-    // };
-
     private async getViewTaskAsync(): Promise<void> {
         await this.commonService.loadTaskListAsync("Single", this.taskId).then((data: any) => {
             this.viewTask = data;

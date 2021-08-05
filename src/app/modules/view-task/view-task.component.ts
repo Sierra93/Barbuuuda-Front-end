@@ -44,6 +44,10 @@ export class ViewTaskModule implements OnInit {
     lastName: string = "";
     userName: string = "";
     displayChatModal: boolean = false;
+    displayRespondModal: boolean = false;
+    price: string = "";
+    checked: boolean = false;
+    comment: string = "";
 
     constructor(private commonService: CommonDataService,
         private http: HttpClient, private router: Router,
@@ -119,7 +123,7 @@ export class ViewTaskModule implements OnInit {
             this.checkRespondAsync();
 
             if (this.isRespond) {
-                $('#idRespond').modal('show');
+                this.displayRespondModal = true;
                 return;
             }
 
@@ -481,6 +485,34 @@ export class ViewTaskModule implements OnInit {
                     next: (response: any) => {
                         // TODO: выводить тут сообщение тостом об успешном удалении.
                         console.log("Удалено");
+                    },
+
+                    error: (err) => {
+                        this.commonService.routeToStart(err);
+                        throw new Error(err);
+                    }
+                });
+        }
+
+        catch (e) {
+            throw new Error(e);
+        }
+    };
+
+    // Функция оставит ставку к заданию.
+    public async onRespondAsync(price: string, comment: string) {
+        try {            
+            let params = {
+                Price: price,
+                Comment: comment,
+                TaskId: this.taskId
+            };
+
+            await this.http.post(API_URL.apiUrl.concat("/executor/respond"), params)
+                .subscribe({
+                    next: (response: any) => {
+                        console.log("Ставка к заданию сделана");
+                        this.loadRespondsAsync();
                     },
 
                     error: (err) => {
