@@ -196,7 +196,7 @@
                     <div class="card-body card_respond d-flex justify-content-between">
                     <div class="block_respond">
                         <div class="d-flex">
-                            <img class="mr-1 icon_photo" v-bind:src="getImgUrl(respond.userIcon)">
+                            <img class="mr-1 icon_photo" [src]="respond.userIcon">
                             
                             <div class="ml-3">
                                 <div>
@@ -287,7 +287,7 @@
 <p-dialog header="Вы уверены, что хотите удалить задание?" [(visible)]="displayDeleteModal" [modal]="true" [style]="{width: '50vw'}" [baseZIndex]="10000"
   [draggable]="false" [resizable]="false">
   <p class="p-m-0">Удаленное задание невозможно будет восстановить.</p>
-  <ng-template pTemplate="footer">
+  <ng-template pTemplate="footer">    
     <!-- <p-button icon="pi pi-check" (click)="displayDeleteModal=false" label="Отмена" styleClass="p-button-outlined p-button-secondary"></p-button> -->
     <p-button icon="pi pi-times" (click)="OnDeleteTaskAsync()" label="Удалить" styleClass="p-button-danger"></p-button>
   </ng-template>
@@ -307,7 +307,6 @@
 <!-- Диалог чата. -->
 <p-dialog header="Чат с исполнителями" [(visible)]="displayChatModal" [modal]="true" [style]="{width: '100vw'}" [baseZIndex]="10000"
   [draggable]="false" [resizable]="false">
-  <!-- <p class="p-m-0">111 </p> -->
   <ng-template pTemplate="footer">
     <div class="container">
         <div class="d-flex">
@@ -315,8 +314,6 @@
          <div class="col-lg-7 d-flex justify-content-between align-items-center">
           <span class="" *ngIf="firstName && lastName">{{firstName}} {{lastName}}</span>
           <span class="" *ngIf="!firstName && !lastName">{{userName}}</span>
-          <!-- <span v-if="dialog.firstName && dialog.lastName">{{dialog.firstName}} {{dialog.lastName}}</span>
-          <span v-else="!dialog.firstName && !dialog.lastName">{{dialog.userName}}</span> -->
           <button class="btn-create-task btn-next form-control-sm mt-3 mb-3 mr-3" 
                 *ngIf="role == 'C'"
                 _data-toggle="modal"
@@ -347,13 +344,13 @@
                       (click)="onGetDialogMessagesAsync(dialog.dialogId)"
                       *ngFor="let dialog of aDialogs">
                   <div class="chat_people">
-                    <!-- <div class="chat_img"> <img class="icon_photo" v-bind:src="getImgUrl(dialog.userIcon)"> </div> -->
+                    <div class="chat_img"> <img class="icon_photo" [src]="dialog.userIcon"> </div>
                     <div class="chat_ib">
-                      <h5 v-if="dialog.firstName && dialog.lastName">{{dialog.firstName}} {{dialog.lastName}} 
+                      <h5 *ngIf="dialog.firstName && dialog.lastName">{{dialog.firstName}} {{dialog.lastName}} 
                         <span class="chat_date">{{dialog.calcTime !== null ? dialog.calcTime : dialog.calcShortDate}}</span>
                       </h5>
 
-                      <h5 v-else="!dialog.firstName && !dialog.lastName">{{dialog.userName}} 
+                      <h5 class="d-flex justify-content-between" *ngIf="!dialog.firstName && !dialog.lastName">{{dialog.userName}} 
                         <span class="chat_date">{{dialog.calcTime !== null ? dialog.calcTime : dialog.calcShortDate}}</span>
                       </h5>
 
@@ -396,7 +393,7 @@
                   <input type="text" 
                           class="write_msg" 
                           placeholder="Введите сообщение..." 
-                          v-model="message"/>
+                          [ngModel]="message"/>
                   <button class="msg_send_btn" type="button" (click)="onSendAsync()">
                     <i class="fa fa-paper-plane-o"
                       aria-hidden="true">

@@ -22,7 +22,7 @@ export class HomeModule implements OnInit {
     isHidePanelTest: boolean = false;
     isHideStepsTest: boolean = false;
     isHidePanelStartTest: boolean = false;
-    aProfileData: any[] = [];
+    oProfileData: any = {};
     aCategories: any[] = [];
     aExecutorSpecializations: any[] = [];
     aInvities: any[] = [];
@@ -200,13 +200,13 @@ export class HomeModule implements OnInit {
     // Функция загружает всю информацию профиля.
     private async loadingProfileAsync(): Promise<void> {
         try {
-            await this.http.get(API_URL.apiUrl.concat("/user/profile"))
+            await this.http.post(API_URL.apiUrl.concat("/user/profile"), {})
                 .subscribe({
                     next: (response: any) => {
-                        this.aProfileData.push(response);
+                        this.oProfileData = response;
                         let date = response.dateRegister.split(".")[0];
                         this.dataService.setDateRegister(date);
-                        console.log("Данные профиля", this.aProfileData);
+                        console.log("Данные профиля", this.oProfileData);
                     },
 
                     error: (err) => {

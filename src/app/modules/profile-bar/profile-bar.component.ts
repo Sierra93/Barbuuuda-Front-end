@@ -45,8 +45,6 @@ export class ProfileBarModule implements OnInit {
             await this.http.post(API_URL.apiUrl.concat("/task/count-status"), {})
                 .subscribe({
                     next: (response: any) => {
-                        console.log("Пройден ли тест", response);
-
                         this.countAuction = response.auction;
                         this.countWork = response.work;
                         this.countGarant = response.garant;

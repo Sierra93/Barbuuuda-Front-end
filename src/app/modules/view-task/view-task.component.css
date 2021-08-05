@@ -230,6 +230,165 @@ input[type="file"] {
   outline: #00BCD4;
 }
 
+.block-before-my-tasks {
+  display: flex;
+  justify-content: space-between;
+}
+
+.search-category {
+  width: 355px;
+  height: 48px !important;
+  border: 1px solid #00BCD4;
+  border-radius: 0 !important;
+}
+
+.search-category:focus {
+  outline: none;
+}
+
+.block-my-tasks {
+  display: flex !important;
+  justify-content: space-around;
+  line-height: 2;
+  flex-direction: column;
+}
+
+.block-my-tasks .task-status {
+  color: #00BCD4;
+}
+
+.task-title {
+  color: #00BCD4;
+  font-size: 18px;
+  font-family: Open Sans;
+}
+
+.task-detail {
+  color: #B6B6B6;
+}
+
+.block-icon {
+  display: flex;
+  align-items: center;
+  line-height: 1;
+}
+
+.header-task {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: none !important;
+}
+
+.task-price {
+  color: #00BCD4;
+  align-items: center;
+  display: flex;
+}
+
+.block-footer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.block-footer .task-category {
+  color: #2D7091;
+}
+
+.block-footer .offer {
+  color: #00BCD4;
+}
+
+.card-footer {
+  background: none !important;
+}
+
+.my-tasks {
+  margin-left: 30px;
+}
+
+.pagination {
+  margin: 10px 10px;
+}
+
+.block-pagination {
+  display: flex;
+  justify-content: center;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  font-size: 20px;
+}
+
+.block-pagination .page-item a {
+  border: none;
+  border-radius: 50%;
+  padding: 0px 5px;
+  font-family: monospace;
+}
+
+.block-pagination .page-item a:hover {
+  cursor: pointer;
+}
+
+.pagination li .page-item .active {
+  background: #00BCD4;
+  border-radius: 50%;
+}
+
+.page-link .active {
+  background: #00BCD4 !important;
+  border-radius: 50%;
+}
+
+.page-link:hover {
+  background: #E0F7FA !important;
+}
+
+.page-item.active .page-link {
+  background: #00BCD4 !important;
+  border-radius: 50%;
+}
+
+.page-item .page-link {
+  color: #B6B6B6;
+}
+
+.fon-profile {
+  background: #EFEFEF;
+  line-height: 2;
+  padding: 20px;
+}
+
+.fon-profile .stat-item {
+  display: flex;
+  justify-content: space-between;
+  color: #B6B6B6;
+}
+
+.search-block-task {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 30px 0 30px;
+}
+
+.search-block-task .btn-search {
+  border: 1px solid #00BCD4;
+  border-radius: 0 !important;
+}
+
+.search-block-task .btn-search:hover {
+  background: #00BCD4;
+  color: #FFFFFF;
+}
+
+.search-block-task .task-filter {
+  border: 1px solid #00BCD4;
+  border-radius: 0 !important;
+}
+
+.block-task-title {
+  margin: 0 15px 0 15px;
+}
+
 .fon-profile {
   background: whitesmoke;
   padding: 15px 15px 15px 15px;
@@ -564,8 +723,4 @@ img {
 .close-icon {
   margin-top: -10%;
   margin-right: -5%;
-}
-
-::ng-deep .p-dialog .p-dialog-content {
-  display: none;
 }

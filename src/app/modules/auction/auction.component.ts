@@ -16,6 +16,33 @@ export class AuctionModule implements OnInit {
     sSearch: string = "";
     role: string = "";
     taskId: number = 0;
+    viewTask: any;
+    customerLogin: string = "";
+    taskTitle: string = "";
+    taskDetail: string = "";
+    taskPrice: string = "";
+    taskBegda: any;
+    categoryName: string = "";
+    specName: string = "";
+    respondCount: number = 0;
+    bSelectPay: boolean = false;
+    bWorkAccept: boolean = false;
+    isRespond: boolean = false;
+    bNotTaskPrice: boolean = false; // TODO: доработать на наличие цены задания
+    aMessages: any = [];
+    message: string = "";
+    statusArea: string = "";
+    aResponds: any = [];
+    displayModal: boolean = false;
+    position: string = "";
+    dialogId: number = 0;
+    aDialogs: any;
+    displayDeleteModal: boolean = false;
+    displaySelectExecutorModal: boolean = false;
+    firstName: string = "";
+    lastName: string = "";
+    userName: string = "";
+    displayChatModal: boolean = false;
 
     constructor(private http: HttpClient, private commonService: CommonDataService) { }
 
@@ -23,6 +50,7 @@ export class AuctionModule implements OnInit {
         await this.loadAuctionTasks();
         await this.getTotalPageetPagination();
         await this.checkUserRoleAsync();
+        await this.getTransitionAsync();
     };
 
     // Функция получит список заданий в аукционе.
@@ -102,28 +130,65 @@ export class AuctionModule implements OnInit {
 
     // TODO: вынести в общий сервис
      // Функция получит выделенное задание.
-    public async onGetTaskAsync() {
+    // public async onGetTaskAsync(taskId: number) {
+    //     try {
+    //         let params = {
+    //             TaskId: taskId
+    //         };
+
+    //         await this.http.post(API_URL.apiUrl.concat("/task/tasks-list="), params)
+    //             .subscribe({
+    //                 next: (response: any) => {
+    //                     console.log("filter pagination", response);
+    //                     this.aAuctionTasks = response.tasks;
+    //                 },
+
+    //                 error: (err) => {
+    //                     this.commonService.routeToStart(err);
+    //                     throw new Error(err);
+    //                 }
+    //             });
+    //     }
+
+    //     catch (e) {
+    //         throw new Error(e);
+    //     }
+    // };
+
+    private async getViewTaskAsync(): Promise<void> {
+        await this.commonService.loadTaskListAsync("Single", this.taskId).then((data: any) => {
+            this.viewTask = data;
+            console.log("viewTask", this.viewTask);
+
+            this.customerLogin = data[0].customerLogin;
+            this.taskTitle = data[0].taskTitle;
+            this.taskDetail = data[0].taskDetail;
+            this.taskPrice = data[0].taskPrice;
+            this.taskBegda = data[0].taskBegda;
+            this.categoryName = data[0].categoryName;
+            this.specName = data[0].specName;
+        });
+    };
+
+    // Функция получит переход.
+    private async getTransitionAsync(): Promise<void> {
         try {
-            let params = {
-                TaskId: this.taskId
-            };
-
-            await this.http.post(API_URL.apiUrl.concat("/task/tasks-list="), params)
-                .subscribe({
-                    next: (response: any) => {
-                        console.log("filter pagination", response);
-                        this.aAuctionTasks = response.tasks;
-                    },
-
-                    error: (err) => {
-                        this.commonService.routeToStart(err);
-                        throw new Error(err);
-                    }
-                });
+            await this.commonService.getTransitionAsync().then((data: any) => {
+                this.viewTask = data.taskId;
+                this.taskId = data.taskId;
+                this.getViewTaskAsync();
+                console.log("viewTask", this.viewTask);
+            });
         }
 
         catch (e) {
             throw new Error(e);
         }
+    };
+
+    // Функция запишет переход либо перезапишет существующий.
+    public async onSetTransitionAsync(taskId: number) {
+        console.log("taskId", taskId);
+        this.commonService.setTransitionAsync(taskId, "View");
     };
 }

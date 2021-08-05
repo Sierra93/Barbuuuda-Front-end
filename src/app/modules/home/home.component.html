@@ -21,8 +21,8 @@
             <span class="notifications__subtitle">Уведомления</span>
             <span class="notifications__history ml-3">История уведомлений</span>
           </div>
-          <p class="notifications__txt" [hidden]="!bActivity">Новых уведомлений нет</p>
-          <h5 class="ml-3 mt-3" [hidden]="aInvities.length > 0">Задания, в которых вас выбрали исполнителем</h5>
+          <p class="notifications__txt" *ngIf="!bActivity">Новых уведомлений нет</p>
+          <h5 class="ml-3 mt-3" *ngIf="aInvities.length > 0">Задания, в которых вас выбрали исполнителем</h5>
 
           <!-- Список уведомлений. -->
           <div class="block-my-tasks mb-3">
@@ -88,14 +88,14 @@
                     </div>
 
                     <div class="offer">
-                      <button class="btn-next form-control-sm" [hidden]="el.countOffers"
+                      <button class="btn-next form-control-sm" *ngIf="el.countOffers"
                         (click)="onAcceptTaskAsync(el.taskId)">
                         ПРИНЯТЬ
                       </button>
 
                       &nbsp;
 
-                      <button class="btn-next btn-create-task" [hidden]="!el.countOffers"
+                      <button class="btn-next btn-create-task" *ngIf="!el.countOffers"
                         (click)="onCancelTaskAsync(el.taskId)">
                         ОТКАЗАТЬСЯ
                       </button>
@@ -108,7 +108,7 @@
         </div>
 
         <!-- Панель перед началом теста. -->
-        <div class="panel-before-test" [hidden]="!isHideStepsTest && role == 'E'">
+        <div class="panel-before-test" *ngIf="!isHideStepsTest && role == 'E'">
           <div class="mb-3">
             <span class="notifications__subtitle">Добро пожаловать на Barbuuuda!</span>
           </div>
@@ -135,102 +135,40 @@
         </div>
 
         <!-- Панель прохождения теста. -->
-        <div class="panel-test" [hidden]="isHidePanelTest && role == 'E'">
-          <ul class="nav nav-pills nav-justified">
-            <li class="nav-item mb-3">
-              <a class="nav-link active" data-toggle="tab" role="tab" href="#idRegulations">
-                <small>Шаг 1</small><br>
-                <small>Ознакомление с правилами</small>
-              </a>
-            </li>
-
-            <li class="nav-item mb-3">
-              <a class="nav-link" data-toggle="tab" role="tab" href="#idInfoMe">
-                <small>Шаг 2</small><br>
-                <small>Заполнение информации о себе</small>
-              </a>
-            </li>
-
-            <li class="nav-item mb-3">
-              <a class="nav-link" data-toggle="tab" role="tab" href="#idSelectCategory">
-                <small>Шаг 3</small><br>
-                <small>Выбор категорий и подкатегорий</small>
-              </a>
-            </li>
-
-            <li class="nav-item mb-3">
-              <a class="nav-link" data-toggle="tab" role="tab" href="#idTest">
-                <small>Шаг 4</small><br>
-                <small>Прохождение теста</small>
-              </a>
-            </li>
-          </ul>
-
-          <div class="tab-content" id="myTabContent">
-            <div class="tab-pane fade show active" id="idRegulations" role="tabpanel" aria-labelledby="home-tab">
-              <div class="content-title">
-                Для работы на сервисе Barbuuuda, Вы должны ознакомиться с правилами работы на сервисе.
-              </div>
-
-              <button class="btn-regulations form-control-sm mb-3 mt-3" >ПРАВИЛА</button>
+        <p-tabView *ngIf="isHidePanelTest && role == 'E'">
+          <p-tabPanel class="step" header="Шаг 1.Ознакомление с правилами">
+            <div class="content-title">
+              Для работы на сервисе Barbuuuda, Вы должны ознакомиться с правилами работы на сервисе.
             </div>
 
-            <div *ngFor="let item of aProfileData">
-              <div class="tab-pane fade" id="idInfoMe" role="tabpanel" aria-labelledby="profile-tab"
-                *ngFor="let el of item">
-                <div class="tab-pane fade show active" id="about" role="tabpanel" aria-labelledby="about-tab">
-                  <h4>Немного о себе</h4>
-                  <span>{{el.aboutInfo}}</span>
+            <button class="btn-regulations form-control-sm mb-3 mt-3" >ПРАВИЛА</button>
+          </p-tabPanel>
 
-                  <br>
+          <p-tabPanel class="step" header="Шаг 2.Заполнение информации о себе">
+            <h4>Немного о себе</h4>
+            <span>{{oProfileData.aboutInfo}}</span>
 
-                  <button class="btn-next form-control-sm mb-3 mt-3" >ЗАПОЛНИТЬ ПОЗЖЕ</button>
-                </div>
-              </div>
-            </div>
+            <br>
 
-            <!-- TODO: Раскоментить когда буду работать с профилем. -->
-            <!-- <div *ngFor="let item of aProfileData">
-                            <div class="tab-pane fade" 
-                                id="idSelectCategory" 
-                                role="tabpanel" 
-                                aria-labelledby="contact-tab"
-                                *ngFor="let el of item" >  
-                                <h4 class="mt-3">Категории и специализации выполняемых заданий</h4>
-                                <div *ngFor="let category of aCategories; let i = index">
-                                    <div class="mt-3" >
-                                        <strong>{{category.categoryName}}</strong><small class="ml-2">Выбрать все</small><br>
-                                        <div *ngFor="item of aCategories[i].specializations">
-                                            <div *ngFor="spec of item">
-                                                <div class="d-flex align-items-center">
-                                                  <input type="checkbox" 
-                                                          class="mr-1"
-                                                          v-model="checked"
-                                                          (click)="onSelectSpecAsync(!checked, spec.specName)"><span>{{spec.specName}}</span>
-                                                </div>
-                                              </div>
-                                        </div>
-                                      </div>
-                                </div>
-                          
-                                <button class="btn-next form-control-sm mt-3 mr-1" (click)="onSaveSpecies()">Сохранить</button>
-    
-                                <button class="btn-next form-control-sm mb-3 mt-3" 
-                                >ЗАПОЛНИТЬ ПОЗЖЕ</button>
-                            </div>
-                        </div> -->
+            <button class="btn-next form-control-sm mb-3 mt-3" >ЗАПОЛНИТЬ ПОЗЖЕ</button>
+          </p-tabPanel>
 
+          <p-tabPanel class="step" header="Шаг 3.Выбор категорий и подкатегорий">
+            Content 3
+          </p-tabPanel>
+
+          <p-tabPanel class="step" header="Шаг 4.Прохождение теста">
             <div class="tab-pane fade" id="idTest" role="tabpanel" aria-labelledby="contact-tab">
               <span>Для обеспечения качества работы исполнителей, мы должны быть уверены, что Вы ознакомились с
                 правилами работы на сервисе.</span>
               <br>
               <button class="btn-next form-control-sm mb-3 mt-3" (click)="onStartTest()">НАЧАТЬ</button>
             </div>
-          </div>
-        </div>
+          </p-tabPanel>
+        </p-tabView>        
 
         <!-- Панель вопросов теста. -->
-        <div class="panel-test" [hidden]="isHidePanelStartTest && role == 'E'">
+        <div class="panel-test" *ngIf="isHidePanelStartTest && role == 'E'">
           <div *ngFor="let item of aQuestion">
             <div *ngFor="let el of item">
               <div>
@@ -259,15 +197,14 @@
 
           <br>
 
-          <button class="btn-next form-control-sm mb-3 mt-1" [hidden]="currentQuestion < 7"
+          <button class="btn-next form-control-sm mb-3 mt-1" *ngIf="currentQuestion < 7"
             (click)="onNextQuestionAsync()">ДАЛЕЕ</button>
 
-          <button class="btn-next form-control-sm mb-3 mt-1" [hidden]="currentQuestion == 7"
+          <button class="btn-next form-control-sm mb-3 mt-1" *ngIf="currentQuestion == 7"
             (click)="onCheckAnswersTestAsync()">ЗАКОНЧИТЬ ТЕСТ</button>
         </div>
       </div>
     </div>
-    <!-- </div> -->
 
     <!-- Модальное окно ошибки, если нет роли заказчика. -->
     <div class="modal fade" id="idNotSelectedVariant" tabindex="-1" role="dialog" aria-labelledby="idNotCustomerTitle"
