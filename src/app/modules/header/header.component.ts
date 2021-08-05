@@ -105,14 +105,18 @@ export class HeaderModule implements OnInit {
         this.router.navigate(["/task/create"]);
     };
 
+    public onReturnStart() {
+        this.router.navigate(["/"]);
+    };
+
     // Функция распределит по пунктам хидера.
     public onGetMenu(value: any) {
-        if (value && value == " Barbuuuda ") {
-            this.bGuest = true;
-            this.router.navigate(["/login"]);
-        } 
+        // if (value && value == " Barbuuuda ") {
+        //     this.bGuest = true;
+        //     this.router.navigate(["/"]);
+        // } 
         
-        else if (value == "Главная") {
+        if (value == "Главная") {
             this.router.navigate(["/home"]);
         } 
         
