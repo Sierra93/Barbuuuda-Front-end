@@ -1,10 +1,11 @@
 # Barbuuuda-Front-end - фронт онлайн-сервиса удаленной работы.
-Стек фронта:
-HTML, CSS, SCSS, Bootstrap, jQuery, JavaScript (es5, es6), TypeScript, Angular, PrimeNG.
+<hr>
 
 # Для запуска приложения на локалке:
 **ng serve**
 <hr>
+
+# Стек фронта:
 
 **Структура и стили:** HTML, CSS.<br>
 **CSS-препроцессор:** SCSS.<br>
