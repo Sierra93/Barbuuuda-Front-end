@@ -1,5 +1,5 @@
 .fon-profile {
-  background: whitesmoke;
+  border: 1px solid rgba(0, 0, 0, 0.125);
   padding: 15px 15px 15px 15px;
 }
 
@@ -13,11 +13,6 @@
   display: flex;
   justify-content: space-between;
   color: #B6B6B6;
-}
-
-.fon-profile .stat-item-active:hover {
-  background: #FFFFFF;
-  cursor: pointer;
 }
 
 ::ng-deep .p-datepicker table td {

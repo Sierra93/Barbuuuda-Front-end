@@ -32,7 +32,8 @@ import { ToastModule } from "primeng/toast";
 import { CalendarModule } from "primeng/calendar";
 import { AuctionModule } from "./modules/auction/auction.component";
 import { ProfileModule } from "./modules/profile/profile.component";
-import {TabViewModule} from "primeng/tabview";
+import { TabViewModule } from "primeng/tabview";
+import { DropdownModule } from "primeng/dropdown";
 
 @NgModule({
   declarations: [
@@ -74,7 +75,8 @@ import {TabViewModule} from "primeng/tabview";
     MessagesModule,
     ToastModule,
     CalendarModule,
-    TabViewModule
+    TabViewModule,
+    DropdownModule
   ],
 
   providers: [

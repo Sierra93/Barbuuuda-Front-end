@@ -3,6 +3,7 @@ import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { API_URL } from "src/app/core/core-urls/api-url";
 import { CommonDataService } from "src/app/services/common-data.service";
+import { DataService } from "src/app/services/data.service";
 
 @Component({
     selector: "my-tasks",
@@ -17,15 +18,20 @@ export class MyTaskModule implements OnInit {
     aWorkTasks: any = [];
     role: any = "";
     sSearch = "";
+    aSortDataSelect: any[] = [];
+    aFilterDataSelect: any[] = [];        
 
-    constructor(private http: HttpClient, private commonService: CommonDataService, private router: Router) { }
+    constructor(private http: HttpClient, private commonService: CommonDataService, private router: Router, private dataService: DataService) { }
 
-    public async ngOnInit() {
+    public async ngOnInit() {        
+        console.log("mytasks",this.dataService.testData);
         await this.loadTaskListAsync();
         await this.getTotalPageetPaginationAsync();
         await this.onGetPaginationAsync();
         await this.loadMyTasksAsync();
         this.role = await this.checkUserRoleAsync();
+        await this.loadSortDataSelectAsync();
+        await this.loadFilterDataSelectAsync();
     };
 
     // Функция получит список заданий заказчика.
@@ -153,5 +159,47 @@ export class MyTaskModule implements OnInit {
     public async onSetTransitionAsync(taskId: number) {
         console.log("taskId", taskId);
         this.commonService.setTransitionAsync(taskId, "View");
+    };
+
+    // Функция получит список значений для селекта сортировки заданий.
+    private async loadSortDataSelectAsync() {
+        try {
+            await this.http.post(API_URL.apiUrl.concat("/task/get-sort-select"), {})
+                .subscribe({
+                    next: (response: any) => {                       
+                        this.aSortDataSelect = response.controlSorts;                                            
+                        console.log("sortDataSelect ", response.controlSorts);
+                    },
+
+                    error: (err) => {
+                        throw new Error(err);
+                    }
+                });
+        }
+
+        catch (e) {
+            throw new Error(e);
+        }
+    };
+
+    // Функция получит список значений для селекта фильтрации заданий.
+    private async loadFilterDataSelectAsync() {
+        try {
+            await this.http.post(API_URL.apiUrl.concat("/task/get-filter-select"), {})
+                .subscribe({
+                    next: (response: any) => {                        
+                        this.aFilterDataSelect = response.controlFilters;                                                        
+                        console.log("filterDataSelect ", response.controlFilters);
+                    },
+
+                    error: (err) => {
+                        throw new Error(err);
+                    }
+                });
+        }
+
+        catch (e) {
+            throw new Error(e);
+        }
     };
 }

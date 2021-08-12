@@ -380,4 +380,32 @@ export class CommonDataService {
             throw new Error(e);
         }
     };
+
+    // Функция получит задания определенного статуса.
+    // public async GetStatusTasksAsync(status: string) {
+    //     try {
+    //         let params = {
+    //             Status: status
+    //         };
+
+    //         return new Promise<any>(async resolve => {
+    //             await this.http.post(API_URL.apiUrl.concat("/task/task-status"), params)
+    //                 .subscribe({
+    //                     next: (response: any) => {
+    //                         console.log("Список заданий определенного статуса: ", response);
+    //                         resolve(response);
+    //                     },
+
+    //                     error: (err) => {
+    //                         this.routeToStart(err);
+    //                         throw new Error(err);
+    //                     }
+    //                 })
+    //         });
+    //     }
+
+    //     catch (e) {
+    //         throw new Error(e);
+    //     }
+    // };
 }

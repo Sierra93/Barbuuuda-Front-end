@@ -2,6 +2,8 @@ import { HttpClient } from "@angular/common/http";
 import { Component, OnInit } from "@angular/core";
 import { NavigationEnd, Router } from "@angular/router";
 import { API_URL } from "src/app/core/core-urls/api-url";
+import { CommonDataService } from "src/app/services/common-data.service";
+import { DataService } from "src/app/services/data.service";
 
 @Component({
     selector: "profile-bar",
@@ -22,10 +24,11 @@ export class ProfileBarModule implements OnInit {
     selectedDate = new Date();
     date: Date = new Date();
 
-    constructor(private http: HttpClient, private router: Router) { }
+    constructor(private http: HttpClient, private router: Router, private commonService: CommonDataService, private dataService: DataService) { }
 
     public async ngOnInit() {
-        let self = this;
+        let self = this;    
+        console.log("profilebar",this.dataService.testData);
 
         await this.loadCountTaskAsync();  
         // await this.loadTotalCountTasks();      
@@ -68,4 +71,17 @@ export class ProfileBarModule implements OnInit {
     public async handleDateChange(selectedDate: Date) {
         let date = selectedDate.toLocaleDateString();
     };
+
+    // Функция выгрузит задания с определенным статусом.
+    // public async onGetStatusTaskAsync(status: string) {
+    //     try {
+    //         await this.commonService.getUserRoleAsync().then((data: any) => {
+                
+    //         });
+    //     }
+
+    //     catch (e) {
+    //         throw new Error(e);
+    //     }
+    // };
 }

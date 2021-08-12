@@ -388,3 +388,7 @@ input[type="file"] {
 .block-task-title {
   margin: 0 15px 0 15px;
 }
+
+.block-filter {
+  margin: 0 30px 0 30px;
+}

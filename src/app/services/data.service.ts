@@ -21,6 +21,7 @@ export class DataService {
         bEdit: false
     };
     private balance: string = "0";
+    testData: any = [1,2,3,4,5];
 
     constructor() { }
 

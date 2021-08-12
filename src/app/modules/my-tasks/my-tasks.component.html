@@ -38,18 +38,23 @@
                             Найти
                         </button>
                     </div>
+                </div>                                
+            </div>
+
+            <!-- Селекты фильтрации. -->
+            <div class="d-flex block-filter mb-3 mt-3">
+                <div>
+                  <span>Сортировать: &nbsp;</span> <br>
+                  <p-dropdown [options]="aSortDataSelect" placeholder="Условие сортировки"
+                    optionLabel="sortValue" [showClear]="true"></p-dropdown>
                 </div>
 
-                <div>
-                    <span>Сортировать: &nbsp;</span>
-                    <select class="form-control-sm task-filter"
-                            >
-                            <!-- v-on:change="onFilterTasks($event.target.value)" -->
-                        <option></option>
-                        <option>По дате создания</option>
-                        <option>По дате сдачи</option>
-                    </select>
-                </div>
+                  <div class="ml-3">
+                    <span>Фильтровать: &nbsp;</span>
+                    <br>
+                    <p-dropdown [options]="aFilterDataSelect" placeholder="Условие фильтрации"
+                      optionLabel="filterValue" [showClear]="true"></p-dropdown>
+                  </div>
             </div>
 
             <!-- Список заданий. -->
