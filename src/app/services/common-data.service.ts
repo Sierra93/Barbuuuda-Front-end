@@ -65,7 +65,7 @@ export class CommonDataService {
             catch (e) {
                 throw new Error(e);
             }
-        }, 530000); // Каждые 9 мин.  
+        }, 530000); // Каждые 9 мин.
     };
 
     // Функция получает список всех категорий.
