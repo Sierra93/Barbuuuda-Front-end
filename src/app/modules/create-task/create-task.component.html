@@ -176,7 +176,8 @@
               <input id="idTaskTitle" 
                       class="form-control-sm input-task search-category" 
                       placeholder="Введите название"
-                      [ngModel]="taskTitle">
+                      type="text"
+                      [(ngModel)]="taskTitle">
 
               <!-- <input  id="idEditTaskTitle" 
                       class="form-control-sm input-task search-category" 
@@ -193,7 +194,8 @@
               <textarea id="idTaskDetail" 
                         class="form-control-sm input-task detail-field"
                         placeholder="Опишите, что именно вам нужно"
-                        [ngModel]="taskDetail"></textarea>
+                        type="text"
+                        [(ngModel)]="taskDetail"></textarea>
 
               <!-- <textarea id="idEditTaskDetail" 
                         class="form-control-sm input-task detail-field"
@@ -216,7 +218,7 @@
               <input id="idDateTaskEndda"
                       type="datetime-local"
                       class="form-control-sm date-endda"
-                      [ngModel]="taskEndda">
+                      [(ngModel)]="taskEndda">
 
               <!-- <input id="idEditDateTaskEndda"
                       type="datetime-local"
@@ -232,7 +234,8 @@
               <strong class="asterisk">&nbsp;&#42;</strong><br>
               <input id="idPrice" 
                       class="form-control-sm input-task-price date-endda"
-                      [ngModel]="taskPrice">
+                      type="text"
+                      [(ngModel)]="taskPrice">
 
                       <!-- <input id="idEditPrice" 
                       class="form-control-sm input-task-price date-endda"

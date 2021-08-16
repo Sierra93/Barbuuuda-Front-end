@@ -50,7 +50,8 @@ export class ViewTaskModule implements OnInit {
     comment: string = "";
 
     constructor(private commonService: CommonDataService,
-        private http: HttpClient, private router: Router,
+        private http: HttpClient, 
+        private router: Router,
         private route: ActivatedRoute,
         private primengConfig: PrimeNGConfig,
         private confirmationService: ConfirmationService,
@@ -103,6 +104,9 @@ export class ViewTaskModule implements OnInit {
             this.taskBegda = data[0].taskBegda;
             this.categoryName = data[0].categoryName;
             this.specName = data[0].specName;
+
+            // Отображение цены или "По договоренности".
+            this.bNotTaskPrice = data[0].taskPrice;     
         });
     };
 

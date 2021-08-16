@@ -324,7 +324,7 @@ export class CommonDataService {
 
     // Функция получит переход.
     public async getTransitionAsync() : Promise<TaskOutput> {
-        try {
+        try {            
             return new Promise<TaskOutput>(async resolve => {
                 await this.http.post(API_URL.apiUrl.concat("/task/get-transition"), {})
                     .subscribe({

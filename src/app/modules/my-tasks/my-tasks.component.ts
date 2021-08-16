@@ -23,8 +23,7 @@ export class MyTaskModule implements OnInit {
 
     constructor(private http: HttpClient, private commonService: CommonDataService, private router: Router, private dataService: DataService) { }
 
-    public async ngOnInit() {        
-        console.log("mytasks",this.dataService.testData);
+    public async ngOnInit() {                
         await this.loadTaskListAsync();
         await this.getTotalPageetPaginationAsync();
         await this.onGetPaginationAsync();
@@ -37,7 +36,8 @@ export class MyTaskModule implements OnInit {
     // Функция получит список заданий заказчика.
     private async loadTaskListAsync() {
         await this.commonService.loadTaskListAsync("All", null).then((data: any) => {
-            this.aMyTasks = data;            
+            this.aMyTasks = data;     
+            console.log("Мои задания: ", this.aMyTasks);       
          });           
     };
 

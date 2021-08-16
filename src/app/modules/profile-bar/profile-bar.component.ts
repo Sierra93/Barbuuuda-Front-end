@@ -28,7 +28,6 @@ export class ProfileBarModule implements OnInit {
 
     public async ngOnInit() {
         let self = this;    
-        console.log("profilebar",this.dataService.testData);
 
         await this.loadCountTaskAsync();  
         // await this.loadTotalCountTasks();      

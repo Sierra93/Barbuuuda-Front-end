@@ -1,8 +1,11 @@
 import { HttpClient } from "@angular/common/http";
 import { Component, OnInit } from "@angular/core";
+import { ActivatedRoute } from "@angular/router";
 import { API_URL } from "src/app/core/core-urls/api-url";
 import { TaskInput } from "src/app/models/task/input/task-input";
 import { CommonDataService } from "src/app/services/common-data.service";
+import { DataService } from "src/app/services/data.service";
+import { RemoveSpacePipe } from "../../core/extensions/pipes-extensions/remove-space.pipe.extension";
 
 @Component({
     selector: "task-edit",
@@ -16,7 +19,7 @@ export class EditTaskModule implements OnInit {
     taskDetail: string = "";
     categoryCode: string = "";
     specCode: string = "";
-    taskEndda: string = "";
+    taskEndda: any;
     taskPrice: string = "";
     categoryName: string = "";
     specName: string = "";
@@ -24,8 +27,16 @@ export class EditTaskModule implements OnInit {
     customerLogin: string = "";
     taskBegda: any;
     editTask: any;
+    routeParam: number;    
 
-    constructor(private commonService: CommonDataService, private http: HttpClient) { }
+    constructor(
+        private commonService: CommonDataService, 
+        private http: HttpClient, 
+        private route: ActivatedRoute, 
+        private dataService: DataService) {
+        this.routeParam = +this.route.snapshot.queryParams.id;  // Получит параметр из роута.
+        this.dataService.taskId = +this.route.snapshot.queryParams.id;
+     }
 
     public async ngOnInit() {
         await this.getTransitionAsync();
@@ -89,15 +100,20 @@ export class EditTaskModule implements OnInit {
     // TODO: возможно нужно будет доработать случай при обновлении страницы.
     // Функция получит задание для просмотра.
     private async getEditTaskAsync(): Promise<void> {
+        if (this.taskId == 0) {
+            this.taskId = this.dataService.taskId;
+        }
+        
         await this.commonService.loadTaskListAsync("Single", this.taskId).then((data: any) => {
             this.editTask = data;
-            console.log("editTask", this.editTask);
+            console.log("Задание для редактирования", this.editTask);
 
             this.customerLogin = data[0].customerLogin;
             this.taskTitle = data[0].taskTitle;
             this.taskDetail = data[0].taskDetail;
             this.taskPrice = data[0].taskPrice;
             this.taskBegda = data[0].taskBegda;
+            this.taskEndda = data[0].taskEndda;
             this.categoryName = data[0].categoryName;
             this.specName = data[0].specName;
         });
@@ -105,7 +121,7 @@ export class EditTaskModule implements OnInit {
 
     // Функция получит переход.
     private async getTransitionAsync() : Promise<void> {
-        try {
+        try {            
             await this.commonService.getTransitionAsync().then((data: any) => {
                 this.editTask = data.taskId;
                 this.getEditTaskAsync();

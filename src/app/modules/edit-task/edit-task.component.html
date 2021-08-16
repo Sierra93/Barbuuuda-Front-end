@@ -208,16 +208,11 @@
               <label for="idTaskDetail" class="form-control-sm">
                 Дата сдачи задания
               </label>
-              <strong class="asterisk">&nbsp;&#42;</strong><br>            
-              <!-- <input id="idDateTaskEndda"
-                      type="datetime-local"
-                      class="form-control-sm date-endda"
-                      [ngModel]="taskEndda"> -->
-
-              <input id="idEditDateTaskEndda"
-                      type="datetime-local"
-                      class="form-control-sm date-endda"
-                      [value]="taskEndda">
+              <strong class="asterisk">&nbsp;&#42;</strong><br>
+              <input id="idEditDateTaskEndda" 
+                    type="datetime-local" 
+                    class="form-control-sm date-endda"
+                    [value]="taskEndda">
             </div>
 
             <div class="mb-3">
@@ -231,7 +226,7 @@
 
                     <input id="idEditPrice" 
                     class="form-control-sm input-task-price date-endda"
-                    [value]="taskPrice">
+                    [ngModel]="taskPrice | removeSpace">
             </div>
 
             <button class="btn-next form-control-sm" (click)="onBack()">НАЗАД</button>

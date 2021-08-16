@@ -34,6 +34,9 @@ import { AuctionModule } from "./modules/auction/auction.component";
 import { ProfileModule } from "./modules/profile/profile.component";
 import { TabViewModule } from "primeng/tabview";
 import { DropdownModule } from "primeng/dropdown";
+import { FormatPipe } from "./core/extensions/pipes-extensions/format-date.pipe";
+import { EditTaskModule } from "./modules/edit-task/edit-task.component";
+import { RemoveSpacePipe } from "./core/extensions/pipes-extensions/remove-space.pipe.extension";
 
 @NgModule({
   declarations: [
@@ -49,7 +52,10 @@ import { DropdownModule } from "primeng/dropdown";
     CreateTaskModule,
     ViewTaskModule,
     AuctionModule,
-    ProfileModule
+    ProfileModule,
+    EditTaskModule,
+    FormatPipe,
+    RemoveSpacePipe
   ],
 
   entryComponents: [],

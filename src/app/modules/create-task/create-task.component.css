@@ -229,3 +229,7 @@ input[type="file"] {
 .date-endda:focus {
   outline: #00BCD4;
 }
+
+.asterisk {
+  color: #00BCD4;
+}
