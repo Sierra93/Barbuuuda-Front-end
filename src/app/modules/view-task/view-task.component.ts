@@ -1,5 +1,5 @@
 import { HttpClient } from "@angular/common/http";
-import { Component, OnInit, TemplateRef } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { API_URL } from "src/app/core/core-urls/api-url";
 import { CommonDataService } from "src/app/services/common-data.service";
@@ -93,7 +93,7 @@ export class ViewTaskModule implements OnInit {
     // TODO: возможно нужно будет доработать случай при обновлении страницы.
     // Функция получит задание для просмотра.
     private async getViewTaskAsync(): Promise<void> {
-        await this.commonService.loadTaskListAsync("Single", this.taskId).then((data: any) => {
+        await this.commonService.loadTaskListAsync("Single", this.routeParam).then((data: any) => {
             this.viewTask = data;
             console.log("viewTask", this.viewTask);
 
@@ -104,6 +104,7 @@ export class ViewTaskModule implements OnInit {
             this.taskBegda = data[0].taskBegda;
             this.categoryName = data[0].categoryName;
             this.specName = data[0].specName;
+            this.taskId = this.routeParam;
 
             // Отображение цены или "По договоренности".
             this.bNotTaskPrice = data[0].taskPrice;     
@@ -227,6 +228,7 @@ export class ViewTaskModule implements OnInit {
                     case ConfirmEventType.REJECT:
                         this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected' });
                         break;
+
                     case ConfirmEventType.CANCEL:
                         this.messageService.add({ severity: 'warn', summary: 'Cancelled', detail: 'You have cancelled' });
                         break;

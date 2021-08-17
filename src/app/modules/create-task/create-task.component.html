@@ -8,6 +8,14 @@
 </head>
 
 <body>
+  <p-confirmDialog [style]="{width: '50vw'}" [baseZIndex]="10000" rejectButtonStyleClass="p-button-text">
+  </p-confirmDialog>
+
+  <p-confirmDialog [style]="{width: '50vw'}" key="positionDialog" [baseZIndex]="10000"
+    rejectButtonStyleClass="p-button-outlined"></p-confirmDialog>
+
+  <p-toast></p-toast>
+
   <!-- Статусы. -->
   <div class="container mt-4 pt-3 mb-3 text-center block-status">
     <div class="mb-3 item-status">

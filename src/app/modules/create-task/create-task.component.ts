@@ -1,5 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Component, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
+import { ConfirmationService, MessageService } from "primeng/api";
 import { API_URL } from "src/app/core/core-urls/api-url";
 import { TaskInput } from "src/app/models/task/input/task-input";
 import { CommonDataService } from "src/app/services/common-data.service";
@@ -7,7 +9,8 @@ import { CommonDataService } from "src/app/services/common-data.service";
 @Component({
     selector: "task-create",
     templateUrl: "./create-task.component.html",
-    styleUrls: ["./create-task.component.scss"]
+    styleUrls: ["./create-task.component.scss"],
+    providers: [ConfirmationService, MessageService]
 })
 
 export class CreateTaskModule implements OnInit {
@@ -21,7 +24,11 @@ export class CreateTaskModule implements OnInit {
     categoryName: string = "";
     specName: string = "";
 
-    constructor(private commonService: CommonDataService, private http: HttpClient) { }
+    constructor(
+        private commonService: CommonDataService, 
+        private http: HttpClient,
+        private router: Router,
+        private messageService: MessageService) { }
 
     public async ngOnInit() {
         await this.loadTaskCategoriesAsync();
@@ -54,10 +61,26 @@ export class CreateTaskModule implements OnInit {
             await this.http.post(API_URL.apiUrl.concat("/task/create"), task)
                 .subscribe({
                     next: (response: any) => {                    
-                        console.log("Задание успешно создано");
+                        // Сообщение при успешном создании.
+                        this.messageService.add({
+                            severity: 'success',
+                            summary: 'Успешно!',
+                            detail: 'Задание успешно создано'
+                        });
+
+                        setTimeout(() => {
+                            this.router.navigate(['/task/view'], { queryParams: { id: response.taskId } });
+                        }, 2000);
                     },
 
                     error: (err) => {
+                        // Сообщение при ошибке создания.
+                        this.messageService.add({
+                            severity: 'error',
+                            summary: 'Ошибка!',
+                            detail: 'Ошибка сохранения, проверьте заполнение полей'
+                        });
+
                         this.commonService.routeToStart(err);
                         throw new Error(err);
                     }

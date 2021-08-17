@@ -1,6 +1,7 @@
 import { HttpClient } from "@angular/common/http";
-import { Component, Input, OnInit, SimpleChanges } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
+import { Component, OnInit } from "@angular/core";
+import { ActivatedRoute, Router } from "@angular/router";
+import { ConfirmationService, MessageService } from "primeng/api";
 import { API_URL } from "src/app/core/core-urls/api-url";
 import { TaskInput } from "src/app/models/task/input/task-input";
 import { CommonDataService } from "src/app/services/common-data.service";
@@ -9,7 +10,8 @@ import { DataService } from "src/app/services/data.service";
 @Component({
     selector: "task-edit",
     templateUrl: "./edit-task.component.html",
-    styleUrls: ["./edit-task.component.scss"]
+    styleUrls: ["./edit-task.component.scss"],
+    providers: [ConfirmationService, MessageService]
 })
 
 export class EditTaskModule implements OnInit {
@@ -32,7 +34,9 @@ export class EditTaskModule implements OnInit {
         private commonService: CommonDataService, 
         private http: HttpClient, 
         private route: ActivatedRoute, 
-        private dataService: DataService) {
+        private dataService: DataService,
+        private router: Router,
+        private messageService: MessageService) {
         this.routeParam = +this.route.snapshot.queryParams.id;  // Получит параметр из роута.
         this.dataService.taskId = +this.route.snapshot.queryParams.id;
      }
@@ -69,11 +73,27 @@ export class EditTaskModule implements OnInit {
 
             await this.http.post(API_URL.apiUrl.concat("/task/edit"), task)
                 .subscribe({
-                    next: (response: any) => {                    
-                        console.log("Задание успешно изменено");
+                    next: (response: any) => {
+                        // Сообщение при успешном изменении.
+                        this.messageService.add({
+                            severity: 'success',
+                            summary: 'Успешно!',
+                            detail: 'Задание успешно изменено'
+                        });
+
+                        setTimeout(() => {
+                            this.router.navigate(['/task/view'], { queryParams: { id: this.taskId } });
+                        }, 2000);
                     },
 
                     error: (err) => {
+                       // Сообщение при ошибке изменения.
+                        this.messageService.add({
+                            severity: 'error',
+                            summary: 'Ошибка!',
+                            detail: 'Ошибка сохранения, проверьте заполнение полей'
+                        });
+
                         this.commonService.routeToStart(err);
                         throw new Error(err);
                     }
@@ -106,8 +126,6 @@ export class EditTaskModule implements OnInit {
         
         await this.commonService.loadTaskListAsync("Single", this.taskId).then((data: any) => {
             this.editTask = data;
-            console.log("Задание для редактирования", this.editTask);
-
             this.customerLogin = data[0].customerLogin;
             this.taskTitle = data[0].taskTitle;
             this.taskDetail = data[0].taskDetail;
