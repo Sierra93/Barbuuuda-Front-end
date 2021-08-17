@@ -179,7 +179,8 @@
               <input  id="idEditTaskTitle" 
                       class="form-control-sm input-task search-category" 
                       placeholder="Введите название"
-                      [value]="taskTitle">
+                      [value]="taskTitle"
+                      (ngModelChange)="onChangeTitle($event)">
             </div>            
 
             <div class="mb-3">
@@ -195,7 +196,8 @@
               <textarea id="idEditTaskDetail" 
                         class="form-control-sm input-task detail-field"
                         placeholder="Опишите, что именно вам нужно"
-                        [value]="taskDetail"></textarea>
+                        [value]="taskDetail"
+                        (ngModelChange)="onChangeDetail($event)"></textarea>
                         
                         <br>
 
@@ -212,7 +214,8 @@
               <input id="idEditDateTaskEndda" 
                     type="datetime-local" 
                     class="form-control-sm date-endda"
-                    [value]="taskEndda">
+                    [value]="taskEndda"
+                    (ngModelChange)="onChangeDateEndda($event)">
             </div>
 
             <div class="mb-3">
@@ -226,7 +229,8 @@
 
                     <input id="idEditPrice" 
                     class="form-control-sm input-task-price date-endda"
-                    [ngModel]="taskPrice | removeSpace">
+                    [ngModel]="taskPrice | removeSpace"
+                    (ngModelChange)="onChangePrice($event)">
             </div>
 
             <button class="btn-next form-control-sm" (click)="onBack()">НАЗАД</button>

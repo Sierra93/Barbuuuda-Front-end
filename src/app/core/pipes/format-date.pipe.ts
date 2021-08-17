@@ -5,6 +5,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 @Pipe({
     name: 'format'
 })
+
 export class FormatPipe implements PipeTransform {
     transform(date: any, format: string = "yyyy-MM-ddThh:mm"): any {
         // if (!date) {

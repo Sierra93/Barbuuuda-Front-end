@@ -1,11 +1,10 @@
 import { HttpClient } from "@angular/common/http";
-import { Component, OnInit } from "@angular/core";
+import { Component, Input, OnInit, SimpleChanges } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { API_URL } from "src/app/core/core-urls/api-url";
 import { TaskInput } from "src/app/models/task/input/task-input";
 import { CommonDataService } from "src/app/services/common-data.service";
 import { DataService } from "src/app/services/data.service";
-import { RemoveSpacePipe } from "../../core/extensions/pipes-extensions/remove-space.pipe.extension";
 
 @Component({
     selector: "task-edit",
@@ -20,7 +19,7 @@ export class EditTaskModule implements OnInit {
     categoryCode: string = "";
     specCode: string = "";
     taskEndda: any;
-    taskPrice: string = "";
+    taskPrice: any = "";
     categoryName: string = "";
     specName: string = "";
     taskId: number = 0;
@@ -58,14 +57,15 @@ export class EditTaskModule implements OnInit {
 
      // Функция создаст или изменит задание.
     public async onChangeTaskAsync() {
-        try {
+        try {            
             let task = new TaskInput();
             task.taskTitle = this.taskTitle;
             task.taskDetail = this.taskDetail;
-            task.categoryCode = this.categoryCode;
-            task.specCode = this.specCode;
+            task.categoryCode = this.categoryCode !== "" ? this.categoryCode : this.editTask[0].categoryCode;
+            task.specCode = this.specCode !== "" ? this.specCode : this.editTask[0].specCode;
             task.taskEndda = this.taskEndda;
             task.taskPrice = this.taskPrice;
+            task.taskId = this.taskId;
 
             await this.http.post(API_URL.apiUrl.concat("/task/edit"), task)
                 .subscribe({
@@ -132,5 +132,56 @@ export class EditTaskModule implements OnInit {
         catch (e) {
             throw new Error(e);
         }
+    };
+
+    /**
+     * Функция изменит цену.
+     * @param newPrice - новая цена.
+     * @returns 
+     */
+    public onChangePrice(newPrice: string) {
+        // TODO: добавить модалку об ошибке пустой цены
+        if (!newPrice) {
+            return;
+        }
+
+        if (newPrice.includes(" ")) {
+            this.taskPrice = +newPrice.replace(/\s/g, "");
+            return;
+        }
+        
+        this.taskPrice = +newPrice;
+    };
+
+    /**
+     * Функция изменит дату сдачи.
+     * @param date - новая дата сдачи.
+     */
+    public onChangeDateEndda(date: any) {
+        if (!date) {
+            return;
+        }
+
+        this.taskEndda = date;
+    };
+
+    /**
+     * Функция изменит детальное описание.
+     * @param text - новое описание.
+     */
+    public onChangeDetail(text: any) {
+        if (!text) {
+            return;
+        }
+
+        this.taskDetail = text;
+    };
+
+    public onChangeTitle(title: any) {
+        if (!title) {
+            return;
+        }
+
+        this.taskTitle = title;
     };
 }

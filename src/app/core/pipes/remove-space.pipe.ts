@@ -4,12 +4,13 @@ import { Pipe, PipeTransform } from '@angular/core';
 @Pipe({
     name: 'removeSpace'
 })
+
 export class RemoveSpacePipe implements PipeTransform {
     transform(str: string): any {
-        if (!str) {
+        if (!str || typeof(str) === "number") {
             return;
         }
 
-        return str = str.replace(/\s/g, "");
+        return str = str.replace(/\s/g, "");       
     };
 }

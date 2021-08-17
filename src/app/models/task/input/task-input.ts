@@ -6,4 +6,5 @@ export class TaskInput {
     specCode: string = "";
     taskEndda: string = "";
     taskPrice: string = "";
+    taskId: number = 0;
 }
