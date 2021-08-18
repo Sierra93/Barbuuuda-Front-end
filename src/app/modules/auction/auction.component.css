@@ -230,6 +230,10 @@ input[type="file"] {
   outline: #00BCD4;
 }
 
+.asterisk {
+  color: #00BCD4;
+}
+
 .block-before-my-tasks {
   display: flex;
   justify-content: space-between;
@@ -387,4 +391,13 @@ input[type="file"] {
 
 .block-task-title {
   margin: 0 15px 0 15px;
+}
+
+.p-button.p-button-icon-only {
+  border-radius: 0;
+}
+
+.image-gallery {
+  text-align: center;
+  padding: 1rem;
 }

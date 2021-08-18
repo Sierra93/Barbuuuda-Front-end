@@ -37,6 +37,7 @@ import { DropdownModule } from "primeng/dropdown";
 import { FormatPipe } from "./core/pipes/format-date.pipe";
 import { EditTaskModule } from "./modules/edit-task/edit-task.component";
 import { RemoveSpacePipe } from "./core/pipes/remove-space.pipe";
+import { PaginatorModule } from "primeng/paginator";
 
 @NgModule({
   declarations: [
@@ -82,7 +83,8 @@ import { RemoveSpacePipe } from "./core/pipes/remove-space.pipe";
     ToastModule,
     CalendarModule,
     TabViewModule,
-    DropdownModule
+    DropdownModule,
+    PaginatorModule
   ],
 
   providers: [

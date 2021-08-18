@@ -1,1 +1,11 @@
 @import "../../common-styles.scss";
+
+// Стили пагинации.
+.p-button.p-button-icon-only {
+  border-radius: 0;
+}
+
+.image-gallery {
+  text-align: center;
+  padding: 1rem;
+}

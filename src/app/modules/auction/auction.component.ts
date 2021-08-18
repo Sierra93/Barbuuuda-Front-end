@@ -2,6 +2,8 @@ import { HttpClient } from "@angular/common/http";
 import { Component, OnInit } from "@angular/core";
 import { API_URL } from "src/app/core/core-urls/api-url";
 import { CommonDataService } from "src/app/services/common-data.service";
+import { PaginationInput } from "src/app/models/pagination/input/pagination-input";
+import { ActivatedRoute, Router } from "@angular/router";
 
 @Component({
     selector: "auction",
@@ -43,14 +45,21 @@ export class AuctionModule implements OnInit {
     lastName: string = "";
     userName: string = "";
     displayChatModal: boolean = false;
+    routeParam: number;
 
-    constructor(private http: HttpClient, private commonService: CommonDataService) { }
+    constructor(private http: HttpClient, 
+        private commonService: CommonDataService, 
+        private route: ActivatedRoute,
+        private router: Router) {
+        this.routeParam = +this.route.snapshot.queryParams.page;
+        this.routeParam = +this.route.snapshot.queryParams.rows;
+     }
 
     public async ngOnInit() {
         await this.loadAuctionTasks();
-        await this.getTotalPageetPagination();
         await this.checkUserRoleAsync();
         await this.getTransitionAsync();
+        await this.loadPaginationInit();
     };
 
     // Функция получит список заданий в аукционе.
@@ -104,29 +113,7 @@ export class AuctionModule implements OnInit {
             this.role = data.userRole;
             sessionStorage["role"] = data.userRole;
          });    
-    };  
-
-     // Функция пагинации.
-    public async onGetPaginationAsync(param: any) {
-        try {
-            // await this.http.post(API_URL.apiUrl.concat("/pagination/auction?pageIdx=".concat(param.toString())), {})
-            //     .subscribe({
-            //         next: (response: any) => {
-            //             console.log("filter pagination", response);
-            //             this.aAuctionTasks = response.tasks;
-            //         },
-
-            //         error: (err) => {
-            //             this.commonService.routeToStart(err);
-            //             throw new Error(err);
-            //         }
-            //     });
-        }
-
-        catch (e) {
-            throw new Error(e);
-        }
-    };
+    };         
 
     private async getViewTaskAsync(): Promise<void> {
         await this.commonService.loadTaskListAsync("Single", this.taskId).then((data: any) => {
@@ -163,5 +150,68 @@ export class AuctionModule implements OnInit {
     public async onSetTransitionAsync(taskId: number) {
         console.log("taskId", taskId);
         this.commonService.setTransitionAsync(taskId, "View");
+    };
+
+    private async loadPaginationInit() {
+        let paginationData = new PaginationInput();
+
+        // TODO: доработать на динамическое получение из роута или как-нибудь еще, чтобы помнить, что выбирал пользователь.
+        paginationData.PageNumber = 1;
+        paginationData.CountRows = 10;
+
+        try {
+            await this.http.post(API_URL.apiUrl.concat("/pagination/init-auction"), paginationData)
+            .subscribe({
+                next: (response: any) => {
+                    console.log("pagination init", response);
+                    this.countTotalPage = response.totalCount;
+                    this.aAuctionTasks = response.tasks;
+                },
+
+                error: (err) => {
+                    this.commonService.routeToStart(err);
+                    throw new Error(err);
+                }
+            });
+        }
+
+        catch (e) {
+            throw new Error(e);
+        }
+    };
+
+    // Функция пагинации.
+    public async onPaginationChange(event: any) {
+        console.log("page",event);
+
+        let paginationData = new PaginationInput();
+        paginationData.PageNumber = event.page + 1;
+        paginationData.CountRows = event.rows;
+
+        try {
+            await this.http.post(API_URL.apiUrl.concat("/pagination/auction"), paginationData)
+            .subscribe({
+                next: (response: any) => {
+                    console.log("filter pagination", response);
+                    this.countTotalPage = response.totalCount;
+                    this.aAuctionTasks = response.tasks;
+                    this.router.navigate(['/auction'], {
+                        queryParams: {
+                            page: paginationData.PageNumber,
+                            rows: paginationData.CountRows
+                        }
+                    });
+                },
+
+                error: (err) => {
+                    this.commonService.routeToStart(err);
+                    throw new Error(err);
+                }
+            });
+        }
+
+        catch (e) {
+            throw new Error(e);
+        }
     };
 }

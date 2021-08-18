@@ -139,6 +139,13 @@
             </div>
 
            <!-- Пагинация. -->
+           <p-paginator [rows]="10" 
+                        [totalRecords]="countTotalPage" 
+                        [rowsPerPageOptions]="[10,20,30]"
+                        [showCurrentPageReport]="true"
+                        (onPageChange)="onPaginationChange($event)">
+           </p-paginator>
+
            <!-- TODO: пагинацию из primeng сюда -->
            <!-- <pagination class="pagination-sm block-pagination card-subcategory"
            *ngIf="aAuctionTasks.length > 0 && role == 'E'">
