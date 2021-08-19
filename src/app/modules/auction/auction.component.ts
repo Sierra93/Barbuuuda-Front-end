@@ -157,7 +157,6 @@ export class AuctionModule implements OnInit {
 
         // TODO: доработать на динамическое получение из роута или как-нибудь еще, чтобы помнить, что выбирал пользователь.
         paginationData.PageNumber = 1;
-        paginationData.CountRows = 10;
 
         try {
             await this.http.post(API_URL.apiUrl.concat("/pagination/init-auction"), paginationData)

@@ -261,6 +261,15 @@
             </div> 
 
             <!-- Пагинация. -->
+            <!-- Пагинация. -->
+           <p-paginator [rows]="10" 
+                        [totalRecords]="countTotalPage" 
+                        [rowsPerPageOptions]="[10,20,30]"
+                        [showCurrentPageReport]="true"
+                        (onPageChange)="onPaginationChange($event)"
+                        *ngIf="isVisiblePagination">
+            </p-paginator>
+
             <!-- <pagination class="pagination-sm block-pagination card-subcategory"
             v-show="oData.aMyTasks.length > 0">
                 <nav aria-label="Page navigation example">

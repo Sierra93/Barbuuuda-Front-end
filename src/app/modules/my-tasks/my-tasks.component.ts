@@ -2,6 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { API_URL } from "src/app/core/core-urls/api-url";
+import { PaginationInput } from "src/app/models/pagination/input/pagination-input";
 import { CommonDataService } from "src/app/services/common-data.service";
 import { DataService } from "src/app/services/data.service";
 
@@ -20,17 +21,24 @@ export class MyTaskModule implements OnInit {
     sSearch = "";
     aSortDataSelect: any[] = [];
     aFilterDataSelect: any[] = [];        
+    isVisiblePagination: boolean = false;
 
-    constructor(private http: HttpClient, private commonService: CommonDataService, private router: Router, private dataService: DataService) { }
+    constructor(private http: HttpClient,
+        private commonService: CommonDataService,
+        private router: Router,
+        private dataService: DataService) {
+
+    }
 
     public async ngOnInit() {                
         await this.loadTaskListAsync();
-        await this.getTotalPageetPaginationAsync();
-        await this.onGetPaginationAsync();
         await this.loadMyTasksAsync();
+
         this.role = await this.checkUserRoleAsync();
+
         await this.loadSortDataSelectAsync();
         await this.loadFilterDataSelectAsync();
+        await this.loadPaginationMyCustomerInit();
     };
 
     // Функция получит список заданий заказчика.
@@ -39,50 +47,7 @@ export class MyTaskModule implements OnInit {
             this.aMyTasks = data;     
             console.log("Мои задания: ", this.aMyTasks);       
          });           
-    };
-
-    // Функция получит общее кол-во страниц.
-    private async getTotalPageetPaginationAsync() {
-        try {
-            await this.http.get(API_URL.apiUrl.concat("/pagination/page?pageIdx=1"))
-                .subscribe({
-                    next: (response: any) => {
-                        console.log("total page pagination", response);
-                        this.countTotalPage = response.pageData.totalPages;
-                        this.aTasks = response.tasks
-                    },
-
-                    error: (err) => {
-                        throw new Error(err);
-                    }
-                });
-        }
-
-        catch (e) {
-            throw new Error(e);
-        }
-    };
-
-    // Функция пагинации.
-    public async onGetPaginationAsync(param: any = 1) {
-        try {
-            await this.http.get(API_URL.apiUrl.concat("/pagination/page?pageIdx=".concat(param)))
-                .subscribe({
-                    next: (response: any) => {
-                        console.log("filter pagination", response);
-                        this.aMyTasks = response.tasks;
-                    },
-
-                    error: (err) => {
-                        throw new Error(err);
-                    }
-                });
-        }
-
-        catch (e) {
-            throw new Error(e);
-        }
-    };
+    };  
 
     // Функция получит задания, которые находятся в работе у исполнителя.
     private async loadMyTasksAsync() {
@@ -196,6 +161,71 @@ export class MyTaskModule implements OnInit {
                         throw new Error(err);
                     }
                 });
+        }
+
+        catch (e) {
+            throw new Error(e);
+        }
+    };
+
+    // Функция получит задания для страницы мои задания заказчика на ините.
+    private async loadPaginationMyCustomerInit() {
+        let paginationData = new PaginationInput();
+
+        // TODO: доработать на динамическое получение из роута или как-нибудь еще, чтобы помнить, что выбирал пользователь.
+        paginationData.PageNumber = 1;
+
+        try {
+            await this.http.post(API_URL.apiUrl.concat("/pagination/init-my-customer"), paginationData)
+            .subscribe({
+                next: (response: any) => {
+                    console.log("pagination my customer init", response);
+                    this.countTotalPage = response.totalCount;
+                    this.aMyTasks = response.tasks;
+                    this.isVisiblePagination = response.isVisiblePagination;
+                },
+
+                error: (err) => {
+                    this.commonService.routeToStart(err);
+                    throw new Error(err);
+                }
+            });
+        }
+
+        catch (e) {
+            throw new Error(e);
+        }
+    };
+
+    // Функция пагинации.
+    public async onPaginationChange(event: any) {
+        console.log("page my customer",event);
+
+        let paginationData = new PaginationInput();
+        paginationData.PageNumber = event.page + 1;
+        paginationData.CountRows = event.rows;
+
+        try {
+            await this.http.post(API_URL.apiUrl.concat("/pagination/my-customer"), paginationData)
+            .subscribe({
+                next: (response: any) => {
+                    console.log("filter my customer pagination", response);
+                    this.countTotalPage = response.totalCount;
+                    this.aMyTasks = response.tasks;
+
+                    this.router.navigate(['/tasks/my'], {
+                        queryParams: {
+                            page: paginationData.PageNumber,
+                            rows: paginationData.CountRows
+                        }
+                    });
+                },
+
+                error: (err) => {
+                    this.commonService.routeToStart(err);
+                    throw new Error(err);
+                }
+            });
         }
 
         catch (e) {

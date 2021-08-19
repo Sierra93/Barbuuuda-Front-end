@@ -11,6 +11,7 @@ import { CreateTaskModule } from "./modules/create-task/create-task.component";
 import { EditTaskModule } from "./modules/edit-task/edit-task.component";
 import { AuctionModule } from "./modules/auction/auction.component";
 import { ProfileModule } from "./modules/profile/profile.component";
+import { PaymentModule } from "./modules/payment/payment.component";
 
 const routes: Routes = [
   {
@@ -61,6 +62,11 @@ const routes: Routes = [
   {
     path: "profile",
     component: ProfileModule
+  },
+
+  {
+    path: "payment",
+    component: PaymentModule
   }
 ];
 
