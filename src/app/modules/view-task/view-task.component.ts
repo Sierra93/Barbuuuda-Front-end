@@ -486,14 +486,32 @@ export class ViewTaskModule implements OnInit {
      // Функция удалит задание.
     public async OnDeleteTaskAsync() {
         try {            
-            await this.http.get(API_URL.apiUrl.concat("/task/delete/".concat(this.taskId.toString())))
+            await this.http.put(API_URL.apiUrl.concat("/task/delete/" + this.taskId), {})
                 .subscribe({
                     next: (response: any) => {
                         // TODO: выводить тут сообщение тостом об успешном удалении.
-                        console.log("Удалено");
+                        if (response) {
+                            console.log("Успешно удалено");
+                            // Сообщение при успешном удалении.
+                            this.messageService.add({
+                                severity: 'success',
+                                summary: 'Успешно!',
+                                detail: 'Задание успешно удалено.'
+                            });
+
+                            setTimeout(() => {
+                                this.router.navigate(['/tasks/my']);
+                            }, 2000);
+                        }
                     },
 
                     error: (err) => {
+                        // Сообщение при ошибке изменения.
+                        this.messageService.add({
+                            severity: 'error',
+                            summary: 'Ошибка!',
+                            detail: 'Ошибка удаления. Попробуйте обновить страницу и повторно удалить задание.'
+                        });
                         this.commonService.routeToStart(err);
                         throw new Error(err);
                     }
