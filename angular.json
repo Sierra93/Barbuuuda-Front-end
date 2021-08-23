@@ -41,7 +41,7 @@
             ],
             "scripts": []
           },
-          "configurations": {
+          "configurations": { 
             "production": {
               "budgets": [],
               "fileReplacements": [
@@ -100,7 +100,7 @@
               "node_modules/primeicons/primeicons.css"
             ],
             "scripts": [
-              "node_modules/jquery/dist/jquery.min.js"
+              "node_modules/jquery/dist/jquery.min.js"            
             ]
           }
         }

@@ -230,6 +230,10 @@ input[type="file"] {
   outline: #00BCD4;
 }
 
+.asterisk {
+  color: #00BCD4;
+}
+
 .block-before-my-tasks {
   display: flex;
   justify-content: space-between;

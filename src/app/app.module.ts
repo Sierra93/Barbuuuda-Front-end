@@ -20,15 +20,15 @@ import { DataService } from "./services/data.service";
 import { ProfileBarModule } from "./modules/profile-bar/profile-bar.component";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
-import {
-  NbThemeModule,
-  NbLayoutModule,
-  NbDatepickerModule,
-  NbTimepickerModule,
-  NbCalendarModule,
-  NbDialogModule,
-  NbCardModule
-} from "@nebular/theme";
+// import {
+//   NbThemeModule,
+//   NbLayoutModule,
+//   NbDatepickerModule,
+//   NbTimepickerModule,
+//   NbCalendarModule,
+//   NbDialogModule,
+//   NbCardModule
+// } from "@nebular/theme";
 
 import { NbEvaIconsModule } from "@nebular/eva-icons";
 import { MyTaskModule } from "./modules/my-tasks/my-tasks.component";
@@ -79,15 +79,15 @@ import { PaymentModule } from "./modules/payment/payment.component";
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    NbThemeModule.forRoot({ name: "default" }),
-    NbDatepickerModule.forRoot(),
-    NbTimepickerModule.forRoot(),
-    NbDialogModule.forRoot(),
-    NbLayoutModule,
+    // NbThemeModule.forRoot({ name: "default" }),
+    // NbDatepickerModule.forRoot(),
+    // NbTimepickerModule.forRoot(),
+    // NbDialogModule.forRoot(),
+    // NbLayoutModule,
     NbEvaIconsModule,
-    NbDatepickerModule,
-    NbCalendarModule,
-    NbCardModule,
+    // NbDatepickerModule,
+    // NbCalendarModule,
+    // NbCardModule,
     DialogModule,
     ButtonModule,
     ConfirmDialogModule,
