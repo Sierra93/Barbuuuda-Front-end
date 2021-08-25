@@ -7,12 +7,18 @@
 </head>
 
 <body>  
+  <p-confirmDialog [style]="{width: '50vw'}" [baseZIndex]="10000" rejectButtonStyleClass="p-button-text">
+  </p-confirmDialog>
+
+  <p-confirmDialog [style]="{width: '50vw'}" key="positionDialog" [baseZIndex]="10000"
+    rejectButtonStyleClass="p-button-outlined"></p-confirmDialog>
+
+  <p-toast></p-toast>
+
   <main class="container-fluid mt-5">
     <div class="main-wrapper d-flex justify-content-between">
       <div class="content-wrapper col-lg-3">
-        <profile-bar></profile-bar>
-       
-       
+        <profile-bar></profile-bar>             
       </div>
 
       <div class="content-wrapper col-lg-9">
@@ -108,7 +114,7 @@
         </div>
 
         <!-- Панель перед началом теста. -->
-        <div class="panel-before-test" *ngIf="!isHideStepsTest && role == 'E'">
+        <div class="panel-before-test" *ngIf="!isHideStepsTest">
           <div class="mb-3">
             <span class="notifications__subtitle">Добро пожаловать на Barbuuuda!</span>
           </div>
@@ -128,15 +134,15 @@
           <div>
             <strong class="content-title">
               Если у вас что-то не получается, обратитесь в службу поддержки
-              <span class="email">info.barbuuuda@mail.ru</span><br>
+              <span class="email">info.barbuuuda@gmail.com</span><br>
               Наши сотрудники обязательно вам помогут.
             </strong>
           </div>
         </div>
 
         <!-- Панель прохождения теста. -->
-        <p-tabView *ngIf="isHidePanelTest && role == 'E'">
-          <p-tabPanel class="step" header="Шаг 1.Ознакомление с правилами">
+        <p-tabView *ngIf="isHidePanelTest">
+          <p-tabPanel class="step" header="Шаг 1. Правила сервиса">
             <div class="content-title">
               Для работы на сервисе Barbuuuda, Вы должны ознакомиться с правилами работы на сервисе.
             </div>
@@ -144,7 +150,7 @@
             <button class="btn-regulations form-control-sm mb-3 mt-3" >ПРАВИЛА</button>
           </p-tabPanel>
 
-          <p-tabPanel class="step" header="Шаг 2.Заполнение информации о себе">
+          <p-tabPanel class="step" header="Шаг 2. О себе">
             <h4>Немного о себе</h4>
             <span>{{oProfileData.aboutInfo}}</span>
 
@@ -153,45 +159,47 @@
             <button class="btn-next form-control-sm mb-3 mt-3" >ЗАПОЛНИТЬ ПОЗЖЕ</button>
           </p-tabPanel>
 
-          <p-tabPanel class="step" header="Шаг 3.Выбор категорий и подкатегорий">
+          <p-tabPanel class="step" header="Шаг 3. Выбрать категории">
             Content 3
           </p-tabPanel>
 
-          <p-tabPanel class="step" header="Шаг 4.Прохождение теста">
-            <div class="tab-pane fade" id="idTest" role="tabpanel" aria-labelledby="contact-tab">
+          <p-tabPanel class="step" header="Шаг 4. Пройти тест">
+            <div class="tab-pane fade" id="idTest" role="tabpanel" aria-labelledby="contact-tab" *ngIf="isHidePanelStartTest">
               <span>Для обеспечения качества работы исполнителей, мы должны быть уверены, что Вы ознакомились с
-                правилами работы на сервисе.</span>
-              <br>
-              <button class="btn-next form-control-sm mb-3 mt-3" (click)="onStartTest()">НАЧАТЬ</button>
+                правилами работы на сервисе.</span>              
             </div>
+            <button class="btn-next form-control-sm mb-3 mt-3" (click)="onStartTest()">НАЧАТЬ</button>
           </p-tabPanel>
         </p-tabView>        
 
         <!-- Панель вопросов теста. -->
-        <div class="panel-test" *ngIf="isHidePanelStartTest && role == 'E'">
-          <div *ngFor="let item of aQuestion">
-            <div *ngFor="let el of item">
-              <div>
-                <div class="mb-3">
-                  <span class="notifications__subtitle">
-                    Вопрос {{currentQuestion}} из {{iQuestionsCount}}
-                  </span>
-                </div>
-                <div class="content-title mb-3">
-                  <strong>
-                    {{el.questionText}}
-                  </strong>
-                </div>
+        <div class="panel-test" *ngIf="isHidePanelStartTest">
+          <div *ngFor="let el of aQuestions">
+            <div>
+              <div class="mb-3">
+                <span class="notifications__subtitle">
+                  Вопрос {{currentQuestion}} из {{iQuestionsCount}}
+                </span>
+              </div>
+              <div class="content-title mb-3">
+                <strong>
+                  {{el.questionText}}
+                </strong>
+              </div>
 
-                <div *ngFor="let item of el.answerVariantText">
-                  <div class="content-title" *ngFor="let question of item">
-                    <input id="idSelectedVariant" type="radio" name="variant" _(click)="onAddVariant(question)">
-                    <span>
-                      {{question.answerVariantText}}
-                    </span>
+                <div class="content-title" *ngFor="let question of el.answerVariantText">                    
+                  <div class="p-field-radiobutton d-flex align-items-center">
+                    <div class="radio-block">
+                      <p-radioButton name="selectedVariant" 
+                                    [inputId]="question.answerVariantText"
+                                    [value]="question.answerVariantText" 
+                                    [(ngModel)]="selectedVariant" 
+                                    (onClick)="onSelectVariant(selectedVariant)">
+                      </p-radioButton>
+                    <label [for]="question.answerVariantText" class="lbl-radio">{{question.answerVariantText}}</label>
+                    </div>
                   </div>
                 </div>
-              </div>
             </div>
           </div>
 

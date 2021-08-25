@@ -19,17 +19,6 @@ import { CommonDataService } from "./services/common-data.service";
 import { DataService } from "./services/data.service";
 import { ProfileBarModule } from "./modules/profile-bar/profile-bar.component";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-
-// import {
-//   NbThemeModule,
-//   NbLayoutModule,
-//   NbDatepickerModule,
-//   NbTimepickerModule,
-//   NbCalendarModule,
-//   NbDialogModule,
-//   NbCardModule
-// } from "@nebular/theme";
-
 import { NbEvaIconsModule } from "@nebular/eva-icons";
 import { MyTaskModule } from "./modules/my-tasks/my-tasks.component";
 import { CreateTaskModule } from "./modules/create-task/create-task.component";
@@ -49,6 +38,7 @@ import { EditTaskModule } from "./modules/edit-task/edit-task.component";
 import { RemoveSpacePipe } from "./core/pipes/remove-space.pipe";
 import { PaginatorModule } from "primeng/paginator";
 import { PaymentModule } from "./modules/payment/payment.component";
+import {RadioButtonModule} from "primeng/radiobutton";
 
 @NgModule({
   declarations: [
@@ -79,15 +69,7 @@ import { PaymentModule } from "./modules/payment/payment.component";
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    // NbThemeModule.forRoot({ name: "default" }),
-    // NbDatepickerModule.forRoot(),
-    // NbTimepickerModule.forRoot(),
-    // NbDialogModule.forRoot(),
-    // NbLayoutModule,
     NbEvaIconsModule,
-    // NbDatepickerModule,
-    // NbCalendarModule,
-    // NbCardModule,
     DialogModule,
     ButtonModule,
     ConfirmDialogModule,
@@ -96,7 +78,8 @@ import { PaymentModule } from "./modules/payment/payment.component";
     CalendarModule,
     TabViewModule,
     DropdownModule,
-    PaginatorModule
+    PaginatorModule,
+    RadioButtonModule
   ],
 
   providers: [

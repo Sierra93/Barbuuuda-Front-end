@@ -4,12 +4,14 @@ import { Router } from "@angular/router";
 import { API_URL } from "src/app/core/core-urls/api-url";
 import { CommonDataService } from "src/app/services/common-data.service";
 import { DataService } from "src/app/services/data.service";
+import { ConfirmationService, MessageService } from "primeng/api";
+import { NextQuestionInput } from "src/app/models/executor/input/next-question-input";
 
 @Component({
     selector: "home",
     templateUrl: "./home.component.html",
     styleUrls: ["./home.component.scss"],
-    providers: [DataService]
+    providers: [DataService, ConfirmationService, MessageService]
 })
 
 export class HomeModule implements OnInit {
@@ -17,8 +19,7 @@ export class HomeModule implements OnInit {
     currentQuestion: number = 0;
     currentQuestionNumber: number = 0;
     iQuestionsCount: number = 0;
-    aAnswers: any[] = [];
-    aQuestion: any[] = [];
+    aAnswers: any[] = [];    
     isHidePanelTest: boolean = false;
     isHideStepsTest: boolean = false;
     isHidePanelStartTest: boolean = false;
@@ -30,8 +31,14 @@ export class HomeModule implements OnInit {
     bAccept: boolean = false;
     bCancel: boolean = false;
     role: string = "";
+    selectedVariant: string = "";
 
-    constructor(private http: HttpClient, private dataService: DataService, private router: Router, private commonDataService: CommonDataService) { }
+    constructor(private http: HttpClient,
+         private dataService: DataService, 
+         private router: Router, 
+         private commonDataService: CommonDataService,
+         private commonService: CommonDataService,
+         private messageService: MessageService) { }
 
     public async ngOnInit() {
         if (sessionStorage["role"] == "E") {
@@ -43,8 +50,7 @@ export class HomeModule implements OnInit {
         await this.loadingCountQuestionsAsync();
         await this.loadingProfileAsync();
         await this.loadingCategoryListAsync();
-
-        this.role = this.dataService.getUserRole();        
+        await this.checkUserRoleAsync();    
     };
 
     // Функция получает активные задания заказчика.
@@ -75,7 +81,10 @@ export class HomeModule implements OnInit {
                 return;
             }
 
-            await this.http.get(API_URL.apiUrl.concat("/executor/answer?numberQuestion=1"))
+            let data = new NextQuestionInput();
+            data.NumberQuestion = 1;
+
+            await this.http.post(API_URL.apiUrl.concat("/executor/answer"), data)
                 .subscribe({
                     next: (response: any) => {
                         console.log("Вопросы для теста исполнителей", response);
@@ -119,22 +128,30 @@ export class HomeModule implements OnInit {
         }
     };
 
-    // Функция получает следующий вопрос для теста исполнителя.
+    public onSelectVariant(selectedVariant: string) {
+        console.log("selectedVariant", selectedVariant);
+    };
+
+    // Функция получит следующий вопрос для теста исполнителя.
     public async onNextQuestionAsync() : Promise<void> {
         try {
-            let value = $("#idSelectedVariant:checked").parent().text();
+            if (!this.selectedVariant) {
+                this.messageService.add({
+                    severity: "warn",
+                    summary: "Предупреждение!",
+                    detail: "Не выбран вариант ответа."
+                });
 
-            if (value == "") {
-                $('#idNotSelectedVariant').modal('show');
                 return;
-            }
+            }            
 
             this.aAnswers.push({
-                answerVariantText: value,
+                answerVariantText: this.selectedVariant,
                 isRight: null,
                 selected: false,
                 questionNumber: this.currentQuestion
             });
+
             console.log("Массив с ответами", this.aAnswers);
 
             // Для получения второго вопроса, так как первый уже был выгружен изначально.
@@ -142,14 +159,16 @@ export class HomeModule implements OnInit {
                 this.currentQuestionNumber++;
             }
 
-            await this.http.get(API_URL.apiUrl
-                .concat("/executor/answer?numberQuestion="
-                .concat(this.currentQuestionNumber.toString())))
+            let data = new NextQuestionInput();
+            data.NumberQuestion = this.currentQuestionNumber;
+
+            await this.http.post(API_URL.apiUrl.concat("/executor/answer"), data)
                 .subscribe({
                     next: (response) => {
                         console.log("Вопросы для теста исполнителей", response);
-                        this.aQuestion = [];
-                        this.aQuestion.push(response);
+                        this.aQuestions = [];
+                        this.aQuestions.push(response);
+                        console.log("this.aQuestions", this.aQuestions);
                         this.currentQuestion++;   
                         this.currentQuestionNumber++;          
                         console.log("Вопрос", this.currentQuestion);
@@ -169,10 +188,28 @@ export class HomeModule implements OnInit {
     // Функция отправляет массив с ответами на тест исполнителя для проверки.
     public async onCheckAnswersTestAsync() : Promise<void> {
         try {
-            await this.http.post(API_URL.apiUrl.concat("/executor/check"), {})
+            await this.http.post(API_URL.apiUrl.concat("/executor/check"), this.aAnswers)
                 .subscribe({
                     next: (response) => {
                         console.log("Пройден ли тест", response);
+
+                        if (!response) {
+                            this.messageService.add({
+                                severity: "warn",
+                                summary: "Прохождение теста",
+                                detail: "Тест не пройден. Прочитайте еще раз правила сервиса и попробуйте снова."
+                            });
+
+                            this.loadExecutorTestAsync();
+
+                            return;
+                        }
+
+                        this.messageService.add({
+                            severity: "success",
+                            summary: "Прохождение теста",
+                            detail: "Тест успешно пройден. Теперь вам доступен поиск заданий в аукционе."
+                        });                        
                     },
 
                     error: (err) => {                        
@@ -187,14 +224,18 @@ export class HomeModule implements OnInit {
     };
 
     public onStartSteps() {
-        this.isHidePanelTest = true;
-        this.isHideStepsTest = true;
+        if (this.role == "E") {
+            this.isHidePanelTest = true;
+            this.isHideStepsTest = true;
+        }
     };
 
     public onStartTest() {
-        this.isHidePanelStartTest = true;
-        this.isHidePanelTest = true;
-        this.isHidePanelTest = false;
+        if (this.role == "E") {
+            this.isHidePanelStartTest = true;
+            this.isHidePanelTest = true;
+            this.isHidePanelTest = false;
+        }
     };
 
     // Функция загружает всю информацию профиля.
@@ -267,7 +308,7 @@ export class HomeModule implements OnInit {
                         this.aInvities = response.tasks;
                         console.log("Список приглашений", response);
     
-                        if (response.invities.length > 0) {
+                        if (response.tasks.length > 0) {
                             this.bActivity = true;
                         }
                     },
@@ -340,5 +381,12 @@ export class HomeModule implements OnInit {
         catch (e) {
             throw new Error(e);
         }
+    };
+
+    private async checkUserRoleAsync() {
+        await this.commonService.getUserRoleAsync().then((data: any) => {
+            this.role = data.userRole;
+            sessionStorage["role"] = data.userRole;
+        });
     };
 }

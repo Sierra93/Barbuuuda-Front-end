@@ -178,10 +178,20 @@ button {
     white-space: pre-line;
   }
 
-//   .step {
-//       font-size: small;
-//   }
+  // Стили для ссылок табов.
+::ng-deep .p-tabview-nav-link {
+    font-size: 14px!important;
+    text-decoration: none!important;
+}
 
-// ::ng-deep .p-tabview-nav-link .p-ripple {
-//     font-size: small;
-// }
+::ng-deep .p-tabview {
+    margin: 0 0 30px 30px!important;
+}
+
+.lbl-radio {
+    margin: 0 5px;
+}
+
+.radio-block {
+    margin: 0 0 5px 0;
+}
