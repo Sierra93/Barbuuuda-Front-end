@@ -1,5 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Component, OnInit } from "@angular/core";
+import { Title } from "@angular/platform-browser";
 import { ActivatedRoute, Router } from "@angular/router";
 import { ConfirmationService, MessageService } from "primeng/api";
 import { API_URL } from "src/app/core/core-urls/api-url";
@@ -36,7 +37,8 @@ export class EditTaskModule implements OnInit {
         private route: ActivatedRoute, 
         private dataService: DataService,
         private router: Router,
-        private messageService: MessageService) {
+        private messageService: MessageService,
+        private titleService: Title) {
         this.routeParam = +this.route.snapshot.queryParams.id;  // Получит параметр из роута.
         this.dataService.taskId = +this.route.snapshot.queryParams.id;
      }
@@ -44,6 +46,8 @@ export class EditTaskModule implements OnInit {
     public async ngOnInit() {
         await this.getTransitionAsync();
         await this.loadTaskCategoriesAsync();
+
+        this.titleService.setTitle("Barbuuuda: Редактирование задания #" + +this.route.snapshot.queryParams.id);
     };
 
     // Функция подгрузит список категорий заданий.

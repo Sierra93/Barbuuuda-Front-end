@@ -1,5 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Component, OnInit } from "@angular/core";
+import { Title } from "@angular/platform-browser";
 import { Router } from "@angular/router";
 import { ConfirmationService, MessageService } from "primeng/api";
 import { API_URL } from "src/app/core/core-urls/api-url";
@@ -28,10 +29,13 @@ export class CreateTaskModule implements OnInit {
         private commonService: CommonDataService, 
         private http: HttpClient,
         private router: Router,
-        private messageService: MessageService) { }
+        private messageService: MessageService,
+        private titleService: Title) { }
 
     public async ngOnInit() {
         await this.loadTaskCategoriesAsync();
+
+        this.titleService.setTitle("Barbuuuda: Создание нового задания");
     };
 
     // Функция подгрузит список категорий заданий.

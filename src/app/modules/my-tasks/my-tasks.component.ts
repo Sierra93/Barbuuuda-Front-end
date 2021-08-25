@@ -1,5 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Component, OnInit } from "@angular/core";
+import { Title } from "@angular/platform-browser";
 import { Router } from "@angular/router";
 import { API_URL } from "src/app/core/core-urls/api-url";
 import { PaginationInput } from "src/app/models/pagination/input/pagination-input";
@@ -26,7 +27,8 @@ export class MyTaskModule implements OnInit {
     constructor(private http: HttpClient,
         private commonService: CommonDataService,
         private router: Router,
-        private dataService: DataService) {
+        private dataService: DataService,
+        private titleService: Title) {
 
     }
 
@@ -39,6 +41,8 @@ export class MyTaskModule implements OnInit {
         await this.loadSortDataSelectAsync();
         await this.loadFilterDataSelectAsync();
         await this.loadPaginationMyCustomerInit();
+
+        this.titleService.setTitle("Barbuuuda: Мои задания");
     };
 
     // Функция получит список заданий заказчика.

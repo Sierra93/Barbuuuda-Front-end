@@ -1,5 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Component, OnInit } from "@angular/core";
+import { Title } from "@angular/platform-browser";
 import { Router, NavigationEnd } from "@angular/router";
 import { CommonDataService } from "src/app/services/common-data.service";
 import { DataService } from "src/app/services/data.service";
@@ -20,16 +21,24 @@ export class HeaderModule implements OnInit {
     bShowGuestHeader: boolean = false;
     bStart: boolean = false;    
 
-    constructor(private http: HttpClient, private router: Router, private dataService: DataService, private commonService: CommonDataService) { }
+    constructor(private http: HttpClient, 
+        private router: Router, 
+        private dataService: DataService, 
+        private commonService: CommonDataService,
+        private titleService: Title) { }
 
     public async ngOnInit() {
         console.log("header init");       
         this.initHeader();         
         this.commonService.refreshToken();
         await this.checkUserRoleAsync();
-        await this.commonService.GetBalanceAsync();     
+        await this.commonService.GetBalanceAsync();  
+          
         console.log("bShowGuestHeader", this.bShowGuestHeader);
+        
         await this.GetBalanceAsync();
+
+        this.titleService.setTitle("Barbuuuda: Регистрация");
     };
 
     // Функция проставит хидер в зависимости от роли пользователя.

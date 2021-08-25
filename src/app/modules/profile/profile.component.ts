@@ -1,5 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Component, OnInit } from "@angular/core";
+import { Title } from "@angular/platform-browser";
 import { Router } from "@angular/router";
 import { API_URL } from "src/app/core/core-urls/api-url";
 import { CommonDataService } from "src/app/services/common-data.service";
@@ -28,12 +29,17 @@ export class ProfileModule implements OnInit {
     gender: string = "";
     role: string = "";
 
-    constructor(private http: HttpClient, private commonService: CommonDataService, private router: Router) { }
+    constructor(private http: HttpClient, 
+        private commonService: CommonDataService, 
+        private router: Router,
+        private titleService: Title) { }
 
     public async ngOnInit() {
         await this.loadProfileAsync();
         await this.loadCategoryListAsync();
         await this.checkUserRoleAsync();
+
+        this.titleService.setTitle("Barbuuuda: Страница профиля");
     };
 
     // Функция загрузит всю информацию профиля.

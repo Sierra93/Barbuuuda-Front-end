@@ -1,5 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Component, OnInit } from "@angular/core";
+import { Title } from "@angular/platform-browser";
 import { API_URL } from "src/app/core/core-urls/api-url";
 
 @Component({
@@ -11,11 +12,14 @@ import { API_URL } from "src/app/core/core-urls/api-url";
 export class RegisterModule implements OnInit {
     role: string = "";
     bExecutor: boolean = true;
-    bCustomer: boolean = false;
+    bCustomer: boolean = false;    
 
-    constructor(private http: HttpClient) { }
+    constructor(private http: HttpClient,
+        private titleService: Title) { }
 
-    public async ngOnInit() { };
+    public async ngOnInit() { 
+        this.titleService.setTitle("Barbuuuda: Регистрация");
+    };
 
      // Функция изменит текст описания заказчика и исполнителя.
      public onChangeTab(evt: any, type: string) {

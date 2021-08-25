@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { API_URL } from "src/app/core/core-urls/api-url";
 import { CommonDataService } from "src/app/services/common-data.service";
 import { ConfirmationService, MessageService, PrimeNGConfig, Message, ConfirmEventType } from "primeng/api";
+import { Title } from "@angular/platform-browser";
 
 @Component({
     selector: "task-view",
@@ -55,7 +56,8 @@ export class ViewTaskModule implements OnInit {
         private route: ActivatedRoute,
         private primengConfig: PrimeNGConfig,
         private confirmationService: ConfirmationService,
-        private messageService: MessageService) {
+        private messageService: MessageService,
+        private titleService: Title) {
         this.routeParam = +this.route.snapshot.queryParams.id;  // Получит параметр из роута.
     };
 
@@ -72,6 +74,8 @@ export class ViewTaskModule implements OnInit {
             await this.checkSelectPayTaskAsync();
             await this.loadWorkRespondAsync();
         }
+
+        this.titleService.setTitle("Barbuuuda: Просмотр задания #" + +this.route.snapshot.queryParams.id);
     };
 
     // Функция получит переход.

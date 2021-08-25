@@ -6,6 +6,7 @@ import { CommonDataService } from "src/app/services/common-data.service";
 import { DataService } from "src/app/services/data.service";
 import { ConfirmationService, MessageService } from "primeng/api";
 import { NextQuestionInput } from "src/app/models/executor/input/next-question-input";
+import { Title } from "@angular/platform-browser";
 
 @Component({
     selector: "home",
@@ -38,7 +39,8 @@ export class HomeModule implements OnInit {
          private router: Router, 
          private commonDataService: CommonDataService,
          private commonService: CommonDataService,
-         private messageService: MessageService) { }
+         private messageService: MessageService,
+         private titleService: Title) { }
 
     public async ngOnInit() {
         if (sessionStorage["role"] == "E") {
@@ -51,6 +53,8 @@ export class HomeModule implements OnInit {
         await this.loadingProfileAsync();
         await this.loadingCategoryListAsync();
         await this.checkUserRoleAsync();    
+
+        this.titleService.setTitle("Barbuuuda: Главная");
     };
 
     // Функция получает активные задания заказчика.
