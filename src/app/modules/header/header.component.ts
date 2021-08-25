@@ -1,7 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Component, OnInit } from "@angular/core";
 import { Router, NavigationEnd } from "@angular/router";
-import { API_URL } from "src/app/core/core-urls/api-url";
 import { CommonDataService } from "src/app/services/common-data.service";
 import { DataService } from "src/app/services/data.service";
 
@@ -151,5 +150,13 @@ export class HeaderModule implements OnInit {
 
     public onGoProfile() {
         this.router.navigate(["profile"]);
+    };
+
+    public onLogin() {
+        this.router.navigate(["/login"]);
+    };
+
+    public onRegister() {
+        this.router.navigate(["/register"]);
     };
 }

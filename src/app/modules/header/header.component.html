@@ -91,17 +91,14 @@
                 <li (click)="onGoProfile()">
                   <span>Профиль</span>
                 </li>
-
                 
                 <li >
                   <span>Тарифы</span>
                 </li>
-
                 
                 <li >
                   <span>Подписка на задания</span>
                 </li>
-
                 
                 <li >
                   <span>Настройки</span>
@@ -119,13 +116,26 @@
       </div>
 
       <div class="d-flex align-items-center" *ngIf="bStart">
-        <img src="../assets/images/add_task.jpg" class="link"
-                  (click)="onRouteCreateTask()" />
-            <!-- <li><router-link to="" class="nav-link link-add-task"
-              (click)="onRouteCreateTask()">Создать задание</router-link></li> -->                    
-              <button class="nav-link btn btn-link link-add-task" (click)="onRouteCreateTask()">
-                Создать задание
-              </button>
+        <div class="d-flex align-items-center ml-2">
+          <img src="../assets/images/add_task.jpg" class="link" (click)="onRouteCreateTask()" />
+          <button class="nav-link btn btn-link link-add-task" (click)="onRouteCreateTask()">
+            Создать задание
+          </button>
+        </div>
+
+        <div class="d-flex align-items-center ml-2">
+          <img src="../assets/images/add_task.jpg" class="link" (click)="onRegister()" />
+          <button class="nav-link btn btn-link link-add-task" (click)="onRegister()">
+            Регистрация
+          </button>
+        </div>
+
+        <div class="d-flex align-items-center ml-2">
+          <img src="../assets/images/add_task.jpg" class="link" (click)="onLogin()" />
+          <button class="nav-link btn btn-link link-add-task" (click)="onLogin()">
+            Войти
+          </button>
+        </div>
       </div>
     </nav>   
 
