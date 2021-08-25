@@ -10,6 +10,8 @@ import { API_URL } from "src/app/core/core-urls/api-url";
 
 export class RegisterModule implements OnInit {
     role: string = "";
+    bExecutor: boolean = true;
+    bCustomer: boolean = false;
 
     constructor(private http: HttpClient) { }
 
@@ -17,46 +19,56 @@ export class RegisterModule implements OnInit {
 
      // Функция изменит текст описания заказчика и исполнителя.
      public onChangeTab(evt: any, type: string) {
-        var i, tabcontent, tablinks;
-
-        if (type == "login") {
-            $(".tab-role").removeClass("role-show");
-            $(".tab-role").addClass("role-hide");
-            $(".register").removeClass("selected-role");
-            $(".tab-role").addClass("not-selected-role");
-        }
-
-        if (type == "register") {
-            $(".tab-role").removeClass("role-hide");
-            $(".tab-role").addClass("role-show");
-            $(".register").addClass("selected-role");
-        }
-
-        if (type == "executor") {
-            this.role = "E";
+         if (type == "executor") {
+            this.bCustomer = false;
+            this.bExecutor = true;
         }
 
         if (type == "customer") {
-            this.role = "C";
+            this.bCustomer = true;
+            this.bExecutor = false;
         }
 
-        // Get all elements with class="tabcontent" and hide them
-        tabcontent = document.getElementsByClassName("tabcontent");
+        // var i, tabcontent, tablinks;
 
-        for (i = 0; i < tabcontent.length; i++) {
-            // tabcontent[i].style.display = "none";
-        }
+        // if (type == "login") {
+        //     $(".tab-role").removeClass("role-show");
+        //     $(".tab-role").addClass("role-hide");
+        //     $(".register").removeClass("selected-role");
+        //     $(".tab-role").addClass("not-selected-role");
+        // }
 
-        // Get all elements with class="tablinks" and remove the class "active"
-        tablinks = document.getElementsByClassName("tablinks");
+        // if (type == "register") {
+        //     $(".tab-role").removeClass("role-hide");
+        //     $(".tab-role").addClass("role-show");
+        //     $(".register").addClass("selected-role");
+        // }
 
-        for (i = 0; i < tablinks.length; i++) {
-            tablinks[i].className = tablinks[i].className.replace(" active", "");
-        }
+        // if (type == "executor") {
+        //     this.role = "E";
+        // }
 
-        // Show the current tab, and add an "active" class to the button that opened the tab
-        // document.getElementById(type).style.display = "block";
-        evt.currentTarget.className += " active";
+        // if (type == "customer") {
+        //     this.role = "C";
+        // }
+
+        // // Get all elements with class="tabcontent" and hide them
+        // tabcontent = document.getElementsByClassName("tabcontent");
+
+        // for (i = 0; i < tabcontent.length; i++) {
+        //     // tabcontent[i].style.display = "none";
+        // }
+
+        // // Get all elements with class="tablinks" and remove the class "active"
+        // tablinks = document.getElementsByClassName("tablinks");
+
+        // for (i = 0; i < tablinks.length; i++) {
+        //     tablinks[i].className = tablinks[i].className.replace(" active", "");
+        // }
+
+        // // Show the current tab, and add an "active" class to the button that opened the tab
+        // // document.getElementById(type).style.display = "block";
+        // evt.currentTarget.className += " active";
     };
 
     // Функция регистрирует пользователя.
@@ -97,5 +109,13 @@ export class RegisterModule implements OnInit {
           catch (e) {
             throw new Error(e);
           }
+    };
+
+    public showCustomerForm() {
+
+    };
+
+    public showExecutorForm() {
+
     };
 }

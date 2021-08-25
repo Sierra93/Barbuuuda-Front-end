@@ -14,12 +14,12 @@
         <div class="form-register">
              <!-- Tab links -->
           <div class="tab tab-role">
-            <button id="defaultOpen" class="tablinks" (click)="onChangeTab($event, 'executor')">Исполнитель</button>
-            <button class="tablinks" (click)="onChangeTab($event, 'customer')">Заказчик</button>
+            <button id="defaultOpen" class="tablinks" [class.active]="bExecutor" (click)="onChangeTab($event, 'executor')">Исполнитель</button>
+            <button class="tablinks" [class.active]="bCustomer" (click)="onChangeTab($event, 'customer')">Заказчик</button>
           </div>
 
             <!-- Исполнитель -->
-            <div id="executor" _class="tabcontent">
+            <div id="executor" _class="tabcontent" *ngIf="bExecutor">
                 <span class="text-role">
                     Получайте задания с гарантией
                     от заказчиков и зарабатывайте
@@ -69,7 +69,7 @@
             </div>
 
             <!-- Заказчик. -->
-            <div id="customer" _class="tabcontent">
+            <div id="customer" _class="tabcontent" *ngIf="bCustomer">
                 <span class="text-role">
                     Лучшие исполнители
                     с гарантией выполнения
