@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <h3 class="mb-3" v-for="el in aProfileData">Здравствуйте, {{el.firstName}}!</h3>
+  <p>Место для фото юзера</p>
+
+  <ul class="nav nav-tabs mb-3" id="idProfilePanel" role="tablist">
+    <li class="nav-item">
+      <a class="nav-link active" id="about-tab" data-toggle="tab" href="#about" role="tab" aria-controls="about"
+        aria-selected="true">Обо мне</a>
+    </li>
+
+    <li class="nav-item">
+      <a class="nav-link" id="score-tab" data-toggle="tab" href="#score" role="tab" aria-controls="score"
+        aria-selected="false">Счет</a>
+    </li>
+
+    <li class="nav-item">
+      <a class="nav-link" id="plan-tab" data-toggle="tab" href="#plan" role="tab" aria-controls="plan"
+        aria-selected="false">Тарифы</a>
+    </li>
+
+    <li class="nav-item">
+      <a class="nav-link" id="settings-tab" data-toggle="tab" href="#settings" role="tab" aria-controls="settings"
+        aria-selected="false">Настройки</a>
+    </li>
+  </ul>
+
+  <div class="tab-content" id="myTabContent" v-for="el in aProfileData">
+    <div class="tab-pane fade show active" id="about" role="tabpanel" aria-labelledby="about-tab">
+      <h4>Немного о себе</h4>
+      <span>{{el.aboutInfo}}</span>
+
+      <h4 class="mt-3">Категории и специализации выполняемых заданий</h4>
+      <div class="mt-3" v-for="(category, idx) in aCategories">
+        <strong>{{category.categoryName}}</strong><small class="ml-2">Выбрать все</small><br>
+        <div v-for="spec in aCategories[idx].specializations">
+          <div class="d-flex align-items-center">
+            <input type="checkbox" 
+                    class="mr-1"
+                    v-model="checked"
+                    v-on:click="onSelectSpec(!checked, spec.specName)"><span>{{spec.specName}}</span>
+          </div>
+        </div>
+      </div>
+
+      <button class="btn-next form-control-sm mt-3 mb-3" v-on:click="onSaveSpecies()">Сохранить</button>
+    </div>
+
+    <div class="tab-pane fade" id="score" role="tabpanel" aria-labelledby="score-tab">
+      <h4>Ваш баланс: 0</h4>
+      <!-- Пополнение. -->
+     <div>
+       <span>Пополнить счет на</span>
+       <input type="text" 
+              id="idInputAddScore" 
+              v-model="iDefaultScore"
+              class="form-control-sm date-endda ml-2 mt-3 input-score"
+              v-on:input="onCheckScore()"> ₽
+              <button 
+              id="idBtnAddScore"
+              class="btn-next form-control-sm ml-1" 
+              v-on:click="onRouteRefillOrder()">Пополнить счет</button>
+     </div>
+     
+     <div class="mt-1" v-show="bErrorScore">
+      <small class="text-danger">Минимальная сумма для пополнения 150 ₽</small>
+     </div>
+
+     <!-- История операций. -->     
+     <div class="mt-5 history-operations">
+      <div class="">
+        <div class="d-flex">
+          <h4>История операций: &nbsp;</h4>
+        <select class="form-control-sm task-filter ml-2"
+                v-on:change="">
+            <option></option>
+            <option>За неделю</option>
+            <option>За месяц</option>
+            <option>За год</option>
+            <option>За период</option>
+        </select>    
+        </div>    
+        
+        <div>
+          <button class="form-control-sm btn btn-link btn-before-history">Все операции</button>
+          <button class="form-control-sm btn btn-link">Пополнение счета</button>
+          <button class="form-control-sm btn btn-link">Списание со счета</button>
+        </div>
+      </div>
+     </div>
+
+     <!-- Частые вопросы. -->
+    <div>
+      <h4 class="mt-5">Частые вопросы</h4>
+      <b>Заголовок вопроса</b>
+      <p>Текст вопроса</p>
+    </div>
+    </div>
+
+    <div class="tab-pane fade" id="plan" role="tabpanel" aria-labelledby="plan-tab">
+      <button class="form-control-sm btn btn-link">Подключить тарифы</button>
+    </div>
+
+    <div class="tab-pane fade" id="settings" role="tabpanel" aria-labelledby="settings-tab">
+      <h4 class="mb-3">Личные данные</h4>
+     <div class="settings-item">      
+      <!-- Имя. -->
+      <div class="mb-3">
+        <label class="form-control-sm" for="idName">Имя</label>
+     <div>
+      <input type="text" 
+              id="idName" 
+              class="form-control-sm date-endda input-settings">
+     </div>
+      </div>
+
+     <!-- Фамилия. -->
+    <div class="mb-3">
+      <label class="form-control-sm" for="idFam">Фамилия</label>
+      <div>
+       <input type="text" 
+               id="idFam" 
+               class="form-control-sm date-endda input-settings">
+      </div>
+    </div>
+
+    <!-- Отчество. -->
+     <div class="mb-3">
+      <label class="form-control-sm" for="idPatr">Отчество</label>
+      <div>
+       <input type="text" 
+               id="idPatr" 
+               class="form-control-sm date-endda input-settings">
+      </div>
+     </div>
+     </div>
+
+     <!-- Пол. -->
+     <div class="mb-3">
+      <label class="form-control-sm" for="idFam">Пол</label>
+      <div>
+       <input type="radio" 
+               id="idGenderMale" 
+               class="form-control-sm date-endda input-settings"
+               _v-model="bMale"
+               name="gender"
+               v-on:click="onSelectGender('male')">&nbsp;Мужчина
+
+               <input type="radio" 
+               id="idGenderFemale" 
+               class="form-control-sm date-endda input-settings ml-3"
+               _v-model="bFemale"
+               name="gender"
+               v-on:click="onSelectGender('female')">&nbsp;Женщина
+
+                <!-- Город. -->
+     <div class="mb-3">
+      <label class="form-control-sm mt-3" for="idCity">Город</label>
+      <div>
+       <input type="text" 
+               id="idCity" 
+               class="form-control-sm date-endda input-settings">
+      </div>
+     </div>
+     </div>
+
+     <!-- Email -->
+     <div class="mb-3">
+      <label class="form-control-sm" for="idEmail">Email</label>
+      <div>
+       <input type="email" 
+               id="idEmail" 
+               class="form-control-sm date-endda input-settings"><br>
+               <small class="text-muted">Ваш email виден только вам</small>
+      </div>
+     </div>
+     </div>
+
+     <button class="btn-next form-control-sm" 
+            v-on:click="onSaveData()">Сохранить личные данные</button>
+
+     <hr class="mt-5 mb-5">
+
+     <!-- Номер телефона. -->
+     <div class="mb-3">
+       <h4>Номер телефона</h4>
+      <label class="form-control-sm" for="idFam">Контактный номер</label>
+      <div>
+       <input type="text" 
+               id="idNum" 
+               class="form-control-sm date-endda input-settings"><br>
+               <small class="text-muted">Ваш номер телефона виден только вам</small>
+      </div>
+     </div>
+
+     <button class="btn-next form-control-sm" v-on:click="">Сохранить номер телефона</button>
+
+     <hr class="mt-5 mb-5">
+     <!-- PRO -->
+     <div class="mb-3">
+      <h4>PRO-аккаунт</h4>
+     <div>
+      <button class="btn-task form-control-sm" v-on:click="">Стать PRO</button><br>
+      <button class="form-control-sm btn btn-link btn-before-history">Что дает PRO-аккаунт?</button>        
+      
+      
+     <hr class="mt-5 mb-5">
+     <button class="btn-next form-control-sm btn btn-danger" v-on:click="">Удалить профиль</button>
+     </div>
+    </div>
+    </div>
+    </div>
+     </div>    
+      </div>      
+     </div>
+     </div>    
+  </div>
+</body>
+
+</html>

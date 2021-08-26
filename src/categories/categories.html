@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <vue-headful title="Barbuuuda: Список категорий"/>
+</head>
+<body>
+    <h3 class="my-tasks mt-3">Список категорий заданий</h3>
+    <!-- Секция категорий. -->
+  <div class="col-lg-12 mb-3 mt-3">
+    <div class="row">
+      <div class="col-lg-4 mb-3" v-for="el in oData.aCategories">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title title-row">
+              <!-- <img src="../assets/images/768c92df1858f1fbb75ca810126d03981.png" class="mr-2" /> -->
+              <strong class="mr-2">{{el.categoryName}}</strong>
+              <img src="../assets/images/Group1.png" />
+            </h5>
+
+            <span class="card-text">
+              Подкатегорий: {{el.specializations.length}}
+            </span>
+          </div>
+        </div>
+      </div>    
+    </div>
+  </div>
+</body>
+</html>

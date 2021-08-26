@@ -1,0 +1,151 @@
+@import "../task/create-task.scss";  
+
+$blueColor: #00BCD4;
+
+@mixin panelTest {
+    border-radius: 20px 0px;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    margin: 0 0 30px 30px;
+    padding: 9px 17px;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Open Sans', sans-serif;
+}
+
+button {
+    border: none;
+    outline: none;
+    background-color: transparent;
+}
+
+.container-fluid {
+    padding: 0 85px;
+}
+
+.main-title {
+    font-family: 'Roboto';
+    font-size: 24px;
+    line-height: 24px;
+    letter-spacing: 1.25px;
+    margin-top: 28px;
+}
+
+.notifications,
+.orders {
+    margin: 0 0 30px 30px;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    box-sizing: border-box;
+    border-radius: 20px 0px;
+
+    &__wrp {
+        padding: 9px 17px;
+        border-bottom: 1px solid #DADADA;
+    }
+
+    &__subtitle {
+        display: inline;
+        font-weight: 600;
+        font-size: 18px;
+        line-height: 25px;
+    }
+
+    &__history {
+        font-weight: 300;
+        font-size: 14px;
+        line-height: 19px;
+        color: #00BCD4;
+    }
+
+    &__txt {
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 19px;
+        text-align: center;
+        color: #B6B6B6;
+        position: relative;
+        margin-top: 9px;
+    }
+}
+
+.orders-title {
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 22px;
+    margin: 30px;
+}
+
+.orders {
+    &__bold-txt {
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 19px;
+    }
+
+    &__light-txt {
+        font-size: 14px;
+        line-height: 19px;
+        color: #B6B6B6;
+    }
+
+    &__blue-txt {
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 19px;
+        color: $blueColor;
+    }
+
+    &__bottom-txt {
+        font-weight: 600;
+        font-size: 12px;
+        line-height: 16px;
+        color: #B6B6B6;
+        padding: 31px 45px;
+        position: relative;
+
+        &::before {
+            content: url(../assets/images/info_outline.png);
+            position: absolute;
+            top: 27px;
+            left: 18px;
+        }
+    }
+}
+
+.panel-before-test {
+    @include panelTest;
+}
+
+.panel-test {
+    @include panelTest; 
+    
+    .nav-link {
+        color: #00BDD6;
+    }
+
+    .nav-link.active {
+        background: #00BDD6!important;
+    }
+}
+
+.email {
+    color: cornflowerblue;
+    text-decoration: underline;
+}
+
+.btn-regulations {
+    border: 1px solid #00BDD6;
+    color: #00BDD6;
+    transition: all .3s ease-out;
+
+    &:hover {
+        background: #00BDD6;
+        color: white;
+    }
+
+    &:focus {
+        outline: none;
+    }
+}

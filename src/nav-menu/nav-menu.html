@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  
+</head>
+<body>
+  <header>      
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow"
+          v-show="oData.bGuest && !oData.bHideHeader">
+      <div class="container">
+        <button class="navbar-toggler btn-state-left-menu"
+                type="button"
+                data-toggle="collapse"
+                data-target=".navbar-collapse"
+                aria-label="Toggle navigation"
+                v-on:click="toggle()">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="navbar-collapse collapse d-sm-inline-flex d-flex header">
+          <!-- Бургер левой панели. -->
+          <div>
+            <div class="block-left-line" v-on:click="onStateLeftPanel()">
+              <div class="left-line"></div>
+              <div class="left-line"></div>
+              <div class="left-line"></div>
+            </div>
+          </div>
+
+          <div>
+            <ul class="navbar-nav flex-grow">
+              <li class="nav-item">
+                <div class="div-link">
+                  <img src="../assets/images/add_task.jpg" class="link"
+                        v-on:click="onRouteCreateTask()" />
+                  <!-- <li><router-link to="" class="nav-link link-add-task"
+                    v-on:click="onRouteCreateTask()">Создать задание</router-link></li> -->
+
+                    <li>
+                      <button class="nav-link btn btn-link link-add-task" 
+                              v-on:click="onRouteCreateTask()">
+                        Создать задание
+                      </button>
+                    </li>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </nav>   
+  </header>
+
+  <!-- Модальное окно ошибки, если нет роли заказчика. -->  
+  <div class="modal fade" id="idNotCustomer" tabindex="-1" role="dialog" aria-labelledby="idNotCustomerTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="idNotCustomerTitle">Вы хотите создать задание?</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <div class="modal-body">
+          Создать задание могут только зарегистрированные (Заказчики).
+          Зарегистрируйтесь или войдите на сайт под своим именем.
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" 
+                  class="btn-create-task form-control-sm btn-create-task btn-all-tasks" 
+                  data-dismiss="modal">Хорошо</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

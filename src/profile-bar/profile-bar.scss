@@ -1,0 +1,17 @@
+.fon-profile {
+    // .stat-item {
+
+    // }
+
+    .stat-item-active {
+        display: flex;
+        justify-content: space-between;
+        color: #B6B6B6;
+        
+
+        &:hover {
+            background: rgb(245, 245, 245);
+            cursor: pointer;                
+        }
+    }
+}

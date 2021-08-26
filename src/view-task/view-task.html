@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <vue-headful title="Barbuuuda: Просмотр задания"/>  
+</head>
+
+<body>    
+    <!-- Статусы. -->
+    <div class="mt-4 pt-3 mb-4 text-center block-status">
+        <div class="mb-3 item-status">
+            <span class="circle-first">1</span>&nbsp;
+            <span class="category-text">Создание задания</span>
+            <br>
+            <small><a href="#">Редактировать</a></small>
+        </div>
+
+        <div class="mb-3 item-status">
+            <span class="circle-second">2</span>&nbsp;
+            <span class="category-text">В аукционе</span>
+        </div>
+
+        <div class="mb-3 item-status">
+            <span class="circle-second">3</span>&nbsp;
+            <span class="category-text">В работе</span>
+        </div>
+
+        <div class="mb-3 item-status">
+            <span class="circle-second">4</span>&nbsp;
+            <span class="category-text">На гарантии</span>
+        </div>
+
+        <div class="mb-3 item-status">
+            <span class="circle-second">5</span>&nbsp;
+            <span class="category-text">Завершен</span>
+        </div>
+    </div>    
+
+    <div class="d-flex block-task-title">
+        <div class="col-lg-12 details-task item-view">
+          <div class="mt-3 d-flex">
+            <img class="mr-1 icon_photo" 
+                  v-bind:src="getImgUrl(this.oEditTask.editTask[0].customerProfileIcon)">
+              <h4 class="ml-1"><strong>{{this.oEditTask.editTask[0].customerLogin}}</strong></h4>
+          </div>
+
+          <div class="mt-3">
+            <h4><strong>{{this.oEditTask.editTask[0].taskTitle}}</strong></h4>
+            <span>{{this.oEditTask.editTask[0].taskDetail}}</span>
+          </div>
+
+          <div class="mt-3">
+            <h4><strong>Прикрепленные файлы:</strong></h4>
+          </div>
+
+          <div class="mb-3">
+            <span>К данному заданию заказчик не приложил файлов.</span>
+          </div>
+        </div>
+    </div>
+
+    <div class="col-lg-2 mt-5">
+        <img src="../assets/images/chat-icon.png">&nbsp;
+        <strong class="chat-link" 
+                data-toggle="modal" 
+                _data-target=".bd-example-modal-xl"
+                v-on:click="onShowChat()">
+          Открыть чат
+        </strong>
+    </div>
+
+    <!-- Детали задания. -->
+    <div class="col-lg-12 mt-5 mb-5">
+        <div class="d-flex">
+            <div class="fon-profile col-lg-3">
+                <h6>Детали задания</h6>
+
+                <div class="stat-item">
+                    <div>
+                        <small>ID:</small>
+                    </div>
+
+                    <div>
+                        <small>{{this.oEditTask.editTask[0].taskId}}</small>
+                    </div>
+                </div>
+
+                <div class="stat-item">
+                    <div>
+                        <small>Бюджет:</small>
+                    </div>
+
+                    <div>
+                        <small v-show="this.oEditTask.editTask[0].taskPrice">{{this.oEditTask.editTask[0].taskPrice}} ₽</small>
+
+                        <small v-show="!this.oEditTask.editTask[0].taskPrice">По договоренности</small>
+                    </div>
+                </div>
+
+                <div class="stat-item">
+                    <div>
+                        <small>Дата сдачи до:</small>
+                    </div>
+
+                    <div>
+                        <small>{{this.oEditTask.editTask[0].taskBegda}}</small>
+                    </div>
+                </div>
+
+                <div class="stat-item">
+                    <div>
+                        <small>Категория:</small>
+                    </div>
+
+                    <div>
+                        <small>{{this.oEditTask.editTask[0].categoryName}}</small>
+                    </div>
+                </div>
+
+                <div class="stat-item">
+                    <div>
+                        <small>Специализация:</small>
+                    </div>
+
+                    <div>
+                        <small>{{this.oEditTask.editTask[0].specName}}</small>
+                    </div>
+                </div>
+
+                <div class="stat-item task-details mt-3 mb-3">
+                    <div>
+                        <button class="btn-next form-control-sm" 
+                                v-show="oData.bCustomer"
+                                v-on:click="onEditTask()">
+                            РЕДАКТИРОВАТЬ
+                        </button>      
+                        
+                        <button class="btn-next form-control-sm" 
+                                v-show="oData.bExecutor"
+                                v-on:click="onShowRespondModal()">
+                            СДЕЛАТЬ СТАВКУ
+                        </button>   
+                    </div>                   
+                </div>
+
+                <button class="form-control-sm btn btn-link" 
+                        v-show="oData.role == 'C'" 
+                        v-on:click="">
+                    В черновик
+                </button>
+
+                <br>
+
+                <button class="form-control-sm btn btn-link" 
+                        v-show="oData.role == 'C'" 
+                        v-on:click="onShowDeleteModal()">
+                    Удалить
+                </button>
+            </div>            
+
+            <!-- Правая часть. -->
+            <div class="col-lg-9">                
+                <div class="d-flex mt-3">
+                    <div class="item-view d-flex col-lg-12">
+                        <div class="col-lg-6 text-center">
+                            <span>Исполнители, представленные ниже, были<br> проверены и приняты администрацией.</span>
+                        </div>
+
+                        <div class="col-lg-6 text-center">
+                            <span>Все исполнители имеют рейтинг, отзывы и<br> историю выполненных работ.</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <h6 class="mt-3 mb-3" v-show="oData.role == 'E'">
+                    <strong>Ставок к заданию: </strong> {{respondCount}} </h6>
+
+                <h5 class="mt-3 mb-3" v-show="oData.role == 'C' && bSelectPay && oData.role == 'C' && !bWorkAccept">
+                    <strong>Выберите исполнителя</strong> для вашего задания</h5>
+
+                    <h5 class="mt-3 mb-3" v-show="oData.role == 'C' && bSelectPay && oData.role == 'C' && bWorkAccept">
+                      Выбранный исполнитель</h5>
+
+                <!-- Область со списком ставок к заданию. -->
+                <!-- <details id="idOpen" v-on:click="onTogglebRespondsOpen($event)">
+                    <summary v-show="!bOpen && oData.role == 'E'">
+                        Посмотреть комментарии других исполнителей
+                    </summary>            
+
+                    <summary v-show="bOpen && oData.role == 'E'">
+                        Скрыть комментарии других исполнителей
+                    </summary>    -->
+
+                    <div class="card responds_list" v-for="respond in aResponds">
+                        <div class="card-body card_respond d-flex justify-content-between">
+                        <div class="block_respond">
+                            <div class="d-flex">
+                                <img class="mr-1 icon_photo" v-bind:src="getImgUrl(respond.userIcon)">
+                                
+                                <div class="ml-3">
+                                    <div>
+                                        <strong>{{respond.userName}}</strong>
+                                    </div>
+                                    
+                                    <div _class="col-lg-12"> 
+                                        <span>{{respond.comment}}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="d-flex">
+                                <div class="d-flex mt-3">
+                                    <img class="mr-1" src="../assets/images/allworks.webp">
+                                    <span>Всего заданий {{respond.countTotalCompletedTask}}</span>
+                                </div>
+        
+                                <div class="d-flex align-items-center mt-3 ml-5">
+                                    <img class="mr-1" src="../assets/images/good.webp">
+                                    <span>{{respond.countPositive}}</span>
+                                </div>
+
+                                <div class="d-flex align-items-center mt-3 ml-5">
+                                    <img class="mr-1" src="../assets/images/bad.webp">
+                                    <span>{{respond.countNegative}}</span>
+                                </div>
+                            </div>
+                        </div>                      
+
+                        <div class="text-right">
+                            <div>                              
+                              <div>
+                                <button type="button" class="close close-icon" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                              </div>
+                              
+                              <br>
+
+                                <strong>Ставка {{respond.price}} ₽</strong>
+                                <br>
+                                <div class="">
+                                  <span class="badge badge-pill badge-warning"
+                                        v-show="bSelectPay && oData.role == 'C' && bWorkAccept == false">
+                                        Исполнитель выбран. Ожидание подтверждения исполнителем.</span>
+                                  
+                                  <span class="badge badge-pill badge-success"
+                                        v-show="bSelectPay && oData.role == 'C' && bWorkAccept">Исполнитель выбран.</span>
+                                </div>   
+                            </div>
+                            
+                            <div>
+                              <button 
+                                      class="btn-next btn-create-task form-control-sm mt-3" 
+                                      v-show="oData.role == 'C'"
+                                      _data-toggle="modal"
+                                      _data-target=".bd-example-modal-xl" 
+                                      v-on:click="onSelectExecutor(oData.oViewTaskId, respond.executorId)">
+                                ВЫБРАТЬ
+                              </button>
+
+                              <br>
+                              
+                                <button class="btn-next form-control-sm mt-3" 
+                                        v-show="oData.role == 'C'" 
+                                        data-toggle="modal" 
+                                        _data-target=".bd-example-modal-xl"
+                                        v-on:click="onAnswer(respond.executorId)">
+                                    ОТВЕТИТЬ
+                                </button>                               
+
+                                <button class="btn-next btn-create-task form-control-sm mt-3" 
+                                        v-show="oData.role == 'E' && respond.isVisibleButton" 
+                                        v-on:click="">
+                                    ИЗМЕНИТЬ СТАВКУ
+                                </button>                                                                         
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                <!-- </details> -->
+            </div>           
+        </div>
+    </div>
+
+    <div class="modal fade" id="idAcceptDeleteTask" tabindex="-1" role="dialog" aria-labelledby="idAcceptDeleteTaskTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="idNotCustomerTitle">Вы уверенны, что хотите удалить задание?</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+    
+            <div class="modal-body">
+              Удаленное задание невозможно будет восстановить.
+            </div>
+    
+            <div class="modal-footer">
+              <button type="button" 
+                        class="btn btn-danger"
+                        data-dismiss="modal"
+                        v-on:click="OnDeleteTask()">
+                    Удалить
+                </button>
+
+                <button type="button" 
+                        class="btn btn-secondary" 
+                        data-dismiss="modal">
+                    Отменить
+                </button>                
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Модальное окно СДЕЛАТЬ СТАВКУ. -->
+      <div class="modal fade" id="idRespond" tabindex="-1" role="dialog" aria-labelledby="idNotRespondTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="idNotRespondTitle">Сделать ставку</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+    
+            <div class="modal-body">
+                <div class="area-respond">
+                    <div>
+                        <label class="form-control-sm">Я сделаю задание за:</label><br>
+                        <input id="idRespond" 
+                            class="form-control-sm input-respond input-task-price date-endda"
+                            v-model="price"> ₽
+                    </div>
+    
+                    <div>
+                        <label class="form-control-sm">Сумма для заказчика:</label><br>    
+                        <strong>0 ₽</strong><br>
+                        <label class="form-control-sm">включая комиссию сервиса 22 %</label>   
+                    </div>                   
+                </div>
+                
+                <div class="area-respond mt-3 mb-3">
+                    <div>
+                        <label class="form-control-sm"><strong>Комментарий</strong></label>                                              
+                    </div>
+    
+                    <div>
+                        <select class="form-control-sm task-filter"
+                                _v-on:change="onFilterTasks($event.target.value)">
+                            <option>Выберите шаблон</option>
+                        </select>
+                    </div>                     
+                </div>         
+
+                <textarea id="idareaRespond" 
+                    class="form-control-sm input-task detail-field"
+                    placeholder="Напишите приветственное сообщение к ставке..."
+                    v-model="comment"/>     
+
+                    <br>  
+
+                    <input type="checkbox" 
+                    class="mr-1"
+                    v-model="checked"
+                    _v-on:click="onSelectSpec(!checked, spec.specName)">
+                    <label class="form-control-sm">
+                        Сохранить комментарий как шаблон
+                    </label>             
+            </div>
+    
+            <div class="modal-footer d-flex justify-content-center">
+                <button type="button" 
+                        class="btn-create-task form-control-sm btn-all-tasks" 
+                        data-dismiss="modal"
+                        v-on:click="onRespond(price, comment)">
+                        СДЕЛАТЬ СТАВКУ
+                </button>
+                
+                <button class="btn-next form-control-sm" data-dismiss="modal">
+                    ЗАКРЫТЬ
+                </button>      
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Модальное окно переписки с исполнителями. -->
+      <div id="idChat" class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl" role="document">
+          <div class="modal-content">
+            <div class="container">
+              <div class="d-flex">
+                <div class="col-lg-5"></div>
+               <div class="col-lg-7 d-flex justify-content-between align-items-center">
+                <span class="" v-show="firstName && lastName">{{this.firstName}} {{this.lastName}}</span>
+                <span class="" v-show="!firstName && !lastName">{{this.userName}}</span>
+                <!-- <span v-if="dialog.firstName && dialog.lastName">{{dialog.firstName}} {{dialog.lastName}}</span>
+                <span v-else="!dialog.firstName && !dialog.lastName">{{dialog.userName}}</span> -->
+                <button 
+                class="btn-create-task btn-next form-control-sm mt-3 mb-3 mr-3" 
+                v-show="oData.role == 'C'"
+                _data-toggle="modal"
+                _data-target=".bd-example-modal-xl" 
+                v-on:click="">
+                  ВЫБРАТЬ
+                </button>
+               </div>
+              </div>
+              <div class="messaging mb-4">
+                <div class="inbox_msg">
+
+                  <!-- Область списка диалогов. -->
+                  <div class="inbox_people">
+                    <div class="headind_srch">
+                      <div class="recent_heading">
+                        <!-- <h4>Recent</h4> -->
+                      </div>
+                      <div class="srch_bar">
+                        <div class="stylish-input-group">
+                          <input type="text" class="search-bar" placeholder="Поиск...">
+                          <span class="input-group-addon">
+                            <button type="button"> <i class="fa fa-search" aria-hidden="true"></i> </button>
+                          </span> </div>
+                      </div>
+                    </div>
+                    <div class="inbox_chat">
+                      <div class="chat_list active_chat" 
+                            v-bind:value="dialog.dialogId"
+                            v-on:click="onGetDialogMessages(dialog.dialogId)"
+                            v-for="dialog in aDialogs">
+                        <div class="chat_people">
+                          <div class="chat_img"> <img class="icon_photo" v-bind:src="getImgUrl(dialog.userIcon)"> </div>
+                          <div class="chat_ib">
+                            <h5 v-if="dialog.firstName && dialog.lastName">{{dialog.firstName}} {{dialog.lastName}} 
+                              <span class="chat_date">{{dialog.calcTime !== null ? dialog.calcTime : dialog.calcShortDate}}</span>
+                            </h5>
+
+                            <h5 v-else="!dialog.firstName && !dialog.lastName">{{dialog.userName}} 
+                              <span class="chat_date">{{dialog.calcTime !== null ? dialog.calcTime : dialog.calcShortDate}}</span>
+                            </h5>
+
+                            <p>{{dialog.lastMessage}}</p>
+
+                            <p>{{dialog.price || 'По договоренности'}} ₽</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Область сообщений. -->
+                  <div class="mesgs">
+                    <div class="msg_history">
+                      <div _class="incoming_msg" 
+                            v-bind:class="{outgoing_msg: message.isMyMessage, incoming_msg: !message.isMyMessage}" 
+                            v-for="message in aMessages">
+                        <div _class="incoming_msg_img" v-bind:class="{incoming_msg_img: !message.isMyMessage}" > 
+                          <!-- <img src="https://ptetutorials.com/images/user-profile.png"
+                              v-show="!message.isMyMessage" >  -->
+                        </div>
+                        <div _class="received_msg" v-bind:class="{outgoing_msg: message.isMyMessage, received_msg: !message.isMyMessage}" >
+                          <div _class="received_withd_msg" v-bind:class="{sent_msg: message.isMyMessage, received_withd_msg: !message.isMyMessage}">
+                            <p>{{message.message}}</p>
+                            <span class="time_date">{{message.created}}</span>
+                          </div>
+                        </div>
+                      </div> 
+
+                      <div class="text-center" v-show="statusArea == 'None'">
+                        <p class="title_not_dialog">Чат с исполнителями</p>
+                        <p class="text_not_dialog">Ваша переписка с исполнителями здесь :)</p>
+                      </div>
+                    </div>
+
+                    <!-- Область отправки сообщений. -->
+                    <div class="type_msg" v-show="statusArea !== 'None'">
+                      <div class="input_msg_write">
+                        <input type="text" 
+                                class="write_msg" 
+                                placeholder="Введите сообщение..." 
+                                v-model="message"/>
+                        <button class="msg_send_btn" type="button" v-on:click="onSend()">
+                          <i class="fa fa-paper-plane-o"
+                            aria-hidden="true">
+                          </i>
+                          </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+<!-- 
+                <span class="d-flex justify-content-center top_spac"> Design by <a target="_blank"
+                    href="https://www.linkedin.com/in/sunil-rajput-nattho-singh/">Sunil Rajput</a></span> -->
+                    <!-- <div>&nbsp;</div> -->                   
+              </div>              
+            </div>
+          </div>
+        </div>
+        </div>
+
+         <!-- Модалка уведомления о выборе исполнителя. -->
+         <div class="modal fade" id="idSuccessSelectExecutor" tabindex="-1" role="dialog" aria-labelledby="idSuccessSelectExecutorTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="idSuccessSelectExecutorTitle">Выбор исполнителя задания</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+      
+              <div class="modal-body">
+                Исполнитель вашего задания выбран. После подтверждения согласия исполнителем, 
+                статус вашего задания изменится на "В работе".
+                Статусы своих заданий вы можете отслеживать на своей главной странице.
+              </div>
+      
+              <div class="modal-footer">            
+                  <button type="button" 
+                          class="btn-next form-control-sm"
+                          data-dismiss="modal">
+                      Закрыть
+                  </button>
+              </div>
+            </div>
+          </div>
+        </div>
+</body>
+</html>
