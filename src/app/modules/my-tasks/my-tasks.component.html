@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <vue-headful title="Barbuuuda: Мои задания"/> -->
+</head>
+
+<body>
+    <div class="block-before-my-tasks col-lg-12">
+        <div class="">
+            
+        </div>        
+    </div>
+
+    <!-- Левая панель. -->
+    <div class="d-flex mt-5 col-lg-12">
+        <div class="col-lg-3">
+            <profile-bar></profile-bar>
+        </div>
+
+        <!-- Правая часть. -->
+        <div class="col-lg-9">
+            <h3 class="my-tasks">Мои задания</h3>
+            <div class="search-block-task mb-3 mt-3">
+                <div class="d-flex">
+                    <input type="search" class="form-control-sm search-category"
+                        placeholder="Поиск задания по ID или названию..."
+                        [ngModel]="sSearch"
+                        >
+                        <!-- v-on:keyup.enter="onSearchTask($event.target.value)" -->
+                    <div class="input-group-append">
+                        <button class="btn btn-detault btn-search" 
+                                type="button"
+                                [ngModel]="sSearch"
+                                (click)="onSearchTaskAsync(sSearch)">
+                            Найти
+                        </button>
+                    </div>
+                </div>                                
+            </div>
+
+            <!-- Селекты фильтрации. -->
+            <div class="d-flex block-filter mb-3 mt-3">
+                <div>
+                  <span>Сортировать: &nbsp;</span> <br>
+                  <p-dropdown [options]="aSortDataSelect" placeholder="Условие сортировки"
+                    optionLabel="sortValue" [showClear]="true"></p-dropdown>
+                </div>
+
+                  <div class="ml-3">
+                    <span>Фильтровать: &nbsp;</span>
+                    <br>
+                    <p-dropdown [options]="aFilterDataSelect" placeholder="Условие фильтрации"
+                      optionLabel="filterValue" [showClear]="true"></p-dropdown>
+                  </div>
+            </div>
+
+            <!-- Список заданий. -->
+            <div class="block-my-tasks mb-3">                
+                <div class="card card-task card-subcategory" *ngFor="let el of aMyTasks">
+                    <div class="card-header header-task">
+                        <div class="block-icon">
+                            <div>
+                                <img src="../assets/images/1-wiper1.png">
+                            </div>
+                            &nbsp;
+
+                            <div class="ml-1 text-dark">
+                                <span>{{el.userName}}</span><br>
+                                <small>{{el.taskBegda}}</small>
+                            </div>
+                        </div>
+
+                        <div class="">
+                            <img src="../assets/images/message.png">&nbsp;
+                            <span class="text-dark">{{el.countOffers}}</span>
+                        </div>
+
+                        <div class="">
+                            <img src="../assets/images/Icon.png">&nbsp;
+                            <span class="text-dark">{{el.countViews}}</span>
+                        </div>
+
+                        <div class="badge badge-pill badge-primary">
+                            <span>{{el.typeCode}}</span>
+                        </div>
+
+                        <div class="badge badge-pill badge-warning">
+                            <span>{{el.statusName}}</span>
+                        </div>
+
+                        <div class="task-price">
+                            <img src="../assets/images/date_range.png">
+                            <span>{{el.taskEndda}}</span>
+                        </div>
+
+                        <div class="task-price">
+                            <span>{{el.taskPrice || 'По договоренности'}}
+                                <span *ngIf="el.taskPrice">₽</span>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <h5 class="card-title task-title">
+                            {{el.taskTitle}}
+                        </h5>
+
+                        <p class="card-text task-detail">
+                            {{el.taskDetail}}
+                        </p>
+                    </div>
+
+                    <div class="card-footer task-detail">
+                        <div class="block-footer">
+                            <div class="task-category">
+                                <span>{{el.categoryName}}</span>
+                            </div>
+
+                            <div class="offer">
+                                <!-- <button 
+                                    class="btn-next form-control-sm" 
+                                    _v-show="el.countOffers"
+                                    v-on:click="onAcceptTask(el.taskId)">
+                                    ПРИНЯТЬ
+                                </button>
+
+                                &nbsp;
+
+                                <button 
+                                    class="btn-next btn-create-task" 
+                                    _v-show="!el.countOffers"
+                                    v-on:click="onCancelTask(el.taskId)">
+                                    ОТКАЗАТЬСЯ
+                                </button> -->
+
+                                <button 
+                                    class="btn-next form-control-sm" 
+                                    *ngIf="el.countOffers > 0"
+                                    (click)="onSetTransitionAsync(el.taskId)">
+                                    КО ВСЕМ СТАВКАМ
+                                </button>
+
+                                <button 
+                                    class="btn-next form-control-sm" 
+                                    *ngIf="el.countOffers == 0"
+                                    (click)="onSetTransitionAsync(el.taskId)">
+                                    ОТКРЫТЬ ЗАДАНИЕ
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Список заданий в работе у исполнителя. -->
+            <div class="block-my-tasks mb-3">                
+                <div class="card card-task card-subcategory" *ngFor="let el of aWorkTasks">
+                    <div class="card-header header-task">
+                        <div class="block-icon">
+                            <div>
+                                <img src="../assets/images/1-wiper1.png">
+                            </div>
+                            &nbsp;
+
+                            <div class="ml-1 text-dark">
+                                <span>{{el.userName}}</span><br>
+                                <small>{{el.taskBegda}}</small>
+                            </div>
+                        </div>
+
+                        <div class="">
+                            <img src="../assets/images/message.png">&nbsp;
+                            <span class="text-dark">{{el.countOffers}}</span>
+                        </div>
+
+                        <div class="">
+                            <img src="../assets/images/Icon.png">&nbsp;
+                            <span class="text-dark">{{el.countViews}}</span>
+                        </div>
+
+                        <div class="badge badge-pill badge-primary">
+                            <span>{{el.typeCode}}</span>
+                        </div>
+
+                        <div class="badge badge-pill badge-warning">
+                            <span>{{el.statusName}}</span>
+                        </div>
+
+                        <div class="task-price">
+                            <img src="../assets/images/date_range.png">
+                            <span>{{el.taskEndda}}</span>
+                        </div>
+
+                        <div class="task-price">
+                            <span>{{el.taskPrice || 'По договоренности'}}
+                                <span *ngIf="el.taskPrice">₽</span>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <h5 class="card-title task-title">
+                            {{el.taskTitle}}
+                        </h5>
+
+                        <p class="card-text task-detail">
+                            {{el.taskDetail}}
+                        </p>
+                    </div>
+
+                    <div class="card-footer task-detail">
+                        <div class="block-footer">
+                            <div class="task-category">
+                                <span>{{el.categoryName}}</span>
+                            </div>
+
+                            <div class="offer">
+                                <!-- <button 
+                                    class="btn-next form-control-sm" 
+                                    _v-show="el.countOffers"
+                                    v-on:click="onAcceptTask(el.taskId)">
+                                    ПРИНЯТЬ
+                                </button>
+
+                                &nbsp;
+
+                                <button 
+                                    class="btn-next btn-create-task" 
+                                    _v-show="!el.countOffers"
+                                    v-on:click="onCancelTask(el.taskId)">
+                                    ОТКАЗАТЬСЯ
+                                </button> -->
+
+                                <button 
+                                    class="btn-next form-control-sm" 
+                                    *ngIf="el.countOffers"
+                                    (click)="onSetTransitionAsync(el)">
+                                    КО ВСЕМ СТАВКАМ
+                                </button>
+
+                                <button 
+                                    class="btn-next form-control-sm" 
+                                    *ngIf="el.countOffers == 0"
+                                    (click)="onSetTransitionAsync(el)">
+                                    ОТКРЫТЬ ЗАДАНИЕ
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Если нет активных заданий у исполнителя. -->
+             <div class="d-flex justify-content-center mb-3">
+                <span *ngIf="aWorkTasks.length == 0 && role == 'E'">
+                    На данный момент у вас нет заданий взятых в работу...
+                </span>                
+            </div> 
+
+            <!-- Пагинация. -->
+            <!-- Пагинация. -->
+           <p-paginator [rows]="10" 
+                        [totalRecords]="countTotalPage" 
+                        [rowsPerPageOptions]="[10,20,30]"
+                        [showCurrentPageReport]="true"
+                        (onPageChange)="onPaginationChange($event)"
+                        *ngIf="isVisiblePagination">
+            </p-paginator>
+
+            <!-- <pagination class="pagination-sm block-pagination card-subcategory"
+            v-show="oData.aMyTasks.length > 0">
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+                        <li class="page-item">
+                            <a class="page-link" href="#" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        <li class="page-item" v-for="el in oData.countTotalPage" v-on:click="onGetPagination(el)">
+                            <a class="page-link">{{el}}</a>
+                        </li>
+
+                        <li class="page-item">
+                            <a class="page-link" href="#" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </pagination> -->
+        </div>
+    </div>
+</body>
+
+</html>

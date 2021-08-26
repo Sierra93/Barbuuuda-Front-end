@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- <vue-headful title="Barbuuuda: Просмотр задания"/>   -->
+</head>
+
+<body>
+  <p-confirmDialog [style]="{width: '50vw'}" [baseZIndex]="10000" rejectButtonStyleClass="p-button-text">
+  </p-confirmDialog>
+
+  <p-confirmDialog [style]="{width: '50vw'}" key="positionDialog" [position]="position" [baseZIndex]="10000"
+    rejectButtonStyleClass="p-button-outlined"></p-confirmDialog>
+
+  <p-toast></p-toast>
+
+  <!-- Статусы. -->
+  <div class="mt-4 pt-3 mb-4 text-center block-status">
+    <div class="mb-3 item-status">
+      <span class="circle-first">1</span>&nbsp;
+      <span class="category-text">Создание задания</span>
+      <br>
+      <small><a href="#">Редактировать</a></small>
+    </div>
+
+    <div class="mb-3 item-status">
+      <span class="circle-second">2</span>&nbsp;
+      <span class="category-text">В аукционе</span>
+    </div>
+
+    <div class="mb-3 item-status">
+      <span class="circle-second">3</span>&nbsp;
+      <span class="category-text">В работе</span>
+    </div>
+
+    <div class="mb-3 item-status">
+      <span class="circle-second">4</span>&nbsp;
+      <span class="category-text">На гарантии</span>
+    </div>
+
+    <div class="mb-3 item-status">
+      <span class="circle-second">5</span>&nbsp;
+      <span class="category-text">Завершен</span>
+    </div>
+  </div>
+
+  <div class="d-flex block-task-title">
+    <div class="col-lg-12 details-task item-view">
+      <div class="mt-3 d-flex">
+        <img class="mr-1 icon_photo" v-bind:src="getImgUrl(oEditTask.editTask[0].customerProfileIcon)">
+        <h4 class="ml-1"><strong>{{customerLogin}}</strong></h4>
+      </div>
+
+      <div class="mt-3">
+        <h4><strong>{{taskTitle}}</strong></h4>
+        <span>{{taskDetail}}</span>
+      </div>
+
+      <div class="mt-3">
+        <h4><strong>Прикрепленные файлы:</strong></h4>
+      </div>
+
+      <div class="mb-3">
+        <span>К данному заданию заказчик не приложил файлов.</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-2 mt-5">
+    <img src="../assets/images/chat-icon.png">&nbsp;
+    <strong class="chat-link" data-toggle="modal" _data-target=".bd-example-modal-xl" (click)="onShowChat()">
+      Открыть чат
+    </strong>
+  </div>
+
+  <!-- Детали задания. -->
+  <div class="col-lg-12 mt-5 mb-5">
+    <div class="d-flex">
+      <div class="fon-profile col-lg-3">
+        <h6>Детали задания</h6>
+
+        <div class="stat-item d-flex justify-content-between">
+          <div>
+            <small>ID:</small>
+          </div>
+
+          <div>
+            <small>{{taskId}}</small>
+          </div>
+        </div>
+
+        <div class="stat-item d-flex justify-content-between">
+          <div>
+            <small>Бюджет:</small>
+          </div>
+
+          <div>
+            <small *ngIf="bNotTaskPrice">{{taskPrice}} ₽</small>
+
+            <small *ngIf="!bNotTaskPrice">По договоренности</small>
+          </div>
+        </div>
+
+        <div class="stat-item d-flex justify-content-between">
+          <div>
+            <small>Дата сдачи до:</small>
+          </div>
+
+          <div>
+            <small>{{taskBegda}}</small>
+          </div>
+        </div>
+
+        <div class="stat-item d-flex justify-content-between">
+          <div>
+            <small>Категория:</small>
+          </div>
+
+          <div>
+            <small>{{categoryName}}</small>
+          </div>
+        </div>
+
+        <div class="stat-item d-flex justify-content-between">
+          <div>
+            <small>Специализация:</small>
+          </div>
+
+          <div>
+            <small>{{specName}}</small>
+          </div>
+        </div>
+
+        <div class="stat-item task-details mt-3 mb-3">
+          <div>
+            <button class="btn-next form-control-sm" *ngIf="role == 'C'" (click)="onSetTransitionAsync(routeParam)">
+              РЕДАКТИРОВАТЬ
+            </button>
+
+            <button class="btn-next form-control-sm" *ngIf="role == 'E'" (click)="onShowRespondModal()">
+              СДЕЛАТЬ СТАВКУ
+            </button>
+          </div>
+        </div>
+
+        <button class="form-control-sm btn btn-link" *ngIf="role == 'C'">
+          В черновик
+        </button>
+
+        <br>
+
+        <button class="form-control-sm btn btn-link text-danger" *ngIf="role == 'C'" (click)="onShowDeleteModal()">
+          Удалить
+        </button>
+      </div>
+
+      <!-- Правая часть. -->
+      <div class="col-lg-9">
+        <div class="d-flex mt-3">
+          <div class="item-view d-flex col-lg-12">
+            <div class="col-lg-6 text-center">
+              <span>Исполнители, представленные ниже, были<br> проверены и приняты администрацией.</span>
+            </div>
+
+            <div class="col-lg-6 text-center">
+              <span>Все исполнители имеют рейтинг, отзывы и<br> историю выполненных работ.</span>
+            </div>
+          </div>
+        </div>
+
+        <h6 class="mt-3 mb-3" *ngIf="role == 'E'">
+          <strong>Ставок к заданию: </strong> {{respondCount}} </h6>
+
+        <h5 class="mt-3 mb-3" *ngIf="role == 'C' && bSelectPay && role == 'C' && !bWorkAccept">
+          <strong>Выберите исполнителя</strong> для вашего задания</h5>
+
+        <h5 class="mt-3 mb-3" *ngIf="role == 'C' && bSelectPay && role == 'C' && bWorkAccept">
+          Выбранный исполнитель</h5>
+
+        <!-- Область со списком ставок к заданию. -->
+        <div class="card responds_list" *ngFor="let respond of aResponds">
+          <div class="card-body card_respond d-flex justify-content-between">
+            <div class="block_respond">
+              <div class="d-flex">
+                <img class="mr-1 icon_photo" [src]="respond.userIcon">
+
+                <div class="ml-3">
+                  <div>
+                    <strong>{{respond.userName}}</strong>
+                  </div>
+
+                  <div _class="col-lg-12">
+                    <span>{{respond.comment}}</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="d-flex">
+                <div class="d-flex mt-3">
+                  <img class="mr-1" src="../assets/images/allworks.webp">
+                  <span>Всего заданий {{respond.countTotalCompletedTask}}</span>
+                </div>
+
+                <div class="d-flex align-items-center mt-3 ml-5">
+                  <img class="mr-1" src="../assets/images/good.webp">
+                  <span>{{respond.countPositive}}</span>
+                </div>
+
+                <div class="d-flex align-items-center mt-3 ml-5">
+                  <img class="mr-1" src="../assets/images/bad.webp">
+                  <span>{{respond.countNegative}}</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="text-right">
+              <div>
+                <div>
+                  <button type="button" class="close close-icon" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+
+                <br>
+
+                <strong>Ставка {{respond.price}} ₽</strong>
+                <br>
+                <div class="">
+                  <span class="badge badge-pill badge-warning"
+                    *ngIf="bSelectPay && role == 'C' && bWorkAccept == false">
+                    Исполнитель выбран. Ожидание подтверждения исполнителем.</span>
+
+                  <span class="badge badge-pill badge-success"
+                    *ngIf="bSelectPay && role == 'C' && bWorkAccept">Исполнитель выбран.</span>
+                </div>
+              </div>
+
+              <div>
+                <!-- (click)="onSelectExecutor(oData.oViewTaskId, respond.executorId)" -->
+                <button class="btn-next btn-create-task form-control-sm mt-3" *ngIf="role == 'C'" _data-toggle="modal"
+                  _data-target=".bd-example-modal-xl" (click)="onSelectExecutorAsync(taskId, respond.executorId)">
+                  ВЫБРАТЬ
+                </button>
+
+                <br>
+
+                <button class="btn-next form-control-sm mt-3" *ngIf="role == 'C'" data-toggle="modal"
+                  _data-target=".bd-example-modal-xl" (click)="onAnswerAsync(respond.executorId)">
+                  ОТВЕТИТЬ
+                </button>
+
+                <button class="btn-next btn-create-task form-control-sm mt-3"
+                  *ngIf="role == 'E' && respond.isVisibleButton" (click)="onShowRespondModal()">
+                  ИЗМЕНИТЬ СТАВКУ
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Диалоги. -->
+  <!-- Диалог удаления задания. -->
+  <p-dialog header="Вы уверены, что хотите удалить задание?" [(visible)]="displayDeleteModal" [modal]="true"
+    [style]="{width: '50vw'}" [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+    <p class="p-m-0">Удаленное задание невозможно будет восстановить.</p>
+    <ng-template pTemplate="footer">
+      <!-- <p-button icon="pi pi-check" (click)="displayDeleteModal=false" label="Отмена" styleClass="p-button-outlined p-button-secondary"></p-button> -->
+      <p-button icon="pi pi-times" (click)="OnDeleteTaskAsync()" label="Удалить" styleClass="p-button-danger">
+      </p-button>
+    </ng-template>
+  </p-dialog>
+
+  <!-- Диалог поссле выбора исполнителя. -->
+  <p-dialog header="Выбор исполнителя задания" [(visible)]="displaySelectExecutorModal" [modal]="true"
+    [style]="{width: '50vw'}" [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+    <p class="p-m-0"> Исполнитель вашего задания выбран. После подтверждения согласия исполнителем,
+      статус вашего задания изменится на "В работе".
+      Статусы своих заданий вы можете отслеживать на своей главной странице.</p>
+    <ng-template pTemplate="footer">
+
+    </ng-template>
+  </p-dialog>
+
+  <!-- Диалог чата. -->
+  <p-dialog header="Чат с исполнителями" [(visible)]="displayChatModal" [modal]="true" [style]="{width: '100vw'}"
+    [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+    <ng-template pTemplate="footer">
+      <div class="container">
+        <div class="d-flex">
+          <div class="col-lg-5"></div>
+          <div class="col-lg-7 d-flex justify-content-between align-items-center">
+            <span class="" *ngIf="firstName && lastName">{{firstName}} {{lastName}}</span>
+            <span class="" *ngIf="!firstName && !lastName">{{userName}}</span>
+            <button class="btn-create-task btn-next form-control-sm mt-3 mb-3 mr-3" *ngIf="role == 'C'"
+              _data-toggle="modal" _data-target=".bd-example-modal-xl">
+              ВЫБРАТЬ
+            </button>
+          </div>
+        </div>
+        <div class="messaging mb-4">
+          <div class="inbox_msg">
+            <!-- Область списка диалогов. -->
+            <div class="inbox_people">
+              <div class="headind_srch">
+                <div class="recent_heading">
+                  <!-- <h4>Recent</h4> -->
+                </div>
+                <div class="srch_bar">
+                  <div class="stylish-input-group">
+                    <input type="text" class="search-bar" placeholder="Поиск...">
+                    <span class="input-group-addon">
+                      <button type="button"> <i class="fa fa-search" aria-hidden="true"></i> </button>
+                    </span> </div>
+                </div>
+              </div>
+              <div class="inbox_chat">
+                <div class="chat_list active_chat" [ngModel]="dialog.dialogId"
+                  (click)="onGetDialogMessagesAsync(dialog.dialogId)" *ngFor="let dialog of aDialogs">
+                  <div class="chat_people">
+                    <div class="chat_img"> <img class="icon_photo" [src]="dialog.userIcon"> </div>
+                    <div class="chat_ib">
+                      <h5 *ngIf="dialog.firstName && dialog.lastName">{{dialog.firstName}} {{dialog.lastName}}
+                        <span
+                          class="chat_date">{{dialog.calcTime !== null ? dialog.calcTime : dialog.calcShortDate}}</span>
+                      </h5>
+
+                      <h5 class="d-flex justify-content-between" *ngIf="!dialog.firstName && !dialog.lastName">
+                        {{dialog.userName}}
+                        <span
+                          class="chat_date">{{dialog.calcTime !== null ? dialog.calcTime : dialog.calcShortDate}}</span>
+                      </h5>
+
+                      <p>{{dialog.lastMessage}}</p>
+
+                      <p>{{dialog.price || 'По договоренности'}} ₽</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Область сообщений. -->
+            <div class="mesgs">
+              <div class="msg_history">
+                <div _class="incoming_msg"
+                  [ngClass]="{outgoing_msg: message.isMyMessage, incoming_msg: !message.isMyMessage}"
+                  *ngFor="let message of aMessages">
+                  <div _class="incoming_msg_img" [ngClass]="{incoming_msg_img: !message.isMyMessage}">
+                    <!-- <img src="https://ptetutorials.com/images/user-profile.png"
+                        *ngIf="!message.isMyMessage" >  -->
+                  </div>
+                  <div _class="received_msg"
+                    [ngClass]="{outgoing_msg: message.isMyMessage, received_msg: !message.isMyMessage}">
+                    <div _class="received_withd_msg"
+                      [ngClass]="{sent_msg: message.isMyMessage, received_withd_msg: !message.isMyMessage}">
+                      <p>{{message.message}}</p>
+                      <span class="time_date">{{message.created}}</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="text-center" *ngIf="statusArea == 'None'">
+                  <p class="title_not_dialog">Чат с исполнителями</p>
+                  <p class="text_not_dialog">Ваша переписка с исполнителями здесь :)</p>
+                </div>
+              </div>
+
+              <!-- Область отправки сообщений. -->
+              <div class="type_msg" *ngIf="statusArea !== 'None'">
+                <div class="input_msg_write">
+                  <input type="text" class="write_msg" placeholder="Введите сообщение..." [ngModel]="message" />
+                  <button class="msg_send_btn" type="button" (click)="onSendAsync()">
+                    <i class="fa fa-paper-plane-o" aria-hidden="true">
+                    </i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- 
+          <span class="d-flex justify-content-center top_spac"> Design by <a target="_blank"
+              href="https://www.linkedin.com/in/sunil-rajput-nattho-singh/">Sunil Rajput</a></span> -->
+          <!-- <div>&nbsp;</div> -->
+        </div>
+      </div>
+    </ng-template>
+  </p-dialog>
+
+  <!-- Диалог оставления ставки к заданию. -->
+  <p-dialog header="Сделать ставку" [(visible)]="displayRespondModal" [modal]="true" [style]="{width: '50vw'}"
+    [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+    <div class="area-respond">
+      <div>
+        <label class="form-control-sm">Я сделаю задание за:</label><br>
+        <input id="idRespond" class="form-control-sm input-respond input-task-price date-endda" [ngModel]="price"> ₽
+      </div>
+
+      <div>
+        <label class="form-control-sm">Сумма для заказчика:</label><br>
+        <strong>0 ₽</strong><br>
+        <label class="form-control-sm">включая комиссию сервиса 22%</label>
+      </div>
+    </div>
+
+    <div class="area-respond mt-3 mb-3">
+      <div>
+        <label class="form-control-sm"><strong>Комментарий</strong></label>
+      </div>
+
+      <div>
+        <select class="form-control-sm task-filter" _v-on:change="onFilterTasks($event.target.value)">
+          <option>Выберите шаблон</option>
+        </select>
+      </div>
+    </div>
+
+    <textarea id="idareaRespond" class="form-control-sm input-task detail-field"
+      placeholder="Напишите приветственное сообщение к ставке..." [ngModel]="comment"></textarea>
+
+    <br>
+
+    <input type="checkbox" class="mr-1" [ngModel]="checked" _v-on:click="onSelectSpec(!checked, spec.specName)">
+    <label class="form-control-sm">
+      Сохранить комментарий как шаблон
+    </label>
+
+    <br>
+
+    <div class="modal-footer d-flex justify-content-center">
+      <button class="btn-next btn-create-task form-control-sm mt-3" (click)="onRespondAsync(price, comment)">
+        СДЕЛАТЬ СТАВКУ
+      </button>
+    </div>
+
+    <!-- <ng-template pTemplate="footer">
+   
+  </ng-template>   -->
+  </p-dialog>
+
+</body>
+
+</html>

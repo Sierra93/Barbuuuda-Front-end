@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+    <h3 class="mt-5 text-center">Регистрация</h3>
+    <div class="mt-3 d-flex justify-content-center">
+        <div class="form-register">
+             <!-- Tab links -->
+          <div class="tab tab-role">
+            <button id="defaultOpen" class="tablinks" [class.active]="bExecutor" (click)="onChangeTab($event, 'executor')">Исполнитель</button>
+            <button class="tablinks" [class.active]="bCustomer" (click)="onChangeTab($event, 'customer')">Заказчик</button>
+          </div>
+
+            <!-- Исполнитель -->
+            <div id="executor" _class="tabcontent" *ngIf="bExecutor">
+                <span class="text-role">
+                    Получайте задания с гарантией
+                    от заказчиков и зарабатывайте
+                    на постоянном потоке заданий.
+                  </span>
+                <div class="mt-3">
+                    <label for="idLogin">Логин</label><strong class="asterisk">&#42;</strong>
+                    <input type="text" 
+                            id="idLogin" 
+                            class="form-control" 
+                            placeholder="Например: ivanov97" 
+                            aria-hidden="true">
+                </div>      
+                
+                <div class="mt-3">
+                    <label for="idEmail">E-mail</label><strong class="asterisk">&#42;</strong>
+                    <input type="text" 
+                            id="idEmail"
+                            class="form-control" 
+                            placeholder="Например: ivanov@mail.ru" 
+                            aria-hidden="true">
+                </div>    
+    
+                <div class="mt-3">
+                    <label for="idPassword">Пароль</label><strong class="asterisk">&#42;</strong>
+                    <input type="password" 
+                            id="idPassword"
+                            class="form-control" 
+                            placeholder="Пароль должен быть не менее 6 символов" 
+                            aria-hidden="true">
+                </div>    
+    
+                <div class="mt-3">
+                    <label for="idLastName">Подтверждение пароля</label><strong class="asterisk">&#42;</strong>
+                    <input type="password" 
+                            id="idLastName"
+                            class="form-control" 
+                            aria-hidden="true">
+                </div>    
+    
+                <div class="mt-3 text-center">
+                    <button class="btn-register form-control-sm btn-create-task btn-all-tasks mb-3"
+                            (click)="onCreate()">
+                            РЕГИСТРАЦИЯ
+                    </button>
+                </div>
+            </div>
+
+            <!-- Заказчик. -->
+            <div id="customer" _class="tabcontent" *ngIf="bCustomer">
+                <span class="text-role">
+                    Лучшие исполнители
+                    с гарантией выполнения
+                    задания в срок через безопасную сделку.
+                  </span>
+                <div class="mt-3">
+                    <label for="idLog">Логин</label><strong class="asterisk">&#42;</strong>
+                    <input type="text" 
+                            id="idLog"
+                            class="form-control" 
+                            placeholder="Например: ivanov97" 
+                            aria-label="First name">
+                </div>      
+                
+                <div class="mt-3">
+                    <label for="idEma1">E-mail</label><strong class="asterisk">&#42;</strong>
+                    <input type="text" 
+                            id="idEma1"
+                            class="form-control" 
+                            placeholder="Например: ivanov@mail.ru" 
+                            aria-label="First name">
+                </div>    
+    
+                <div class="mt-3">
+                    <label for="idPass1">Пароль</label><strong class="asterisk">&#42;</strong>
+                    <input type="text" 
+                            id="idPass1"
+                            class="form-control" 
+                            placeholder="Пароль должен быть не менее 6 символов" 
+                            aria-label="First name">
+                </div>    
+    
+                <div class="mt-3">
+                    <label for="idLast">Подтверждение пароля</label><strong class="asterisk">&#42;</strong>
+                    <input type="text" 
+                            id="idLast"
+                            class="form-control" 
+                            aria-label="First name">
+                </div>    
+    
+                <div class="mt-3 text-center">
+                    <button class="btn-register form-control-sm btn-create-task btn-all-tasks mb-3"
+                            (click)="onCreate()">
+                            РЕГИСТРАЦИЯ
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
