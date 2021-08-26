@@ -5,6 +5,8 @@ import { API_URL } from "src/app/core/core-urls/api-url";
 import { CommonDataService } from "src/app/services/common-data.service";
 import { ConfirmationService, MessageService, PrimeNGConfig, Message, ConfirmEventType } from "primeng/api";
 import { Title } from "@angular/platform-browser";
+import { GetChangeRespondInput } from "src/app/models/respond/input/get-change-respond-input";
+import { ChangeRespondInput } from "src/app/models/respond/input/change-respond-input";
 
 @Component({
     selector: "task-view",
@@ -46,9 +48,10 @@ export class ViewTaskModule implements OnInit {
     userName: string = "";
     displayChatModal: boolean = false;
     displayRespondModal: boolean = false;
-    price: string = "";
+    price: any;
     checked: boolean = false;
     comment: string = "";
+    isChangeRespond: boolean = false;
 
     constructor(private commonService: CommonDataService,
         private http: HttpClient, 
@@ -127,12 +130,30 @@ export class ViewTaskModule implements OnInit {
     };
 
     // Функция покажет модалку ставки к заданию.
-    public onShowRespondModal() {
+    public async onShowRespondModal() {
         if (sessionStorage["role"] == "E") {
-            this.checkRespondAsync();
+            await this.checkRespondAsync();
+
+            if (this.isRespond) {
+                this.displayRespondModal = true;                
+
+                return;
+            }
+
+            return;
+        }
+    };
+
+    public async onRespondModal(respondId: number) {
+        if (sessionStorage["role"] == "E") {
+            await this.checkRespondAsync();
 
             if (this.isRespond) {
                 this.displayRespondModal = true;
+                this.isChangeRespond = true;                
+
+                await this.getChangedRespondAsync(this.taskId, respondId);
+
                 return;
             }
 
@@ -528,19 +549,73 @@ export class ViewTaskModule implements OnInit {
     };
 
     // Функция оставит ставку к заданию.
-    public async onRespondAsync(price: string, comment: string) {
+    public async onRespondAsync() {
         try {            
             let params = {
-                Price: price,
-                Comment: comment,
+                Price: this.price,
+                Comment: this.comment,
                 TaskId: this.taskId
             };
 
-            await this.http.post(API_URL.apiUrl.concat("/executor/respond"), params)
+            await this.http.post(API_URL.apiUrl.concat("/executor/create-respond"), params)
                 .subscribe({
                     next: (response: any) => {
                         console.log("Ставка к заданию сделана");
                         this.loadRespondsAsync();
+                    },
+
+                    error: (err) => {
+                        this.commonService.routeToStart(err);
+                        throw new Error(err);
+                    }
+                });
+        }
+
+        catch (e) {
+            throw new Error(e);
+        }
+    };
+
+    // Функция изменит ставку задания.
+    public async onChangeRespondAsync() {
+        try {            
+            let changeRespond = new ChangeRespondInput();
+            changeRespond.Price = this.price;
+            changeRespond.Comment = this.comment;
+            changeRespond.TaskId = this.taskId;            
+
+            await this.http.post(API_URL.apiUrl.concat("/executor/change-respond"), changeRespond)
+                .subscribe({
+                    next: (response: any) => {
+                        console.log("Ставка изменена");
+                        this.loadRespondsAsync();
+                    },
+
+                    error: (err) => {
+                        this.commonService.routeToStart(err);
+                        throw new Error(err);
+                    }
+                });
+        }
+
+        catch (e) {
+            throw new Error(e);
+        }
+    };
+
+    // Функция получит ставку и одтянет ее данные в диалог.
+    private async getChangedRespondAsync(taskId: number, respondId: number) {
+        try {            
+            let getChangeRespond = new GetChangeRespondInput();
+            getChangeRespond.TaskId = taskId;
+            getChangeRespond.RespondId = respondId;
+
+            await this.http.post(API_URL.apiUrl.concat("/executor/get-change-respond"), getChangeRespond)
+                .subscribe({
+                    next: (response: any) => {
+                        console.log("Данные ставки");
+                        this.price = response.price;
+                        this.comment = response.comment;
                     },
 
                     error: (err) => {
