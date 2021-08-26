@@ -2,7 +2,6 @@ import { Component, OnInit } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { API_URL } from "../../core/core-urls/api-url";
 import { DataService } from "../../services/data.service";
-import { Title } from "@angular/platform-browser";
 
 @Component({
   selector: "container",
@@ -20,9 +19,7 @@ export class ContainerModule implements OnInit {
   aLastTasks: any[] = [];
   aCategories: any[] = [];
 
-  constructor(private http: HttpClient, 
-    private dataService: DataService,
-    private titleService: Title) { }
+  constructor(private http: HttpClient, private dataService: DataService) { }
 
   public async ngOnInit() {
     await this.loadDataFonAsync();
@@ -35,8 +32,6 @@ export class ContainerModule implements OnInit {
     await this.loadLastTasksAsync();
 
     this.aCategories = this.dataService.getTaskCategories();
-
-    this.titleService.setTitle("Barbuuuda: Сервис удаленной работы");
   };
 
   // Функция подгрузит данные секции фона.

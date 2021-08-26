@@ -3,7 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "popper.js/dist/popper.min.js";
 import "bootstrap/dist/js/bootstrap.min.js";
 import { NgModule } from "@angular/core";
-import { BrowserModule, Title } from "@angular/platform-browser";
+import { BrowserModule } from "@angular/platform-browser";
 import { AppRoutingModule } from "./app-routing.module";
 import { App } from "./app.component";
 import { ContainerModule } from "./modules/container/container.component";
@@ -90,8 +90,7 @@ import {RadioButtonModule} from "primeng/radiobutton";
     },
     CommonDataService,
     DataService,
-    ParamInterceptor,
-    Title 
+    ParamInterceptor
   ],
 
   bootstrap: [App]

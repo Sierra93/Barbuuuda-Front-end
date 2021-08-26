@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
-import { Component, OnInit } from "@angular/core";
-import { Title } from "@angular/platform-browser";
+import { Component } from "@angular/core";
+// import { API_URL } from "src/app/core/core-urls/api-url";
 
 @Component({
     selector: "payment",
@@ -8,15 +8,10 @@ import { Title } from "@angular/platform-browser";
     styleUrls: ["./payment.component.scss"]
 })
 
-export class PaymentModule implements OnInit {
+export class PaymentModule {
     oWidgetSettings: any = {};
 
-    constructor(private http: HttpClient,
-        private titleService: Title) { }
-
-        public ngOnInit() {
-            this.titleService.setTitle("Barbuuuda: Страница оплаты");
-        };
+    constructor(private http: HttpClient) { }
 
     // TODO: возможно нужно будет вернуть после подключения реальной платежной системы.
     // public ngOnInit() {        
