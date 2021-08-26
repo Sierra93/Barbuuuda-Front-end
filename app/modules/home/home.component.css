@@ -1,0 +1,190 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Open Sans', sans-serif;
+}
+
+button {
+  border: none;
+  outline: none;
+  background-color: transparent;
+}
+
+.container-fluid {
+  padding: 0 85px;
+}
+
+.main-title {
+  font-family: 'Roboto';
+  font-size: 24px;
+  line-height: 24px;
+  letter-spacing: 1.25px;
+  margin-top: 28px;
+}
+
+.notifications,
+.orders {
+  margin: 0 0 30px 30px;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  box-sizing: border-box;
+  border-radius: 20px 0px;
+}
+
+.notifications__wrp,
+.orders__wrp {
+  padding: 9px 17px;
+  border-bottom: 1px solid #DADADA;
+}
+
+.notifications__subtitle,
+.orders__subtitle {
+  display: inline;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 25px;
+}
+
+.notifications__history,
+.orders__history {
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 19px;
+  color: #00BCD4;
+}
+
+.notifications__txt,
+.orders__txt {
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 19px;
+  text-align: center;
+  color: #B6B6B6;
+  position: relative;
+  margin-top: 9px;
+}
+
+.orders-title {
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 22px;
+  margin: 30px;
+}
+
+.orders__bold-txt {
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 19px;
+}
+
+.orders__light-txt {
+  font-size: 14px;
+  line-height: 19px;
+  color: #B6B6B6;
+}
+
+.orders__blue-txt {
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 19px;
+  color: #00BCD4;
+}
+
+.orders__bottom-txt {
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 16px;
+  color: #B6B6B6;
+  padding: 31px 45px;
+  position: relative;
+}
+
+.orders__bottom-txt::before {
+  position: absolute;
+  top: 27px;
+  left: 18px;
+}
+
+.panel-before-test {
+  border-radius: 20px 0px;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  margin: 0 0 30px 30px;
+  padding: 9px 17px;
+}
+
+.panel-test {
+  border-radius: 20px 0px;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  margin: 0 0 30px 30px;
+  padding: 9px 17px;
+}
+
+.panel-test .nav-link {
+  color: #00BDD6;
+}
+
+.panel-test .nav-link.active {
+  background: #00BDD6 !important;
+  color: white;
+}
+
+.email {
+  color: cornflowerblue;
+  text-decoration: underline;
+}
+
+.btn-regulations {
+  border: 1px solid #00BDD6;
+  color: #00BDD6;
+  transition: all .3s ease-out;
+}
+
+.btn-regulations:hover {
+  background: #00BDD6;
+  color: white;
+}
+
+.btn-regulations:focus {
+  outline: none;
+}
+
+.btn-next {
+  background: #00BDD6;
+  color: #FFFFFF;
+  border-color: #00BDD6;
+  border: none;
+  padding: 0 50px !important;
+  transition: all .3s ease-out;
+}
+
+.btn-next:focus {
+  outline: none;
+}
+
+.btn-next:hover {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.content-title {
+  font-family: Open Sans;
+  font-size: 16px;
+  color: #666666;
+  line-height: 1.5;
+  white-space: pre-line;
+}
+
+::ng-deep .p-tabview-nav-link {
+  font-size: 14px !important;
+  text-decoration: none !important;
+}
+
+::ng-deep .p-tabview {
+  margin: 0 0 30px 30px !important;
+}
+
+.lbl-radio {
+  margin: 0 5px;
+}
+
+.radio-block {
+  margin: 0 0 5px 0;
+}
