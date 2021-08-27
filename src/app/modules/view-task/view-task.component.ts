@@ -52,6 +52,7 @@ export class ViewTaskModule implements OnInit {
     checked: boolean = false;
     comment: string = "";
     isChangeRespond: boolean = false;
+    respondId: number = 0;
 
     constructor(private commonService: CommonDataService,
         private http: HttpClient, 
@@ -150,7 +151,8 @@ export class ViewTaskModule implements OnInit {
 
             if (this.isRespond) {
                 this.displayRespondModal = true;
-                this.isChangeRespond = true;                
+                this.isChangeRespond = true;     
+                this.respondId = respondId;           
 
                 await this.getChangedRespondAsync(this.taskId, respondId);
 
@@ -582,13 +584,21 @@ export class ViewTaskModule implements OnInit {
             let changeRespond = new ChangeRespondInput();
             changeRespond.Price = this.price;
             changeRespond.Comment = this.comment;
-            changeRespond.TaskId = this.taskId;            
+            changeRespond.TaskId = this.taskId;      
+            changeRespond.RespondId = this.respondId;      
 
-            await this.http.post(API_URL.apiUrl.concat("/executor/change-respond"), changeRespond)
+            await this.http.patch(API_URL.apiUrl.concat("/executor/change-respond"), changeRespond)
                 .subscribe({
                     next: (response: any) => {
                         console.log("Ставка изменена");
                         this.loadRespondsAsync();
+                        this.displayRespondModal = false;
+
+                        this.messageService.add({
+                            severity: 'success',
+                            summary: 'Успешно!',
+                            detail: 'Ставка успешно изменена.'
+                        });
                     },
 
                     error: (err) => {
