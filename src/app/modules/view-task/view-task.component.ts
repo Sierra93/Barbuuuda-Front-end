@@ -600,7 +600,7 @@ export class ViewTaskModule implements OnInit {
                             detail: 'Ставка успешно изменена.'
                         });
                     },
-
+ 
                     error: (err) => {
                         this.commonService.routeToStart(err);
                         throw new Error(err);
