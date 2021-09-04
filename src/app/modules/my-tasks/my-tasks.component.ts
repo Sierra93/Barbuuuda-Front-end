@@ -16,7 +16,6 @@ import { DataService } from "src/app/services/data.service";
 export class MyTaskModule implements OnInit {
     aMyTasks: any = [];
     countTotalPage = 0;
-    aTasks: any = [];
     aWorkTasks: any = [];
     role: any = "";
     sSearch = "";
@@ -76,7 +75,7 @@ export class MyTaskModule implements OnInit {
                 });
         }
 
-        catch (e) {
+        catch (e: any) {
             throw new Error(e);
         }
     };
@@ -119,7 +118,7 @@ export class MyTaskModule implements OnInit {
                 });
         }
 
-        catch (e) {
+        catch (e: any) {
             throw new Error(e);
         }
     };
@@ -146,7 +145,7 @@ export class MyTaskModule implements OnInit {
                 });
         }
 
-        catch (e) {
+        catch (e: any) {
             throw new Error(e);
         }
     };
@@ -167,7 +166,7 @@ export class MyTaskModule implements OnInit {
                 });
         }
 
-        catch (e) {
+        catch (e: any) {
             throw new Error(e);
         }
     };
@@ -196,7 +195,7 @@ export class MyTaskModule implements OnInit {
             });
         }
 
-        catch (e) {
+        catch (e: any) {
             throw new Error(e);
         }
     };
@@ -232,7 +231,7 @@ export class MyTaskModule implements OnInit {
             });
         }
 
-        catch (e) {
+        catch (e: any) {
             throw new Error(e);
         }
     };
