@@ -73,7 +73,7 @@ export class HomeModule implements OnInit {
                 });
         }
 
-        catch (e) {
+        catch (e: any) {
             throw new Error(e);
         }
     };
@@ -104,7 +104,7 @@ export class HomeModule implements OnInit {
                 });
         }
 
-        catch (e) {
+        catch (e: any) {
             throw new Error(e);
         }
     };
@@ -127,7 +127,7 @@ export class HomeModule implements OnInit {
                 });
         }
 
-        catch (e) {
+        catch (e: any) {
             throw new Error(e);
         }
     };
@@ -184,7 +184,7 @@ export class HomeModule implements OnInit {
                 });
         }
 
-        catch (e) {
+        catch (e: any) {
             throw new Error(e);
         }
     };
@@ -222,7 +222,7 @@ export class HomeModule implements OnInit {
                 });
         }
 
-        catch (e) {
+        catch (e: any) {
             throw new Error(e);
         }
     };
@@ -260,7 +260,7 @@ export class HomeModule implements OnInit {
                 });
         }
 
-        catch (e) {
+        catch (e: any) {
             throw new Error(e);
         }
     };
@@ -286,7 +286,7 @@ export class HomeModule implements OnInit {
                 });
         }
 
-        catch (e) {
+        catch (e: any) {
             throw new Error(e);
         }
     };
@@ -323,7 +323,7 @@ export class HomeModule implements OnInit {
                 });
         }
 
-        catch (e) {
+        catch (e: any) {
             throw new Error(e);
         }
     };
@@ -353,7 +353,7 @@ export class HomeModule implements OnInit {
                 });
         }
 
-        catch (e) {
+        catch (e: any) {
             throw new Error(e);
         }
     };
@@ -382,7 +382,7 @@ export class HomeModule implements OnInit {
                 });
         }
 
-        catch (e) {
+        catch (e: any) {
             throw new Error(e);
         }
     };

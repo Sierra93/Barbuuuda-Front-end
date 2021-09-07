@@ -5,6 +5,7 @@ import { CommonDataService } from "src/app/services/common-data.service";
 import { PaginationInput } from "src/app/models/pagination/input/pagination-input";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Title } from "@angular/platform-browser";
+import { VisibleControlInput } from "src/app/models/task/input/visible-control-input";
 
 @Component({
     selector: "auction",
@@ -47,6 +48,13 @@ export class AuctionModule implements OnInit {
     userName: string = "";
     displayChatModal: boolean = false;
     routeParam: number;
+    aStatusesFilter: any[] = [];
+    aTypesFilter: any[] = [];
+    aSortDataSelect: any[] = [];
+    aFilterDataSelect: any[] = [];  
+    bVisibleStatus: boolean = false;
+    bVisibleType: boolean = false;
+    statusValue: string = "";
 
     constructor(private http: HttpClient, 
         private commonService: CommonDataService, 
@@ -62,6 +70,10 @@ export class AuctionModule implements OnInit {
         await this.checkUserRoleAsync();
         await this.getTransitionAsync();
         await this.loadPaginationInit();
+        await this._getTaskStatusesSelectAsync();
+        await this._getTaskTypesSelectAsync();
+        await this.loadSortDataSelectAsync();
+        await this.loadFilterDataSelectAsync();
 
         this.titleService.setTitle("Barbuuuda: Аукцион заданий");
     };
@@ -84,7 +96,7 @@ export class AuctionModule implements OnInit {
                 });
         }
 
-        catch (e) {
+        catch (e: any) {
             throw new Error(e);
         }
     };
@@ -107,7 +119,7 @@ export class AuctionModule implements OnInit {
                 });
         }
 
-        catch (e) {
+        catch (e: any) {
             throw new Error(e);
         }
     };
@@ -145,7 +157,7 @@ export class AuctionModule implements OnInit {
             });
         }
 
-        catch (e) {
+        catch (e: any) {
             throw new Error(e);
         }
     };
@@ -178,7 +190,7 @@ export class AuctionModule implements OnInit {
             });
         }
 
-        catch (e) {
+        catch (e: any) {
             throw new Error(e);
         }
     };
@@ -213,7 +225,172 @@ export class AuctionModule implements OnInit {
             });
         }
 
-        catch (e) {
+        catch (e: any) {
+            throw new Error(e);
+        }
+    };
+
+    /**
+     * Функция получит список статусов для селекта фильтрации.
+     */
+    private async _getTaskStatusesSelectAsync() {
+        try {
+            await this.http.post(API_URL.apiUrl.concat("/task/get-filter-statuses-select"), {})
+                .subscribe({
+                    next: (response: any) => {
+                        this.aStatusesFilter = response;
+                        console.log("Список статусов селекта: ", this.aStatusesFilter);
+                    },
+
+                    error: (err) => {
+                        this.commonService.routeToStart(err);
+                        throw new Error(err);
+                    }
+                });
+        }
+
+        catch (e: any) {
+            throw new Error(e);
+        }
+    };
+
+    /**
+     * Функция получит список типов заданий для списка фильтрации.
+     */
+    private async _getTaskTypesSelectAsync() {
+        try {
+            await this.http.post(API_URL.apiUrl.concat("/task/get-filter-types-select"), {})
+                .subscribe({
+                    next: (response: any) => {
+                        this.aTypesFilter = response;
+
+                        // response.forEach((item: any) => {
+                        //     this.aTypesFilter.push(item.type_name);
+                        // });
+
+                        console.log("Список типов заданий селекта: ", this.aTypesFilter);
+                    },
+
+                    error: (err) => {
+                        this.commonService.routeToStart(err);
+                        throw new Error(err);
+                    }
+                });
+        }
+
+        catch (e: any) {
+            throw new Error(e);
+        }
+    };
+
+    // Функция получит список значений для селекта сортировки заданий.
+    private async loadSortDataSelectAsync() {
+        try {
+            await this.http.post(API_URL.apiUrl.concat("/task/get-sort-select"), {})
+                .subscribe({
+                    next: (response: any) => {                       
+                        this.aSortDataSelect = response.controlSorts;                                            
+                        console.log("sortDataSelect ", response.controlSorts);
+                    },
+
+                    error: (err) => {
+                        // this.commonService.routeToStart(err);
+                        throw new Error(err);
+                    }
+                });
+        }
+
+        catch (e: any) {
+            // this.commonService.routeToStart(e);
+            throw new Error(e);
+        }
+    };
+
+    // Функция получит список значений для селекта фильтрации заданий.
+    private async loadFilterDataSelectAsync() {
+        try {
+            await this.http.post(API_URL.apiUrl.concat("/task/get-filter-select"), {})
+                .subscribe({
+                    next: (response: any) => {                        
+                        this.aFilterDataSelect = response.controlFilters;                                                        
+                        console.log("filterDataSelect ", response.controlFilters);
+                    },
+
+                    error: (err) => {
+                        // this.commonService.routeToStart(err);
+                        throw new Error(err);
+                    }
+                });
+        }
+
+        catch (e: any) {
+            // this.commonService.routeToStart(e);
+            throw new Error(e);
+        }
+    };
+
+    /**
+     * Функция отобразит нужный селект.
+     * @param e - Объект ообытия с данными ключа и значения.
+     */
+    public async onChangeFilterAsync(e: any) {
+        let data = new VisibleControlInput();
+        data.SelectedValue = e.value.filterValue;
+
+        try {
+            await this.http.post(API_URL.apiUrl.concat("/task/visible-control"), data)
+                .subscribe({
+                    next: (response: any) => {         
+                        if (response.controlType == "StatusSelect") {
+                            this.bVisibleStatus = true;
+                            this.bVisibleType = false;
+                            return;
+                        }               
+                        
+                        else if (response.controlType == "TypeSelect") {
+                            this.bVisibleType = true;
+                            this.bVisibleStatus = false;
+                            return;
+                        }
+
+                        this.bVisibleStatus = false;
+                        this.bVisibleType = false;
+                    },
+
+                    error: (err) => {
+                        // this.commonService.routeToStart(err);
+                        throw new Error(err);
+                    }
+                });
+        }
+
+        catch (e: any) {
+            // this.commonService.routeToStart(e);
+            throw new Error(e);
+        }
+    };
+
+    /**
+     * Функция получит список заданий определенного статуса
+     * @param e - Объект события. 
+     */
+    public async onChangeStatusAsync(e: any) {
+        try {
+            await this.http.post(API_URL.apiUrl.concat("/task/visible-control"), {})
+                .subscribe({
+                    next: (response: any) => {         
+                        
+                    },
+
+                    error: (err) => {
+                        // this.commonService.routeToStart(err);
+                        throw new Error(err);
+                    }
+                });
+        }
+
+        catch (e: any) {
+            // this.commonService.routeToStart(e);
             throw new Error(e);
         }
     };

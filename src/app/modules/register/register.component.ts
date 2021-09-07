@@ -110,7 +110,7 @@ export class RegisterModule implements OnInit {
               });
           }
       
-          catch (e) {
+          catch (e: any) {
             throw new Error(e);
           }
     };

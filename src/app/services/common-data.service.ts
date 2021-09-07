@@ -31,7 +31,7 @@ export class CommonDataService {
                 });
         }
 
-        catch (e) {
+        catch (e: any) {
             throw new Error(e);
         }
     };
@@ -62,7 +62,7 @@ export class CommonDataService {
                     });
             }
 
-            catch (e) {
+            catch (e: any) {
                 throw new Error(e);
             }
         }, 530000); // Каждые 9 мин.
@@ -86,7 +86,7 @@ export class CommonDataService {
             })            
         }
 
-        catch (e) {
+        catch (e: any) {
             throw new Error(e);
         }
     };
@@ -184,7 +184,7 @@ export class CommonDataService {
             })
         }
 
-        catch (e) {
+        catch (e: any) {
             throw new Error(e);
         }
     };
@@ -207,7 +207,7 @@ export class CommonDataService {
             })
         }
 
-        catch (e) {
+        catch (e: any) {
             throw new Error(e);
         }
     };
@@ -234,7 +234,7 @@ export class CommonDataService {
             })
         }
 
-        catch (e) {
+        catch (e: any) {
             throw new Error(e);
         }
     };
@@ -268,7 +268,7 @@ export class CommonDataService {
             });
         }
 
-        catch (e) {
+        catch (e: any) {
             throw new Error(e);
         }
     };
@@ -317,7 +317,7 @@ export class CommonDataService {
             });
         }
 
-        catch (e) {
+        catch (e: any) {
             throw new Error(e);
         }
     };
@@ -352,7 +352,7 @@ export class CommonDataService {
             });            
         }
 
-        catch (e) {
+        catch (e: any) {
             throw new Error(e);
         }
     };
@@ -376,7 +376,7 @@ export class CommonDataService {
             });
         }
 
-        catch (e) {
+        catch (e: any) {
             throw new Error(e);
         }
     };
@@ -404,7 +404,7 @@ export class CommonDataService {
     //         });
     //     }
 
-    //     catch (e) {
+    //     catch (e: any) {
     //         throw new Error(e);
     //     }
     // };

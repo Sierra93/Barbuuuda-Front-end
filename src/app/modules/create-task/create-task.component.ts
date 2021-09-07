@@ -46,7 +46,7 @@ export class CreateTaskModule implements OnInit {
             });            
         }
 
-        catch (e) {
+        catch (e: any) {
             throw new Error(e);
         }
     };
@@ -91,7 +91,7 @@ export class CreateTaskModule implements OnInit {
                 });
         }
 
-        catch (e) {
+        catch (e: any) {
             throw new Error(e);
         }
     };

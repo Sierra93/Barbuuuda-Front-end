@@ -58,7 +58,7 @@ export class EditTaskModule implements OnInit {
             });            
         }
 
-        catch (e) {
+        catch (e: any) {
             throw new Error(e);
         }
     };
@@ -104,7 +104,7 @@ export class EditTaskModule implements OnInit {
                 });
         }
 
-        catch (e) {
+        catch (e: any) {
             throw new Error(e);
         }
     };
@@ -151,7 +151,7 @@ export class EditTaskModule implements OnInit {
             });            
         }
 
-        catch (e) {
+        catch (e: any) {
             throw new Error(e);
         }
     };

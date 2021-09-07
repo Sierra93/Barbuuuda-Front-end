@@ -41,19 +41,38 @@
                         </button>
                         <!-- (click)="onSearchTask(sSearch)" -->
                     </div>
-                </div>
-
-                <div>
-                    <!-- TODO: добавить селект из primeng -->
-                    <span>Сортировать: &nbsp;</span>
-                    <!-- <select class="form-control-sm task-filter"
-                            v-on:change="onFilterTasks($event.target.value)">
-                        <option></option>
-                        <option>По дате создания</option>
-                        <option>По дате сдачи</option>
-                    </select> -->
-                </div>
+                </div>              
             </div>
+
+               <!-- Селекты фильтрации. -->
+               <div class="d-flex block-filter mb-3 mt-3 my-tasks">
+                 <div>
+                   <span>Сортировать: &nbsp;</span> <br>
+                   <p-dropdown [options]="aSortDataSelect" placeholder="Условие сортировки" optionLabel="sortValue"
+                     [showClear]="true"></p-dropdown>
+                 </div>
+
+                 <div class="ml-3">
+                   <span>Фильтровать: &nbsp;</span>
+                   <br>
+                   <p-dropdown [options]="aFilterDataSelect" placeholder="Условие фильтрации" optionLabel="filterValue"
+                     [showClear]="true" (onChange)="onChangeFilterAsync($event)"></p-dropdown>
+                 </div>
+
+                   <!-- Выбор статуса. -->
+                 <div class="ml-3" *ngIf="bVisibleStatus">
+                   <span>Статус: &nbsp;</span> <br>
+                   <p-dropdown [options]="aStatusesFilter" placeholder="Фильтровать по статусу"
+                     optionLabel="status_name" [showClear]="true" (onChange)="onChangeStatusAsync($event)"></p-dropdown>
+                 </div>
+                 
+                 <!-- Выбор типа. -->
+                 <div class="ml-3" *ngIf="bVisibleType">
+                    <span>Тип: &nbsp;</span> <br>
+                    <p-dropdown [options]="aTypesFilter" placeholder="Фильтровать по типу"
+                      optionLabel="type_name" [showClear]="true"></p-dropdown>
+                  </div>
+               </div>        
 
             <!-- Аукцион-->
             <div class="block-my-tasks">

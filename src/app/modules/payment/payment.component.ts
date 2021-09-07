@@ -67,7 +67,7 @@ export class PaymentModule implements OnInit {
     //             });
     //     }
 
-    //     catch (e) {
+    //     catch (e: any) {
     //         throw new Error(e);
     //     }
     // };
